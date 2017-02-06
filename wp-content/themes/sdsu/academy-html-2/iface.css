@@ -1,0 +1,532 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+/* reset ------------------------ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	border: 0;
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+    display: block;
+}
+
+audio, canvas, img, video {
+    vertical-align: middle;
+}
+
+img {
+    border: 0;
+}
+
+body {
+	font-family: 'Open Sans',sans-serif;
+	font-weight: 300;
+	color: #424242;
+	background-color: #fff;
+}
+
+.container {
+	width: 100%;
+}
+.main {
+	background-color: #641216;
+	margin: 0px;
+	width: 100%;
+}
+
+.wrap {
+    margin: 0px auto;
+    max-width: 1105px;
+    width: auto;
+    padding: 0 1.5em;
+	*zoom:1;
+}
+
+/* GRIDS -- BASE */
+.ui-grid-a, .ui-grid-b, .ui-grid-c, .ui-grid-d { overflow: hidden; }
+.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e { margin: 0; padding: 0; border: 0; float: left; min-height:1px;}
+
+.ui-grid-solo .ui-block-a { width: 100%; float: none; }
+/* grid a: 50/50 */
+.ui-grid-a .ui-block-a, .ui-grid-a .ui-block-b { width: 50%; }
+.ui-grid-a .ui-block-a { clear: left; }
+/* grid b: 33/33/33 */
+.ui-grid-b .ui-block-a, .ui-grid-b .ui-block-b, .ui-grid-b .ui-block-c { width: 33.333%; }
+.ui-grid-b .ui-block-a { clear: left; }
+/* grid c: 25/25/25/25 */
+.ui-grid-c .ui-block-a, .ui-grid-c .ui-block-b, .ui-grid-c .ui-block-c, .ui-grid-c .ui-block-d { width: 25%; }
+.ui-grid-c .ui-block-a { clear: left; }
+/* grid d: 20/20/20/20/20 */
+.ui-grid-d .ui-block-a, .ui-grid-d .ui-block-b, .ui-grid-d .ui-block-c, .ui-grid-d .ui-block-d, .ui-grid-d .ui-block-e { width: 20%; }
+.ui-grid-d .ui-block-a { clear: left; }
+
+/* WP IMAGE SIZING */
+.attachment-full {
+	width:100%;
+	height:auto;
+}
+
+/* HEADER */
+.top {
+	font-family: 'Open Sans', sans-serif;
+	background-color: #393939;
+	border-bottom: solid 1px #722024;
+	margin: 0px;
+	width: 100%;
+	height:38px;
+}
+
+
+header.main .top .wrap {
+    position: relative;
+    min-height: 2.3em;
+	color:#fff;
+}
+
+
+.top .wrap a{
+	font-size:13px;
+	display: inline-block;
+	padding-top:10px;
+	padding-right:10px;
+	margin-right:20px;
+	color:#fff;
+	text-decoration:none;
+}
+
+header.main .top .search {
+	height:38px;
+    float: right;
+    margin-left: 2em;
+    position: relative;
+}
+
+
+
+header.main .top .wrap:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* TOP LOGO */
+header.main .logo-banner {
+	width:auto;
+	background: url(images/header_bg.jpg) no-repeat center bottom;
+	border-top: solid 1px #88363a;
+	border-bottom: solid 1px #9b494d;
+}
+
+header.main .logo-banner #logo {
+	padding: 18px 0 26px 0;
+	text-align: center;
+}
+/* TOP LOGO TYPE */
+header.main .logo-banner #logo p.logo-type {
+		text-align: center;
+   	 	font-family: "Palatino Linotype", Palatino-Roman, Palatino, "Times New Roman", Times, serif;
+		color: #f2eedd;
+		font-size: 40px;
+		line-height: 1;
+		font-weight:normal;
+		margin:0 0 0 0;
+		
+}
+
+header.main .logo-banner #logo p.logo-type em { font-size: 28px; } /* style for the word "for" */
+header.main .logo-banner #logo p.logo-type span.academy-type-b { /*for text-size when it doesn't fit - didn't use yet */  }
+header.main .logo-banner #logo p.logo-type span.academy-type-b { /*for text-size when it doesn't fit - didn't use yet */  }
+
+
+/* TOP SDSU TYPE */
+header.main .logo-banner #logo p.sdsu-type {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 14px;
+	line-height: 1;
+	color: #d2c183;
+	font-weight: 300;
+	letter-spacing: .2em;
+	margin:12px 0 0 0;
+}
+
+/* MENU */
+
+header.main .main-menu {
+	background-color: #5b090d;
+	width: 100%;
+	height:50px;
+	border-top: solid 1px #7f2d31;
+	
+}
+header.main nav {
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 300;
+	color: #b69367;
+}
+
+
+header.main nav ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+header.main nav ul {
+    padding-left: 0px;
+    margin: 0px;
+}
+
+
+header.main nav ul li {
+    float: left;
+    list-style: none outside none;
+}
+
+
+header.main .main-menu nav li {
+    position: relative;
+	font-size: 15px;
+	line-height:1;
+    padding: 15px 0 0 0;
+    display: inline-block;
+    width: 10.30%;
+    margin-left: 1px;
+    text-align: center;
+}
+
+/* nav special items */
+header.main .main-menu nav li#academy {
+	text-align: left;
+	margin-left: 0px;
+	padding-right:30px;
+}
+header.main .main-menu nav li#program-menu {
+	width: 10.80%;
+}
+
+#program-menu span {
+	text-align: left;
+	position:relative;
+	display:block;
+	width: 103px;
+	height: 19px;
+	 /* background: url(images/arrow-programs.png) no-repeat right 3px; */
+}
+
+header.main .main-menu nav li#program-menu .arrow-programs {
+    position: absolute;
+	top:0;
+	left:60px;
+	/*margin-top: 3px;*/
+    margin-left: 10px;
+    width: 11px;
+    height: 12px;
+}
+
+header.main .main-menu nav li a {
+    text-transform: uppercase;
+	text-decoration:none;
+    width: 100%;
+	color: #fff;
+}
+
+ h1, h2 {
+	font-family: "Palatino Linotype", Palatino, Palatino-Roman, "Times New Roman", Times, serif;
+	font-weight:normal;
+	color: #5b090d;
+	}
+ h2 {font-size: 30px;
+	line-height: 1;
+	font-weight:normal;
+	margin-bottom:.5em;
+	}
+/* CONTENT AREA*/
+
+.content-main {
+    padding: 2.3em 0  1.8em 0;
+}
+
+/* FOOTER */
+
+
+#footer {
+	background: #3f3f3f url(images/footer-bg.jpg) no-repeat center top;
+	width: auto;
+	margin-top: 1.5em;
+	padding-bottom: 1.5em;
+	border-top: 2px solid #b69163;
+	border-right-color: #b69163;
+	border-bottom-color: #b69163;
+	border-left-color: #b69163;
+}
+#footer .footer-tagline {
+	background: #78262a url(images/footer-bar-bg.jpg) no-repeat center bottom;
+	text-align:center;
+	font: 400 16px/1.1 'Open Sans', sans-serif;
+	letter-spacing: .2em;
+	text-transform: uppercase;
+	color: #ad825a;
+	padding: 14px 16px 16px;	
+}
+
+#footer-content {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:15px;
+	color: #fff;
+}
+#footer .wrap {
+    margin: 0 auto;
+    max-width: 1105px;
+    width: auto;
+    padding: .6em 1.5em 1.3em 1.5em;
+	*zoom:1;
+}
+/* grid a: 2 columns */
+#footer-content .ui-grid-a .ui-block-a { width: 75%; padding-top:1em; padding-bottom:1.3em;}
+#footer-content .ui-grid-a .ui-block-b { width: 25%; padding-top:1em; padding-bottom:1.3em; }
+
+/* grid c: 4 columns */
+#footer-content .ui-grid-c .ui-block-a { width: 25%; }
+#footer-content .ui-grid-c .ui-block-b { width: 22%; }
+#footer-content .ui-grid-c .ui-block-c { width: 28%; }
+#footer-content .ui-grid-c .ui-block-d { width: 25%; }
+
+/* footer header row */
+#footer-content .ui-grid-a p{
+		/*font-family: 'Libre Baskerville', serif;*/
+		font-family: "Palatino Linotype", Palatino-Roman, Palatino, "Times New Roman", Times, serif;
+		font-size: 30px;
+		line-height: 1;
+		font-weight: normal;
+		font-weight: 400;
+		color:#ececec;	
+}
+#footer-content .ui-grid-a  p  span{
+		font-size: 21px;
+		font-style: italic;
+}
+/* column 1 */
+#footer-content .ui-grid-c .ui-block-a p {
+	padding-right: 15px;
+	line-height:1.5;
+	margin-bottom: 1.2em;
+}
+
+#footer-content .ui-grid-c .ui-block-a a {
+	color: #ddb957;
+	text-decoration:none;
+}
+#footer-content .ui-grid-c .ui-block-a a:hover {
+	color: #ececec;
+	text-decoration:none;
+}
+#footer-content .gold {color: #ddb957;}
+
+/* column 2 */
+
+#footer-content .ui-grid-c .ui-block-b p {
+	padding-right: 30px;
+	line-height:1.2;
+	margin-bottom: .4em;
+}
+
+#footer-content .ui-grid-c .ui-block-b a {
+	color: #fff;
+	text-decoration:none;
+}
+#footer-content .ui-grid-c .ui-block-b a:hover {
+	color: #ddb957;
+	text-decoration:none;
+}
+
+/* column 3 */
+
+#footer-content .ui-grid-c .ui-block-c .content-holder {
+	padding-right:65px;
+}
+#footer-content .ui-grid-c .ui-block-c .content-holder img{
+	display: inline-block;
+	padding-bottom: 4px;
+}
+
+#footer-content .ui-grid-c .ui-block-c a,
+#footer-content .ui-grid-c .ui-block-c a:visited,
+#footer-content .ui-grid-c .ui-block-d a,
+#footer-content .ui-grid-c .ui-block-d a:visited {
+	line-height: 1;
+	display: block;
+	padding:5px 10px 6px;
+	margin: 0 0 4px 0;
+	background-color: #525252;
+	color: #fff;
+	text-decoration: none;	
+}
+/* columns 3 & 4 links */
+#footer-content .ui-grid-c .ui-block-c a:hover,
+#footer-content .ui-grid-c .ui-block-d a:hover {
+	background-color: #6b6b6b;
+	color: #e9c052;
+	text-decoration: none;
+}
+
+#footer-content #copyright {
+	padding-top:2em;
+}
+
+#footer-content #copyright p{
+	color: #dcdcdc;
+	font-size: 11px;
+	line-height: 1.2;
+	text-transform: uppercase;
+	display:block;
+	width:100%;
+	letter-spacing: .1em;
+}
+
+
+
+
+@media only screen and (max-width: 1110px) {
+
+#footer-content .ui-grid-c .ui-block-a { width: 25%; }
+#footer-content .ui-grid-c .ui-block-b { width: 20%; }
+#footer-content .ui-grid-c .ui-block-c { width: 30%; }
+#footer-content .ui-grid-c .ui-block-d { width: 25%; }	
+
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:45px; }
+ }
+ 
+@media only screen and (max-width: 1040px) {
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:35px; }	
+ } 
+ 
+@media only screen and (max-width: 995px) {
+	
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:30px; }	
+ } 
+ 
+@media only screen and (max-width: 895px) {
+	
+#footer-content .ui-grid-a .ui-block-a { width: 80%;}
+#footer-content .ui-grid-a .ui-block-b { width: 20%; }
+#footer-content .ui-grid-c .ui-block-a { width: 26%; }
+#footer-content .ui-grid-c .ui-block-b { width: 23%; }
+#footer-content .ui-grid-c .ui-block-c { width: 31%; }
+#footer-content .ui-grid-c .ui-block-d { width: 20%; }	
+	
+#footer-content .ui-grid-a p{ font-size: 27px; }
+#footer-content .ui-grid-a  p  span{ font-size: 17px; }
+
+#footer-content .ui-grid-c .ui-block-a p { padding-right: 15px; line-height:1.3; margin-bottom: 1em; }	
+ } 
+ 
+@media only screen and (max-width: 890px) {
+
+#footer-content .ui-grid-a .ui-block-a { width: 84%; }
+#footer-content .ui-grid-a .ui-block-b { width: 16%; }
+#footer-content .ui-grid-c .ui-block-a { width: 30%; }
+#footer-content .ui-grid-c .ui-block-b { width: 23%; }
+#footer-content .ui-grid-c .ui-block-c { width: 31%; }
+#footer-content .ui-grid-c .ui-block-d { width: 16%; }	
+
+#footer-content .ui-grid-a p{ font-size: 24px; }
+#footer-content .ui-grid-a  p  span{ font-size: 16px; }
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:30px; }	
+
+#footer-content .ui-grid-c .ui-block-a p { padding-right: 15px; line-height:1.3; margin-bottom: 1em; }		
+ } 
+
+@media only screen and (max-width: 810px) {
+header.main .logo-banner #logo p.logo-type { font-size: 36px; }
+header.main .logo-banner #logo p.logo-type em { font-size: 23px; } /* style for the word "for" */	
+	
+#footer-content .ui-grid-a .ui-block-a { width: 82%; }
+#footer-content .ui-grid-a .ui-block-b { width: 18%; }	
+	
+#footer-content .ui-grid-c .ui-block-a { width: 30%; }
+#footer-content .ui-grid-c .ui-block-b { width: 24%; }
+#footer-content .ui-grid-c .ui-block-c { width: 28%; }
+#footer-content .ui-grid-c .ui-block-d { width: 18%; }
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:30px; }		
+#footer-content .ui-grid-a  p  span{ font-size: 16px; }
+
+ }
+
+
+@media only screen and (max-width: 760px) {
+
+header.main .logo-banner #logo p.logo-type { font-size: 32px; }
+header.main .logo-banner #logo p.logo-type em { font-size: 21px; } /* style for the word "for" */
+header.main .logo-banner #logo p.sdsu-type { font-size: 12px; font-weight: 400; } /* SDSU */
+
+#footer .footer-tagline { font-size: 15px; letter-spacing: .1em; }
+
+#footer-content { font-size:13px; }	
+	
+#footer-content .ui-grid-a .ui-block-a { width: 82%; }
+#footer-content .ui-grid-a .ui-block-b { width: 18%; }
+	
+#footer-content .ui-grid-c .ui-block-a { width: 30%; }
+#footer-content .ui-grid-c .ui-block-b { width: 24%; }
+#footer-content .ui-grid-c .ui-block-c { width: 28%; }
+#footer-content .ui-grid-c .ui-block-d { width: 18%; }
+
+#footer-content .ui-grid-a p{ font-size: 20px; }
+#footer-content .ui-grid-c .ui-block-c .content-holder { padding-right:30px; }		
+#footer-content .ui-grid-a  p  span{ font-size: 15px; }
+
+ }
+
+@media only screen and (max-width: 700px) {
+	#footer-content { font-size:15px; }		
+	
+#footer-content .ui-grid-a .ui-block-a { width: 100%; float:none;}
+#footer-content .ui-grid-a .ui-block-b { width: 0; display:none}
+	
+#footer-content .ui-grid-c .ui-block-a { width: 100%; float:none; }
+#footer-content .ui-grid-c .ui-block-b { width: 0; display:none }
+#footer-content .ui-grid-c .ui-block-c { width: 0; display:none }
+#footer-content .ui-grid-c .ui-block-d { width: 0; display:none }
+
+}	
+	
+@media only screen and (max-width: 600px) {
+header.main .logo-banner #logo p.logo-type { font-size: 26px; }
+header.main .logo-banner #logo p.logo-type em { font-size: 16px; } /* style for the word "for" */
+header.main .logo-banner #logo p.sdsu-type { font-size: 11px; font-weight: 400; } /* SDSU */
+
+.content-main { padding: 1.5em 0px; }
+
+}
+
+@media only screen and (max-width: 480px) {
+header.main .logo-banner #logo p.logo-type { font-size: 25px; }
+header.main .logo-banner #logo p.logo-type em { font-size: 16px; } /* style for the word "for" */
+header.main .logo-banner #logo p.sdsu-type { font-size: 11px; font-weight: 400; } /* SDSU */
+
+#footer .footer-tagline { font-size: 14px; letter-spacing: .1em; }
+
+}
+
+@media only screen and (max-width: 380px) {
+header.main .logo-banner #logo p.logo-type { font-size: 23px; }
+header.main .logo-banner #logo p.logo-type em { font-size: 15px; } /* style for the word "for" */
+header.main .logo-banner .wrap { padding-right: .5em;  padding-left: .5em; }
+
+
+}

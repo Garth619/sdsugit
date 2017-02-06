@@ -1,0 +1,132 @@
+<?php
+/**
+ * Template Name: Search Test
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ *
+ * @package WordPress
+ * @subpackage Twenty_Ten
+ * @since Twenty Ten 1.0
+ */
+
+get_header(); ?>
+		
+		<div id="container">
+			<?php if ( function_exists('yoast_breadcrumb') ) {
+yoast_breadcrumb('<span class="breadcrumbs">','</span>');
+} ?>
+			<div class="sidebar_wrapper">
+				<?php get_sidebar(); ?>
+			</div><!-- sidebar wrapper -->
+			<div class="content_wrapper">
+				<div id="content">
+					<h1 class="entry-title"><?php the_title(); ?></h1>
+					
+					
+					<?php 
+		
+			$args = array();
+			
+			$args['relevanssi'] = true;
+
+			$args['wp_query'] = array('post_type' => array('sachsresearch','sachslitreview'),
+			                                'posts_per_page' => 100,
+			                                'order' => 'DESC',
+			                                'orderby' => 'name');
+
+			$args['fields'][] = array('type' => 'search',
+			                                'label' => 'Search Keywords',
+			                                'value' => '');
+
+						
+
+			$args['fields'][] = array('type' => 'taxonomy',
+				                                'label' => 'Resources',
+				                                'taxonomy' => 'post_tag',
+				                                'format' => 'checkbox',
+				                                'operator' => 'AND');
+
+			
+			$args['fields'][] = array('type' => 'orderby',
+                            				'label' => 'Order By',
+                            				'values' => array('' => '','title' => 'Title', 'date' => 'Date'),
+                            				'format' => 'select');
+
+			$args['fields'][] = array('type' => 'order',
+                            				'label' => 'Order',
+                            				'values' => array('' => '', 'ASC' => 'ASC', 'DESC' => 'DESC'),
+                            				'format' => 'select');
+
+			$args['fields'][] = array('type' => 'submit',
+			                                'value' => 'Search');
+
+			$my_search_object = new WP_Advanced_Search($args);
+
+			$my_search_object->the_form();
+
+			$temp_query = $wp_query;
+			$wp_query = $my_search_object->query();
+
+			if ( have_posts() ): 
+
+				while ( have_posts() ): the_post();
+				?>
+					
+				<?php if ('sachsresearch' == get_post_type()):?>	
+					
+					<div class="custom_post_type_wrapper">
+            	<h2>
+	            	<a href="<?php the_field('file_type'); ?>" target="_blank"><?php the_title(); ?></a>
+	            </h2>
+            	<p style="font-weight:400">Prepared By: <a href="<?php the_field('file_type'); ?>" target="_blank"><?php the_field('sachs_research_prepared_by'); ?></a>
+	            </p>
+            	<p style="font-weight:400">Purpose:</p> 
+            	<a href="<?php the_field('file_type'); ?>" target="_blank"><?php the_field('sachs_research_purpose'); ?></a>
+            	<?php edit_post_link( __( 'Edit', 'twentyten' ), '<span class="edit-link">', '</span>' ); ?>
+         	 </div><!-- custom_post_type_wrapper -->
+         	
+         	<?php elseif ('sachslitreview' == get_post_type()):?>	
+					
+					<div class="custom_post_type_wrapper">
+            	<h3>
+	            	<a href="<?php the_field('file_link'); ?>" target="_blank"><?php the_title(); ?></a>
+	            </h3>
+            	<p><em>(<?php the_field('date'); ?>)</em><br/>
+							Prepared by: <?php the_field('prepared_by'); ?></p>
+            	<?php edit_post_link( __( 'Edit', 'twentyten' ), '<span class="edit-link">', '</span>' ); ?>
+         	 </div><!-- custom_post_type_wrapper -->
+         	<?php endif;?>
+					
+					
+					
+				<?php
+				endwhile; 
+
+			$my_search_object->pagination();
+
+			else :
+
+				echo 'Sorry, no posts matched your criteria.';
+
+			endif;
+			
+			$wp_query = $temp_query;
+			wp_reset_query();
+		?>
+					
+					
+					
+			
+				</div><!-- content -->
+				<a href="#top" class="back_to_top" title="Back to Top">Back To Top</a>
+				<?php include("my-access-notes-loop.php"); ?>
+			</div><!-- content wrapper -->
+		</div><!-- #container -->
+
+
+<?php get_footer(); ?>
+
+

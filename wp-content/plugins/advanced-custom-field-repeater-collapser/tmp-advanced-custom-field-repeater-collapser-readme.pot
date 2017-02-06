@@ -1,0 +1,246 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Advanced Custom Fields Repeater &amp; Flexible Content Fields Collapser"
+msgstr ""
+
+#. Short description.
+msgid "Easier sorting for large repeated fields in the Advanced Custom Fields plugin."
+msgstr ""
+
+#. Screenshot description.
+msgid "Even with a few fields per repeater instance, it becomes unwieldy to sort."
+msgstr ""
+
+#. Screenshot description.
+msgid "This plugin collapses all but the rows first field for easy sorting. (Only \"Row Layout\" fields are supported.)"
+msgstr ""
+
+#. Screenshot description.
+msgid "Once collapsed, easily reorder your rows!"
+msgstr ""
+
+#. Screenshot description.
+msgid "The plugin supports nested repeaters."
+msgstr ""
+
+#. Screenshot description.
+msgid "Flexible fields too!"
+msgstr ""
+
+#. Screenshot description.
+msgid "New in v1.3.0, you can collapse individual fields! (Thanks to Angie Meeker Designs for sponsoring this feature.)"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"http://wordpress.org/extend/plugins/advanced-custom-fields/\">Advanced Custom Fields</a> 4.X <em>AND</em> one or both of the <a href=\"http://www.advancedcustomfields.com/add-ons/repeater-field/\">Repeater Field</a> or <a href=\"http://www.advancedcustomfields.com/add-ons/flexible-content-field/\">Flexible Content Field</a> paid add-ons"
+msgstr ""
+
+#. Found in description list item.
+msgid "ACF 5.X PRO"
+msgstr ""
+
+#. Found in description list item.
+msgid "Both ACF 4.X and ACF 5.X: Use the <strong>Row Layout</strong>"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"http://angiemeekerdesigns.com/\">Angie Meeker Designs</a> — Single Row Collapsing Development"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"http://profiles.wordpress.org/brasofilo/\">brasofilo</a>"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"http://profiles.wordpress.org/weskoop/\">weskoop</a>"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"https://github.com/philiphetue\">philiphetue</a>"
+msgstr ""
+
+#. Found in description list item.
+msgid "<a href=\"https://github.com/robneu\">robneu</a>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "The Repeater and Flexible Content Field features make ACF really powerful, but if you have more than a few fields with either, they becomes unwieldy to sort. This plugin collapses each instance of the repeated fields—<strong>only for the \"Row\" layout</strong>—to allow for easy sorting."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<em>To help identify each repeater field group when collapsed, the first field of each repeated field group is shown. See the <a href=\"http://wordpress.org/plugins/advanced-custom-field-repeater-collapser/screenshots/\">screenshots</a> for an example.</em>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Want support for the table layout? Sponsor an update!</strong> <a href=\"http://mrwweb.com/contact/\">Contact me</a> about sponsoring this feature if you're interested."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Requirements:</strong>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Contribute to <a href=\"https://github.com/mrwweb/ACF-Repeater-Collapser\">this plugin on GitHub</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Sponsors:</strong>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Other contributors:</strong>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "This plugin began as a <a href=\"http://support.advancedcustomfields.com/discussion/comment/16239\">support forum thread</a> on the ACF site."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Download the plugin."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Upload all files to /wp-content/plugins/"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the plugin on the Plugins page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "THIS UPDATE DOES NOT FIX THE PLUGIN WITH ACF 5.3.1. IT IS PURELY FOR FUTURE TRANSLATION FEATURES REQUIRED BY THE PLUGIN REPOSITORY."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[i18n] Add text-domain and make all strings translatable for upcoming translate.wordpress.org plugin migration."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] Include <a href=\"http://www.advancedcustomfields.com/blog/acf-pro-5-2-7-update/\">compatibility filter</a> to fix in ACF PRO since v5.2.7."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] Prevent fatal error if ACF is not activated."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Misc] Code cleanup. Thanks to robneu on GitHub."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] Pass <code>event</code> to collapsing JS functions to prevent Firefox errors."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] No margin on table-layout fields (ACF5 only)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "A big thanks to <a href=\"https://github.com/tmconnect\">@tmconnect</a> for the pull requests that made up this release."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[New] <strong>ACF5 Support</strong>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] aria-controls attribute fix"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Note: The plugin supports both ACF4 and ACF5; however, all future feature improvements will only be made for ACF 5.X."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Did this plugin save you some time or help build a site for a client? <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=HH4FKZHK75MTN&amp;lc=US&amp;item_name=MRW%20Web%20Design%20%2f%20Mark%20Root%2dWiley&amp;item_number=Buy%20Me%20a%20Beverage%21%20%2d%20ACF%20Repeater%20Collapser&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted\">Buy me a beverage!</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[New] <strong>Ability to collapse single fields</strong>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[New] Added aria-expanded / aria-controls attributes on rows for improved accessibility"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Tweak] Clarified button text and added icons to buttons for improved UI"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[Fix] Fixed errant closing tag on  element"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Thank you to <a href=\"http://angiemeekerdesigns.com/\">Angie Meeker Designs</a> for sponsoring this update's new individual row collapsing feature!"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Thank you to @61pixels and @lagdonkey for bug reports during development."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[New] Support for nested repeater and flexible field content. (Thanks to @philiphetue)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Use  element in admin for cleaner markup"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Update \"Tested up To\" to 3.9"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "[New] Support for \"Flexible Content Fields\" add-on thanks to @weskoop."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed missing semicolon. Presumably source of update issue."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed mismatched filenames."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Initial commit. Submitted to plugin repository."
+msgstr ""
+
+#. Found in faq header.
+msgid "Where is the \"Collapse Rows\" button? I don't see it."
+msgstr ""
+
+#. Found in faq header.
+msgid "Why don't rows collapse? / Why is the row only grayed out?"
+msgstr ""
+
+#. Found in faq header.
+msgid "Can I collapse individual rows?"
+msgstr ""
+
+#. Found in faq header.
+msgid "What exactly is the \"Collapse All Rows\" button behavior"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "The plugin only supports the \"Row\" layout for repeaters."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "To help identify each repeater field group when collapsed, the first field of each repeated field group is shown. See the screenshots for an example."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "When possible, use a short field (like a text field or dropdown) as the first row in a repeatable fieldset."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Now you can, as of version 1.3.0."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "With the addition of the ability to collapse single rows, the button now is always in \"Collapse\" mode unless all rows are collapsed. Then it's \"Expand.\""
+msgstr ""

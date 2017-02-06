@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91pre2 r13516"
+   viewBox="0 0 48 48.000001"
+   sodipodi:docname="play.svg"
+   inkscape:export-filename="X:\devel\svn\wordpress\youtube-channel\trunk\assets\img\play.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <title
+     id="title3387">Play Now</title>
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3362"
+       inkscape:collect="always">
+      <stop
+         id="stop3364"
+         offset="0"
+         style="stop-color:#b63b3b;stop-opacity:1" />
+      <stop
+         id="stop3366"
+         offset="1"
+         style="stop-color:#b00808;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3350">
+      <stop
+         style="stop-color:#f85252;stop-opacity:1"
+         offset="0"
+         id="stop3352" />
+      <stop
+         style="stop-color:#b00808;stop-opacity:1"
+         offset="1"
+         id="stop3354" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3362"
+       id="linearGradient3356"
+       x1="84.347733"
+       y1="1005.3901"
+       x2="84.347733"
+       y2="1051.4783"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3350"
+       id="linearGradient3360"
+       gradientUnits="userSpaceOnUse"
+       x1="84.347733"
+       y1="1005.3901"
+       x2="84.347733"
+       y2="1051.4783"
+       gradientTransform="matrix(0.95833335,0,0,0.95833335,3.4999987,42.848408)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.895833"
+     inkscape:cx="24"
+     inkscape:cy="24"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Play Now</dc:title>
+        <dc:date>2014-09-14</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aleksandar Urosevic</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+        <dc:description>Play button for WordPress plugin YouTube Channel</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1004.3622)">
+    <g
+       id="g3377"
+       transform="translate(-60,0)">
+      <path
+         style="opacity:1;fill:url(#linearGradient3356);fill-opacity:1;stroke:none"
+         d="m 63.999992,1004.3622 39.999998,0 c 2.216,0 4,1.784 4,4 l 0,40 c 0,2.216 -1.784,4 -4,4 l -39.999998,0 c -2.216,0 -4,-1.784 -4,-4 l 0,-40 c 0,-2.216 1.784,-4 4,-4 z"
+         id="rect3348" />
+      <path
+         style="opacity:1;fill:url(#linearGradient3360);fill-opacity:1;stroke:none"
+         d="m 63.999992,1005.3622 39.999998,0 c 1.662,0 3,1.338 3,3 l 0,40 c 0,1.662 -1.338,3 -3,3 l -39.999998,0 c -1.662,0 -3,-1.338 -3,-3 l 0,-40 c 0,-1.662 1.338,-3 3,-3 z"
+         id="rect3358" />
+      <path
+         id="rect3368"
+         transform="translate(-7.3563764e-6,0)"
+         d="m 64,1005.3613 c -1.662,0 -3,1.338 -3,3 l 0,40 c 0,1.662 1.338,3 3,3 l 40,0 c 1.662,0 3,-1.338 3,-3 l 0,-40 c 0,-1.662 -1.338,-3 -3,-3 l -40,0 z m 0,1 40,0 c 1.108,0 2,0.892 2,2 l 0,40 c 0,1.108 -0.892,2 -2,2 l -40,0 c -1.108,0 -2,-0.892 -2,-2 l 0,-40 c 0,-1.108 0.892,-2 2,-2 z"
+         style="opacity:0.25;fill:#ffffff;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="opacity:1;fill:#b63b3b;fill-opacity:1;stroke:none"
+         inkscape:transform-center-x="-3.9999989"
+         inkscape:transform-center-y="-0.0001121416"
+         d="m 98.999992,1027.3622 -12,6.9282 -12,6.9282 0,-13.8564 0,-13.8564 12.000001,6.9282 z"
+         id="path3375" />
+      <path
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none"
+         inkscape:transform-center-x="-3.9999989"
+         inkscape:transform-center-y="-0.0001121416"
+         d="m 97.999992,1028.3622 -12,6.9282 -12,6.9282 0,-13.8564 0,-13.8564 12.000001,6.9282 z"
+         id="path3373" />
+    </g>
+  </g>
+</svg>

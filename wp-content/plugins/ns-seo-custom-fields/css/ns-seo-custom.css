@@ -1,0 +1,152 @@
+
+/** layout **/
+	
+.wrap h2 img {
+	width: 900px;
+	max-width: 100%;
+}
+	
+.ns-col-left {
+	float: left;
+	width: 440px;
+	margin-left: 10px;
+}
+
+.ns-col-right {
+	width: 400px;
+	background-color: #ededed;
+	border-radius: 12px;
+	float: left;
+	padding: 25px;	
+}
+
+	.ns-col-right img {
+		max-width: 100%;
+	}
+	
+/** form fields **/
+
+.form-table th {
+	line-height: 24px;
+}
+
+/** help **/
+	
+p.description {
+	width: 380px;
+	padding: 20px 5px 5px;
+}
+
+img.ns-help-handle {
+	float: left;
+	margin: 0 10px 0 0;
+	cursor: pointer;
+}
+
+p.ns-help {
+	display: none;
+	width: 572px;
+	position: relative;
+	border-radius: 12px;
+	border: solid 3px #d212fd;
+	box-shadow: 4px 4px 12px rgba(0,0,0,.25);
+	z-index: 10;
+}
+	p.ns-help img {
+		border-radius: 12px;
+	}
+	
+	p.ns-help:before {
+		content: ' ';
+		display: block;
+		border-style: solid;
+		border-width: 12px;
+		border-color: transparent transparent #d212fd;
+		position: absolute;
+		top: -24px;
+		left: 24px;
+	}
+	
+/** cta's **/
+
+.ns-pro-features li {
+	background: #f9f9f9;
+	border: solid 1px #f0f0f0;
+	padding: 6px; 10px;
+	margin: 0;
+	color: #666;
+}
+	.ns-pro-features li:before{
+		content: '\2714';
+		font-weight: bold;
+		color: #9ccc11;
+		font-size: 1.25em;
+		margin: 0 8px 0px 0;
+		display: inline-block;
+		position: relative;
+		top: 2px;
+	}
+
+.ns-cta {
+	margin-top: 18px;
+	padding-top: 25px;
+	border-top: dashed 1px #eee;
+	width: 95%;
+	text-transform: uppercase;
+}
+	.ns-cta-rate, .ns-cta-share, .ns-cta-donate {
+		width: 30%;
+		float: left;
+		text-align: center;
+		margin: 18px 0;
+		font-size: .9em;
+	}
+	.ns-cta-rate{
+		padding: 0 2% 0 0;
+		border-right: solid 2px #eee;
+	}
+	.ns-cta-share {
+		padding: 0 2%;
+		border-right: solid 2px #eee;		
+	}
+	.ns-cta-donate {
+		padding: 0 0 0 2%;
+	}
+	.ns-cta h5 {
+		text-transform: none;
+		text-align: center;
+		font-size: 1.2em;
+		margin: 0;
+	}
+	.ns-cta strong {
+		font: 1.2em 'Arial Black', sans-serif;
+		display: block;
+	}
+	.ns-cta img {
+		margin-top: 2px;
+	}
+	.ns-cta a {
+		margin-top: 8px !important;
+		display: inline-block;
+		text-decoration: none;
+	}
+	.ns-cta a.button {
+		text-align: center;
+		width: 110px;
+	}
+	.ns-cta input[type=image]{
+		padding: 0;
+		margin-top: 8px;
+	}
+
+.ns-connect {	
+	background-color: #ededed;
+	border-radius: 12px;
+	text-align: center;
+	padding: 3px 0;
+	width: 92%;
+	clear: both;
+}
+	.ns-connect img {
+		height: 26px;
+	}

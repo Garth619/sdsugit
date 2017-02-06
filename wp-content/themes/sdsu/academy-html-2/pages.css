@@ -1,0 +1,307 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* home page content area upper */
+
+#content-top {
+    width:auto;
+	font-family: 'Open Sans',sans-serif;
+	
+}
+#content-top h2 {
+	font-family: "Palatino Linotype", Palatino, Palatino-Roman, "Times New Roman", Times, serif;
+	font-size: 36px;
+	line-height: 1;
+	font-weight:normal;
+	color: #5b090d;
+	margin-bottom:.5em;
+	}
+#content-top h2.topics {
+	margin-bottom:.6em;
+	}	
+#content-top a, content-top a:active {color:#CC0000; text-decoration:none;}
+#content-top a:hover {color:#B69163;}
+
+.content-main .content-top:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* GRID FOR HOME CONTENT UPPER AREA*/
+
+/* two columns - floated left */
+#content-top .ui-grid-a { width:55%; float:left; }
+#content-top .ui-grid-a .ui-block-a { width: 47%; }
+#content-top .ui-grid-a .ui-block-b { width: 53%; }
+#content-top .ui-grid-a .ui-block-a .content-holder { padding: 0 45px 0 0;}
+
+/* right side bar */
+#content-top .right-sidebar { width: 45% }
+#content-top .right-sidebar .content-holder { padding: 0 0 0 30px; }
+
+/* home page academy logo */
+.centered { text-align:center !important;}
+.home-logo { width:100%; height:auto; max-width:264px; text-align:center; }
+
+/* text for Areas of Service list*/
+#content-top .ui-grid-a .ui-block-b p, #content-top .ui-grid-a .ui-block-b ul, #content-top .ui-grid-a .ui-block-b li{
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 1.2;
+	margin-bottom: .7em;
+}
+#content-top .ui-grid-a .ui-block-b ul{
+	margin-left: -15px;
+}
+
+/*TESTIMONIAL*/
+.testimonial {background: url(images/quote-left.png) no-repeat; padding-left: 30px; margin: 40px 0; }
+#content-top .testimonial p{ font-size: 17px; font-weight:400; text-align:left; font-style:italic; }
+
+/* NEWS ITEMS IN RIGHT SIDEBAR */
+
+.news-item {
+	display:block;
+	border-bottom: 1px solid #ccc;
+	margin-bottom:12px;
+	height:100%;
+	min-height: 98px;
+}
+.news-item:after {
+    clear: both;
+}
+.news-item:before, .news-item:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.news-item span {display:block;margin-left:152px;}
+
+#content-top .right-sidebar p, ul, ol {
+	font-weight: 400;
+	font-size: 13px;
+	line-height:1.5;
+	margin-bottom: 10px;
+}
+#content-top .right-sidebar .news-item h3 {
+	font-size: 14px;
+	line-height:1.2;
+	font-weight:800;
+	margin-top: 6px; margin-bottom: 2px;
+}
+
+#content-top .right-sidebar img {
+	position: relative;
+	float: left;
+	width: 130px;
+	height: 80px;
+	display: inline-block;
+	clear: left;
+	padding: 4px;
+	border: 1px solid #ccc;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	
+}
+
+
+
+/* SERVICES AREA */
+
+
+#header-services {
+	margin-top:2.1em;
+	text-align:center;
+	background: url(images/gray-line.png) repeat-x center center;
+
+}
+#header-services h2 {
+		font-family: "Palatino Linotype", Palatino, Palatino-Roman, "Times New Roman", Times, serif;
+		font-size: 36px;
+		line-height: 1;
+		font-weight:normal;
+		color: #5b090d;
+		margin-bottom:8px;
+	}
+#header-services h2 span{
+		background-color: #fff;
+		padding-right:7px;
+		padding-left:3px;
+	}	
+	
+#content-services {
+	margin-top:1.5em;
+	margin-left:-35px;
+}
+
+#content-services .content-holder { 
+padding: 0 0 0 35px;  
+}
+.img-border {
+	text-align:center;
+	border: 1px solid #bdbdbd ;
+	padding: 5px 7px 5px 5px;
+}
+#content-services img {
+	border: 1px solid #bdbdbd;
+}
+
+#content-services .content-holder p{ 
+text-align:center;
+font: 24px/1.2 'Open Sans', sans-serif;
+margin: .2em 0 1.2em 0;
+}
+
+#content-services .content-holder p span{ 
+text-align:center;
+display:block;
+font-size: 16px;
+font-weight:300;
+}
+
+#content-services .content-holder a{ 
+color: #333;
+text-decoration:none;
+}
+#content-services .content-holder a:hover{ 
+color: #C42718;
+text-decoration:none;
+}
+
+
+
+
+@media only screen and (max-width: 1110px) {
+
+
+ }
+ 
+@media only screen and (max-width: 1040px) {
+#content-top .ui-grid-a .ui-block-a .content-holder { padding-right: 30px; }
+#content-top .testimonial p{ font-size: 16px; font-weight:400; }	
+
+ } 
+ 
+@media only screen and (max-width: 995px) {
+#content-top .ui-grid-a .ui-block-a .content-holder { padding-right: 30px; }	
+#content-top h2 { font-size: 33px; }	
+#content-top .right-sidebar p, ul, ol { line-height:1.3; }
+
+ } 
+ 
+@media only screen and (max-width: 895px) {
+	#content-top .ui-grid-a .ui-block-a .content-holder { padding-right: 25px; }		
+#content-top .right-sidebar .news-item h3 { margin-top: 2px;line-height:1; }
+#content-top .right-sidebar p, ul, ol { line-height:1.2; }	
+
+
+ } 
+ 
+@media only screen and (max-width: 890px) {
+#content-top h2 { font-size: 28px; }
+#content-top .testimonial p { font-size: 14px; font-weight:700;/*testimonial*/ }
+#content-top .ui-grid-a .ui-block-b ul { margin-left:-20px; }
+.news-item span {display:block;margin-left:120px;}
+#content-top .right-sidebar img { width: 100px;height: 62px;}
+
+#header-services { margin-top:1.5em; }
+	
+
+ } 
+
+@media only screen and (max-width: 810px) {
+#content-services .ui-grid-c .ui-block-a, #content-services .ui-grid-c .ui-block-b, #content-services .ui-grid-c .ui-block-c, #content-services .ui-grid-c .ui-block-d { width: 50%; }
+.ui-grid-c .ui-block-a { clear: none; }
+.ui-grid-c .ui-block-c { clear: left; }
+	
+
+ }
+
+
+@media only screen and (max-width: 760px) {
+#content-top h2 { font-size: 36px; }
+/* two columns - float removed */
+#content-top .ui-grid-a { width:100%; float:none; }
+#content-top .ui-grid-a .ui-block-a { width: 47%; }
+#content-top .ui-grid-a .ui-block-b { width: 53%; }
+#content-top .ui-grid-a .ui-block-a .content-holder { padding: 0 45px 0 0; }
+.testimonial { margin: 30px 0 40px 0; }
+
+/* right side bar - now under */
+#content-top .right-sidebar { width: 100% }
+#content-top .right-sidebar .content-holder { padding: 0 0 0 0; }
+
+/* text for Areas of Service list*/
+#content-top .ui-grid-a .ui-block-b p, #content-top .ui-grid-a .ui-block-b ul, #content-top .ui-grid-a .ui-block-b li{ font-size: 22px; line-height: 1.2; margin-bottom: .3em; }
+#content-top .ui-grid-a .ui-block-b ul{ margin-left: -15px; }
+
+/* NEWS ITEMS */
+.news-item span { margin-left:152px; }
+#content-top .right-sidebar p, ul, ol { font-size: 16px; }
+#content-top .right-sidebar .news-item h3 {font-size: 15px; margin-top: 3px; margin-bottom: 2px; }
+#content-top .right-sidebar img { width: 130px; height: 80px; }
+
+
+ }
+
+@media only screen and (max-width: 700px) {
+#content-top .ui-grid-a .ui-block-b p, #content-top .ui-grid-a .ui-block-b ul, #content-top .ui-grid-a .ui-block-b li { font-size: 18px; }	
+	
+
+}	
+	
+@media only screen and (max-width: 600px) {
+
+}
+
+@media only screen and (max-width: 480px) {
+#content-top h2 { font-size: 24px; }
+/* two columns home page adjusted */
+#content-top .ui-grid-a .ui-block-a { width: 49%; }
+#content-top .ui-grid-a .ui-block-b { width: 51%; }
+#content-top .ui-grid-a .ui-block-a .content-holder { padding: 0 35px 0 0; }
+/* right side bar home page - now under */
+#content-top .right-sidebar { width: 100% }
+#content-top .right-sidebar .content-holder { padding: 0 0 0 0; }
+
+/* text for Areas of Service Home page list*/
+#content-top .ui-grid-a .ui-block-b p, #content-top .ui-grid-a .ui-block-b ul, #content-top .ui-grid-a .ui-block-b li{ font-weight: 400; font-size: 16px; line-height: 1.2;margin-bottom: .3em; }
+#content-top .ui-grid-a .ui-block-b ul{ margin-left: -25px; }
+/* NEWS ITEMS home page */
+.news-item span { margin-left:152px; }
+
+#content-top .right-sidebar p, ul, ol { font-size: 14px; }
+#content-top .right-sidebar .news-item h3 {font-size: 14px; margin-top: 1px; }
+#content-top .right-sidebar img { width: 130px; height: 80px; }
+/* SERVICES home page */
+#header-services { background: none; }
+#header-services h2 { font-size: 30px; }
+#header-services h2 span{ background: none; }
+#content-services .ui-grid-c .ui-block-a, #content-services .ui-grid-c .ui-block-b, #content-services .ui-grid-c .ui-block-c, #content-services .ui-grid-c .ui-block-d { width: 100%; float:none;}
+
+#content-services .content-holder p span { font-weight: 400; font-size: 15px; }
+
+
+}
+
+@media only screen and (max-width: 380px) {
+#content-top h2 { font-size: 30px; text-align:center;}
+
+/* home page two columns adjusted */
+#content-top .ui-grid-a .ui-block-a { width: 100%; float:none; }
+#content-top .ui-grid-a .ui-block-b {  width: 100%; float:none; margin-bottom: 1.5em; }
+#content-top .ui-grid-a .ui-block-a .content-holder { padding: 0 0 0 0; }
+.testimonial {margin: 1.2em 0 1.5em; }
+#content-top .testimonial p{ font-size: 14px; font-weight:400; margin-bottom: 1.2em;}
+/* text for Areas of Service list*/
+#content-top .ui-grid-a .ui-block-b ul{ margin-left: -25px; }
+/* NEWS ITEMS */
+#content-top .right-sidebar p, ul, ol { font-size: 13px; }
+#content-top .right-sidebar .news-item h3 {font-size: 13px; margin-top: 0px; }
+.news-item span { margin-left:0px; }
+#content-top .right-sidebar img { width: 70px; height: 48px; margin-bottom:2px;}
+#header-services { background: none; margin-top: 1.2em; }
+ 
+
+}

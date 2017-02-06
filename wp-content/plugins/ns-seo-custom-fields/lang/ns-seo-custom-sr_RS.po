@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NS Custom Fields Analysis for WordPress SEO\n"
+"POT-Creation-Date: 2014-12-22 15:09-0700\n"
+"PO-Revision-Date: 2014-12-23 10:52+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: Never Settle <dev@neversettle.it>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ns-seo-custom-fields.php:71
+msgid "Thanks for activating NS Custom Fields for WordPress SEO!"
+msgstr "Hvala što ste aktivirali NS Custom Fields za WordPress SEO!"
+
+#: ns-seo-custom-fields.php:73
+#, php-format
+msgid ""
+"Please be aware that this plugin will not function until you install <a "
+"target=\"_blank\" href=\"%s\">Yoast WordPress SEO</a>."
+msgstr ""
+"Imajte u vidu da ovaj plugin neće funkcionisati dok ne instalirate  <a "
+"target=\"_blank\" href=\"%s\">Yoast WordPress SEO</a>."
+
+#: ns-seo-custom-fields.php:76
+msgid ""
+"After you do that, you can access the plugin's settings in each site's menu "
+"via SEO > NS Custom Analysis."
+msgstr ""
+"Kad to uradite, možete pristupiti podešavanjima plugin-a na svakom site-u, "
+"putem SEO > NS Custom Analysis."
+
+#: ns-seo-custom-fields.php:77
+msgid ""
+"After you do that, you can access this plugin's settings in the menu via SEO "
+"> NS Custom Analysis."
+msgstr ""
+"Nakon toga, možete pristupiti podešavanjima plugin-a u meniju, putem SEO > "
+"Custom Analysis."
+
+#: ns-seo-custom-fields.php:82
+msgid "Thanks for activating NS Custom Fields for WordPress SEO! "
+msgstr "Hvala vam što ste aktivirali NS Custom Fields za WordPress SEO!"
+
+#: ns-seo-custom-fields.php:85
+msgid ""
+"Visit the settings page (SEO > NS Custom Analysis) on each site to set it up."
+msgstr ""
+"Posetite stranicu podešavanja (SEO > NS Custom Analysis) na svakom site-u da "
+"biste ga podesili."
+
+#: ns-seo-custom-fields.php:86
+msgid "Visit the settings page (SEO > NS Custom Analysis) to set it up."
+msgstr ""
+"Posetite stranicu podešavanja (SEO > NS Custom Analysis) da biste je "
+"podesili."
+
+#: ns-seo-custom-fields.php:109
+msgid "Custom field"
+msgstr "Prilagođeno polje"
+
+#: ns-seo-custom-fields.php:118 ns-seo-custom-fields.php:119
+msgid "NS Custom Fields"
+msgstr "NS Custom Fields"
+
+#: ns-seo-custom-fields.php:129
+msgid "NS Custom Field Analysis Settings"
+msgstr "NS Custom Field Analysis Podešavanja"
+
+#: ns-seo-custom-fields.php:139
+msgid ""
+"Enter the names of custom fields you'd like to include in the Yoast Keyword "
+"analysis."
+msgstr ""
+"Unesite nazive polja koje biste želeli da uključite u Yoast analizu ključnih "
+"reči."
