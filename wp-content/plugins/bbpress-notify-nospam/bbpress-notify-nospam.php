@@ -2,7 +2,7 @@
 /*
 * Plugin Name:  bbPress Notify (No-Spam)
 * Description:  Sends email notifications upon topic/reply creation, as long as it's not flagged as spam. If you like this plugin, <a href="https://wordpress.org/support/view/plugin-reviews/bbpress-notify-nospam#postform" target="_new">help share the trust and rate it!</a>
-* Version:      1.15.3
+* Version:      1.15.4
 * Author:       <a href="http://usestrict.net" target="_new">Vinny Alves (UseStrict Consulting)</a>
 * License:      GNU General Public License, v2 ( or newer )
 * License URI:  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -25,7 +25,7 @@ load_plugin_textdomain( 'bbpress_notify', false, dirname( plugin_basename( __FIL
 
 class bbPress_Notify_noSpam {
 	
-	const VERSION = '1.15.3';
+	const VERSION = '1.15.4';
 	
 	protected $settings_section = 'bbpress_notify_options';
 	
@@ -505,6 +505,12 @@ jQuery(document).ready(function($){
 		{
 			$subscribers = bbp_get_topic_subscribers( $topic_id );
 		}
+
+		/**
+		 * Allow subscribers to be accessed/changed by other plugins. Introduced for the opt-out add-on.
+		 * @since 1.15.4
+		 */
+		$subscribers = apply_filters( 'bbpnns_core_subscribers', $subscribers );
 			
 		foreach ( (array) $subscribers as $sub_id )
 		{
@@ -886,7 +892,11 @@ jQuery(document).ready(function($){
 	{
 		$dom = new DOMDocument();
 
+		$previous_value = libxml_use_internal_errors(TRUE);
+		
 		$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $text );
+		
+		libxml_use_internal_errors($previous_value);
 		
 		$elements = $dom->getElementsByTagName( 'a' );
 		
