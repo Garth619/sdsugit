@@ -38,7 +38,7 @@ class ITSEC_File_Change {
 
 		add_filter( 'itsec_logger_displays', array( $this, 'itsec_logger_displays' ) ); //adds logs metaboxes
 		add_filter( 'itsec_logger_modules', array( $this, 'itsec_logger_modules' ) );
-		add_filter( 'itsec_sync_modules', array( $this, 'itsec_sync_modules' ) ); //register sync modules
+		add_action( 'ithemes_sync_register_verbs', array( $this, 'register_sync_verbs' ) );
 
 
 		if (
@@ -58,10 +58,10 @@ class ITSEC_File_Change {
 		}
 
 	}
-	
+
 	public function run_scan() {
 		require_once( dirname( __FILE__ ) . '/scanner.php' );
-		
+
 		return ITSEC_File_Change_Scanner::run_scan();
 	}
 
@@ -164,27 +164,13 @@ class ITSEC_File_Change {
 	}
 
 	/**
-	 * Register file change detection for Sync
+	 * Register verbs for Sync.
 	 *
-	 * Reigsters iThemes Sync verbs for the file change detection module.
+	 * @since 3.6.0
 	 *
-	 * @since 4.0.0
-	 *
-	 * @param  array $sync_modules array of sync modules
-	 *
-	 * @return array array of sync modules
+	 * @param Ithemes_Sync_API Sync API object.
 	 */
-	public function itsec_sync_modules( $sync_modules ) {
-
-		$sync_modules['file-change'] = array(
-			'verbs' => array(
-				'itsec-perform-file-scan' => 'Ithemes_Sync_Verb_ITSEC_Perform_File_Scan',
-			),
-			'path'  => dirname( __FILE__ ),
-		);
-
-		return $sync_modules;
-
+	public function register_sync_verbs( $api ) {
+		$api->register( 'itsec-perform-file-scan', 'Ithemes_Sync_Verb_ITSEC_Perform_File_Scan', dirname( __FILE__ ) . '/sync-verbs/itsec-perform-file-scan.php' );
 	}
-
 }

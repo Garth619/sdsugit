@@ -22,12 +22,16 @@ final class ITSEC_Security_Check_Scanner {
 
 		self::enforce_activation( 'strong-passwords', __( 'Strong Password Enforcement', 'better-wp-security' ) );
 		self::enforce_activation( 'two-factor', __( 'Two-Factor Authentication', 'better-wp-security' ) );
-		self::enable_all_two_factor_providers();
+		self::enforce_setting( 'two-factor', 'available_methods', 'all', esc_html__( 'Changed the Authentication Methods Available to Users setting in Two-Factor Authentication to "All Methods".', 'better-wp-security' ) );
+		self::enforce_setting( 'two-factor', 'protect_user_type', 'privileged_users', esc_html__( 'Changed the User Type Protection setting in Two-Factor Authentication to "Privileged Users".', 'better-wp-security' ) );
+		self::enforce_setting( 'two-factor', 'protect_vulnerable_users', true, esc_html__( 'Enabled the Vulnerable User Protection setting in Two-Factor Authentication.', 'better-wp-security' ) );
+		self::enforce_setting( 'two-factor', 'protect_vulnerable_site', true, esc_html__( 'Enabled the Vulnerable Site Protection setting in Two-Factor Authentication.', 'better-wp-security' ) );
 
 		self::enforce_activation( 'user-logging', __( 'User Logging', 'better-wp-security' ) );
 		self::enforce_activation( 'wordpress-tweaks', __( 'WordPress Tweaks', 'better-wp-security' ) );
 		self::enforce_setting( 'wordpress-tweaks', 'file_editor', true, __( 'Disabled the File Editor in WordPress Tweaks.', 'better-wp-security' ) );
 		self::enforce_setting( 'wordpress-tweaks', 'allow_xmlrpc_multiauth', false, __( 'Changed the Multiple Authentication Attempts per XML-RPC Request setting in WordPress Tweaks to "Block".', 'better-wp-security' ) );
+		self::enforce_setting( 'wordpress-tweaks', 'rest_api', 'restrict-access', __( 'Changed the REST API setting in WordPress Tweaks to "Restricted Access".', 'better-wp-security' ) );
 
 		self::enforce_setting( 'global', 'write_files', true, __( 'Enabled the Write to Files setting in Global Settings.', 'better-wp-security' ) );
 
@@ -86,54 +90,6 @@ final class ITSEC_Security_Check_Scanner {
 		echo '</div>';
 
 		self::$calls_to_action[] = ob_get_clean();
-	}
-
-	private static function enable_all_two_factor_providers() {
-		if ( ! in_array( 'two-factor', self::$available_modules ) ) {
-			return;
-		}
-
-
-		$two_factor_providers = ITSEC_Modules::get_setting( 'two-factor', 'enabled-providers' );
-		$added_provider = false;
-
-		ob_start();
-
-		if ( ! in_array( 'Two_Factor_Totp', $two_factor_providers ) ) {
-			$two_factor_providers[] = 'Two_Factor_Totp';
-			$added_provider = true;
-
-			self::open_container();
-			echo '<p>' . __( 'Enabled the Time-Based One-Time Password (TOTP) provider for Two-Factor Authentication.', 'better-wp-security' ) . '</p>';
-			echo '</div>';
-		}
-
-		if ( ! in_array( 'Two_Factor_Email', $two_factor_providers ) ) {
-			$two_factor_providers[] = 'Two_Factor_Email';
-			$added_provider = true;
-
-			self::open_container();
-			echo '<p>' . __( 'Enabled the Email provider for Two-Factor Authentication.', 'better-wp-security' ) . '</p>';
-			echo '</div>';
-		}
-
-		if ( ! in_array( 'Two_Factor_Backup_Codes', $two_factor_providers ) ) {
-			$two_factor_providers[] = 'Two_Factor_Backup_Codes';
-			$added_provider = true;
-
-			self::open_container();
-			echo '<p>' . __( 'Enabled the Backup Verification Codes provider for Two-Factor Authentication.', 'better-wp-security' ) . '</p>';
-			echo '</div>';
-		}
-
-
-		if ( $added_provider ) {
-			self::$actions_taken[] = ob_get_clean();
-
-			ITSEC_Modules::set_setting( 'two-factor', 'enabled-providers', $two_factor_providers );
-
-			ITSEC_Response::reload_module( 'two-factor' );
-		}
 	}
 
 	private static function enforce_setting( $module, $setting_name, $setting_value, $description ) {

@@ -80,7 +80,7 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 		}
 		foreach ( $item['host'] as $host ) {
 			if ( ITSEC_Lib_IP_Tools::validate( $host ) ) {
-				$r[] = '<a href="http://www.traceip.net/?query=' . urlencode( $host ) . '" target="_blank">' . esc_html( $host ) . '</a>';
+				$r[] = '<a href="' . esc_url( ITSEC_Lib::get_trace_ip_link( $host ) ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $host ) . '</a>';
 			}
 		}
 		$return = implode( '<br />', $r );
@@ -99,8 +99,8 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 	 **/
 	function column_user( $item ) {
 
-		if ( $item['user_id'] != 0 ) {
-			return '<a href="/wp-admin/user-edit.php?user_id=' . $item['user_id'] . '" target="_blank">' . $item['user'] . '</a>';
+		if ( 0 != $item['user_id'] ) {
+			return '<a href="' . esc_url( admin_url( 'user-edit.php?user_id=' . $item['user_id'] ) ) . '" target="_blank" rel="noopener noreferrer">' . $item['user'] . '</a>';
 		} else {
 			return $item['user'];
 		}
@@ -148,9 +148,9 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 		global $itsec_logger;
 
 		$raw_data = maybe_unserialize( $item['data'] );
-		
+
 		$data = apply_filters( "itsec_logger_filter_{$item['type']}_data_column_details", '', $raw_data );
-		
+
 		if ( empty( $data ) ) {
 			if ( is_array( $raw_data ) && sizeof( $raw_data ) > 0 ) {
 
