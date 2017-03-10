@@ -40,6 +40,12 @@ Many thanks to Ogi Djuraskovic of [FirstSiteGuide.com](http://firstsiteguide.com
 
 == Changelog ==
 
+= 2.1.8 =
+* Refinements for compatibility with Yoast
+
+= 2.1.7 =
+* Updated to accomodate for the latest Yoast SEO API changes
+
 = 2.1.6.3 =
 * Quick fixes for updated Wordpress SEO API changes
 

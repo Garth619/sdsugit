@@ -4,7 +4,7 @@ Plugin Name: NS Custom Fields Analysis for WordPress SEO
 Plugin URI: http://neversettle.it
 Description: Include content from custom fields in the Yoast WordPress SEO plugin keyword analysis (WordPress SEO by Yoast is required).
 Author: Never Settle
-Version: 2.1.6.3
+Version: 2.1.8
 Author URI: http://neversettle.it
 License: GPLv2 or later
 */
@@ -49,8 +49,15 @@ class NS_SEO_Custom_Fields {
 		add_action( 'admin_menu', array($this,'register_settings_page'), 20 );
 		add_action( 'admin_enqueue_scripts', array($this, 'admin_assets') );
 		add_action( 'admin_print_footer_scripts', array($this, 'add_javascript'), 100 );
-		add_filter( 'wpseo_pre_analysis_post_content', array($this,'add_fields_to_analysis') );
-		
+	    if ( ! function_exists( 'get_plugins' ) ) {
+	        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	    }
+
+	    $yoast_version = get_plugin_data( WPSEO_FILE, false, false)['Version'];
+		if ($yoast_version < 3.0) { 
+			add_filter( 'wpseo_pre_analysis_post_content', array($this,'add_fields_to_analysis') );
+		}
+
 		register_deactivation_hook( __FILE__, create_function('','delete_option("ns_seo_custom_installed");') );
 	}
 	
@@ -95,10 +102,14 @@ class NS_SEO_Custom_Fields {
 	function admin_assets($page){
 	 	wp_register_style( 'ns-seo-custom', plugins_url("css/ns-seo-custom.css",__FILE__), false, '1.0.0' );
 	 	wp_register_script( 'ns-seo-custom', plugins_url("js/ns-seo-custom.js",__FILE__), false, '1.0.0' );
+		wp_register_script( 'ns-seo-api', plugins_url("js/ns-seo-api.js",__FILE__), false, '1.0.0' );		 	
 		if( $page=='seo_page_ns_seo_custom' ){
 			wp_enqueue_style( 'ns-seo-custom' );
 			wp_enqueue_script( 'ns-seo-custom' );
-		}		
+		}	
+		if( $page=='post.php' || $page=='post-new.php' ){
+			wp_enqueue_script( 'ns-seo-api' );
+		}				
 	}
 	
 	/**********************************
@@ -341,4 +352,5 @@ class NS_SEO_Custom_Fields {
 	 }
 	
 }
-new NS_SEO_Custom_Fields();
+
+add_action('plugins_loaded','construct_my_class'); function construct_my_class(){ $controller = new NS_SEO_Custom_Fields(); }

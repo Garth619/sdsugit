@@ -2,8 +2,8 @@
 Contributors: wordpress-empire, contact-banker, Gallery-Bank
 Tags: antispam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, match captcha,registration, spam control, spam protection, text captcha, web form protection, captcha bank, captcha
 Requires at least: 3.0
-Tested up to: 4.7.1
-Stable tag: 3.0.9
+Tested up to: 4.7.3
+Stable Tag: 3.0.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,8 +32,8 @@ Captcha Bank is a bullet proof captcha validator. It allows you to add an extra 
 * You can Hide Captcha for Registered Users by just enabling the setting.
 
 * You can enable the notifications on various events, such as, when -
-    
-	* user success login 
+
+	* user success login
 	* user fails login
 	* an IP address is block
 	* an IP address is unblock
@@ -382,12 +382,19 @@ If any problem occurs, please contact us at [support@tech-banker.com](mailto:sup
 
 == Changelog ==
 
+= 3.0.10 =
+
+* Few Bugs Fixed
+* Compatibility with 4.7.3
+* Google Maps API Key Changed
+* New Language Added - French
+
 = 3.0.9 =
 
 * Language Translation Bugs Fixed
 * Translation File Updated
 
-= 3.0.8 = 
+= 3.0.8 =
 
 * New Other Settings Added
 * Error Logs Added
@@ -395,7 +402,7 @@ If any problem occurs, please contact us at [support@tech-banker.com](mailto:sup
 * Code Optimized
 * Translation File Updated
 
-= 3.0.7 = 
+= 3.0.7 =
 
 * Obsolete Code removed
 * Unused Files removed

@@ -1,11 +1,11 @@
-<?php
+﻿<?php
 /*
 Plugin Name: Captcha Bank
 Plugin URI: http://beta.tech-banker.com
 Description: This plugin allows you to implement security captcha form into web forms to prevent spam.
 Author: Tech Banker
 Author URI: http://beta.tech-banker.com
-Version: 3.0.9
+Version: 3.0.10
 License: GPLv3
 Text Domain: captcha-bank
 Domain Path: /languages
@@ -237,11 +237,11 @@ if($version == "3.0.2")
 						wp_enqueue_script("captcha-bank-colpick.js",plugins_url("assets/global/plugins/colorpicker/colpick.js",__FILE__));
 						if(is_ssl())
 						{
-							wp_enqueue_script("captcha-bank-maps_script.js","https://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyC4rVG7IsNk9pKUO_uOZuxQO4FmF6z03Ks");
+							wp_enqueue_script("captcha-bank-maps_script.js","https://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyBpoiNM1bSTqkfT0sNl3k-JVjdhFTSgQuE");
 						}
 						else
 						{
-							wp_enqueue_script("captcha-bank-maps_script.js","http://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyC4rVG7IsNk9pKUO_uOZuxQO4FmF6z03Ks");
+							wp_enqueue_script("captcha-bank-maps_script.js","http://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyBpoiNM1bSTqkfT0sNl3k-JVjdhFTSgQuE");
 						}
 						wp_enqueue_style("captcha-bank-simple-line-icons.css", plugins_url("assets/global/plugins/icons/icons.css",__FILE__));
 						wp_enqueue_style("captcha-bank-components.css", plugins_url("assets/global/css/components.css",__FILE__));
@@ -642,7 +642,7 @@ if($version == "3.0.2")
 				$wpdb->prepare
 				(
 					"SELECT meta_value FROM ".captcha_bank_meta()."
-					WHERE meta_key=%s",
+					WHERE meta_key = %s",
 					"other_settings"
 				)
 			);
@@ -1198,7 +1198,7 @@ if($version == "3.0.2")
 			(
 				$wpdb->prepare
 				(
-					"SELECT meta_value FROM ".captcha_bank_meta()." WHERE meta_key=%s",
+					"SELECT meta_value FROM ".captcha_bank_meta()." WHERE meta_key = %s",
 					"other_settings"
 				)
 			);
@@ -1322,6 +1322,4 @@ Created On: 28-09-2016 01:19
 Created by: tech-banker Team
 */
 add_filter("plugin_action_links_" . plugin_basename(__FILE__), "captcha_bank_action_links");
-
-
 ?>
