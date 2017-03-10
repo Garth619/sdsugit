@@ -7,7 +7,7 @@
 		"uuidString": "BA53CF80-4E8A-4561-8F42-747F6FD5F70A"
 		}
 	],
-"creatorBuild": "25504",
+"creatorBuild": "25568",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -6231,6 +6231,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/plugins\/advanced-custom-fields-pro\/core\/fields.php",
+		"oF": 0
+		},
+	"\/wp-content\/plugins\/advanced-custom-fields-pro\/core\/form.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/plugins\/advanced-custom-fields-pro\/core\/form.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/advanced-custom-fields-pro\/core\/input.php": {
@@ -48024,6 +48030,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/01\/sachs-meeting-handouts-dec-2016.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/01\/sachs-meeting-handouts-feb-2017.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/01\/sachs-meeting-handouts-feb-2017.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/01\/sachs-meeting-handouts-packet-nov-2015.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -48803,6 +48815,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/01\/tribalstar.png",
 		"oF": 0,
 		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/01\/tribalstar_january_february_2017_newsletter.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/01\/tribalstar_january_february_2017_newsletter.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/01\/ucla-resources.pdf": {
 		"ft": 8192,
@@ -50594,6 +50612,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/ca-aps-standards-for-consistency-tol.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/California-Institute-for-Behavioral-Health-Solutions-CIBHS-Webinar-Preparing-Professionals-for-Participation-on-Child-and-Family-Teams-11-21-14.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/California-Institute-for-Behavioral-Health-Solutions-CIBHS-Webinar-Preparing-Professionals-for-Participation-on-Child-and-Family-Teams-11-21-14.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/cca-aa-admin.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -50866,10 +50890,22 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/cft-brochure-spanish-100215.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-Flyer-May-4th-2017.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-Flyer-May-4th-2017.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-Flyer-November-2016-to-December-2016.pdf": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-Flyer-November-2016-to-December-2016.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-PowerPoint-11-1-16-FINAL.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/CFT-Facilitation-Training-PowerPoint-11-1-16-FINAL.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/05\/cft-standards-7-23-14.docx": {
@@ -53006,6 +53042,18 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/pathways-teaming-standards-expl-072314.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/Pathways-to-Well-Being-One-Day-Overview-Training-DRAFT-7-15-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/Pathways-to-Well-Being-One-Day-Overview-Training-DRAFT-7-15-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/Pathways-to-Well-Being-One-Day-Overview-Training-DRAFT-7-15-16.pptx": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/Pathways-to-Well-Being-One-Day-Overview-Training-DRAFT-7-15-16.pptx",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/pathways-tracking-report-template-020215.xlsx": {
 		"ft": 8192,
 		"oA": 2,
@@ -54828,6 +54876,62 @@
 		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-conference-2015.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7021,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7796,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-300x203.jpg": {
+		"ft": 16384,
+		"iS": 15872,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-300x203.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-344x169.jpg": {
+		"ft": 16384,
+		"iS": 15275,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-768x198.jpg": {
+		"ft": 16384,
+		"iS": 28460,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-768x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying-768x520.jpg": {
+		"ft": 16384,
+		"iS": 72754,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying-768x520.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/boys-praying.jpg": {
+		"ft": 16384,
+		"iS": 230309,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/boys-praying.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2015\/06\/boys-with-buckets-150x119.jpg": {
 		"ft": 16384,
 		"iS": 7056,
@@ -55906,6 +56010,22 @@
 		"oF": 0,
 		"opt": 0
 		},
+	"\/wp-content\/uploads\/2015\/06\/Drum-drumstick-150x107.jpg": {
+		"ft": 16384,
+		"iS": 5176,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Drum-drumstick-150x107.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Drum-drumstick.jpg": {
+		"ft": 16384,
+		"iS": 3717,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Drum-drumstick.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2015\/06\/dynamic-elder-abuse-eval.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -56531,6 +56651,54 @@
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/06\/implementing-service-integration.pdf",
 		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7073,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family-198x300.jpg": {
+		"ft": 16384,
+		"iS": 13912,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family-198x300.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8001,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family-344x169.jpg": {
+		"ft": 16384,
+		"iS": 15926,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family-588x198.jpg": {
+		"ft": 16384,
+		"iS": 30526,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family-588x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Indian-family.jpg": {
+		"ft": 16384,
+		"iS": 117089,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Indian-family.jpg",
+		"oF": 0,
+		"opt": 0
 		},
 	"\/wp-content\/uploads\/2015\/06\/indian-problem-agenda-both-sides.pdf": {
 		"ft": 8192,
@@ -57652,6 +57820,46 @@
 		"oAP": "\/wp-content\/uploads\/2015\/06\/margaret-farewell-note.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6372,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x123.jpg": {
+		"ft": 16384,
+		"iS": 6510,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x169.jpg": {
+		"ft": 16384,
+		"iS": 8073,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x198.jpg": {
+		"ft": 16384,
+		"iS": 8950,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa-161x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa.jpg": {
+		"ft": 16384,
+		"iS": 30619,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Maria-Antonia-Piapa.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2015\/06\/mark-miller-125x123.jpg": {
 		"ft": 16384,
 		"iS": 4396,
@@ -58706,6 +58914,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/06\/sihc-conf-aug-2015.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/06\/SIHC-Leaadership-Summit.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/SIHC-Leaadership-Summit.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/06\/Soboba-children-150x150.jpg": {
 		"ft": 16384,
 		"iS": 6723,
@@ -58751,6 +58965,70 @@
 		"iS": 27494,
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-940x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-1024x640.jpg": {
+		"ft": 16384,
+		"iS": 95819,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-1024x640.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7766,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8095,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-300x188.jpg": {
+		"ft": 16384,
+		"iS": 15297,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-300x188.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-344x169.jpg": {
+		"ft": 16384,
+		"iS": 15654,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-768x480.jpg": {
+		"ft": 16384,
+		"iS": 63231,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-768x480.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-940x198.jpg": {
+		"ft": 16384,
+		"iS": 31013,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools-940x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools.jpg": {
+		"ft": 16384,
+		"iS": 1384651,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/Soboba-children-with-farm-tools.jpg",
 		"oF": 0,
 		"opt": 0
 		},
@@ -61358,7 +61636,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2015\/08\/jen-tt.png",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2015\/08\/keys-to-using-info-and-data-cws-matters.pdf": {
 		"ft": 8192,
@@ -68146,7 +68424,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/female-avatar-150x150.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/female-avatar-200x123.jpg": {
 		"ft": 16384,
@@ -68154,7 +68432,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/female-avatar-200x123.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/female-avatar-200x169.jpg": {
 		"ft": 16384,
@@ -68162,7 +68440,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/female-avatar-200x169.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/female-avatar-200x198.jpg": {
 		"ft": 16384,
@@ -68170,7 +68448,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/female-avatar-200x198.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/female-avatar.jpg": {
 		"ft": 16384,
@@ -68178,7 +68456,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/female-avatar.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/grace-gomes-wall-thumbnail-150x150.jpg": {
 		"ft": 16384,
@@ -69274,7 +69552,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/male-avatar-150x150.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/male-avatar-200x123.jpg": {
 		"ft": 16384,
@@ -69282,7 +69560,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/male-avatar-200x123.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/male-avatar-200x169.jpg": {
 		"ft": 16384,
@@ -69290,7 +69568,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/male-avatar-200x169.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/male-avatar-200x198.jpg": {
 		"ft": 16384,
@@ -69298,7 +69576,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/male-avatar-200x198.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/male-avatar.jpg": {
 		"ft": 16384,
@@ -69306,7 +69584,7 @@
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/male-avatar.jpg",
 		"oF": 0,
-		"opt": 0
+		"opt": 1
 		},
 	"\/wp-content\/uploads\/2016\/02\/mike-eakes-thumbnail-1001x1024.jpg": {
 		"ft": 16384,
@@ -74326,6 +74604,14 @@
 		"oF": 0,
 		"opt": 0
 		},
+	"\/wp-content\/uploads\/2016\/06\/20161206_160310-e1488503553175-150x150.jpg": {
+		"ft": 16384,
+		"iS": 4691,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/06\/20161206_160310-e1488503553175-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2016\/06\/20161206_160310.jpg": {
 		"ft": 16384,
 		"iS": 2938025,
@@ -75434,6 +75720,12 @@
 		"oF": 0,
 		"opt": 0
 		},
+	"\/wp-content\/uploads\/2016\/08\/CFT-Facilitation-Training-Flyer-January-2017-to-June-2017-9.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/CFT-Facilitation-Training-Flyer-January-2017-to-June-2017-9.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/Characteristics-of-Justice-Involved-Youth-1.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -75450,6 +75742,18 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2016\/08\/Competency-to-Stand-Trial.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/08\/DBT-2017-Flyer-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/DBT-2017-Flyer-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/08\/DBT-2017-Flyer.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/DBT-2017-Flyer.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/08\/download-form-150x66.jpg": {
@@ -75488,6 +75792,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2016\/08\/Geriatric-flyer-booster-Sexuality-12.16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/08\/Geriatric-Intro-flyer-Spring-2017.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Geriatric-Intro-flyer-Spring-2017.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/08\/jaiya-john-150x150.jpg": {
@@ -75886,6 +76196,12 @@
 		"oAP": "\/wp-content\/uploads\/2016\/08\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-3-30-17.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/08\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-4-13-17-.pdf-5.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-4-13-17-.pdf-5.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/understanding-diagnosing-complex-bh-conditions-10-13-16.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -76126,6 +76442,194 @@
 		"oAP": "\/wp-content\/uploads\/2016\/11\/2016Dec12ICWA-Regs-Effective-Press-Release-final.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-1024x91.jpg": {
+		"ft": 16384,
+		"iS": 16205,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-1024x91.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-150x119.jpg": {
+		"ft": 16384,
+		"iS": 2969,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-150x119.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-200x119.jpg": {
+		"ft": 16384,
+		"iS": 3705,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-200x119.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-300x27.jpg": {
+		"ft": 16384,
+		"iS": 3628,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-300x27.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-344x119.jpg": {
+		"ft": 16384,
+		"iS": 6584,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-344x119.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-768x68.jpg": {
+		"ft": 16384,
+		"iS": 11298,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-768x68.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-940x119.jpg": {
+		"ft": 16384,
+		"iS": 17774,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance-940x119.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/At-a-Glance.jpg": {
+		"ft": 16384,
+		"iS": 25602,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/At-a-Glance.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-1024x89.jpg": {
+		"ft": 16384,
+		"iS": 16539,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-1024x89.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-150x116.jpg": {
+		"ft": 16384,
+		"iS": 3359,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-150x116.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-200x116.jpg": {
+		"ft": 16384,
+		"iS": 4311,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-200x116.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-300x26.jpg": {
+		"ft": 16384,
+		"iS": 3480,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-300x26.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-344x116.jpg": {
+		"ft": 16384,
+		"iS": 7259,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-344x116.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-768x67.jpg": {
+		"ft": 16384,
+		"iS": 11507,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-768x67.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-940x116.jpg": {
+		"ft": 16384,
+		"iS": 18394,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic-940x116.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic.jpg": {
+		"ft": 16384,
+		"iS": 26328,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best-Practies-graphic.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Best_Practices_ICWAapp-handout02.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Best_Practices_ICWAapp-handout02.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Compassion-Activity-Tips-for-Training-ICWA-Core-3.0-km-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Compassion-Activity-Tips-for-Training-ICWA-Core-3.0-km-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-150x150.jpg": {
+		"ft": 16384,
+		"iS": 5267,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-200x123.jpg": {
+		"ft": 16384,
+		"iS": 4734,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-262x300.jpg": {
+		"ft": 16384,
+		"iS": 13162,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-262x300.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-325x169.jpg": {
+		"ft": 16384,
+		"iS": 8134,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-325x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-325x198.jpg": {
+		"ft": 16384,
+		"iS": 9513,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo-325x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo.jpg": {
+		"ft": 16384,
+		"iS": 26738,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Copy-of-ed.compassion-photo.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2016\/11\/d-Saenz-belden-100x123.jpg": {
 		"ft": 16384,
 		"iS": 4265,
@@ -76139,6 +76643,156 @@
 		"iS": 5903,
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/11\/d-Saenz-belden.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8076,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8093,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-300x187.jpg": {
+		"ft": 16384,
+		"iS": 14371,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-300x187.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-344x169.jpg": {
+		"ft": 16384,
+		"iS": 16100,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-767x198.jpg": {
+		"ft": 16384,
+		"iS": 25119,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide-767x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide.jpg": {
+		"ft": 16384,
+		"iS": 78413,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/edPPT-Image-ICWA-GUide.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Glance_ICWAapp-handout01.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Glance_ICWAapp-handout01.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8257,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8783,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-232x300.jpg": {
+		"ft": 16384,
+		"iS": 23257,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-232x300.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-344x169.jpg": {
+		"ft": 16384,
+		"iS": 18162,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-467x198.jpg": {
+		"ft": 16384,
+		"iS": 29600,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-467x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo.jpg": {
+		"ft": 16384,
+		"iS": 104543,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7957,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-150x150.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7954,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-200x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-232x300.jpg": {
+		"ft": 16384,
+		"iS": 20335,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-232x300.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-344x169.jpg": {
+		"ft": 16384,
+		"iS": 15736,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-344x169.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-465x198.jpg": {
+		"ft": 16384,
+		"iS": 25591,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo-465x198.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo.jpg": {
+		"ft": 16384,
+		"iS": 87756,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/ICWA-Best-Practices-Photo.jpg",
 		"oF": 0,
 		"opt": 0
 		},
@@ -76188,6 +76842,14 @@
 		"oF": 0,
 		"opt": 0
 		},
+	"\/wp-content\/uploads\/2016\/11\/Linda-Picture-2-e1488402901682.jpg": {
+		"ft": 16384,
+		"iS": 3846,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Linda-Picture-2-e1488402901682.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/wp-content\/uploads\/2016\/11\/Linda-Picture-2.jpg": {
 		"ft": 16384,
 		"iS": 72081,
@@ -76195,6 +76857,12 @@
 		"oAP": "\/wp-content\/uploads\/2016\/11\/Linda-Picture-2.jpg",
 		"oF": 0,
 		"opt": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Margaret-Tips-for-Trainers.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Margaret-Tips-for-Trainers.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/11\/savannah-taylor-100x123.jpg": {
 		"ft": 16384,
@@ -76799,6 +77467,592 @@
 		"oAP": "\/wp-content\/uploads\/2017\/01\/TribalStar-logo.jpg",
 		"oF": 0,
 		"opt": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-3.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1-3.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-1-Blanket-Court-Order-Bulletin-9-3-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-2-Client-Categories-Maintenance-Bulletin-9-3-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-3-FY-14-15-Pathways-Trainings-Bulletin-9-10-14.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-4-Teaming-Training-Bulletin-9-11-14.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-1-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-1-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-5-Eligibility-Determination-Form-Bulletin-10-22-14.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-6-Pathways-Website-Bulletin-11-25-14-Copy.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2014-7-Eligibility-Determination-Form-Bulletin-12-16-14.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-1-KTA-Service-Summary-Codes-1-21-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-10-eLearning-Booster-10-14-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-11-Client-Caregories-Maintenance-Bullettin-10-14-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-12-FY-15-16-Monthly-Tracking-Log-Update-12-02-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-2-Flipping-the-Switch-Anasazi-Bulletin-1-26-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-3-Making-Changes-in-Client-Categories-Maintenance-4-7-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-4-CWS-Consent-to-Treat-Bulletin-4-16-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-5-Warm-handoff-Bulletin-4-23-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-6-FY-15-16-Monthly-Tracking-Log-Changes-6-16-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-7-CFT-Meeting-Time-Lines-7-06-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-8-Education-Letter-7-10-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2015-9-FY-15-16-Monthly-Tracking-Log-Changes-8-24-15.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-1-New-Service-Indicator-CFT-meetings-1-26-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-10-PWB-ICC-and-IHBS-QSR-Walkthrough-Bulletin-12-21-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-2-eLearning-Booster-Reminder-2-01-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-3-ICC-AND-IHBS-Information-Alert-2-16-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-4-Identifying-the-Assigned-PSW-5-5-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-1-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-1-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-1-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-5-Cases-In-Investigations-Status-5-10-16-1-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-6-ICC-and-IHBS-Service-Code-Expansion-Training-6-10-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-7-Foster-Youth-Bill-of-Rights-Bulletin-6-24-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-8-Discontinuation-of-Monthly-Tracking-Log-7-8-16.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2016-9-Entering-End-Date-in-CCM-at-Discharge.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/icwa-app-handout-01.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/icwa-app-handout-01.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/icwa-app-handout-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/icwa-app-handout-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/l-bailor-100x123.jpg": {
+		"ft": 16384,
+		"iS": 3706,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/l-bailor-100x123.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/l-bailor.jpg": {
+		"ft": 16384,
+		"iS": 14563,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/l-bailor.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/sachs-poverty-report-feb-2017-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/sachs-poverty-report-feb-2017-2.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {
 		"ft": 8192,
@@ -84216,6 +85470,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-multi-assign": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-multi-spaces": {
 			"active": 0,
 			"optionString": "{'exceptions': {'Property': true, 'BinaryExpression': false, 'VariableDeclarator': false, 'ImportDeclaration': false}}"
@@ -84544,6 +85802,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"prefer-promise-reject-errors": {
+			"active": 0,
+			"optionString": "{'allowEmptyReject': false}"
+			},
 		"prefer-rest-params": {
 			"active": 0,
 			"optionString": ""
@@ -84637,6 +85899,10 @@
 			"optionString": ""
 			},
 		"template-curly-spacing": {
+			"active": 0,
+			"optionString": "'never'"
+			},
+		"template-tag-spacing": {
 			"active": 0,
 			"optionString": "'never'"
 			},
