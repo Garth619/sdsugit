@@ -36,7 +36,7 @@
 						$sidebartwo = wp_get_attachment_image_src(get_field('lms_sidebar_image','option'),'full');
 						$sidebarimage = get_bloginfo('template_directory');
 						
-						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="http://rod.sumtotalsystems.com/academy/app/SYS_Login.aspx?DomainId=700D22DE18EA1836C728CC881F3D5545954EA89A739D81C68772EBE2ADD833E5A7D69A0D04A83982031457387C1BBAB4D98FB8421FE7A129&lang=en-US"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/lms.jpg"/></a>';
+						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="https://academy.sumtotal.host/Broker/Account/Login.aspx?wtrealm=https%3a%2f%2fACADEMY.sumtotal.host%2flearning%2f&ReturnUrl=http%3a%2f%2facademy.sumtotal.host%2fbroker%2fToken%2fSAML20.ashx%3fwa%3dwsignin1.0%26wtrealm%3dhttps%253a%252f%252fACADEMY.sumtotal.host%252flearning%252f%26wreply%3dhttps%253a%252f%252facademy.sumtotal.host%252flearning%252fapp%252fSYS_Login.aspx%253fDomainId%253d700D22DE18EA1836C728CC881F3D5545954EA89A739D81C68772EBE2ADD833E5A7D69A0D04A83982031457387C1BBAB4D98FB8421FE7A129%2526lang%253den-US%2526SSOBroker%253d1&IsHybridOrNativeClient=False&domainid=52160A28FC58BBBE7D714E075077AC76"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/signin.jpg"/></a>';
 												
 												
 					} ?>
