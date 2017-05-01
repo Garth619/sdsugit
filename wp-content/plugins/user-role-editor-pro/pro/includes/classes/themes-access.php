@@ -138,7 +138,7 @@ class URE_Themes_Access {
     public function admin_load_js($hook_suffix) {
         
         if ($hook_suffix === 'user-edit.php') {
-            wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
+            wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
             wp_register_script('ure-jquery-multiple-select', plugins_url('/js/jquery.multiple.select.js', URE_PLUGIN_FULL_PATH));
             wp_enqueue_script('ure-jquery-multiple-select');
             wp_register_script('ure-user-profile-themes', plugins_url('/pro/js/ure-pro-user-profile-themes.js', URE_PLUGIN_FULL_PATH));

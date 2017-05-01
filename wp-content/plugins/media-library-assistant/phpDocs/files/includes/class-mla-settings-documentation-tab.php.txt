@@ -475,13 +475,17 @@ class MLA_Example_List_Table extends WP_List_Table {
 	 * @since 2.32
 	 *
 	 * @param	mixed	false or array with current list of hidden columns, if any
-	 * @param	string	'managesettings_page_mla-settings-menucolumnshidden'
+	 * @param	string	'managesettings_page_mla-settings-menu-examplecolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		return $result ? $result : self::_default_hidden_columns();
+		if ( false !== $result ) {
+			return $result;
+		}
+
+		return self::_default_hidden_columns;
 	}
 
 	/**

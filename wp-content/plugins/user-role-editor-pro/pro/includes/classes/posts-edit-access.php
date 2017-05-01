@@ -291,6 +291,7 @@ class URE_Posts_Edit_Access {
             if ($restriction_type==1) {   // Allow
                 if (count($attachments_list)==0) {
                     $attachments_list[] = -1;
+                    $query->set('post__in', $attachments_list);
                 } elseif (empty($query->query['post__in'])) {
                     $query->set('post__in', $attachments_list);
                 } else {

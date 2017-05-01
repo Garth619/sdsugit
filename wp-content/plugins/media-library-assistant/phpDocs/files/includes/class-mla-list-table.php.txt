@@ -215,7 +215,8 @@ class MLA_List_Table extends WP_List_Table {
 			$tax_object = get_taxonomy( $tax_filter );
 			$dropdown_options = array_merge( array(
 				'show_option_all' => __( 'All', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
-				'show_option_none' => __( 'No', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
+//				'show_option_none' => __( 'No', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
+				'show_option_none' => _x( 'No', 'show_option_none', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
 				'orderby' => 'name',
 				'order' => 'ASC',
 				'show_count' => false,
@@ -365,14 +366,14 @@ class MLA_List_Table extends WP_List_Table {
 	 *
 	 * @since 0.1
 	 *
-	 * @param	string	current list of hidden columns, if any
+	 * @param	mixed	false if option not present or array of current hidden columns, if any
 	 * @param	string	'managemedia_page_mla-menucolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		if ( $result ) {
+		if ( false !== $result ) {
 			return $result;
 		}
 

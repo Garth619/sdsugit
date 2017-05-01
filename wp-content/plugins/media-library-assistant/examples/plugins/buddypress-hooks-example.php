@@ -20,6 +20,13 @@
  * 3. A custom "rtmedia=gallery" parameter filters the items returned by the [mla_gallery]
  *    query and uses [rtmedia_gallery] to display the items that have an rtMedia ID.
  *
+ * 4. A custom "rtmedia_ids" parameter accepts a list of rtMedia ID values and translates
+ *    them to attachment IDs so [mla_gallery] can process the items.
+ *
+ * 5. A custom "rtmedia_source" parameter filters the items returned by the [mla_gallery] query
+ *    and uses the parameter value as a content template to extract rtMedia IDs from the items.
+ *    The rtMedia IDs are translated to attachment IDs so [mla_gallery] can process the items.
+ *
  * This example plugin uses eight of the many filters available in the [mla_gallery] shortcode
  * and illustrates some of the techniques you can use to customize the gallery display.
  *
@@ -27,8 +34,12 @@
  * opened on 8/3/2016 by "tweakben".
  * https://wordpress.org/support/topic/overwhelmed-help-my-shortcode-out/
  *
+ * Enhanced for support topic "Display rtmedia gallery with a query on the title or media_id"
+ * opened on 3/13/2017 by "marineb30".
+ * https://wordpress.org/support/topic/display-rtmedia-gallery-with-a-query-on-the-title-or-media_id-2/
+ *
  * @package MLA BuddyPress & rtMedia Example
- * @version 1.06
+ * @version 1.08
  */
 
 /*
@@ -36,10 +47,10 @@ Plugin Name: MLA BuddyPress & rtMedia Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Provides [mla_gallery] parameters to filter items, generate rtMedia URLs and substitute cover art
 Author: David Lingren
-Version: 1.06
+Version: 1.08
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
-Copyright 2013 - 2016 David Lingren
+Copyright 2013 - 2017 David Lingren
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -68,7 +79,7 @@ class MLABuddyPressHooksExample {
 	 * @since 1.00
 	 */
 	public static function initialize() {
-		
+
 	    add_filter( 'rtmedia_media_query', 'MLABuddyPressHooksExample::my_modify_media_query', 9, 3 );
 		add_filter( 'rtmedia_allowed_query', 'MLABuddyPressHooksExample::my_rtmedia_allowed_attributes_parameter_in_query', 99 );
 		add_action( 'rtmedia_before_media_gallery', 'MLABuddyPressHooksExample::my_remove_rtmedia_model_shortcode_query_attributes', 10, 3 );
@@ -77,15 +88,16 @@ class MLABuddyPressHooksExample {
 		if ( is_admin() )
 			return;
 
+		add_filter( 'mla_gallery_raw_attributes', 'MLABuddyPressHooksExample::mla_gallery_raw_attributes', 10, 1 );
 		add_filter( 'mla_gallery_attributes', 'MLABuddyPressHooksExample::mla_gallery_attributes', 10, 1 );
 		add_action( 'mla_gallery_wp_query_object', 'MLABuddyPressHooksExample::mla_gallery_wp_query_object', 10, 1 );
 		add_filter( 'mla_gallery_the_attachments', 'MLABuddyPressHooksExample::mla_gallery_the_attachments', 10, 2 );
 		add_filter( 'mla_gallery_alt_shortcode_blacklist', 'MLABuddyPressHooksExample::mla_gallery_alt_shortcode_blacklist', 10, 1 );
-		add_filter( 'mla_gallery_alt_shortcode_attributes', 'MLABuddyPressHooksExample::mla_gallery_alt_shortcode_attributes', 10, 1 );
+		//add_filter( 'mla_gallery_alt_shortcode_attributes', 'MLABuddyPressHooksExample::mla_gallery_alt_shortcode_attributes', 10, 1 );
 		add_filter( 'mla_gallery_alt_shortcode_ids', 'MLABuddyPressHooksExample::mla_gallery_alt_shortcode_ids', 10, 3 );
 
 		add_filter( 'mla_gallery_item_values', 'MLABuddyPressHooksExample::mla_gallery_item_values', 10, 1 );
-	}
+	} // initialize
 
 	/**
 	 * Save the shortcode attributes
@@ -95,25 +107,36 @@ class MLABuddyPressHooksExample {
 	 * @var array
 	 */
 	private static $shortcode_attributes = array();
-	
+
 	/**
-	 * MLA Gallery (Display) Attributes
+	 * Capture the rtmedia_source parameter before any substitution evaluation is performed
 	 *
-	 * This filter gives you an opportunity to record or modify the arguments passed in to the shortcode
-	 * before they are merged with the default arguments used for the gallery display.
+	 * @since 1.07
 	 *
-	 * The $shortcode_attributes array is where you will find any of your own parameters that are coded in the
-	 * shortcode, e.g., [mla_gallery my_parameter="my value"].
+	 * @param array $shortcode_attributes The raw parameters passed in to the shortcode
+	 */
+	public static function mla_gallery_raw_attributes( $shortcode_attributes ) {
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_raw_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
+
+		self::$shortcode_attributes = array();
+		if ( isset( $shortcode_attributes['rtmedia_source'] ) ) {
+			self::$shortcode_attributes['rtmedia_source'] = $shortcode_attributes['rtmedia_source'];
+			unset( $shortcode_attributes['rtmedia_source'] );
+		}
+
+		return $shortcode_attributes;
+	} // mla_gallery_raw_attributes
+
+	/**
+	 * Process the rtmedia and rtmedia_ids parameters, sanitize buddypress_urls parameter
 	 *
 	 * @since 1.00
 	 *
 	 * @param array $shortcode_attributes The shortcode parameters passed in to the shortcode
-	 *
-	 * @return array updated shortcode attributes
 	 */
 	public static function mla_gallery_attributes( $shortcode_attributes ) {
-		//error_log( 'MLABuddyPressHooksExample::mla_gallery_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
-		
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
+
 		// Clean up the parameters we're interested in.
 		if ( isset( $shortcode_attributes['buddypress_urls'] ) ) {
 			$shortcode_attributes['buddypress_urls'] = strtolower( trim( $shortcode_attributes['buddypress_urls'] ) );
@@ -121,7 +144,7 @@ class MLABuddyPressHooksExample {
 
 		if ( isset( $shortcode_attributes['rtmedia'] ) ) {
 			$shortcode_attributes['rtmedia'] = strtolower( trim( $shortcode_attributes['rtmedia'] ) );
-			
+
 			if ( 'gallery' === $shortcode_attributes['rtmedia'] ) {
 				$shortcode_attributes['mla_alt_shortcode'] = 'rtmedia_gallery';
 				$shortcode_attributes['mla_alt_ids_name'] = 'media_ids';
@@ -129,27 +152,53 @@ class MLABuddyPressHooksExample {
 			}
 		}
 
-		// Save the attributes for use in the later filters
-		self::$shortcode_attributes = $shortcode_attributes;
+		if ( isset( $shortcode_attributes['rtmedia_ids'] ) ) {
+			global $wpdb;
 
-//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
+			$ids = wp_parse_id_list( $shortcode_attributes['rtmedia_ids'] );
+
+			// Build an array of SQL clauses, then run the query
+			$query = array();
+			$query_parameters = array();
+
+			$query[] = "SELECT rtm.id, rtm.media_id FROM {$wpdb->prefix}rt_rtm_media AS rtm";
+			$query[] = 'WHERE ( rtm.id IN (' . implode( ',', $ids ) . ') )';
+
+			$query =  join(' ', $query);
+			$results = $wpdb->get_results( $query );
+
+			// Save the values, indexed by WordPress attachment ID, for use in the item filter
+			$post_info = array();
+			if ( is_array( $results ) ) {
+				foreach ( $results as $value ) {
+					$post_info[] = $value->media_id;
+				}
+			}
+
+			$shortcode_attributes['ids'] = implode( ',', $post_info );
+			unset( $shortcode_attributes['rtmedia_ids'] );
+		} // rtmedia_ids
+
+		// Save the attributes, including rtmedia_source, for use in the later filters
+		self::$shortcode_attributes = array_merge( $shortcode_attributes, self::$shortcode_attributes );
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_attributes self::$shortcode_attributes = ' . var_export( self::$shortcode_attributes, true ), 0 );
+
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
 		return $shortcode_attributes;
 	} // mla_gallery_attributes
 
 	/**
-	 * Save some of the WP_Query object properties
+	 * Save rtMedia information for buddypress_urls
 	 *
 	 * @since 1.00
 	 *
 	 * @var array
 	 */
-	private static $wp_query_properties = array();
-	
+	private static $rtmedia_post_info = array();
+
 	/**
-	 * MLA Gallery WP Query Object
-	 *
-	 * If the 'buddypress_urls' parameter is present, generate an array of the
-	 * rtMedia information for the queried items.
+	 * If the 'buddypress_urls' parameter is present, generate the
+	 * rtMedia information for the queried items
 	 *
 	 * @since 1.00
 	 * @uses MLAShortcodes::$mla_gallery_wp_query_object
@@ -157,21 +206,22 @@ class MLABuddyPressHooksExample {
 	 * @param array $query_arguments The arguments passed to WP_Query->query
 	 */
 	public static function mla_gallery_wp_query_object( $query_arguments ) {
-		//error_log( 'MLABuddyPressHooksExample::mla_gallery_wp_query_object $query_arguments = ' . var_export( $query_arguments, true ), 0 );
-		
-		self::$wp_query_properties = array();
-		self::$wp_query_properties ['post_count'] = MLAShortcodes::$mla_gallery_wp_query_object->post_count;
-		
+		self::$rtmedia_post_info = array();
+
 		if ( empty( self::$shortcode_attributes['buddypress_urls'] ) ) {
 			return; // Don't need custom URLs
 		}
-		
-		if ( 0 == self::$wp_query_properties ['post_count'] ) {
+
+		if ( 0 == MLAShortcodes::$mla_gallery_wp_query_object->post_count ) {
 			return; // Empty gallery - nothing to do
 		}
-		
+
+		if ( isset( self::$shortcode_attributes['rtmedia_source'] ) ) {
+			return; // We are translating from rtmedia_source IDs to attachments, later
+		}
+
 		global $wpdb;
-		
+
 		// Assemble the WordPress attachment IDs
 		$post_info = array();
 		foreach( MLAShortcodes::$mla_gallery_wp_query_object->posts as $value ) {
@@ -185,7 +235,7 @@ class MLABuddyPressHooksExample {
 		$query[] = "SELECT rtm.id, rtm.media_id, rtm.media_author, rtm.media_type, rtm.cover_art, u.user_nicename FROM {$wpdb->prefix}rt_rtm_media AS rtm";
 		$query[] = "LEFT JOIN {$wpdb->users} as u";
 		$query[] = "ON (rtm.media_author = u.ID)";
-		
+
 		$placeholders = array();
 		foreach ( $post_info as $value ) {
 			$placeholders[] = '%s';
@@ -197,22 +247,24 @@ class MLABuddyPressHooksExample {
 		$results = $wpdb->get_results( $wpdb->prepare( $query, $query_parameters ) );
 
 		// Save the values, indexed by WordPress attachment ID, for use in the item filter
-		$post_info = array();
+		self::$rtmedia_post_info = array();
 		if ( is_array( $results ) ) {
 			foreach ( $results as $value ) {
-				$post_info[ $value->media_id ] = $value;
+				self::$rtmedia_post_info[ $value->media_id ] = $value;
 			}
 		}
-		
-		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_wp_query_object $post_info = ' . var_export( $post_info, true ), 0 );
-		self::$wp_query_properties ['post_info'] = $post_info;
+
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_wp_query_object self::$rtmedia_post_info = ' . var_export( self::$rtmedia_post_info, true ), 0 );
 	} // mla_gallery_wp_query_object
 
 	/**
-	 * MLA Gallery The Attachments
+	 * Process the rtmedia_source and rtmedia prameters
 	 *
-	 * If the 'rtmedia' parameter is present, removes items from the attachments array
-	 * unless they are in the 'post_info' array of rtMedia items. 
+	 * If 'rtmedia_source' is present, replace the "source" items with their
+	 * corresponding rtmedia item attachments.
+	 *
+	 * If 'rtmedia' is present, remove items from the attachments array
+	 * unless they are in the self::$rtmedia_post_info array of rtMedia items. 
 	 *
 	 * @since 1.06
 	 *
@@ -220,8 +272,65 @@ class MLABuddyPressHooksExample {
 	 * @param array $attachments WP_Post objects returned by WP_Query->query, passed by reference
 	 */
 	public static function mla_gallery_the_attachments( $filtered_attachments, $attachments ) {
-		//error_log( 'MLABuddyPressHooksExample::mla_gallery_the_attachments $attachments = ' . var_export( $attachments, true ), 0 );
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_the_attachments $attachments = ' . var_export( $attachments, true ), 0 );
 
+		// Are we translating from rtmedia_source IDs to attachments?
+		if ( isset( self::$shortcode_attributes['rtmedia_source'] ) ) {
+			global $wpdb;
+
+			$filtered_attachments = array();
+			$data_source = array(
+				'data_source' => 'template',
+				'meta_name' => str_replace( '{+', '[+', str_replace( '+}', '+]', self::$shortcode_attributes['rtmedia_source'] ) ),
+				'option' => 'text',
+				'format' => 'raw',
+			);
+
+			$rtmedia_ids = array();
+			foreach( $attachments as $index => $attachment ) {
+				if ( ! is_integer( $index ) ) {
+					continue;
+				}
+
+				$data_value = MLAShortcodes::mla_get_data_source( $attachment->ID, 'single_attachment_mapping', $data_source, NULL );
+				if ( 0 < $rtmedia_id = absint( $data_value ) ) {
+					$rtmedia_ids[] = $rtmedia_id;
+				}
+			} // foreach attachment
+
+			if ( !empty( $rtmedia_ids ) ) {
+				// Build an array of SQL clauses, then run the query
+				$query = array();
+				$query[] = "SELECT rtm.id, rtm.media_id, rtm.media_author, rtm.media_type, rtm.cover_art, u.user_nicename FROM {$wpdb->prefix}rt_rtm_media AS rtm";
+				$query[] = "LEFT JOIN {$wpdb->users} as u";
+				$query[] = "ON (rtm.media_author = u.ID)";
+				$query[] = 'WHERE ( rtm.id IN (' . implode( ',', $rtmedia_ids ) . ') )';
+
+				$query =  join(' ', $query);
+				$results = $wpdb->get_results( $query );
+
+				// Replace the rtmedia_source objects with the attachments they refer to
+				self::$rtmedia_post_info = array();
+				if ( is_array( $results ) ) {
+					foreach ( $results as $value ) {
+						self::$rtmedia_post_info[ $value->media_id ] = $value;
+						$attachment = get_post( $value->media_id );
+						if ( NULL !== $attachment ) {
+							$filtered_attachments[] = $attachment;
+						}
+					}
+				}
+			} // has rtmedia_ida
+
+		$attachments = $filtered_attachments;
+		$attachments['found_rows'] = count( $filtered_attachments );
+		$attachments['max_num_pages'] = 0;
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_the_attachments $attachments = ' . var_export( $attachments, true ), 0 );
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_the_attachments self::$rtmedia_post_info = ' . var_export( self::$rtmedia_post_info, true ), 0 );
+		return $attachments;
+		} // rtmedia_source
+
+		// Are we removing attachments that do not have an rtMedia ID?
 		if ( ! ( isset( self::$shortcode_attributes['rtmedia'] ) && in_array( self::$shortcode_attributes['rtmedia'], array( 'gallery', 'true' ) ) ) ) {
 			return $filtered_attachments;
 		}
@@ -232,11 +341,11 @@ class MLABuddyPressHooksExample {
 			if ( ! is_numeric( $index ) ) {
 				continue;
 			}
-			
-			if ( isset( self::$wp_query_properties ['post_info'][ $attachment->ID ] ) ) {
+
+			if ( isset( self::$rtmedia_post_info[ $attachment->ID ] ) ) {
 				continue;
 			}
-		
+
 			unset( $attachments[ $index ] );
 			$found_rows--;
 			$changed = true;
@@ -246,15 +355,12 @@ class MLABuddyPressHooksExample {
 			$attachments['found_rows'] = $found_rows;
 		}
 
-		//error_log( 'MLABuddyPressHooksExample::mla_gallery_the_attachments updated $attachments = ' . var_export( $attachments, true ), 0 );
-
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_the_attachments updated $attachments = ' . var_export( $attachments, true ), 0 );
 		return $changed ? $attachments : NULL;
 	} // mla_gallery_the_attachments
 
 	/**
-	 * MLA Gallery Alternate Shortcode Blacklist
-	 *
-	 * Removes the parameters specific to this example plugin and
+	 * Remove the parameters specific to this example plugin and
 	 * parameters rtMedia does not allow.
 	 *
 	 * @since 1.06
@@ -262,15 +368,16 @@ class MLABuddyPressHooksExample {
 	 * @param array $blacklist parameter_name => parameter_value pairs
 	 */
 	public static function mla_gallery_alt_shortcode_blacklist( $blacklist ) {
+		$blacklist['rtmedia_source'] = '';
+		$blacklist['rtmedia_ids'] = '';
 		$blacklist['buddypress_urls'] = '';
 		$blacklist['rtmedia'] = '';
-		
+
 		$blacklist['columns'] = '';
 		$blacklist['size'] = '';
 		$blacklist['link'] = '';
 		$blacklist['option_all_value'] = '';
-//error_log( __LINE__ . ' mla_gallery_alt_shortcode_blacklist blacklist = ' . var_export( $blacklist, true ), 0 );
-		
+
 		return $blacklist;
 	} // mla_gallery_alt_shortcode_blacklist
 
@@ -282,17 +389,13 @@ class MLABuddyPressHooksExample {
 	 * @param array $attr parameter_name => parameter_value pairs
 	 */
 	public static function mla_gallery_alt_shortcode_attributes( $attr ) {
-//error_log( __LINE__ . ' mla_gallery_alt_shortcode_attributes attr = ' . var_export( $attr, true ), 0 );
-		//$attr['per_page'] = '1';
-		
+		//error_log( __LINE__ . ' mla_gallery_alt_shortcode_attributes attr = ' . var_export( $attr, true ), 0 );
 		return $attr;
 	} // mla_gallery_alt_shortcode_attributes
 
 	/**
-	 * MLA Gallery Alternate Shortcode IDs
-	 *
-	 * Extracts item IDs from the attachments array, converts them to rtMedia IDs and
-	 * returns them for use in the alternative gallery shortcode processing. 
+	 * If rtmedia=gallery, extract item IDs from the attachments array, convert them to rtMedia IDs
+	 * and return them for use in the alternative gallery shortcode processing. 
 	 *
 	 * @since 1.06
 	 *
@@ -304,8 +407,8 @@ class MLABuddyPressHooksExample {
 	 * @return string Complete 'ids_name="value,value"' parameter or an empty string to omit parameter
 	 */
 	public static function mla_gallery_alt_shortcode_ids( $ids, $ids_name, $attachments ) {
-//error_log( __LINE__ . " mla_gallery_alt_shortcode_ids( $ids_name ) attachments = " . var_export( $attachments, true ), 0 );
-		
+		//error_log( __LINE__ . " mla_gallery_alt_shortcode_ids( $ids_name ) attachments = " . var_export( $attachments, true ), 0 );
+
 		if ( ! ( isset( self::$shortcode_attributes['rtmedia'] ) && ( 'gallery' === self::$shortcode_attributes['rtmedia'] ) ) ) {
 			return $ids;
 		}
@@ -314,13 +417,13 @@ class MLABuddyPressHooksExample {
 			if ( ! is_numeric( $index ) ) {
 				continue;
 			}
-			
-			if ( isset( self::$wp_query_properties ['post_info'][ $attachment->ID ] ) ) {
-				$ids[] = self::$wp_query_properties ['post_info'][ $attachment->ID ]->id;
+
+			if ( isset( self::$rtmedia_post_info[ $attachment->ID ] ) ) {
+				$ids[] = self::$rtmedia_post_info[ $attachment->ID ]->id;
 			}
 		}
 
-//error_log( __LINE__ . " mla_gallery_alt_shortcode_ids( $ids_name ) ids = " . var_export( $ids, true ), 0 );
+		//error_log( __LINE__ . " mla_gallery_alt_shortcode_ids( $ids_name ) ids = " . var_export( $ids, true ), 0 );
 		return $ids;
 	} // mla_gallery_alt_shortcode_ids
 
@@ -336,40 +439,39 @@ class MLABuddyPressHooksExample {
 	 * @return array     $media_query
 	 */
 	public static function my_modify_media_query( $media_query, $action_query, $query ) {
-//error_log( __LINE__ . ' my_modify_media_query media_query = ' . var_export( $media_query, true ), 0 );
-//error_log( __LINE__ . ' my_modify_media_query action_query = ' . var_export( $action_query, true ), 0 );
-//error_log( __LINE__ . ' my_modify_media_query query = ' . var_export( $query, true ), 0 );
-	
 		global $rtmedia_query, $media_query_clone_ids;
-	
+		//error_log( __LINE__ . ' my_modify_media_query media_query = ' . var_export( $media_query, true ), 0 );
+		//error_log( __LINE__ . ' my_modify_media_query action_query = ' . var_export( $action_query, true ), 0 );
+		//error_log( __LINE__ . ' my_modify_media_query query = ' . var_export( $query, true ), 0 );
+
 		// Store the `media_ids` parameter to be used in the rtmedia-model-where-query filter
 		$media_query_clone_ids = $media_query;
-	
+
 		if ( isset( $media_query['media_ids'] ) && '' != $media_query['media_ids'] ) {
-	
+
 			// Add the filter to modify the where parameter
 			add_filter( 'rtmedia-model-where-query', 'MLABuddyPressHooksExample::my_rtmedia_model_shortcode_where_query_attributes', 10, 3 );
-	
+
 			// unset it, so that it wont affect the other rtmedia_gallery shortcodes on the same page
 			unset( $media_query['media_ids'] );
-	
+
 			// unset from global query so that multiple gallery shortcode can work
 			if ( isset( $rtmedia_query->query ) && isset( $rtmedia_query->query['media_ids'] ) ) {
 				unset( $rtmedia_query->query['media_ids'] );
 			}
-	
+
 			if ( isset( $media_query['context_id'] ) ) {
 				unset( $media_query['context_id'] );
 			}
-	
+
 			if ( isset( $media_query['context'] ) ) {
 				unset( $media_query['context'] );
 			}
 		}
-	
+
 		return $media_query;
-	}
-	
+	} // my_modify_media_query
+
 	/**
 	 * Modify the WHERE parameter
 	 *
@@ -378,22 +480,22 @@ class MLABuddyPressHooksExample {
 	 */
 	public static function my_rtmedia_model_shortcode_where_query_attributes( $where, $table_name, $join ) {
 		global $rtmedia_query, $media_query_clone_ids;
-	
+
 		// Modify the WHERE parameter of the MySQL query
 		if ( isset( $media_query_clone_ids['media_ids'] ) && '' != $media_query_clone_ids['media_ids'] ) {
 			$where .= " AND $table_name.id IN ( " . $media_query_clone_ids['media_ids'] . ' )';
 		}
-	
+
 		return $where;
-	}
-	
+	} // my_rtmedia_model_shortcode_where_query_attributes
+
 	/**
 	 * Remove `rtmedia-model-where-query` filter once our job is done
 	 * so that it wont affect the other shortcodes
 	 */
 	public static function my_remove_rtmedia_model_shortcode_query_attributes() {
 		remove_filter( 'rtmedia-model-where-query', 'my_rtmedia_model_shortcode_where_query_attributes', 10, 3 );
-	}
+	} // my_remove_rtmedia_model_shortcode_query_attributes
 
 
 	/**
@@ -406,16 +508,17 @@ class MLABuddyPressHooksExample {
 	public static function my_rtmedia_allowed_attributes_parameter_in_query( $param = array() ) {
 		$param[] = 'media_ids';
 		return $param;
-	}
+	} // my_rtmedia_allowed_attributes_parameter_in_query
+
 	/**
-	 * MLA Gallery Item Values
+	 * For buddypress_urls, rewrite the URL to reference the rtMedia version of the item
 	 *
 	 * @since 1.00
 	 *
 	 * @param array $item_values parameter_name => parameter_value pairs
 	 */
 	public static function mla_gallery_item_values( $item_values ) {
-		//error_log( 'MLABuddyPressHooksExample::mla_gallery_item_values $item_values = ' . var_export( $item_values, true ), 0 );
+		//error_log( __LINE__ . ' MLABuddyPressHooksExample::mla_gallery_item_values $item_values = ' . var_export( $item_values, true ), 0 );
 
 		/*
 		 * We use a shortcode parameter of our own to apply our filters on a gallery-by-gallery basis,
@@ -425,14 +528,14 @@ class MLABuddyPressHooksExample {
 		if ( ! isset( self::$shortcode_attributes['buddypress_urls'] ) ) {
 			return $item_values; // leave them unchanged
 		}
-		
+
 		// post_info holds the rtMedia information about the item
-		if ( isset( self::$wp_query_properties ['post_info'][ $item_values['attachment_ID'] ] ) ) {
-			$post_info = self::$wp_query_properties ['post_info'][ $item_values['attachment_ID'] ];
+		if ( isset( self::$rtmedia_post_info[ $item_values['attachment_ID'] ] ) ) {
+			$post_info = self::$rtmedia_post_info[ $item_values['attachment_ID'] ];
 		} else {
 			return $item_values; // no matching rtMedia item
 		}
-		
+
 		// Rewrite the URL to reference the rtMedia version of the item
 		$new_url = $item_values['site_url'] . '/members/' . $post_info->user_nicename . '/media/' . $post_info->id . '/';
 		$new_link = str_replace( $item_values['link_url'], $new_url, $item_values['link'] );
@@ -454,22 +557,22 @@ class MLABuddyPressHooksExample {
 			if ( ! empty( $post_info->cover_art ) ) {
 				if ( is_numeric( $post_info->cover_art ) ){
 					$thumbnail_info = wp_get_attachment_image_src( $post_info->cover_art, 'thumbnail' );
-	
+
 					if ( false === $thumbnail_info ) {
 						$thumbnail_info = wp_get_attachment_image_src( $post_info->cover_art, 'full' );
 					}
-					
+
 					if ( is_array( $thumbnail_info ) ) {
 						$post_info->cover_art = $thumbnail_info[ 0 ];
 					} else {
 						$post_info->cover_art = '';
 					}
 				}
-	
+
 				if ( ! empty( $post_info->cover_art ) ) {
 					$new_thumbnail = '<img width="150" height="150" src="' . $post_info->cover_art . '" class="attachment-thumbnail" alt="' . $item_values['thumbnail_content'] . '" />';
 					$new_link = str_replace( $item_values['thumbnail_content'] . '</a>', $new_thumbnail . '</a>', $new_link );
-					
+
 					$item_values['thumbnail_content'] = $new_thumbnail;
 					$item_values['thumbnail_width'] = '150';
 					$item_values['thumbnail_height'] = '150';
@@ -477,10 +580,10 @@ class MLABuddyPressHooksExample {
 				}
 			} // has cover art
 		} // use cover art
-		
+
 		$item_values['link_url'] = $new_url;
 		$item_values['link'] = $new_link;
-		
+
 		return $item_values;
 	} // mla_gallery_item_values
 } // Class MLABuddyPressHooksExample

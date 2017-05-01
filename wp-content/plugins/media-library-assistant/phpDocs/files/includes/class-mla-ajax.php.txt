@@ -14,6 +14,17 @@
  */
 class MLA_Ajax {
 	/**
+	 * True if limiting MLA to AJAX support, false if loading all of MLA
+	 *
+	 * Recorded here for debug logging purposes; set in mla-plugin-loader.php.
+	 *
+	 * @since 2.50
+	 *
+	 * @var	boolean
+	 */
+	public static $ajax_only = NULL;
+
+	/**
 	 * Initialization function, similar to __construct()
 	 *
 	 * @since 2.20
@@ -31,10 +42,12 @@ class MLA_Ajax {
 	 * @since 2.20
 	 */
 	public static function mla_admin_init_action( ) {
-		//error_log( __LINE__ . ' DEBUG: MLA_Ajax::mla_admin_init_action $_REQUEST = ' . var_export( $_REQUEST, true ), 0 );
+		$ajax_only = var_export( self::$ajax_only, true );
+		
+		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) $_REQUEST = " . var_export( $_REQUEST, true ), 0 );
 		if ( $_REQUEST['action'] !== 'heartbeat' ) {
-			//error_log( __LINE__ . ' DEBUG: MLA_Ajax::mla_admin_init_action $_REQUEST = ' . var_export( $_REQUEST, true ), 0 );
-			MLACore::mla_debug_add( "MLA_Ajax::mla_admin_init_action \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
+			//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) $_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+			MLACore::mla_debug_add( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 		}
 
 		/*

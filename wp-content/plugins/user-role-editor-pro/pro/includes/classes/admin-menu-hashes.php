@@ -11,7 +11,7 @@
 /**
  * Convert blocked menu items hashes from version 4.15 to version 4.22+ using changed format
  *
- * @author vladimir
+ * @author Vladimir Garagulya
  */
 class URE_Admin_Menu_Hashes {
     
@@ -191,7 +191,7 @@ class URE_Admin_Menu_Hashes {
         }
                                                
     }
-    // end of convert_data()        
+    // end of require_data_conversion()        
     
 }
 // end of URE_Admin_Menu_Hashes class

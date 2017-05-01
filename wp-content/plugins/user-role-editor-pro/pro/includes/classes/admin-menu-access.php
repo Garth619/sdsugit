@@ -454,7 +454,19 @@ class URE_Admin_Menu_Access {
         return $php_command;
     }
     // end of get_php_command()
-    
+
+
+    // if URL argument encoded as an array element, e.g. param1[0], remove brackets part, leave just name, like 'param1'
+    private function remove_brackets($arg) {
+        $bracket_pos = strpos($arg, '%5b');
+        if ($bracket_pos===false) {
+            return $arg;
+        }
+        $arg = substr($arg, 0, $bracket_pos);
+        
+        return $arg;
+    }
+    // end of remove_brackets()
     
     private function extract_command_args($command) {
         $args = array();
@@ -466,7 +478,12 @@ class URE_Admin_Menu_Access {
         $args0 = explode('&amp;', $args_str);
         foreach($args0 as $arg0) {
             $arg1 = explode('=', $arg0);
-            $args[$arg1[0]] = isset($arg1[1]) ? $arg1[1] : null;
+            $arg_key = $this->remove_brackets($arg1[0]); 
+            if (isset($arg1[1])) {                
+                $args[$arg_key] = $arg1[1];
+            } else {
+                $args[$arg_key] = null;
+            }            
         }
         
         return $args;
@@ -1211,17 +1228,31 @@ class URE_Admin_Menu_Access {
             return $strings;
         }
         
-        foreach($blocked['data'] as $menu_hash) {
-            if ($menu_hash=='a6d96d2991e9d58c1d04ef3c2626da56') {  // Media -> Add New
-                // Undocumented trick to remove "Upload Files" tab at the Post Editor "Add Media" popup window 
-                // Be aware - it may stop working with next version of WordPress
+        if ($blocked['access_model']==1) {  // block selected
+            foreach($blocked['data'] as $menu_hash) {
+                if ($menu_hash=='a6d96d2991e9d58c1d04ef3c2626da56') {  // Media -> Add New
+                    // Undocumented trick to remove "Upload Files" tab at the Post Editor "Add Media" popup window 
+                    // Be aware - it may stop working with next version of WordPress
+                    unset($strings['uploadFilesTitle']);    
+                    break;
+                }
+            }
+        } else {    // block not selected
+            $selected = false;
+            foreach($blocked['data'] as $menu_hash) {
+                if ($menu_hash=='a6d96d2991e9d58c1d04ef3c2626da56') {  // Media -> Add New
+                    $selected = true;
+                    break;
+                }
+            }
+            if (!$selected) {
                 unset($strings['uploadFilesTitle']);    
-                break;
             }
         }
                         
         return $strings;
     }
     // end of block_media_upload()
+    
 }
 // end of URE_Admin_Menu_Access class

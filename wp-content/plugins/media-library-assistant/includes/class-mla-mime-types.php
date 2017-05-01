@@ -30,6 +30,9 @@ class MLAMime {
 		add_filter( 'ext2type', 'MLAMime::mla_ext2type_filter', 0x7FFFFFFF, 1 );
 //		add_filter( 'wp_check_filetype_and_ext', 'MLAMime::mla_wp_check_filetype_and_ext_filter', 0x7FFFFFFF, 4 );
 
+		// Handle WP 4.6.2, 4.7.x SVG bug
+		add_filter( 'getimagesize_mimes_to_exts', 'MLAMime::mla_getimagesize_mimes_to_exts_filter', 0x7FFFFFFF, 1 );
+
 		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_ENABLE_UPLOAD_MIMES ) ) {
 			if ( function_exists('wp_get_mime_types') ) {
 				add_filter( 'mime_types', 'MLAMime::mla_mime_types_filter', 0x7FFFFFFF, 1 );
@@ -57,6 +60,33 @@ class MLAMime {
 	 */
 	private static $disable_mla_filtering = false;
 
+	/**
+	 * Filters the list mapping image mime types to their respective extensions.
+	 *
+	 * Mitigates a bug in WP 4.6.x and 4.7.x that prevents uploading SVG files.
+	 *
+	 * @since 2.50
+	 *
+	 * @param  array $mime_to_ext Array of image mime types and their matching extensions.
+	 */
+	public static function mla_getimagesize_mimes_to_exts_filter( $mime_to_ext ) {
+		$wp_version = get_bloginfo('version');
+		if ( version_compare( $wp_version, '4.6.2', '<' ) || version_compare( $wp_version, '4.7.2', '>' ) ) {
+			return $mime_to_ext;
+		}
+		
+		if ( ! ( isset( $_REQUEST['name'] ) && isset( $_REQUEST['mlaAddNewBulkEditFormString'] ) ) ) {
+			return $mime_to_ext;
+		}
+		
+		$file_name = strtolower( $_REQUEST['name'] );
+		if ( false === strpos( $file_name, '.svg' ) ) {
+			return $mime_to_ext;
+		}
+		
+		return array_merge( $mime_to_ext, array( 'application/octet-stream' => 'svg' ) );
+	}
+	
 	/**
 	 * Sanitize a MIME type
 	 *
@@ -1461,13 +1491,13 @@ class MLAMime {
 		foreach ( self::$mla_upload_mime_templates as $slug => $value ) {
 			if ( ! empty( $keyword ) ) {
 				if ( false === $extension ) {
-				$found  = false !== stripos( $slug, $keyword );
-				$found |= false !== stripos( $value['mime_type'], $keyword );
-				$found |= false !== stripos( $value['icon_type'], $keyword );
-				$found |= false !== stripos( $value['core_type'], $keyword );
-				$found |= false !== stripos( $value['mla_type'], $keyword );
-				$found |= false !== stripos( $value['core_icon_type'], $keyword );
-				$found |= false !== stripos( $value['description'], $keyword );
+					$found  = false !== stripos( $slug, $keyword );
+					$found |= false !== stripos( $value['mime_type'], $keyword );
+					$found |= false !== stripos( $value['icon_type'], $keyword );
+					$found |= false !== stripos( $value['core_type'], $keyword );
+					$found |= false !== stripos( $value['mla_type'], $keyword );
+					$found |= false !== stripos( $value['core_icon_type'], $keyword );
+					$found |= false !== stripos( $value['description'], $keyword );
 				} else {
 					$found  = false !== stripos( $slug, $extension );
 				}
@@ -1931,9 +1961,7 @@ class MLAMime {
 			return true;
 		}
 
-		/*
-		 * Find the WordPress-standard (unfiltered) extensions
-		 */
+		// Find the WordPress-standard (unfiltered) extensions
 		global $wp_filter;
 		if ( isset( $wp_filter['mime_types'] ) ) {
 			$save_filters = $wp_filter['mime_types'];
@@ -1966,9 +1994,7 @@ class MLAMime {
 			self::$disable_mla_filtering = false;
 		}
 
-		/*
-		 * Explode any entries with multiple extensions
-		 */
+		// Explode any entries with multiple extensions
 		foreach ( $core_types as $key => $value )
 			if ( false !== strpos( $key, '|' ) ) {
 				unset( $core_types[ $key ] );
@@ -2035,9 +2061,7 @@ class MLAMime {
 			}
 		}
 
-		/*
-		 * Add the WordPress-standard (unfiltered) extensions, initialized to an active state
-		 */
+		// Add the WordPress-standard (unfiltered) extensions, initialized to an active state
 		foreach ( $core_types as $key => $value ) {
 			$key = strtolower( $key );
 			if ( isset( self::$mla_upload_mime_templates[ $key ] ) ) {
@@ -2080,16 +2104,13 @@ class MLAMime {
 			}
 		}
 
-		/*
-		 * Add the user-defined custom types
-		 */
+		// Add the user-defined custom types
 		foreach ( $custom_types as $key => $value ) {
 			$key = strtolower( $key );
 			if ( isset( self::$mla_upload_mime_templates[ $key ] ) ) {
 				extract( self::$mla_upload_mime_templates[ $key ] );
-				/*
-				 * Make sure it's really custom
-				 */
+
+				// Make sure it's really custom
 				if ( ( 'core' == $source && $value == $core_type ) || ( 'mla' == $source && $value == $mla_type ) ) {
 					continue;
 					 }
@@ -2102,6 +2123,9 @@ class MLAMime {
 			if ( NULL == $icon_type = wp_ext2type( $key ) ) {
 				$icon_type = 'default';
 			}
+			
+			// Don't cache the results of mla_ext2type_filter() until current settings are applied below
+			self::$mla_icon_type_associations = NULL;
 
 			self::$mla_upload_mime_templates[ $key ] = array(
 				'post_ID' => ++self::$mla_upload_mime_highest_ID,
@@ -2124,9 +2148,7 @@ class MLAMime {
 			return true;
 		}
 
-		/*
-		 * Apply the current settings, if any
-		 */
+		// Apply the current settings, if any
 		foreach ( self::$mla_upload_mime_templates as $key => $value ) {
 			$default_description = isset( self::$mla_upload_mime_descriptions[ $key ] ) ? self::$mla_upload_mime_descriptions[ $key ] : '';
 			self::$mla_upload_mime_templates[ $key ]['disabled'] = isset( $mla_upload_mimes['disabled'][ $key ] );

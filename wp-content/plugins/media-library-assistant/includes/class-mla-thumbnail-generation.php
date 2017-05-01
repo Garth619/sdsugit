@@ -256,6 +256,9 @@ class MLA_Thumbnail {
 
 		// move the temporary file into the uploads directory
 		$results = wp_handle_sideload( $args, $overrides, $subdir );
+		if ( ! empty( $results['error'] ) ) {
+			return $results['error'];
+		}
 
 		$editor = wp_get_image_editor( $results['file'] );
 		if ( is_wp_error( $editor ) ) {

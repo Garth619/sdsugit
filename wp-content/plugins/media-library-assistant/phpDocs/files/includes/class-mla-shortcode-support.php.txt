@@ -516,6 +516,12 @@ class MLAShortcode_Support {
 			}
 		}
 
+		if ( self::$mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug REQUEST', 'media-library-assistant' ) . '</strong> = ' . var_export( $_REQUEST, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug attributes', 'media-library-assistant' ) . '</strong> = ' . var_export( $attr, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug arguments', 'media-library-assistant' ) . '</strong> = ' . var_export( $arguments, true ) );
+		}
+
 		/*
 		 * Determine output type
 		 */
@@ -566,6 +572,23 @@ class MLAShortcode_Support {
 			$output .= $arguments['mla_nolink_text'];
 			return $output;
 		} // empty $attachments
+
+		/*
+		 * Look for Photonic-enhanced gallery; use the [gallery] shortcode if found
+		 */
+		global $photonic;
+
+		if ( is_object( $photonic ) && ! empty( $arguments['style'] ) && empty( $arguments['mla_alt_shortcode'] ) ) {
+			if ( 'default' != strtolower( $arguments['type'] ) )  {
+				return '<p>' . __( '<strong>Photonic-enhanced [mla_gallery]</strong> type must be <strong>default</strong>, query = ', 'media-library-assistant' ) . var_export( $attr, true ) . '</p>';
+			}
+
+			if ( isset( $arguments['pause'] ) && ( 'false' == $arguments['pause'] ) ) {
+				$arguments['pause'] = NULL;
+			}
+
+			$arguments['mla_alt_shortcode'] = 'gallery';
+		}
 
 		/*
 		 * Look for user-specified alternate gallery shortcode
@@ -636,29 +659,6 @@ class MLAShortcode_Support {
 				return $output;
 			} // is_null( $mla_alt_ids_value )
 		} // mla_alt_shortcode
-
-		/*
-		 * Look for Photonic-enhanced gallery
-		 */
-		global $photonic;
-
-		if ( is_object( $photonic ) && ! empty( $arguments['style'] ) ) {
-			if ( 'default' != strtolower( $arguments['type'] ) )  {
-				return '<p>' . __( '<strong>Photonic-enhanced [mla_gallery]</strong> type must be <strong>default</strong>, query = ', 'media-library-assistant' ) . var_export( $attr, true ) . '</p>';
-			}
-
-			$images = array();
-			foreach ($attachments as $key => $val) {
-				$images[$val->ID] = $attachments[$key];
-			}
-
-			if ( isset( $arguments['pause'] ) && ( 'false' == $arguments['pause'] ) ) {
-				$arguments['pause'] = NULL;
-			}
-
-			$output = $photonic->build_gallery( $images, $arguments['style'], $arguments );
-			return $output;
-		}
 
 		$size = $size_class = $arguments['size'];
 		if ( 'icon' == strtolower( $size) ) {
@@ -994,7 +994,7 @@ class MLAShortcode_Support {
 			$item_values['parent_date'] = '';
 			$item_values['parent_permalink'] = '';
 			$item_values['title'] = wptexturize( $attachment->post_title );
-			$item_values['slug'] = wptexturize( $attachment->post_name );
+			$item_values['slug'] = $attachment->post_name; //wptexturize( $attachment->post_name );
 			$item_values['width'] = '';
 			$item_values['height'] = '';
 			$item_values['orientation'] = '';
@@ -1004,7 +1004,7 @@ class MLAShortcode_Support {
 			$item_values['path'] = '';
 			$item_values['file'] = '';
 			$item_values['description'] = wptexturize( $attachment->post_content );
-			$item_values['file_url'] = wptexturize( $attachment->guid );
+			$item_values['file_url'] = $attachment->guid; //wptexturize( $attachment->guid );
 			$item_values['author_id'] = $attachment->post_author;
 			$item_values['author'] = '';
 			$item_values['caption'] = '';
@@ -1040,7 +1040,8 @@ class MLAShortcode_Support {
 			}
 
 			if ( !empty( $post_meta['mla_wp_attachment_metadata']['image_meta'] ) ) {
-				$item_values['image_meta'] = wptexturize( var_export( $post_meta['mla_wp_attachment_metadata']['image_meta'], true ) );
+				// $item_values['image_meta'] = wptexturize( var_export( $post_meta['mla_wp_attachment_metadata']['image_meta'], true ) );
+				$item_values['image_meta'] = var_export( $post_meta['mla_wp_attachment_metadata']['image_meta'], true );
 			}
 
 			if ( !empty( $post_meta['mla_wp_attachment_image_alt'] ) ) {
@@ -1055,13 +1056,13 @@ class MLAShortcode_Support {
 				$last_slash = strrpos( $base_file, '/' );
 				if ( false === $last_slash ) {
 					$file_name = $base_file;
-					$item_values['base_file'] = wptexturize( $base_file );
-					$item_values['file'] = wptexturize( $base_file );
+					$item_values['base_file'] = $base_file; //wptexturize( $base_file );
+					$item_values['file'] = $base_file; //wptexturize( $base_file );
 				} else {
 					$file_name = substr( $base_file, $last_slash + 1 );
-					$item_values['base_file'] = wptexturize( $base_file );
-					$item_values['path'] = wptexturize( substr( $base_file, 0, $last_slash + 1 ) );
-					$item_values['file'] = wptexturize( $file_name );
+					$item_values['base_file'] = $base_file; //wptexturize( $base_file );
+					$item_values['path'] = substr( $base_file, 0, $last_slash + 1 ); //wptexturize( substr( $base_file, 0, $last_slash + 1 ) );
+					$item_values['file'] = $file_name; //wptexturize( $file_name );
 				}
 			} else {
 				$file_name = '';
@@ -1886,8 +1887,9 @@ class MLAShortcode_Support {
 		}
 
 		if ( self::$mla_debug ) {
-			MLACore::mla_debug_add( '<strong>' . __( 'mla_debug attributes', 'media-library-assistant' ) . '</strong> = ' . var_export( $attr, true ) );
-			MLACore::mla_debug_add( '<strong>' . __( 'mla_debug arguments', 'media-library-assistant' ) . '</strong> = ' . var_export( $arguments, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug REQUEST', 'media-library-assistant' ) . '</strong> = ' . var_export( $_REQUEST, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug attributes', 'media-library-assistant' ) . '</strong> = ' . var_export( $attr, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug arguments', 'media-library-assistant' ) . '</strong> = ' . var_export( $arguments, true ) );
 		}
 
 		/*
@@ -2390,10 +2392,10 @@ class MLAShortcode_Support {
 			$item_values['key'] = $key;
 			$item_values['term_id'] = $tag->term_id;
 			$item_values['name'] = wptexturize( $tag->name );
-			$item_values['slug'] = wptexturize( $tag->slug );
+			$item_values['slug'] = $tag->slug; //wptexturize( $tag->slug );
 			$item_values['term_group'] = $tag->term_group;
 			$item_values['term_taxonomy_id'] = $tag->term_taxonomy_id;
-			$item_values['taxonomy'] = wptexturize( $tag->taxonomy );
+			$item_values['taxonomy'] = $tag->taxonomy; //wptexturize( $tag->taxonomy );
 			$item_values['description'] = wptexturize( $tag->description );
 			$item_values['parent'] = $tag->parent;
 			$item_values['count'] = isset ( $tag->count ) ? $tag->count : 0; 
@@ -2663,8 +2665,12 @@ class MLAShortcode_Support {
 		$is_list = in_array( $output_parameters[0], array( 'list', 'ulist', 'olist', 'dlist' ) );
 		$is_dropdown = 'dropdown' == $output_parameters[0];
 		$is_checklist = 'checklist' == $output_parameters[0];
-		$is_hierarchical = !empty( $arguments['hierarchical'] ) && ( 'true' == strtolower( $arguments['hierarchical'] ) );
+		$is_hierarchical = !( 'false' === $arguments['hierarchical'] );
+		$combine_hierarchical = 'combine' === $arguments['hierarchical'];
 
+		// Using the slug is a common practice and affects current_item
+		$current_is_slug = in_array( $arguments['mla_option_value'], array( '{+slug+}', '[+slug+]' ) );
+		
 		if ( $is_list || $is_dropdown || $is_checklist ) {
 			if ( $term->parent ) {
 				$open_template = MLATemplate_support::mla_fetch_custom_template( $markup_values['mla_markup'], 'term-list', 'markup', 'child-open' );
@@ -2760,10 +2766,10 @@ class MLAShortcode_Support {
 			$item_values['key'] = $key;
 			$item_values['term_id'] = $term->term_id;
 			$item_values['name'] = wptexturize( $term->name );
-			$item_values['slug'] = wptexturize( $term->slug );
+			$item_values['slug'] = $term->slug; //wptexturize( $term->slug );
 			$item_values['term_group'] = $term->term_group;
 			$item_values['term_taxonomy_id'] = $term->term_taxonomy_id;
-			$item_values['taxonomy'] = wptexturize( $term->taxonomy );
+			$item_values['taxonomy'] = $term->taxonomy; //wptexturize( $term->taxonomy );
 			$item_values['description'] = wptexturize( $term->description );
 			$item_values['parent'] = $term->parent;
 			$item_values['count'] = isset ( $term->count ) ? 0 + $term->count : 0; 
@@ -2789,13 +2795,23 @@ class MLAShortcode_Support {
 
 			if ( ! empty( $arguments[ $mla_item_parameter ] ) ) {
 				foreach ( $arguments[ $mla_item_parameter ] as $current_item ) {
-					if ( is_integer( $current_item ) ) {
-						if ( $current_item == $term->term_id ) {
+					// Check for multi-taxonomy taxonomy.term compound values
+					$value = explode( '.', $current_item );
+					if ( 2 === count( $value ) ) {
+						if ( $value[0] !== $term->taxonomy ) {
+							continue;
+						}
+						
+						$current_item = $value[1];
+					}
+					
+					if ( $current_is_slug || !ctype_digit( $current_item ) ) {
+						if ( $current_item == $term->slug ) {
 							$item_values['current_item_class'] = $arguments['current_item_class'];
 							break;
 						}
 					} else {
-						if ( $current_item == $term->slug ) {
+						if ( $current_item == $term->term_id ) {
 							$item_values['current_item_class'] = $arguments['current_item_class'];
 							break;
 						}
@@ -2866,10 +2882,16 @@ class MLAShortcode_Support {
 				}
 			}
 
+			if ( empty( $arguments['mla_item_value'] ) ) {
+				$item_values['thevalue'] = $item_values['term_id'];
+			} else {
+				$item_values['thevalue'] = self::_process_shortcode_parameter( $arguments['mla_item_value'], $item_values );
+			}
+
 			/*
 			 * Currentlink, editlink, termlink and thelink  TODO - link style
 			 */
-			$item_values['currentlink'] = sprintf( '<a %1$shref="%2$s%3$s%4$s=%5$d" title="%6$s" style="%7$s">%8$s</a>', $link_attributes, $item_values['page_url'], $current_item_delimiter, $mla_item_parameter, $item_values['term_id'], $item_values['rollover_text'], '', $item_values['link_text'] );
+			$item_values['currentlink'] = sprintf( '<a %1$shref="%2$s%3$s%4$s=%5$s" title="%6$s" style="%7$s">%8$s</a>', $link_attributes, $item_values['page_url'], $current_item_delimiter, $mla_item_parameter, $item_values['thevalue'], $item_values['rollover_text'], '', $item_values['link_text'] );
 			$item_values['editlink'] = sprintf( '<a %1$shref="%2$s" title="%3$s" style="%4$s">%5$s</a>', $link_attributes, $item_values['editlink_url'], $item_values['rollover_text'], '', $item_values['link_text'] );
 			$item_values['termlink'] = sprintf( '<a %1$shref="%2$s" title="%3$s" style="%4$s">%5$s</a>', $link_attributes, $item_values['termlink_url'], $item_values['rollover_text'], '', $item_values['link_text'] );
 
@@ -2904,6 +2926,13 @@ class MLAShortcode_Support {
 
 				if ( empty( $arguments['mla_option_value'] ) ) {
 					$item_values['thevalue'] = $item_values['term_id'];
+
+					// Combined hierarchical multi-taxonomy controls generate compound taxonomy.term values 
+					if ( ( $is_dropdown || $is_checklist ) && 1 < count( $arguments['taxonomy'] ) ) {
+						if ( !( $is_hierarchical && !$combine_hierarchical ) ) {
+							$item_values['thevalue'] = $item_values['taxonomy'] . '.' . $item_values['term_id'];
+						}
+					}
 				} else {
 					$item_values['thevalue'] = self::_process_shortcode_parameter( $arguments['mla_option_value'], $item_values );
 				}
@@ -2979,7 +3008,9 @@ class MLAShortcode_Support {
 			'mla_link_text' => '',
 			'mla_rollover_text' => '',
 			'mla_caption' => '',
+			'mla_item_value' => '',
 
+			'mla_control_name' => '',
 			'mla_option_text' => '',
 			'mla_option_value' => '',
 		);
@@ -3200,9 +3231,7 @@ class MLAShortcode_Support {
 			}
 		}
 
-		/*
-		 * Clean up the current_item(s) to separate term_id from slug
-		 */
+		// Clean up the current_item(s) to separate term_id from slug
 		if ( ! empty( $arguments[ $mla_item_parameter ] ) ) {
 			if ( is_string( $arguments[ $mla_item_parameter ] ) ) {
 				$arguments[ $mla_item_parameter ] = explode( ',', $arguments[ $mla_item_parameter ] );
@@ -3217,6 +3246,12 @@ class MLAShortcode_Support {
 
 		$arguments = apply_filters( 'mla_term_list_arguments', $arguments );
 
+		// Clean up hierarchical parameter to simplify later processing
+		$arguments['hierarchical'] = strtolower( trim( $arguments['hierarchical'] ) ) ;
+		if ( !in_array( $arguments['hierarchical'], array( 'true', 'combine' ) ) ) {
+			$arguments['hierarchical'] = 'false';
+		}
+		
 		self::$mla_debug = ( ! empty( $arguments['mla_debug'] ) ) ? trim( strtolower( $arguments['mla_debug'] ) ) : false;
 		if ( self::$mla_debug ) {
 			if ( 'true' == self::$mla_debug ) {
@@ -3229,8 +3264,9 @@ class MLAShortcode_Support {
 		}
 
 		if ( self::$mla_debug ) {
-			MLACore::mla_debug_add( '<strong>' . __( 'mla_debug attributes', 'media-library-assistant' ) . '</strong> = ' . var_export( $attr, true ) );
-			MLACore::mla_debug_add( '<strong>' . __( 'mla_debug arguments', 'media-library-assistant' ) . '</strong> = ' . var_export( $arguments, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug REQUEST', 'media-library-assistant' ) . '</strong> = ' . var_export( $_REQUEST, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug attributes', 'media-library-assistant' ) . '</strong> = ' . var_export( $attr, true ) );
+			MLACore::mla_debug_add( __LINE__ . ' <strong>' . __( 'mla_debug arguments', 'media-library-assistant' ) . '</strong> = ' . var_export( $arguments, true ) );
 		}
 
 		/*
@@ -3326,7 +3362,8 @@ class MLAShortcode_Support {
 
 		$mla_multi_select = !empty( $arguments['mla_multi_select'] ) && ( 'true' == strtolower( $arguments['mla_multi_select'] ) );
 
-		$is_hierarchical = !empty( $arguments['hierarchical'] ) && ( 'true' == strtolower( $arguments['hierarchical'] ) );
+		$is_hierarchical = !( 'false' === $arguments['hierarchical'] );
+		$combine_hierarchical = 'combine' === $arguments['hierarchical'];
 
 		/*
 		 * Convert lists to arrays
@@ -3413,13 +3450,22 @@ class MLAShortcode_Support {
 					$arguments['option_none_text'] = __( 'no-terms', 'media-library-assistant' );
 				}
 
+				// Using the slug is a common practice and affects option_all_value
+				if ( in_array( $arguments['mla_option_value'], array( '{+slug+}', '[+slug+]' ) ) ) {
+					$option_none_id = -1;
+					$option_none_slug = sanitize_title( $arguments['option_none_value'] );
+				} else {
+					$option_none_id = intval( $arguments['option_none_value'] );
+					$option_none_slug = sanitize_title( $arguments['option_none_text'] );
+				}
+
 				$tags[0] = ( object ) array(
-					'term_id' => $arguments['option_none_value'],
+					'term_id' => $option_none_id,
 					'name' => $arguments['option_none_text'],
-					'slug' => sanitize_title( $arguments['option_none_text'] ),
+					'slug' => $option_none_slug,
 					'term_group' => '0',
-					'term_taxonomy_id' => $arguments['option_none_value'],
-					'taxonomy' => current( $arguments['taxonomy'] ),
+					'term_taxonomy_id' => $option_none_id,
+					'taxonomy' => reset( $arguments['taxonomy'] ),
 					'description' => '',
 					'parent' => '0',
 					'count' => 0,
@@ -3449,6 +3495,22 @@ class MLAShortcode_Support {
 			$list = '';
 		}
 
+		$add_all_option = ( $is_checklist || $is_dropdown ) && !empty( $arguments['option_all_text'] ) && !$show_empty;
+
+		// Using the slug is a common practice and affects option_all_value
+		if ( $add_all_option ) {
+			if ( in_array( $arguments['mla_option_value'], array( '{+slug+}', '[+slug+]' ) ) ) {
+				$option_all_id = 0;
+				$option_all_slug = sanitize_title( $arguments['option_all_value'] );
+			} else {
+				$option_all_id = intval( $arguments['option_all_value'] );
+				$option_all_slug = sanitize_title( $arguments['option_all_text'] );
+			}
+		} else {
+			$option_all_id = 0;
+			$option_all_slug = 'all';
+		}
+		
 		if ( $is_hierarchical ) {
 			$tags = self::_get_term_tree( $tags, $arguments );
 
@@ -3507,28 +3569,8 @@ class MLAShortcode_Support {
 				} // foreach tag
 			}
 		}
-
-		/*
-		 * Add the optional 'all-terms' option, if requested
-		 */
-		if ( ( $is_checklist || $is_dropdown ) && !empty( $arguments['option_all_text'] ) && !$show_empty ) {
-			$option_all = ( object ) array(
-				'term_id' => $arguments['option_all_value'],
-				'name' => $arguments['option_all_text'],
-				'slug' => sanitize_title( $arguments['option_all_text'] ),
-				'term_group' => '0',
-				'term_taxonomy_id' => $arguments['option_all_value'],
-				'taxonomy' => current( $arguments['taxonomy'] ),
-				'description' => '',
-				'parent' => '0',
-				'count' => -1,
-				'level' => 0,
-				'edit_link' => '',
-				'term_link' => '',
-				'link' => '',
-			);
-
-			array_unshift( $tags[ $option_all->taxonomy ], $option_all );
+			
+		if ( $add_all_option ) {
 			$found_rows += 1;
 		}
 
@@ -3578,17 +3620,56 @@ class MLAShortcode_Support {
 
 		$list .= $gallery_style;
 		$markup_values = $style_values;
+		
+		if ( empty( $arguments['mla_control_name'] ) ) {
+			$mla_control_name = 'tax_input[[+taxonomy+]][]';
+		} else {
+			$mla_control_name = $arguments['mla_control_name'];;
+		}
 
-		/*
-		 * Accumulate links for flat and array output
-		 */
+		// Accumulate links for flat and array output
 		$tag_links = array();
 
 		if ( $is_hierarchical ) {
+			
+			if ( $combine_hierarchical ) {
+				$combined_tags = array();
+				foreach( $tags as $taxonomy => $root_terms ) {
+					$combined_tags = array_merge( $combined_tags, $root_terms );
+				}
+				$tags = array( $markup_values['taxonomy'] => $combined_tags );
+			} // $combine_hierarchical
+
 			foreach( $tags as $taxonomy => $root_terms ) {
+				$markup_values['taxonomy'] = $taxonomy;
+				$markup_values['thename'] = self::_process_shortcode_parameter( $mla_control_name, $markup_values );
+
+				// Add the optional 'all-terms' option, if requested
+				if ( $add_all_option ) {
+					$option_all = ( object ) array(
+						'term_id' => $option_all_id,
+						'name' => $arguments['option_all_text'],
+						'slug' => $option_all_slug,
+						'term_group' => '0',
+						'term_taxonomy_id' => $option_all_id,
+						'taxonomy' => $taxonomy,
+						'description' => '',
+						'parent' => '0',
+						'count' => -1,
+						'level' => 0,
+						'edit_link' => '',
+						'term_link' => '',
+						'link' => '',
+					);
+		
+					array_unshift( $root_terms, $option_all );
+					$add_to_found_rows = 1;
+				} else {
+					$add_to_found_rows = 0;
+				}
 
 				if ( isset( $root_terms['found_rows'] ) ) {
-					$markup_values['found_rows'] = $root_terms['found_rows'];
+					$markup_values['found_rows'] = $add_to_found_rows + $root_terms['found_rows'];
 					unset( $root_terms['found_rows'] );
 				} else {
 					$markup_values['found_rows'] = count( $root_terms );
@@ -3597,6 +3678,29 @@ class MLAShortcode_Support {
 				self::_compose_term_list( $list, $tag_links, $root_terms, $markup_values, $arguments, $attr );
 			}
 		} else {
+			$markup_values['thename'] = self::_process_shortcode_parameter( $mla_control_name, $markup_values );
+			
+			// Add the optional 'all-terms' option, if requested
+			if ( $add_all_option ) {
+				$option_all = ( object ) array(
+					'term_id' => $option_all_id,
+					'name' => $arguments['option_all_text'],
+					'slug' => $option_all_slug,
+					'term_group' => '0',
+					'term_taxonomy_id' => $option_all_id,
+					'taxonomy' => $markup_values['taxonomy'],
+					'description' => '',
+					'parent' => '0',
+					'count' => -1,
+					'level' => 0,
+					'edit_link' => '',
+					'term_link' => '',
+					'link' => '',
+				);
+	
+				array_unshift( $tags, $option_all );
+			}
+
 			self::_compose_term_list( $list, $tag_links, $tags, $markup_values, $arguments, $attr );
 		}
 
@@ -4455,7 +4559,24 @@ class MLAShortcode_Support {
 							return '<p>' . __( 'ERROR', 'media-library-assistant' ) . ': ' . __( 'Invalid mla_gallery', 'media-library-assistant' ) . ' tax_query = ' . var_export( $value, true ) . '</p>';
 						}
 					} // not array
-				}  /* tax_query */ elseif ( array_key_exists( $key, $all_taxonomies ) ) {
+				}  // tax_query
+				elseif ( 'tax_input' == $key ) {
+					$tax_queries = array();
+					$compound_values = array_filter( array_map( 'trim', explode( ',', $value ) ) );
+					foreach ( $compound_values as $compound_value ) {
+						$value = explode( '.', $compound_value );
+						if ( 2 === count( $value ) ) {
+							if ( array_key_exists( $value[0], $all_taxonomies ) ) {
+								$tax_queries[ $value[0] ][] = $value[1];
+							} // valid taxonomy
+						} // valid coumpound value
+					} // foreach compound_value
+					
+					foreach( $tax_queries as $key => $value ) {
+						$simple_tax_queries[ $key ] = implode(',', $value );
+					}
+				} // tax_input
+				elseif ( array_key_exists( $key, $all_taxonomies ) ) {
 					$simple_tax_queries[ $key ] = implode(',', array_filter( array_map( 'trim', explode( ',', $value ) ) ) );
 				} // array_key_exists
 			} //foreach $attr
@@ -4501,6 +4622,10 @@ class MLAShortcode_Support {
 				}
 
 				foreach( $simple_tax_queries as $key => $value ) {
+					if ( empty( $value ) ) {
+						continue;
+					}
+					
 					$tax_query[] =	array( 'taxonomy' => $key, 'field' => 'slug', 'terms' => explode( ',', $value ), 'operator' => $tax_operator, 'include_children' => $tax_include_children );
 				}
 

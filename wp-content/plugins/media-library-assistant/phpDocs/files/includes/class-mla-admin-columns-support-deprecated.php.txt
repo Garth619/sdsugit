@@ -104,17 +104,20 @@ class CPAC_Deprecated_Storage_Model_MLA extends CPAC_Storage_Model {
 		 * Find all of the custom field names assigned to Media Library items
 		 */
 		$meta = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
+//error_log( __LINE__ . ' CPAC_Deprecated_Storage_Model_MLA::get_meta meta = ' . var_export( $meta, true ), 0 );
 
 		/*
 		 * Find the fields already present in the submenu table
 		 */
 		$mla_columns = apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns );
+//error_log( __LINE__ . ' CPAC_Deprecated_Storage_Model_MLA::get_meta mla_columns = ' . var_export( $mla_columns, true ), 0 );
 		$mla_custom = array();
 		foreach ( $mla_columns as $slug => $heading ) {
 			if ( 'c_' === substr( $slug, 0, 2 ) ) {
 				$mla_custom[] = $heading;
 			}
 		}
+//error_log( __LINE__ . ' CPAC_Deprecated_Storage_Model_MLA::get_meta mla_custom = ' . var_export( $mla_custom, true ), 0 );
 
 		/*
 		 * Remove the fields already present in the submenu table
@@ -125,6 +128,7 @@ class CPAC_Deprecated_Storage_Model_MLA extends CPAC_Storage_Model {
 			}
 		}
 
+//error_log( __LINE__ . ' CPAC_Deprecated_Storage_Model_MLA::get_meta meta = ' . var_export( $meta, true ), 0 );
 		return $meta;
 	}
 

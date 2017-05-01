@@ -1,6 +1,7 @@
 <?php
 /**
- * Adds a Tools/Woo Fixit submenu with buttons to perform a variety of
+ * Adds "product:" and "product_terms:" custom substitution prefixes and
+ * adds a Tools/Woo Fixit submenu with buttons to perform a variety of
  * MLA/WooCommerce repair and enhancement operations.
  *
  * This example supports several "tools"/operations:
@@ -58,27 +59,31 @@
  * opened on 5/23/2014 by "Dana S".
  * https://wordpress.org/support/topic/set-the-product-category-as-alt-and-title-tag-for-all-images/
  *
- * Enhanced for support topic "Bulk addition of image alt tags to WooCommerce Product Images"
- * opened on 11/18/2015 by "Thrive Internet Marketing".
- * https://wordpress.org/support/topic/bulk-addition-of-image-alt-tags-to-woocommerce-product-images/
- *
  * Enhanced for support topic "Woocommerce product category"
  * opened on 9/17/2015 by "vnp_nl".
  * https://wordpress.org/support/topic/woocommerce-product-category-2/
  *
+ * Enhanced for support topic "Bulk addition of image alt tags to WooCommerce Product Images"
+ * opened on 11/18/2015 by "Thrive Internet Marketing".
+ * https://wordpress.org/support/topic/bulk-addition-of-image-alt-tags-to-woocommerce-product-images/
+ *
+ * Enhanced for support topic "Regenerate Bulk ALT TEXT with Product Name + Product Category + Keyword"
+ * opened on 2/21/2017 by "bueyfx".
+ * https://wordpress.org/support/topic/regenerate-bulk-alt-text-with-product-name-product-category-keyword/
+ *
  * @package WooCommerce Fixit
- * @version 1.28
+ * @version 2.01
  */
 
 /*
 Plugin Name: WooCommerce Fixit
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
-Description: Adds a Tools/Woo Fixit submenu with buttons to perform a variety of MLA/WooCommerce repair and enhancement operations.
+Description: Adds "product:" and "product_terms:" custom substitution prefixes and adds a Tools/Woo Fixit submenu with buttons to perform a variety of MLA/WooCommerce repair and enhancement operations.
 Author: David Lingren
-Version: 1.28
+Version: 2.01
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
-Copyright 2014-2015 David Lingren
+Copyright 2014-2017 David Lingren
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -108,7 +113,7 @@ class Woo_Fixit {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_VERSION = '1.27';
+	const CURRENT_VERSION = '2.01';
 
 	/**
 	 * Slug prefix for registering and enqueueing submenu pages, style sheets and scripts
@@ -207,15 +212,218 @@ class Woo_Fixit {
 	 * @return	void
 	 */
 	public static function initialize() {
-		/*
-		 * The filters are only useful in the admin section; exit if in front-end posts/pages
-		 */
+		// Defined in /media-library-assistant/includes/class-mla-data.php
+		add_filter( 'mla_expand_custom_prefix', 'Woo_Fixit::mla_expand_custom_prefix', 10, 8 );
+
+		// The other filters are only useful in the admin section; exit if in front-end posts/pages
 		if ( !is_admin() )
 			return;
 
-		//add_action( 'admin_init', 'Woo_Fixit::admin_init_action' );
-		add_action( 'admin_menu', 'Woo_Fixit::admin_menu_action' );
+		//add_action( 'admin_init', 'Woo_Fixit::admin_init' );
+		add_action( 'admin_menu', 'Woo_Fixit::admin_menu' );
 	}
+
+	/**
+	 * Evaluate product_terms: values
+	 *
+	 * @since 2.00
+	 *
+	 * @param mixed String or array - initial value
+	 * @param mixed Integer or array; the Post ID(s) of the product(s)
+	 * @param string Taxonomy slug
+	 * @param string Field name in term object
+	 * @param string Format/option; text,single,export,unpack,array
+	 *
+	 * @return mixed String or array; values or error messages
+	 */
+	private static function _evaluate_terms( $custom_value, $products, $taxonomy, $qualifier, $option ) {
+		if ( empty( $products ) ) {
+			return $custom_value;
+		}
+		
+		if ( is_scalar( $products ) ) {
+			$products = array( absint( $products ) => absint( $products ) );
+		}
+
+		if ( empty( $qualifier ) ) {
+			$qualifier = 'name';
+		}
+
+		$all_terms = array();
+		foreach ( $products as $product ) {
+			$terms = get_object_term_cache( $product, $taxonomy );
+			if ( false === $terms ) {
+				$terms = wp_get_object_terms( $product, $taxonomy );
+				if ( is_wp_error( $terms ) ) {
+					return implode( ',', $terms->get_error_messages() );
+				}
+//error_log( __LINE__ . " Woo_Fixit::_evaluate_terms( {$product}, {$taxonomy}, {$qualifier}, {$option} ) terms = " . var_export( $terms, true ), 0 );
+				
+				wp_cache_add( $product, $terms, $taxonomy . '_relationships' );
+			}
+
+			$all_terms = array_merge( $all_terms, $terms );
+		}
+//error_log( __LINE__ . " Woo_Fixit::_evaluate_terms( {$product}, {$taxonomy}, {$qualifier}, {$option} ) all_terms = " . var_export( $all_terms, true ), 0 );
+		
+		if ( 'array' == $option ) {
+			$custom_value = array();
+		} else {
+			$custom_value = '';
+		}
+
+		if ( ! empty( $all_terms ) ) {
+			if ( 'single' == $option || 1 == count( $all_terms ) ) {
+				reset( $all_terms );
+				$term = current( $all_terms );
+				$fields = get_object_vars( $term );
+				$custom_value = isset( $fields[ $qualifier ] ) ? $fields[ $qualifier ] : $fields['name'];
+				$custom_value = sanitize_term_field( $qualifier, $custom_value, $term->term_id, $taxonomy, 'display' );
+			} elseif ( ( 'export' == $option ) || ( 'unpack' == $option ) ) {
+				$custom_value = sanitize_text_field( var_export( $all_terms, true ) );
+			} else {
+				foreach ( $all_terms as $term ) {
+					$fields = get_object_vars( $term );
+					$field_value = isset( $fields[ $qualifier ] ) ? $fields[ $qualifier ] : $fields['name'];
+					$field_value = sanitize_term_field( $qualifier, $field_value, $term->term_id, $taxonomy, 'display' );
+
+					if ( 'array' == $option ) {
+						$custom_value[] = $field_value;
+					} else {
+						$custom_value .= strlen( $custom_value ) ? ', ' . $field_value : $field_value;
+					}
+				}
+			}
+		}
+		
+//error_log( __LINE__ . " Woo_Fixit::_evaluate_terms( {$product}, {$taxonomy}, {$qualifier}, {$option} ) custom_value = " . var_export( $custom_value, true ), 0 );
+		return $custom_value;
+	} // _evaluate_terms
+
+	/**
+	 * Add the "product:" and "product_terms:" custom substitution prefixes
+	 *
+	 * @since 2.00
+	 *
+	 * @param	string	NULL, indicating that by default, no custom value is available
+	 * @param	string	the data-source name 
+	 * @param	array	data-source components; prefix (empty), value, option, format and args (if present)
+	 * @param	array	values from the query, if any, e.g. shortcode parameters
+	 * @param	array	item-level markup template values, if any
+	 * @param	integer	attachment ID for attachment-specific values
+	 * @param	boolean	for option 'multi', retain existing values
+	 * @param	string	default option value
+	 */
+	public static function mla_expand_custom_prefix( $custom_value, $key, $value, $query, $markup_values, $post_id, $keep_existing, $default_option ) {
+		static $product_cache = array();
+		
+		//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id}, {$keep_existing}, {$default_option} ) value = " . var_export( $value, true ), 0 );
+		//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id} ) query = " . var_export( $query, true ), 0 );
+		//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id} ) markup_values = " . var_export( $markup_values, true ), 0 );
+
+		// Look for field/value qualifier
+		$match_count = preg_match( '/^(.+)\((.+)\)/', $value['value'], $matches );
+		if ( $match_count ) {
+			$field = $matches[1];
+			$qualifier = $matches[2];
+		} else {
+			$field = $value['value'];
+			$qualifier = '';
+		}
+
+		if ( 0 == absint( $post_id ) ) {
+			return $custom_value;
+		}
+
+		// Find all the attachments associated with products
+		if ( empty( self::$attachment_products ) ) {
+			self::_build_product_attachments( true );
+		}
+		
+		// What product(s) are associated with this item?
+		$products = array();
+		if ( isset( self::$attachment_products[ $post_id ] ) ) {
+			if ( isset( self::$attachment_products[ $post_id ]['_thumbnail_id'] ) ) {
+				foreach ( self::$attachment_products[ $post_id ]['_thumbnail_id'] as $product ) {
+					$products[ $product ] = $product;
+				}
+			}
+			
+			if ( !empty( self::$attachment_products[ $post_id ]['_product_image_gallery'] ) ) {
+				foreach ( self::$attachment_products[ $post_id ]['_product_image_gallery'] as $product ) {
+					$products[ $product ] = $product;
+				}
+			}
+		} else {
+			return $custom_value;
+		}
+//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id} ) products = " . var_export( $products, true ), 0 );
+
+		if ( 'product_terms' == $value['prefix'] ) {
+			$custom_value = self::_evaluate_terms( $custom_value, $products, $field, $qualifier, $value['option'] );
+		} elseif ( 'product' == $value['prefix'] ) {
+			$custom_value = array();
+			foreach ( $products as $product_id ) {
+				if ( isset( $product_cache[ $product_id ] ) ) {
+					$product = $product_cache[ $product_id ];
+				} else {
+					$product = get_post( $product_id );
+	
+					if ( $product instanceof WP_Post && $product->ID == $product_id ) {
+						$product_cache[ $product_id ] = $product;
+					} else {
+						continue;
+					}
+				}
+			
+				if ( property_exists( $product, $value['value'] ) ) {
+					$custom_value[] = $product->{$value['value']};
+				} elseif ( 'permalink' == $value['value'] ) {
+					$custom_value[] = get_permalink( $product );
+				} else {
+					// Look for a custom field match
+					$meta_value = get_metadata( 'post', $product_id, $value['value'], false );
+//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id}, {$product_id} ) meta_value = " . var_export( $meta_value, true ), 0 );
+					if ( !empty( $meta_value ) ) {
+						if ( is_array( $meta_value ) ) {
+							$custom_value = array_merge( $custom_value, $meta_value );
+						} else {
+							$custom_value[] = $meta_value;
+						}
+					}
+				}
+			}
+//error_log( __LINE__ . " Woo_Fixit::mla_expand_custom_prefix( {$key}, {$post_id} ) custom_value = " . var_export( $custom_value, true ), 0 );
+
+			if ( is_array( $custom_value ) ) {
+				if ( 'single' == $value['option'] || 1 == count( $custom_value ) ) {
+					$custom_value = sanitize_text_field( reset( $custom_value ) );
+				} elseif ( ( 'export' == $value['option'] ) || ( 'unpack' == $value['option'] ) ) {
+					$custom_value = sanitize_text_field( var_export( $custom_value, true ) );
+				} else {
+					if ( 'array' == $value['option'] ) {
+						$new_value = array();
+					} else {
+						$new_value = '';
+					}
+
+					foreach ( $custom_value as $element ) {
+						$field_value = sanitize_text_field( $element );
+	
+						if ( 'array' == $value['option'] ) {
+							$new_value[] = $field_value;
+						} else {
+							$new_value .= strlen( $new_value ) ? ', ' . $field_value : $field_value;
+						}
+					} // foreach element
+					
+					$custom_value = $new_value;
+				}
+			}
+		} // prefix = product:
+
+		return $custom_value;
+	} // mla_expand_custom_prefix
 
 	/**
 	 * Admin Init Action
@@ -224,7 +432,7 @@ class Woo_Fixit {
 	 *
 	 * @return	void
 	 */
-	public static function admin_init_action() {
+	public static function admin_init() {
 	}
 
 	/**
@@ -234,7 +442,7 @@ class Woo_Fixit {
 	 *
 	 * @return	void
 	 */
-	public static function admin_menu_action( ) {
+	public static function admin_menu( ) {
 		$current_page_hook = add_submenu_page( 'tools.php', 'WooCommerce Fixit Tools', 'Woo Fixit', 'manage_options', self::SLUG_PREFIX . 'tools', 'Woo_Fixit::render_tools_page' );
 		add_filter( 'plugin_action_links', 'Woo_Fixit::add_plugin_links_filter', 10, 2 );
 	}
@@ -493,7 +701,7 @@ class Woo_Fixit {
 
 	/**
 	 * Array of Products giving Product Image and Product Gallery attachments:
-	 * product_id => array( '_thumbnail_id' => image_id, '_product_image_gallery' => gallery_ids (comma-delimited string)
+	 * product_id => array( 'post_title' => product Title, '_thumbnail_id' => image_id, '_product_image_gallery' => gallery_ids (comma-delimited string)
 	 *
 	 * @since 1.00
 	 *
@@ -854,7 +1062,7 @@ VALUES ( {$attachment},'_wp_attachment_image_alt','{$text}' )";
 					$attachment_values[ $value['_thumbnail_id'] ] = $product_terms[ $key ]['name'];
 				}
 				
-				if ( isset( $value['_product_image_gallery'] ) ) {
+				if ( !empty( $value['_product_image_gallery'] ) ) {
 					$ids = explode( ',', $value['_product_image_gallery'] );
 					foreach( $ids as $id ) {
 						$attachment_values[ $id ] = $product_terms[ $key ]['name'];
@@ -977,7 +1185,7 @@ VALUES ( {$attachment},'_wp_attachment_image_alt','{$text}' )";
 					$attachment_values[ $value['_thumbnail_id'] ] = $value['post_title'];
 				}
 				
-				if ( isset( $value['_product_image_gallery'] ) ) {
+				if ( !empty( $value['_product_image_gallery'] ) ) {
 					$ids = explode( ',', $value['_product_image_gallery'] );
 					foreach( $ids as $id ) {
 						$attachment_values[ $id ] = $value['post_title'];
@@ -1096,7 +1304,7 @@ VALUES ( {$attachment},'_wp_attachment_image_alt','{$text}' )";
 					$attachment_values[ $value['_thumbnail_id'] ] = $value['post_title'];
 				}
 				
-				if ( isset( $value['_product_image_gallery'] ) ) {
+				if ( !empty( $value['_product_image_gallery'] ) ) {
 					$ids = explode( ',', $value['_product_image_gallery'] );
 					foreach( $ids as $id ) {
 						$attachment_values[ $id ] = $value['post_title'];

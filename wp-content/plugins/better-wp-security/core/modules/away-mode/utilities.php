@@ -36,8 +36,6 @@ final class ITSEC_Away_Mode_Utilities {
 	}
 
 	public static function get_active_file_name() {
-		global $itsec_globals;
-
 		$file_name = apply_filters( 'itsec_filer_away_mode_active_file', ITSEC_Core::get_storage_dir() . '/itsec_away.confg' );
 
 		return $file_name;

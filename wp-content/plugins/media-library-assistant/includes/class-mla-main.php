@@ -233,6 +233,8 @@ class MLA {
 		 * Optional - change the size of the thumbnail/icon images
 		 */
 		$icon_value = MLACore::mla_get_option( MLACoreOptions::MLA_TABLE_ICON_SIZE );
+		$set_column_width = !empty( $icon_value ) && is_numeric( $icon_value ) && ( 64 < $icon_value );
+		
 		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_ENABLE_MLA_ICONS ) ) {
 			if ( empty( $icon_value ) ) {
 				$icon_value = 64;
@@ -244,7 +246,8 @@ class MLA {
 
 			$icon_width = $icon_height = $icon_value . 'px';
 
-			echo "    width: auto;\n";
+			//echo "    width: auto;\n";
+			//echo "    vertical-align: top;\n";
 			echo "    height: auto;\n";
 			echo "    max-width: {$icon_width};\n";
 			echo "    max-height: {$icon_height};\n";
@@ -271,22 +274,22 @@ class MLA {
 		echo "  }\n";
 
 		if ( MLATest::$wp_4dot3_plus ) {
-			/*
-			 * Primary column including icon and some margin
-			 */
-			$icon_width = ( $icon_value + 10 ) . 'px';
-
+			// Explicit primary column width including icon and some margin
+			if ( $set_column_width ) {
+				$column_width = ( $icon_value + 30 ) . 'px';
+	
+				echo "  table.attachments th.column-primary {\n";
+				echo "    width: {$column_width};\n";
+				echo "  }\n";
+			}
+			
 			echo "  table.attachments td.column-primary {\n";
 			echo "    position: relative;\n";
-			echo "  }\n";
-			echo "  table.attachments div.attachment-icon {\n";
-			echo "    position: absolute;\n";
-			echo "    top: 8px;\n";
-			echo "    left: 10px;\n";
-			echo "  }\n";
-			echo "  table.attachments div.attachment-info {\n";
-			echo "    margin-left: {$icon_width};\n";
-			echo "    min-height: {$icon_width};\n";
+			
+			if ( $set_column_width ) {
+				echo "    width: {$column_width};\n";
+			}
+			
 			echo "  }\n";
 		} else {
 			/*
@@ -658,7 +661,7 @@ class MLA {
 		MLACore::mla_debug_add( __LINE__ . " MLA::mla_set_screen_option_filter( {$option} ) value = " . var_export( $value, true ), MLACore::MLA_DEBUG_CATEGORY_ANY );
 
 		foreach( $wp_filter['set-screen-option'] as $priority => $filters ) {
-			$debug_message = 'mla_debug $wp_filter[set-screen-option] priority = ' . var_export( $priority, true ) . '<br />';
+			$debug_message = __LINE__ . ' MLA::mla_set_screen_option_filter $wp_filter[set-screen-option] priority = ' . var_export( $priority, true ) . '<br />';
 			foreach ( $filters as $name => $descriptor ) {
 				$debug_message .= 'filter name = ' . var_export( $name, true ) . '<br />';
 			}

@@ -21,7 +21,7 @@ class MLASettings_View {
 	 *
 	 * @var	string
 	 */
-	const JAVASCRIPT_INLINE_EDIT_VIEW_OBJECT = 'mla_inline_edit_view_vars';
+	const JAVASCRIPT_INLINE_EDIT_VIEW_OBJECT = 'mla_inline_edit_settings_vars';
 
 	/**
 	 * Load the tab's Javascript files
@@ -48,6 +48,7 @@ class MLASettings_View {
 			'comma' => _x( ',', 'tag_delimiter', 'media-library-assistant' ),
 			'useSpinnerClass' => false,
 			'ajax_nonce' => wp_create_nonce( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ),
+			'tab' => 'view',
 			'fields' => array( 'original_slug', 'slug', 'singular', 'plural', 'specification', 'menu_order' ),
 			'checkboxes' => array( 'post_mime_type', 'table_view' ),
 			'ajax_action' => MLASettings::JAVASCRIPT_INLINE_EDIT_VIEW_SLUG,
@@ -60,7 +61,7 @@ class MLASettings_View {
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_script( MLASettings::JAVASCRIPT_INLINE_EDIT_VIEW_SLUG,
-			MLA_PLUGIN_URL . "js/mla-inline-edit-view-scripts{$suffix}.js", 
+			MLA_PLUGIN_URL . "js/mla-inline-edit-settings-scripts{$suffix}.js", 
 			array( 'wp-lists', 'suggest', 'jquery' ), MLACore::CURRENT_MLA_VERSION, false );
 
 		wp_localize_script( MLASettings::JAVASCRIPT_INLINE_EDIT_VIEW_SLUG,
@@ -415,7 +416,7 @@ class MLASettings_View {
 	}
 
 	/**
-	 * Ajax handler for Post MIME Types inline editing (quick and bulk edit)
+	 * Ajax handler for Post MIME Types inline editing (quick edit)
 	 *
 	 * Adapted from wp_ajax_inline_save in /wp-admin/includes/ajax-actions.php
 	 *
@@ -547,13 +548,17 @@ class MLA_View_List_Table extends WP_List_Table {
 	 * @since 1.40
 	 *
 	 * @param	mixed	false or array with current list of hidden columns, if any
-	 * @param	string	'managesettings_page_mla-settings-menucolumnshidden'
+	 * @param	string	'managesettings_page_mla-settings-menu-viewcolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		return $result ? $result : self::_default_hidden_columns();
+		if ( false !== $result ) {
+			return $result;
+		}
+
+		return self::_default_hidden_columns();
 	}
 
 	/**

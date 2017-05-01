@@ -24,9 +24,14 @@ class MLA_Polylang_Shortcodes {
 	 * @return	void
 	 */
 	public static function initialize() {
-		 /*
-		  * Defined in /media-library-assistant/includes/class-mla-shortcode-support.php
-		  */
+		global $polylang;
+		
+		// If no language is defined, there's nothing to do
+		if ( NULL === $polylang->curlang ) {
+			return;
+		}
+
+		// Defined in /media-library-assistant/includes/class-mla-shortcode-support.php
 		add_filter( 'mla_get_terms_query_arguments', 'MLA_Polylang_Shortcodes::mla_get_terms_query_arguments', 10, 1 );
 		add_filter( 'mla_get_terms_clauses', 'MLA_Polylang_Shortcodes::mla_get_terms_clauses', 10, 1 );
 	}

@@ -59,7 +59,18 @@ class URE_Posts_View {
         $posts_list = '';
         if (isset($blocked_items['data']['posts']) && is_array($blocked_items['data']['posts'])) {
             $posts_list = implode(', ', $blocked_items['data']['posts']);
-        }        
+        }
+        
+        $posts_authors_list = '';
+        if (isset($blocked_items['data']['authors']) && is_array($blocked_items['data']['authors'])) {
+            $posts_authors_list = implode(', ', $blocked_items['data']['authors']);
+        }
+        
+        if (isset($blocked_items['data']['own_data_only']) && $blocked_items['data']['own_data_only']==1) {
+            $own_data_only = 1;
+        } else {
+            $own_data_only = 0;
+        }
         
         ob_start();
 ?>
@@ -71,22 +82,27 @@ class URE_Posts_View {
     <input type="radio" name="ure_access_model" id="ure_access_model_not_selected" value="2" 
         <?php echo ($blocked_items['access_model']==2) ? 'checked="checked"' : '';?> > <label for="ure_access_model_not_selected"><?php esc_html_e('Not Selected', 'user-role-editor');?></label>
     <hr/>
-    <input type="radio" id="ure_return_http_error_404" name="ure_post_access_error_action" value="1" 
-        <?php echo ($blocked_items['access_error_action']==1) ? 'checked="checked"' : '';?>>
+    <input type="radio" id="ure_return_http_error_404" name="ure_post_access_error_action" value="1" <?php checked($blocked_items['access_error_action'], 1);?> >
     <label for="ure_return_http_error_404">Return HTTP 404 error</label>&nbsp;&nbsp;
-    <input type="radio" id="ure_show_post_access_error_message" name="ure_post_access_error_action" value="2" 
-           <?php echo ($blocked_items['access_error_action']==2) ? 'checked="checked"' : '';?>>
+    <input type="radio" id="ure_show_post_access_error_message" name="ure_post_access_error_action" value="2" <?php checked($blocked_items['access_error_action'], 2);?> >
     <label for="ure_show_post_access_error_message">Show access error message</label>
     <hr/>
     <span style="font-weight: bold;"><?php echo esc_html_e('Posts ID list (comma separated)', 'user-role-editor');?>:</span>
     <input type="text" id="ure_posts_list" name="ure_posts_list" value="<?php echo $posts_list;?>" style="width: 300px;" />
     <hr/>
+    
+    <span style="font-weight: bold;"><?php echo esc_html_e('Authors ID list (comma separated)', 'user-role-editor');?>:</span>
+    <input type="text" id="ure_posts_authors_list" name="ure_posts_authors_list" value="<?php echo $posts_authors_list;?>" style="width: 300px;" /><br/>
+    <input type="checkbox" id="ure_own_data_only" name="ure_own_data_only" <?php checked($own_data_only, 1);?> />
+    <label for="ure_own_data_only"><?php echo esc_html_e('Own data only', 'user-role-editor');?></label>    
+    <hr/>
+    
 <?php
     foreach($taxonomies as $tax_id=>$tax_obj) {
 ?>
     <span style="font-weight: bold;"><?php echo $tax_obj->labels->name;?></span>
-<table id="ure_posts_view_access_table">
-    <th><input type="checkbox" id="ure_cb_select_all"></th>
+<table id="ure_pva_<?php echo $tax_id;?>_table">
+    <th><input type="checkbox" id="ure-cb-select-all-<?php echo $tax_id;?>" class="ure_cb_select_all"></th>
     <th style="min-width: 30px;"><?php esc_html_e('ID','user-role-editor');?></th>
     <th><?php echo $tax_obj->labels->singular_name;?></th>
 <?php
@@ -111,7 +127,7 @@ class URE_Posts_View {
         <td>   
 <?php     
         $checked = in_array($category->term_id, $terms) ? 'checked' : '';
-        $cb_class = 'ure-cb-column';
+        $cb_class = 'ure-cb-column-'. $tax_id;
         $disabled = '';
         $category_name = ($category->parent>0 ? ' - ':'') . $category->name;
 ?>
@@ -129,6 +145,7 @@ class URE_Posts_View {
 <?php
     }   // foreach($taxonomies...
 ?>
+
     <input type="hidden" name="action" id="action" value="ure_update_posts_view_access" />
     <input type="hidden" name="ure_object_type" id="ure_object_type" value="<?php echo $ure_object_type;?>" />
     <input type="hidden" name="ure_object_name" id="ure_object_name" value="<?php echo $ure_object_name;?>" />

@@ -4,9 +4,6 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 
 	class ITSEC_Hide_Backend_Setup {
 
-		private
-			$defaults;
-
 		public function __construct() {
 
 			add_action( 'itsec_modules_do_plugin_activation',   array( $this, 'execute_activate'   )          );
@@ -105,19 +102,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 
 				if ( isset( $current_options['enabled'] ) && $current_options['enabled'] === true ) {
 
-					$config_file = ITSEC_Lib::get_htaccess();
-
-					//Make sure we can write to the file
-					$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
-
-					@chmod( $config_file, 0664 );
-
 					add_action( 'admin_init', array( $this, 'flush_rewrite_rules' ) );
-
-					//reset file permissions if we changed them
-					if ( $perms == '0444' ) {
-						@chmod( $config_file, 0444 );
-					}
 
 					ITSEC_Response::regenerate_server_config();
 
@@ -136,6 +121,9 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 				}
 			}
 
+			if ( $itsec_old_version < 4070 ) {
+				delete_site_option( 'itsec_hide_backend' );
+			}
 		}
 
 		/**
@@ -146,8 +134,15 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		 * @return void
 		 */
 		public function flush_rewrite_rules() {
+			$config_file = ITSEC_Lib::get_htaccess();
+
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
+			@chmod( $config_file, 0664 );
 
 			flush_rewrite_rules();
+
+			@chmod( $config_file, $perms );
 		}
 
 	}

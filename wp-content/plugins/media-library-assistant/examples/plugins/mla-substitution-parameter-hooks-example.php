@@ -8,6 +8,7 @@
  *     - a "parent:" prefix accesses all of the WP_Post properties, custom fields and the permalink for an item's parent
  *     - an "author:" prefix accesses all of the WP_User properties for an item's author
  *     - an "conditional:" prefix returns a value when a condition is true, e.g., during the upload process
+ *     - a "wp_query_vars:" prefix accesses all of the "global $wp_query->query_vars" properties
  *
  * Created for support topic "Parent category tag"
  * opened on 5/20/2016 by "Levy":
@@ -33,8 +34,12 @@
  * opened on 12/6/2016 by "webpresencech":
  * https://wordpress.org/support/topic/maping-image-alt-tags-to-product-meta-title/
  *
+ * Enhanced for support topic "$wp_query->query_vars in query"
+ * opened on 3/1/2017 by "mbruxelle":
+ * https://wordpress.org/support/topic/wp_query-query_vars-in-query/
+ *
  * @package MLA Substitution Parameter Hooks Example
- * @version 1.06
+ * @version 1.08
  */
 
 /*
@@ -42,10 +47,10 @@ Plugin Name: MLA Substitution Parameter Hooks Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Adds "parent_terms:", "page_terms:", "parent:", "author:" and "conditional:" Field-level Substitution Parameters
 Author: David Lingren
-Version: 1.06
+Version: 1.08
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
-Copyright 2016 David Lingren
+Copyright 2016-2017 David Lingren
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -323,7 +328,7 @@ class MLASubstitutionParameterExample {
 				$parent = $parent_cache[ $parent_id ];
 			} else {
 				$parent = get_post( $parent_id );
-//error_log( __LINE__ . " MLASubstitutionParameterExample::mla_expand_custom_prefix( {$key}, {$post_id} ) parent = " . var_export( $parent, true ), 0 );
+
 				if ( $parent instanceof WP_Post && $parent->ID == $parent_id ) {
 					$parent_cache[ $parent_id ] = $parent;
 				} else {
@@ -332,7 +337,7 @@ class MLASubstitutionParameterExample {
 			}
 			
 			if ( property_exists( $parent, $value['value'] ) ) {
-				$custom_value = $parent->$value['value'];
+				$custom_value = $parent->{$value['value']};
 			} elseif ( 'permalink' == $value['value'] ) {
 				$custom_value = get_permalink( $parent );
 			} else {
@@ -355,18 +360,20 @@ class MLASubstitutionParameterExample {
 					if ( 'array' == $value['option'] ) {
 						$new_value = array();
 					} else {
-						$custom_value = '';
+						$new_value = '';
 					}
 
 					foreach ( $custom_value as $element ) {
 						$field_value = sanitize_text_field( $element );
 	
 						if ( 'array' == $value['option'] ) {
-							$custom_value[] = $field_value;
+							$new_value[] = $field_value;
 						} else {
-							$custom_value .= strlen( $custom_value ) ? ', ' . $field_value : $field_value;
+							$new_value .= strlen( $custom_value ) ? ', ' . $field_value : $field_value;
 						}
 					}
+					
+					$custom_value = $new_value;
 				}
 			}
 		} elseif ( 'author' == $value['prefix'] ) {
@@ -390,7 +397,7 @@ class MLASubstitutionParameterExample {
 			}
 			
 			if ( property_exists( $author, $value['value'] ) ) {
-				$custom_value = $author->$value['value'];
+				$custom_value = $author->{$value['value']};
 			} else {
 				$custom_value = $author->get( $value['value'] );
 			}
@@ -406,18 +413,20 @@ class MLASubstitutionParameterExample {
 					if ( 'array' == $value['option'] ) {
 						$new_value = array();
 					} else {
-						$custom_value = '';
+						$new_value = '';
 					}
 
 					foreach ( $custom_value as $element ) {
 						$field_value = sanitize_text_field( $element );
 	
 						if ( 'array' == $value['option'] ) {
-							$custom_value[] = $field_value;
+							$new_value[] = $field_value;
 						} else {
-							$custom_value .= strlen( $custom_value ) ? ', ' . $field_value : $field_value;
+							$new_value .= strlen( $custom_value ) ? ', ' . $field_value : $field_value;
 						}
 					}
+					
+					$custom_value = $new_value;
 				}
 			}
 		} elseif ( 'conditional' == $value['prefix'] ) {
@@ -459,6 +468,13 @@ class MLASubstitutionParameterExample {
 					break;
 				default:
 					// ignore anything else
+			}
+		} elseif ( 'wp_query_vars' == $value['prefix'] ) {
+			global $wp_query;
+			//error_log( __LINE__ . " MLASubstitutionParameterExample::mla_expand_custom_prefix( {$key}, {$post_id} ) wp_query->query_vars = " . var_export( $wp_query->query_vars , true ), 0 );
+
+			if ( !empty( $wp_query->query_vars ) ) {
+				$custom_value = MLAData::mla_find_array_element( $value['value'], $wp_query->query_vars, $value['option'], $keep_existing );
 			}
 		}
 

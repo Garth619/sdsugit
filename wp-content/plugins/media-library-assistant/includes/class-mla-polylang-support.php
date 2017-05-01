@@ -42,52 +42,42 @@ class MLA_Polylang {
 	 * @return	void
 	 */
 	public static function initialize() {
+		global $polylang;
+		
 		self::$polylang_1dot8_plus = version_compare( POLYLANG_VERSION, '1.7.99', '>' );
 
-		/*
-		 * These filters are only useful for the admin section;
-		 * exit in the front-end posts/pages
-		 */
+		// These filters are only useful for the admin section; exit in the front-end posts/pages
 		if ( ! is_admin() ) {
 			return;
 		}
 
-		/*
-		 * Defined in /wp-admin/admin.php
-		 */
+		// If no language is defined, there's nothing to do
+		if ( NULL === $polylang->curlang ) {
+			return;
+		}
+
+		// Defined in /wp-admin/admin.php
 		add_action( 'admin_init', 'MLA_Polylang::admin_init' );
 
-		/*
-		 * Defined in /wp-admin/admin-header.php
-		 */
+		// Defined in /wp-admin/admin-header.php
  		add_action( 'admin_enqueue_scripts', 'MLA_Polylang::admin_enqueue_scripts', 10, 1 );
 
-		/*
-		 * Defined in wp-admin/includes/post.php function edit_post
-		 */
+		// Defined in wp-admin/includes/post.php function edit_post
 		add_filter( 'attachment_fields_to_save', 'MLA_Polylang::attachment_fields_to_save', 10, 2 );
 
-		/*
-		 * Defined in wp-includes/post.php function wp_insert_post
-		 */
+		// Defined in wp-includes/post.php function wp_insert_post
 		add_action( 'edit_attachment', 'MLA_Polylang::edit_attachment', 10, 1 );
 
-		 /*
-		  * Defined in /media-library-assistant/includes/class-mla-data.php
-		  */
+		// Defined in /media-library-assistant/includes/class-mla-data.php
 		add_action( 'mla_updated_single_item', 'MLA_Polylang::mla_updated_single_item', 10, 2 );
 
-		 /*
-		  * Defined in /media-library-assistant/includes/class-mla-media-modal.php
-		  */
+		// Defined in /media-library-assistant/includes/class-mla-media-modal.php
 		add_filter( 'mla_media_modal_terms_options', 'MLA_Polylang::mla_media_modal_terms_options', 10, 1 );
 		add_action( 'mla_media_modal_begin_update_compat_fields', 'MLA_Polylang::mla_media_modal_begin_update_compat_fields', 10, 1 );
 		add_filter( 'mla_media_modal_update_compat_fields_terms', 'MLA_Polylang::mla_media_modal_update_compat_fields_terms', 10, 4 );
 		add_filter( 'mla_media_modal_end_update_compat_fields', 'MLA_Polylang::mla_media_modal_end_update_compat_fields', 10, 3 );
 
-		 /*
-		  * Defined in /media-library-assistant/includes/class-mla-main.php
-		  */
+		// Defined in /media-library-assistant/includes/class-mla-main.php
 		add_filter( 'mla_list_table_inline_fields', 'MLA_Polylang::mla_list_table_inline_fields', 10, 1 );
 		add_filter( 'mla_list_table_inline_action', 'MLA_Polylang::mla_list_table_inline_action', 10, 2 );
 		add_filter( 'mla_list_table_bulk_action_initial_request', 'MLA_Polylang::mla_list_table_bulk_action_initial_request', 10, 3 );
@@ -97,9 +87,7 @@ class MLA_Polylang {
 		add_filter( 'mla_list_table_inline_values', 'MLA_Polylang::mla_list_table_inline_values', 10, 1 );
 		add_filter( 'mla_list_table_inline_parse', 'MLA_Polylang::mla_list_table_inline_parse', 10, 3 );
 
-		 /*
-		  * Defined in /media-library-assistant/includes/class-mla-list-table.php
-		  */
+		// Defined in /media-library-assistant/includes/class-mla-list-table.php
 		add_filter( 'mla_list_table_get_columns', 'MLA_Polylang::mla_list_table_get_columns', 10, 1 );
 		add_filter( 'mla_list_table_get_bulk_actions', 'MLA_Polylang::mla_list_table_get_bulk_actions', 10, 1 );
 		add_filter( 'mla_list_table_column_default', 'MLA_Polylang::mla_list_table_column_default', 10, 3 );
@@ -112,22 +100,16 @@ class MLA_Polylang {
 		add_filter( 'mla_list_table_build_rollover_actions', 'MLA_Polylang::mla_list_table_build_rollover_actions', 10, 3 );
 		add_filter( 'mla_list_table_build_inline_data', 'MLA_Polylang::mla_list_table_build_inline_data', 10, 2 );
 
-		/*
-		 * Defined in /media-library-assistant/includes/class-mla-objects.php
-		 */
+		// Defined in /media-library-assistant/includes/class-mla-objects.php
 		//add_filter( 'mla_taxonomy_get_columns', 'MLA_Polylang::mla_taxonomy_get_columns', 10, 3 );
 
-		/*
-		 * Defined in /media-library-assistant/includes/class-mla-settings.php
-		 */
+		// Defined in /media-library-assistant/includes/class-mla-settings.php
 		add_filter( 'mla_get_options_tablist', 'MLA_Polylang::mla_get_options_tablist', 10, 3 );
 		add_action( 'mla_begin_mapping', 'MLA_Polylang::mla_begin_mapping', 10, 2 );
 		add_filter( 'mla_mapping_new_text', 'MLA_Polylang::mla_mapping_new_text', 10, 5 );
 		add_action( 'mla_end_mapping', 'MLA_Polylang::mla_end_mapping', 10, 0 );
 
-		/*
-		 * Defined in /polylang/admin/admin-filters-media.php
-		 */
+		// Defined in /polylang/admin/admin-filters-media.php
 		add_action( 'pll_translate_media', 'MLA_Polylang::pll_translate_media', 10, 3 );
 	}
 

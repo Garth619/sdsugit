@@ -155,7 +155,7 @@ class URE_Utils {
             return $output_arr;
         }        
         foreach($input_array as $value) {
-            $int_value = (int) $value;  // save interger values only
+            $int_value = (int) $value;  // save integer values only
             if ($int_value>0) {
                 $output_arr[] = $int_value;
             }

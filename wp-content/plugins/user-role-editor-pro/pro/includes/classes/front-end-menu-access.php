@@ -57,7 +57,7 @@ class URE_Front_End_Menu_Access {
         $roles = $wp_roles->role_names;
         
         wp_enqueue_style('wp-jquery-ui-dialog');
-        wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
         wp_register_script('ure-pro-front-end-menu-access', plugins_url('/pro/js/front-end-menu-access.js', URE_PLUGIN_FULL_PATH));
         wp_enqueue_script('ure-pro-front-end-menu-access');
 
@@ -86,6 +86,20 @@ class URE_Front_End_Menu_Access {
     // end of current_user_can_role_from()
     
 
+    private function check_access_to_menu_link($nav_menu_item) {        
+        $is_available = true;
+        if ($nav_menu_item->type!='custom' && $nav_menu_item->object_id>0) {
+            if ($this->lib->post_exists($nav_menu_item->object_id)) {
+                // check if current user has access to view this post or page content
+                $is_available = URE_Content_View_Restrictions::current_user_can_view($nav_menu_item->object_id);
+            }            
+        }
+                
+        return $is_available;
+    }
+    // end of check_access_to_menu_link()
+    
+    
     private function check_menu_item($nav_menu_item) {
         
         $available_to = URE_Front_End_Menu_Controller::get($nav_menu_item->ID); 
@@ -95,19 +109,36 @@ class URE_Front_End_Menu_Access {
         
         if ($available_to['whom']==1) { // Everyone
             $is_available = true;
-        } elseif ($available_to['whom']==2 && is_user_logged_in()) {    // Any logged in user
+        } elseif ($available_to['whom']==2 && is_user_logged_in()) {    // Any logged-in user
             $is_available = true;
-        } elseif ($available_to['whom']==3 && is_user_logged_in()) {    // Logged in user with role(s)            
+        } elseif ($available_to['whom']==3 && is_user_logged_in()) {    // Logged-in user with role(s)            
             if (empty($available_to['roles'])) {
                 $is_available = true;
             } else {
                 $is_available = $this->current_user_can_role_from($available_to['roles']);
             }
-        } elseif ($available_to['whom']==4 && !is_user_logged_in()) {   // Not logged in only
-            $is_available = true;    
+        } elseif ($available_to['whom']==4 && !is_user_logged_in()) {   // Not logged-in only
+            $is_available = true;
+        } elseif ($available_to['whom']==5) { // Not logged-in or logged-in user with selected role
+            if (!is_user_logged_in()) {
+                $is_available = true;
+            } else {  // check current user roles  
+                if (empty($available_to['roles'])) {
+                    $is_available = true;
+                } else {
+                    $is_available = $this->current_user_can_role_from($available_to['roles']);
+                }   
+            }
         } else {
             $is_available = false;
-        }        
+        }  
+        
+        if ($is_available) {    // Check if current user has access to this menu item link
+            $active = $this->lib->get_option('activate_content_for_roles', false);
+            if ($active) {
+                $is_available = $this->check_access_to_menu_link($nav_menu_item);
+            }
+        }
         
         return $is_available;
     }

@@ -6,6 +6,7 @@ var jQuery,
 		// Properties
 		settings: {},
 		bulkMap: {
+			ids: [],
 			inProcess: false,
 			doCancel: false
 		},
@@ -79,15 +80,63 @@ var jQuery,
 				return mla.inlineMapAttachment.revert();
 			});
 
-			// add event handler to the Map All links
+			// add event handler to the Execute All Rules
 			$( 'input[type="submit"].mla-mapping' ).click(function( e ){
 				e.preventDefault();
 				return mla.inlineMapAttachment.bulkMap( e.target.name, 0 );
 			});
+
+			// add event handler to the Bulk Actions Apply (top)
+			$( 'input[type="submit"]#doaction' ).click(function( e ){
+				var action = $( '#bulk-action-selector-top' ).val(), ids;
+//console.log( 'Bulk Actions Apply (top) ', e.target.id, ' ', action );
+				if ( 'execute' !== action ) {
+					return true;
+				}
+				
+				ids = $('tbody th.check-column input[type="checkbox"]').serializeArray();
+				if ( 0 === ids.length ) {
+					return true;
+				}
+
+				$.each( ids, function( index, id ) {
+					mla.bulkMap.ids[ index ] = +id.value;
+				});
+//console.log( JSON.stringify( mla.bulkMap ) );
+
+				e.preventDefault();
+				return mla.inlineMapAttachment.bulkMap( 'custom-field-options-bulk-execute', 0 );
+			});
+
+			// add event handler to the Bulk Actions Apply (bottom)
+			$( 'input[type="submit"]#doaction2' ).click(function( e ){
+				var action = $( '#bulk-action-selector-bottom' ).val(), ids;
+				if ( 'execute' !== action ) {
+					return true;
+				}
+				
+				ids = $('tbody th.check-column input[type="checkbox"]').serializeArray();
+				if ( 0 === ids.length ) {
+					return true;
+				}
+
+				$.each( ids, function( index, id ) {
+					mla.bulkMap.ids[ index ] = +id.value;
+				});
+
+				e.preventDefault();
+				return mla.inlineMapAttachment.bulkMap( 'custom-field-options-bulk-execute', 0 );
+			});
+
+			// add event handler to the Execute rollover links
+			$( 'a.execute' ).click(function( e ){
+				e.preventDefault();
+				return mla.inlineMapAttachment.bulkMap( e.target.id, 0 );
+			});
 		},
 
 		bulkMap : function( action, initialOffset ) {
-			var oldComplete = 0, oldUnchanged = 0, oldSuccess = 0, oldSkip = 0, oldRedone = 0;
+			var oldComplete = 0, oldUnchanged = 0, oldSuccess = 0, oldSkip = 0, oldRedone = 0, bulk_ids = [];
 
 			initialOffset = +initialOffset;
 
@@ -108,7 +157,9 @@ var jQuery,
 				}
 			}
 
+			bulk_ids = typeof mla.bulkMap.ids === 'undefined' ? [] : mla.bulkMap.ids;
 			mla.bulkMap = {
+				ids: bulk_ids,
 				inProcess: false,
 				doCancel: false,
 				chunkSize: +mla.settings.bulkChunkSize,
@@ -172,6 +223,7 @@ var jQuery,
 				action: mla.settings.ajax_action,
 				mla_admin_nonce: mla.settings.ajax_nonce,
 				bulk_action: mla.bulkMap.targetName,
+				ids: mla.bulkMap.ids,
 				offset: mla.bulkMap.complete,
 				length: chunk
 			};

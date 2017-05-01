@@ -131,12 +131,12 @@ final class ITSEC_Settings_Page {
 	}
 
 	public function handle_ajax_request() {
-		global $itsec_globals;
-
 		if ( WP_DEBUG ) {
 			ini_set( 'display_errors', 1 );
 		}
 
+
+		ITSEC_Core::set_interactive( true );
 
 		$method = ( isset( $_POST['method'] ) && is_string( $_POST['method'] ) ) ? $_POST['method'] : '';
 		$module = ( isset( $_POST['module'] ) && is_string( $_POST['module'] ) ) ? $_POST['module'] : '';

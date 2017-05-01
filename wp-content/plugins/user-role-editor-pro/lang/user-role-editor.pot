@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: User Role Editor 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-17 09:30+0700\n"
+"POT-Creation-Date: 2017-01-14 10:51+0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Vladimir Garagulya <support@role-editor.com>\n"
 "Language-Team: ShinePHP.com <vladimir@shinephp.com>\n"
@@ -22,7 +22,7 @@ msgid "Custom Post Types"
 msgstr ""
 
 #: ../includes/classes/capabilities-groups-manager.php:75
-#: ../includes/classes/ure-lib.php:230
+#: ../includes/classes/ure-lib.php:232
 #: ../includes/classes/user-role-editor.php:525
 #: ../includes/classes/user-role-editor.php:556
 #: ../pro/includes/classes/user-role-editor-pro.php:411
@@ -64,6 +64,8 @@ msgstr ""
 
 #: ../includes/classes/capabilities-groups-manager.php:116
 #: ../pro/includes/classes/admin-menu-access.php:977
+#: ../pro/includes/classes/plugins-access-role-view.php:32
+#: ../pro/includes/classes/plugins-access-role.php:50
 msgid "Plugins"
 msgstr ""
 
@@ -87,8 +89,8 @@ msgid "Custom capabilities"
 msgstr ""
 
 #: ../includes/classes/capability.php:56 ../includes/classes/capability.php:164
-#: ../includes/classes/ure-lib.php:1223 ../includes/classes/ure-lib.php:1498
-#: ../includes/classes/ure-lib.php:1614 ../includes/classes/ure-lib.php:1662
+#: ../includes/classes/ure-lib.php:1225 ../includes/classes/ure-lib.php:1500
+#: ../includes/classes/ure-lib.php:1616 ../includes/classes/ure-lib.php:1664
 #: ../includes/classes/user-role-editor.php:766
 msgid "Insufficient permissions to work with User Role Editor"
 msgstr ""
@@ -262,417 +264,417 @@ msgid ""
 "limitation."
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:207
+#: ../includes/classes/ure-lib.php:209
 msgid "Error: wrong request"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:291
+#: ../includes/classes/ure-lib.php:293
 msgid "Error: "
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:291
+#: ../includes/classes/ure-lib.php:293
 #: ../pro/includes/classes/widgets-show-view.php:146
 msgid "Role"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:292
+#: ../includes/classes/ure-lib.php:294
 msgid "does not exist"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:335
+#: ../includes/classes/ure-lib.php:337
 msgid "Role is updated successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:337
+#: ../includes/classes/ure-lib.php:339
 msgid "Roles are updated for all network"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:343
+#: ../includes/classes/ure-lib.php:345
 msgid "Error occured during role(s) update"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:350
+#: ../includes/classes/ure-lib.php:352
 msgid "User capabilities are updated successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:355
+#: ../includes/classes/ure-lib.php:357
 msgid "Error occured during user update"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:413
+#: ../includes/classes/ure-lib.php:415
 msgid "User Roles are restored to WordPress default values. "
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1461
+#: ../includes/classes/ure-lib.php:1463
 msgid "Error is occur. Please check the log file."
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1507 ../includes/classes/ure-lib.php:1574
+#: ../includes/classes/ure-lib.php:1509 ../includes/classes/ure-lib.php:1576
 msgid ""
 "Error: Role ID must contain latin characters, digits, hyphens or underscore "
 "only!"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1511 ../includes/classes/ure-lib.php:1578
+#: ../includes/classes/ure-lib.php:1513 ../includes/classes/ure-lib.php:1580
 msgid ""
 "Error: WordPress does not support numeric Role name (ID). Add latin "
 "characters to it."
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1526
+#: ../includes/classes/ure-lib.php:1528
 #, php-format
 msgid "Role %s exists already"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1541
+#: ../includes/classes/ure-lib.php:1543
 msgid "Error is encountered during new role create operation"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1543
+#: ../includes/classes/ure-lib.php:1545
 #, php-format
 msgid "Role %s is created successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1567
+#: ../includes/classes/ure-lib.php:1569
 msgid "Error: Role ID is empty!"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1585
+#: ../includes/classes/ure-lib.php:1587
 msgid "Error: Empty role display name is not allowed."
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1592
+#: ../includes/classes/ure-lib.php:1594
 #, php-format
 msgid "Role %s does not exists"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1600
+#: ../includes/classes/ure-lib.php:1602
 #, php-format
 msgid "Role %s is renamed to %s successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1673
+#: ../includes/classes/ure-lib.php:1675
 msgid "Error encountered during role delete operation"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1675
+#: ../includes/classes/ure-lib.php:1677
 msgid "Unused roles are deleted successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1677
+#: ../includes/classes/ure-lib.php:1679
 #, php-format
 msgid "Role %s is deleted successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1708
+#: ../includes/classes/ure-lib.php:1710
 msgid "Error encountered during default role change operation"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1711
+#: ../includes/classes/ure-lib.php:1713
 #, php-format
 msgid "Default role for new users is set to %s successfully"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1714
+#: ../includes/classes/ure-lib.php:1716
 msgid "Can not set Administrator role as a default one"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1716
+#: ../includes/classes/ure-lib.php:1718
 msgid "This role does not exist - "
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1732
+#: ../includes/classes/ure-lib.php:1734
 msgid "Editor"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1733
+#: ../includes/classes/ure-lib.php:1735
 msgid "Author"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1734
+#: ../includes/classes/ure-lib.php:1736
 msgid "Contributor"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1735
+#: ../includes/classes/ure-lib.php:1737
 msgid "Subscriber"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1737
+#: ../includes/classes/ure-lib.php:1739
 msgid "Switch themes"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1738
+#: ../includes/classes/ure-lib.php:1740
 msgid "Edit themes"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1739
+#: ../includes/classes/ure-lib.php:1741
 msgid "Activate plugins"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1740
+#: ../includes/classes/ure-lib.php:1742
 msgid "Edit plugins"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1741
+#: ../includes/classes/ure-lib.php:1743
 msgid "Edit users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1742
+#: ../includes/classes/ure-lib.php:1744
 msgid "Edit files"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1743
+#: ../includes/classes/ure-lib.php:1745
 msgid "Manage options"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1744
+#: ../includes/classes/ure-lib.php:1746
 msgid "Moderate comments"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1745
+#: ../includes/classes/ure-lib.php:1747
 msgid "Manage categories"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1746
+#: ../includes/classes/ure-lib.php:1748
 msgid "Manage links"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1747
+#: ../includes/classes/ure-lib.php:1749
 msgid "Upload files"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1748
+#: ../includes/classes/ure-lib.php:1750
 #: ../pro/includes/classes/export-import.php:65
 msgid "Import"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1749
+#: ../includes/classes/ure-lib.php:1751
 msgid "Unfiltered html"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1750
+#: ../includes/classes/ure-lib.php:1752
 msgid "Edit posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1751
+#: ../includes/classes/ure-lib.php:1753
 msgid "Edit others posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1752
+#: ../includes/classes/ure-lib.php:1754
 msgid "Edit published posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1753
+#: ../includes/classes/ure-lib.php:1755
 msgid "Publish posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1754
+#: ../includes/classes/ure-lib.php:1756
 msgid "Edit pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1755
+#: ../includes/classes/ure-lib.php:1757
 msgid "Read"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1756
+#: ../includes/classes/ure-lib.php:1758
 msgid "Level 10"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1757
+#: ../includes/classes/ure-lib.php:1759
 msgid "Level 9"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1758
+#: ../includes/classes/ure-lib.php:1760
 msgid "Level 8"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1759
+#: ../includes/classes/ure-lib.php:1761
 msgid "Level 7"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1760
+#: ../includes/classes/ure-lib.php:1762
 msgid "Level 6"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1761
+#: ../includes/classes/ure-lib.php:1763
 msgid "Level 5"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1762
+#: ../includes/classes/ure-lib.php:1764
 msgid "Level 4"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1763
+#: ../includes/classes/ure-lib.php:1765
 msgid "Level 3"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1764
+#: ../includes/classes/ure-lib.php:1766
 msgid "Level 2"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1765
+#: ../includes/classes/ure-lib.php:1767
 msgid "Level 1"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1766
+#: ../includes/classes/ure-lib.php:1768
 msgid "Level 0"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1767
+#: ../includes/classes/ure-lib.php:1769
 msgid "Edit others pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1768
+#: ../includes/classes/ure-lib.php:1770
 msgid "Edit published pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1769
+#: ../includes/classes/ure-lib.php:1771
 msgid "Publish pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1770
+#: ../includes/classes/ure-lib.php:1772
 msgid "Delete pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1771
+#: ../includes/classes/ure-lib.php:1773
 msgid "Delete others pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1772
+#: ../includes/classes/ure-lib.php:1774
 msgid "Delete published pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1773
+#: ../includes/classes/ure-lib.php:1775
 msgid "Delete posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1774
+#: ../includes/classes/ure-lib.php:1776
 msgid "Delete others posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1775
+#: ../includes/classes/ure-lib.php:1777
 msgid "Delete published posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1776
+#: ../includes/classes/ure-lib.php:1778
 msgid "Delete private posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1777
+#: ../includes/classes/ure-lib.php:1779
 msgid "Edit private posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1778
+#: ../includes/classes/ure-lib.php:1780
 msgid "Read private posts"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1779
+#: ../includes/classes/ure-lib.php:1781
 msgid "Delete private pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1780
+#: ../includes/classes/ure-lib.php:1782
 msgid "Edit private pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1781
+#: ../includes/classes/ure-lib.php:1783
 msgid "Read private pages"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1782
+#: ../includes/classes/ure-lib.php:1784
 msgid "Delete users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1783
+#: ../includes/classes/ure-lib.php:1785
 msgid "Create users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1784
+#: ../includes/classes/ure-lib.php:1786
 msgid "Unfiltered upload"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1785
+#: ../includes/classes/ure-lib.php:1787
 msgid "Edit dashboard"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1786
+#: ../includes/classes/ure-lib.php:1788
 msgid "Update plugins"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1787
+#: ../includes/classes/ure-lib.php:1789
 msgid "Delete plugins"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1788
+#: ../includes/classes/ure-lib.php:1790
 msgid "Install plugins"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1789
+#: ../includes/classes/ure-lib.php:1791
 msgid "Update themes"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1790
+#: ../includes/classes/ure-lib.php:1792
 msgid "Install themes"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1791
+#: ../includes/classes/ure-lib.php:1793
 msgid "Update core"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1792
+#: ../includes/classes/ure-lib.php:1794
 msgid "List users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1793
+#: ../includes/classes/ure-lib.php:1795
 msgid "Remove users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1794
+#: ../includes/classes/ure-lib.php:1796
 msgid "Add users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1795
+#: ../includes/classes/ure-lib.php:1797
 msgid "Promote users"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1796
+#: ../includes/classes/ure-lib.php:1798
 msgid "Edit theme options"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1797
+#: ../includes/classes/ure-lib.php:1799
 msgid "Delete themes"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1798
+#: ../includes/classes/ure-lib.php:1800
 #: ../pro/includes/classes/export-import.php:64
 msgid "Export"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1963
+#: ../includes/classes/ure-lib.php:1965
 msgid "Version:"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1964
+#: ../includes/classes/ure-lib.php:1966
 msgid "Author's website"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1965
+#: ../includes/classes/ure-lib.php:1967
 msgid "Plugin webpage"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1966
+#: ../includes/classes/ure-lib.php:1968
 msgid "Plugin download"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1967
+#: ../includes/classes/ure-lib.php:1969
 #: ../includes/classes/user-role-editor.php:474
 msgid "Changelog"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:1968
+#: ../includes/classes/ure-lib.php:1970
 msgid "FAQ"
 msgstr ""
 
-#: ../includes/classes/ure-lib.php:2150
+#: ../includes/classes/ure-lib.php:2152
 #, php-format
 msgid "Denied: %s"
 msgstr ""
@@ -783,6 +785,8 @@ msgstr ""
 #: ../pro/includes/classes/admin-menu-view.php:40
 #: ../pro/includes/classes/meta-boxes-access.php:57
 #: ../pro/includes/classes/other-roles-access.php:61
+#: ../pro/includes/classes/plugins-access-role.php:52
+#: ../pro/includes/classes/plugins-access-user.php:136
 #: ../pro/includes/classes/posts-edit-access-role.php:52
 #: ../pro/includes/classes/posts-view-access.php:66
 #: ../pro/includes/classes/widgets-admin-access.php:87
@@ -829,6 +833,7 @@ msgstr ""
 
 #: ../includes/classes/user-role-editor.php:820
 #: ../pro/includes/classes/front-end-menu-edit.php:228
+#: ../pro/includes/classes/plugins-access-user.php:137
 #: ../pro/includes/classes/widgets-show-view.php:101
 msgid "Cancel"
 msgstr ""
@@ -1066,6 +1071,7 @@ msgstr ""
 
 #: ../pro/includes/classes/admin-menu-view.php:190
 #: ../pro/includes/classes/other-roles.php:196
+#: ../pro/includes/classes/plugins-access-view.php:47
 #: ../pro/includes/classes/posts-view.php:70
 #: ../pro/includes/classes/widgets-show-view.php:138
 msgid "Selected"
@@ -1073,6 +1079,7 @@ msgstr ""
 
 #: ../pro/includes/classes/admin-menu-view.php:192
 #: ../pro/includes/classes/other-roles.php:198
+#: ../pro/includes/classes/plugins-access-view.php:49
 #: ../pro/includes/classes/posts-view.php:72
 #: ../pro/includes/classes/widgets-show-view.php:140
 msgid "Not Selected"
@@ -1252,7 +1259,7 @@ msgstr ""
 msgid "Unknown error: Roles import was failed"
 msgstr ""
 
-#: ../pro/includes/classes/front-end-menu-access.php:69
+#: ../pro/includes/classes/front-end-menu-access.php:66
 msgid "Select roles"
 msgstr ""
 
@@ -1351,6 +1358,18 @@ msgstr ""
 
 #: ../pro/includes/classes/gf-access.php:103
 msgid "Allow access to forms with ID (comma separated) "
+msgstr ""
+
+#: ../pro/includes/classes/license-key.php:54
+msgid "Active"
+msgstr ""
+
+#: ../pro/includes/classes/license-key.php:58
+msgid "Expired"
+msgstr ""
+
+#: ../pro/includes/classes/license-key.php:62
+msgid "Invalid"
 msgstr ""
 
 #: ../pro/includes/classes/meta-boxes-access.php:42
@@ -1455,8 +1474,64 @@ msgstr ""
 msgid "Role ID"
 msgstr ""
 
-#: ../pro/includes/classes/plugins-activation-access.php:117
+#: ../pro/includes/classes/plugins-access-role-controller.php:128
+msgid "URE: you do not have enough permissions to use this add-on."
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role-controller.php:133
+msgid "URE: plugins access: Wrong object type. Data was not updated."
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role-controller.php:138
+msgid "URE: plugins: Empty object name. Data was not updated"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role-controller.php:144
+msgid "Plugins access data was updated successfully"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role-view.php:31
+msgid "Allow activate/deactivate selected plugins"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role.php:51
+msgid "Allow manage plugins"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-role.php:53
+msgid "Role should have \"activate_plugins\" capability"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-user-view.php:56
 msgid "Plugins available for activation/deactivation"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-user-view.php:58
+msgid "Edit List"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-user.php:135
+msgid "Allow manage"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-user.php:138
+msgid "selected plugins"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-user.php:139
+msgid "all plugins except selected"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-view.php:45
+msgid "Allow plugins:"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-view.php:73
+msgid "Plugin Name"
+msgstr ""
+
+#: ../pro/includes/classes/plugins-access-view.php:74
+msgid "Path"
 msgstr ""
 
 #: ../pro/includes/classes/posts-edit-access-bulk-action.php:86
@@ -1500,39 +1575,39 @@ msgstr ""
 msgid "Allow/Prohibit editing selected posts"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:57
+#: ../pro/includes/classes/posts-edit-access-view.php:53
 msgid "Posts/Pages/Custom Post Types Editor Restrictions"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:68
+#: ../pro/includes/classes/posts-edit-access-view.php:64
 msgid "What to do"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:72
+#: ../pro/includes/classes/posts-edit-access-view.php:68
 msgid "Allow"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:74
+#: ../pro/includes/classes/posts-edit-access-view.php:70
 msgid "Prohibit"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:79
+#: ../pro/includes/classes/posts-edit-access-view.php:75
 msgid "Look at roles"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:87
+#: ../pro/includes/classes/posts-edit-access-view.php:83
 msgid "Own data only"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:95
+#: ../pro/includes/classes/posts-edit-access-view.php:91
 msgid "with post ID (comma separated)"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:103
+#: ../pro/includes/classes/posts-edit-access-view.php:99
 msgid "with category/taxonomy ID (comma separated)"
 msgstr ""
 
-#: ../pro/includes/classes/posts-edit-access-view.php:114
+#: ../pro/includes/classes/posts-edit-access-view.php:110
 msgid "with author user ID (comma separated)"
 msgstr ""
 

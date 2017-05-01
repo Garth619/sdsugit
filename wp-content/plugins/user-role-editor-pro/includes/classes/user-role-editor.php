@@ -9,6 +9,9 @@
  */
 
 class User_Role_Editor {
+    
+    protected static $instance = null; // object exemplar reference  
+    
     // plugin specific library object: common code stuff, including options data processor
     protected $lib = null;
     
@@ -25,10 +28,43 @@ class User_Role_Editor {
     // URE pages hook suffixes
     protected $ure_hook_suffixes = null;
     
+    
+    public static function get_instance() {
+        if (self::$instance===null) {        
+            self::$instance = new User_Role_Editor();
+        }
+        
+        return self::$instance;
+    }
+    // end of get_instance()
+    
+    
+    /**
+     * Private clone method to prevent cloning of the instance of the *Singleton* 
+     *
+     * @return void
+     */
+    private function __clone() {
+        
+    }
+    // end of __clone()
+    
+    /**
+     * Private unserialize method to prevent unserializing of the *Singleton*
+     * instance.
+     *
+     * @return void
+     */
+    private function __wakeup() {
+        
+    }
+    // end of __wakeup()
+
+    
     /**
      * class constructor
      */
-    public function __construct() {
+    protected function __construct() {
 
         if (empty($this->lib)) {
             $this->lib = URE_Lib::get_instance('user_role_editor');
@@ -152,11 +188,13 @@ class User_Role_Editor {
             $count_users_without_role = $this->lib->get_option('count_users_without_role', 0);
             if ($count_users_without_role) {
                 add_action('restrict_manage_users', array($this, 'move_users_from_no_role_button'));
-                add_action('admin_init', array($this, 'add_css_to_users_page'));
+                add_action('admin_head', array($this, 'add_css_to_users_page'));
                 add_action('admin_footer', array($this, 'add_js_to_users_page'));
             }
         }
 
+        new URE_Grant_Roles();
+       
         add_action('wp_ajax_ure_ajax', array($this, 'ure_ajax'));
     }
     // end of plugin_init()
@@ -247,7 +285,7 @@ class User_Role_Editor {
           return;
       }             
       
-      wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core','jquery-ui-button', 'jquery') );
+      wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core','jquery-ui-button', 'jquery') );
       wp_register_script( 'ure-users-js', plugins_url( '/js/ure-users.js', URE_PLUGIN_FULL_PATH ) );
       wp_enqueue_script ( 'ure-users-js' );      
       wp_localize_script( 'ure-users-js', 'ure_users_data', array(
@@ -791,8 +829,8 @@ class User_Role_Editor {
         $confirm_role_update = $this->lib->get_option('ure_confirm_role_update', 1);        
         $page_url = $this->lib->get_ure_page_url();
         
-        wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
-        wp_enqueue_script('jquery-ui-selectable', false, array('jquery-ui-core', 'jquery'));
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
+        wp_enqueue_script('jquery-ui-selectable', '', array('jquery-ui-core', 'jquery'));
         wp_register_script('ure-js', plugins_url('/js/ure-js.js', URE_PLUGIN_FULL_PATH));
         wp_enqueue_script('ure-js');
         wp_localize_script('ure-js', 'ure_data', array(
@@ -843,7 +881,7 @@ class User_Role_Editor {
     
     protected function load_settings_js() {
     
-        wp_enqueue_script('jquery-ui-tabs', false, array('jquery-ui-core', 'jquery'));
+        wp_enqueue_script('jquery-ui-tabs', '', array('jquery-ui-core', 'jquery'));
         do_action('ure_load_js_settings');
         
     }

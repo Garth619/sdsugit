@@ -27,7 +27,7 @@ class URE_Front_End_Menu_View {
             }
         }
 ?>
-        <div style="display: block;">            
+        <div id="ure_show_to_container_<?php echo $item_id;?>" style="display: block;">            
             <span class="description"><?php esc_html_e('Show to:', 'user-role-editor');?></span><br>
             <input type="radio" name="ure_show_to[<?php echo $item_id;?>]" id="ure_show_to_everyone_<?php echo $item_id;?>" class="ure_show_to" value="1" <?php checked(1, $whom, true);?>/>
             <label for="ure_show_to_everyone_<?php echo $item_id;?>"><?php esc_html_e('Everyone', 'user-role-editor');?></label><br>
@@ -35,14 +35,18 @@ class URE_Front_End_Menu_View {
             <label for="ure_show_to_logged_in_<?php echo $item_id;?>"><?php esc_html_e('Logged-in users', 'user-role-editor');?></label><br>
             <input type="radio" name="ure_show_to[<?php echo $item_id;?>]" id="ure_show_to_logged_in_with_roles_<?php echo $item_id;?>" class="ure_show_to" value="3" <?php checked(3, $whom, true);?> />            
             <label for="ure_show_to_logged_in_with_roles_<?php echo $item_id;?>"><?php esc_html_e('Logged-in users with roles', 'user-role-editor');?></label><br>
+            <div id="ure_roles_container1_<?php echo $item_id;?>"></div>
+            <input type="radio" name="ure_show_to[<?php echo $item_id;?>]" id="ure_show_to_not_logged_in_<?php echo $item_id;?>" class="ure_show_to" value="4" <?php checked(4, $whom, true);?> />
+            <label for="ure_show_to_not_logged_in_<?php echo $item_id;?>"><?php esc_html_e('Not logged-in', 'user-role-editor');?></label><br>
+            <input type="radio" name="ure_show_to[<?php echo $item_id;?>]" id="ure_show_to_not_logged_in_and_with_roles_<?php echo $item_id;?>" class="ure_show_to" value="5" <?php checked(5, $whom, true);?> />
+            <label for="ure_show_to_not_logged_in_and_with_roles_<?php echo $item_id;?>"><?php esc_html_e('Not logged-in and logged-in users with roles', 'user-role-editor');?></label><br>
+            <div id="ure_roles_container2_<?php echo $item_id;?>"></div>
             <div id="ure_selected_roles_container_<?php echo $item_id;?>" style="display: none; padding-left: 20px;">
                 <button id="ure_edit_roles_list_<?php echo $item_id;?>" class="ure_edit_roles_list"><?php echo esc_html_e('Edit Roles List', 'user-role-editor');?></button><br>
                 <div style="padding-top: 5px;">
                     <textarea id="ure_roles_list_<?php echo $item_id;?>" name="ure_roles_list[<?php echo $item_id;?>]" rows="3" style="width: 100%;" readonly="readonly"><?php echo $roles_list;?></textarea>
                 </div>
             </div>
-            <input type="radio" name="ure_show_to[<?php echo $item_id;?>]" id="ure_show_to_not_logged_in_<?php echo $item_id;?>" class="ure_show_to" value="4" <?php checked(4, $whom, true);?> />
-            <label for="ure_show_to_not_logged_in_<?php echo $item_id;?>"><?php esc_html_e('Not logged-in only', 'user-role-editor');?></label>
         </div>
 <?php
     }

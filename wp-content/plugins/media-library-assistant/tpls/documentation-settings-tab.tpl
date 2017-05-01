@@ -24,7 +24,8 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 <li><a href="#author_author_name">Author, Author Name</a></li>
 <li><a href="#category_parameters">Category Parameters</a></li>
 <li><a href="#tag_parameters">Tag Parameters</a></li>
-<li><a href="#taxonomy_parameters_tax_operator">Simple Taxonomy Parameters, "tax_operator"</a></li>
+<li><a href="#taxonomy_parameters_tax_operator">Simple Taxonomy Parameters</a></li>
+<li><a href="#taxonomy_parameters_tax_input">Compound Taxonomy Parameters, "tax_input"</a></li>
 <li><a href="#taxonomy_queries">Taxonomy Queries, the "tax_query"</a></li>
 <li><a href="#taxonomy_keyword_search">Taxonomy term keyword(s) search</a></li>
 <li><a href="#post_mime_type_parameter">Post MIME Type</a></li>
@@ -153,8 +154,7 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 </li>
 <ul class="mla-doc-toc-list">
 <li><a href="#custom_field_mapping_example">Custom field mapping example</a></li>
-<li><a href="#custom_field_mapping_table">The custom field mapping table</a></li>
-<li><a href="#custom_field_mapping_buttons">Custom field mapping command buttons</a></li>
+<li><a href="#custom_field_rule_elements">The custom field rule elements</a></li>
 <li><a href="#attachment_metadata_mapping">Adding or Changing Attachment Metadata</a></li>
 <li><a href="#custom_field_mapping_with_templates">Custom field mapping with Content Templates</a></li>
 <li><a href="#other_custom_field_mapping">Other mapping techniques</a></li>
@@ -728,7 +728,7 @@ More information and examples can be found on the <a href="http://codex.wordpres
 Note that the "tag_id" parameter requires exactly one tag ID; multiple IDs are not allowed. You can use the "tag__in" parameter to query for multiple values.
 <a name="taxonomy_parameters_tax_operator"></a>
 </p>
-<h4>Simple Taxonomy Parameters, "tax_operator"</h4>
+<h4>Simple Taxonomy Parameters</h4>
 <p>
 The <code>[mla_gallery]</code> shortcode supports the simple "{tax} (string)" values (deprecated as of WordPress version 3.1) as well as the more powerful "<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Taxonomy_Parameters" title="WordPress Codex Documentation for tax_query" target="_blank">tax_query</a>" value. Use these queries for your custom taxonomies (and for the MLA attachment_category and attachment_tag taxonomies); use the above Category and Tag parameters for the WordPress-provided taxonomies. If you do use a tax_query for Categories and Tags, the slug values are "category" and "post_tag". 
 </p>
@@ -778,6 +778,26 @@ If you code two or more simple taxonomy queries, the items selected must contain
 </ul>
 <p>
 Note that the default tax_include_children value is true, matching the default WordPress setting. If your tax_operator is "AND", you will almost certainly want to change this setting.
+<a name="taxonomy_parameters_tax_input"></a>
+</p>
+<h4>Compound Taxonomy Queries, "tax_input"</h4>
+<p>
+You can combine taxonomies and terms into a single parameter; <code>tax_input</code>. This is most often used to process selections made in the <a href="#term_list_display_content"><strong>MLA Term List Display Content (Dropdown and Checklist)</strong></a> for controls that contain multiple taxonomies. The parameter value can be one or more items consisting of the taxonomy slug and a term_id or slug, separated by a period. For example, "animal.34" or "vegetable.carrot".
+</p>
+<p>
+This example has a simple form to pick a term from two taxonomies and display a gallery with the items assigned to the selected term:
+</p>
+<p>
+<code>
+&lt;form id="animal-vegetable-form" method="post" action="."&gt;<br />
+[mla_term_list taxonomy="animal,vegetable" mla_output=dropdown]<br />
+&lt;input id="animal-vegetable-form-submit" name="animal_vegetable_form_submit" type="submit" value="Search" /&gt;<br />
+&lt;/form&gt;<br />
+[mla_gallery tax_input={+template:({+request:tax_input.animal-vegetable+}|animal.invalid-slug}+}]
+</code>
+</p>
+<p>
+In the example, <code>animal.invalid-slug</code> is a taxonomy.term combination that does not exist. It causes the gallery display to be suppressed until a selection is made in the dropdown control.
 <a name="taxonomy_queries"></a>
 </p>
 <h4>Taxonomy Queries, the "tax_query"</h4>
@@ -2150,7 +2170,11 @@ The <strong>"hierarchical"</strong> parameter determines the overall structure o
 </tr>
 <tr>
 <td class="mla-doc-table-label">hierarchical=true</td>
-<td>display terms in a nested/indented structure where child terms are placed immediately after their parent. <strong>This is the default value.</strong></td>
+<td>display terms in a nested/indented structure where child terms are placed immediately after their parent. <strong>This is the default value.</strong> If you code multiple taxonomies in the same shortcode, each taxonomy will generate its own separate list or control.</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">hierarchical=combine</td>
+<td>display terms from multiple taxnomies in a single nested/indented structure.</td>
 </tr>
 </table>
 <p>
@@ -2355,17 +2379,20 @@ The "mla_target" parameter accepts any value and adds an HTML "target" attribute
 </p>
 <h4>Term List Display Content (Dropdown and Checklist)</h4>
 <p>
-Dropdown and Checklist formats do not generate hyperlinks; they generate HTML input controls that return the content of `value` attributes. Eight parameters provide an easy way to control the contents of items without requiring the use of custom Markup templates. 
+Dropdown and Checklist formats do not generate hyperlinks; they generate HTML input controls that return the content of <code>value</code> attributes. Eight parameters provide an easy way to control the contents of items without requiring the use of custom Markup templates. 
 </p>
 <table>
 <tr>
+<td class="mla-doc-table-label">mla_control_name</td>
+<td>replaces the <strong><code>tax_input[[+taxonomy+]][]</code> (default)</strong> name attribute in the input tag for the control(s). Useful for adding multiple dropdown controls for the same taxonomy to a post/page and for dropdown controls containing terms from multiple taxonomies.</td>
+</tr>
 <tr>
 <td class="mla-doc-table-label">mla_option_text</td>
-<td>replaces the term name text displayed for each option</td>
+<td>replaces the <strong>term name (default)</strong> text displayed for each option</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">mla_option_value</td>
-<td>replaces the term_id value returned for each option</td>
+<td>replaces the <strong>term_id (default)</strong> value returned for each option. For <strong>dropdown</strong> controls containing terms from multiple taxonomies, the default is <strong><code>[+taxonomy+].[+term_id+]</code>.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">hide_if_empty</td>
@@ -2394,6 +2421,35 @@ Dropdown and Checklist formats do not generate hyperlinks; they generate HTML in
 </table>
 <p>
 The <code>mla_option_value</code> parameter is the most commonly-used. For example, to return the term slug instead of the term id you would code <code>mla_option_value="{+slug+}"</code>.
+</p>
+<p>
+Dropdown controls containing terms from multiple taxonomies (flat or hierarchical) require special handling because the <code>name=</code> attribute appears once for the entire control, not once for each term within the control. To associate each term with its taxonomy both values are encoded in the <code>value=</code> attribute in the term's option tag. Here is an example for two "flat" taxonomies:</p>
+<p>
+<code>
+[mla_term_list taxonomy="animal,vegetable" mla_output=dropdown]
+</code>
+</p>
+<p>
+The above shortcode generates the HTML below (some class attributes removed for clarity).
+</p>
+<p>
+<code>
+&lt;select name="tax_input[animal-vegetable][]" class="term-list-taxonomy-animal-vegetable" id="mla_term_list-1"&gt;<br />
+&nbsp;&nbsp;&lt;option class="term-list-dropdown-term level-0" value="animal.12"&gt;Dog&lt;/option&gt;<br />
+&nbsp;&nbsp;&lt;option class="term-list-dropdown-term level-0" value="animal.13"&gt;Cat&lt;/option&gt;<br />
+&nbsp;&nbsp;&lt;option class="term-list-dropdown-term level-0" value="vegetable.33"&gt;Carrot&lt;/option&gt;<br />
+&nbsp;&nbsp;&lt;option class="term-list-dropdown-term level-0" value="vegetable.35"&gt;Apple&lt;/option&gt;<br />
+&lt;/select&gt;
+</code>
+</p>
+<p>
+In the above example, to return the term slug instead of the term id you would add <code>mla_option_value="{+taxonomy+}.{+slug+}"</code> to the shortcode.
+</p>
+<p>
+If you use the default control name, the <code>[mla_gallery]</code> shortcode&rsquo;s <code>tax_input</code> parameter can convert the compound value(s) returned in the <code>tax_input</code> array to the appropriate taxonomy-specific entries. For example, the <code>animal.12</code> value can be handled as if it was <code>animal=12</code>. For the above example, the corresponding <code>[mla_gallery]</code> shortcode parameter would be <code>tax_input="{+request:tax_input.animal-vegetable+}"</code>. See the <a href="#taxonomy_parameters_tax_input"><strong>Compound Taxonomy Queries, "tax_input"</strong></a> section for more information.
+</p>
+<p>
+You could use the <code>mla_control_name</code> shortcode parameter to move the selected term out of the default <code>tax_input</code> array to a separate query argument and then process the returned value in your own PHP code.
 <a name="term_list_other"></a>
 </p>
 <h4>Term List Other Parameters</h4>
@@ -4149,8 +4205,8 @@ Eight "format" values help you reformat fields or encode them for use in HTML at
 <td>If you need to limit the length of a value or extract a portion of it the ",substr" option will return part of the value. This option accepts one or two parameters, "start" (s) and "length" (l). The first character in the value is at position zero (0) so, for example, ",substr(2,3)" would return "cde" from a value of "abcdef". You can find complete information on "start" and "length", including the effect of negative values, at: <a href="http://php.net/manual/en/function.substr.php" title="PHP substr parameters" target="_blank">http://php.net/manual/en/function.substr.php</a>.</td>
 </tr>
 <tr>
-<td class="mla-doc-table-label" style="white-space:nowrap">,kbmb(t,k,m)</td>
-<td>Some data values, e.g., file size, are better expressed in kilobytes and megabytes. The "kbmb" format provides this conversion. There are three optional arguments; "t" (threshold), "k" (kilobyte suffix) and "m" (megabyte suffix). The threshold argument (default 10240; ten kilobytes) sets the dividing amount between bytes and kilobytes. For example, a value of 1536 bytes would display as "1,536", not "1.50 KB" and 15360 bytes would display as "15.5 KB". The "k" and "m" arguments replace the default " KB" and/or " MB" suffix displayed following the numeric value.</td>
+<td class="mla-doc-table-label" style="white-space:nowrap">,kbmb(t,k,m,p)</td>
+<td>Some data values, e.g., file size, are better expressed in kilobytes and megabytes. The "kbmb" format provides this conversion. There are four optional arguments; "t" (threshold), "k" (kilobyte suffix), "m" (megabyte suffix) and "p" (precision). The threshold argument (default 10240; ten kilobytes) sets the dividing amount between bytes and kilobytes. For example, a value of 1536 bytes would display as "1,536", not "1.50 KB" and 15360 bytes would display as "15.5 KB". The "k" and "m" arguments replace the default " KB" and/or " MB" suffix displayed following the numeric value. The "p" argument is the number of decimal places in the result, e.g., a value of 287,709 with a threshold of 1024 displays as "281", "281.0", "280.97", "280.966", or "280.9658" for precisions 0, 1, 2, 3 and 4.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label" style="white-space:nowrap">,fraction(f,s)</td>
@@ -5510,7 +5566,7 @@ The following hooks are defined in <code>/wp-admin/includes/class-mla-media-moda
 </tr>
 <tr>
 <td class="mla-doc-table-label">mla_media_modal_query_filtered_terms</td>
-<td class="mla-doc-hook-definition">Change the terms of the Media Manager Modal Window "Query Attachments" query after they are pre-processed by the Ajax handler</td>
+<td class="mla-doc-hook-definition">Change the terms of the Media Manager Modal Window "Query Attachments" query after they are pre-processed by the AJAX handler</td>
 </tr>
 </table>
 <p>
@@ -5744,13 +5800,16 @@ This is a powerful tool, but it comes at the price of additional database storag
 If you just want to add a custom field to the Media/Assistant submenu, the quick edit area and/or the bulk edit area you can bypass the mapping logic by leaving the Data Source value as "-- None (select a value) --".
 </p>
 <p>
-Two options control the custom field mapping when new items are added to the Media Library ("Enable custom field mapping when adding new media") or when attachment metadata is updated ("Enable custom field mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "Ajax" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
+Two options control the custom field mapping when new items are added to the Media Library ("Enable custom field mapping when adding new media") or when attachment metadata is updated ("Enable custom field mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
 </p>
 <ul class="mla_settings">
 <li><code>define( 'MLA_AJAX_EXCEPTIONS', 'wfu_ajax_action,upload_ugc' );</code></li>
 </ul>
 <p>
 The above example adds the "action" values for two popular file upload plugins, <a href="https://wordpress.org/plugins/wp-file-upload/" title="WordPress File Upload plugin page" target="_blank">WordPress File Upload</a> and <a href="https://wordpress.org/plugins/frontend-uploader/" title="Frontend Uploader plugin page" target="_blank">Frontend Uploader</a> respectively. Once the entry is added MLA will run the mapping rules when it detects file upload operations from the other plugin(s).
+</p>
+<p>
+If you cannot identify the proper "action" value or if your uploader uses another method to do its work you can try adding <code>define( 'MLA_AJAX_EXCEPTIONS', 'always' );</code> to your <code>wp-config.php</code> file. This value will unconditionally load full MLA support for AJAX operations and may give you better results. You can also use the <a href="#mla_debug_tab">Debug tab</a> and <code>define( 'MLA_DEBUG_LEVEL', 3 );</code> to log more information about file upload requests; that may help identify the appropriate "action" value. 
 <a name="custom_field_mapping_example"></a>
 </p>
 <p>
@@ -5761,21 +5820,22 @@ The above example adds the "action" values for two popular file upload plugins, 
 Here is a simple example of mapping the items' file size to a custom field, so you can display it in the Media/Assistant submenu table and use it in and <code>[mla_gallery]</code> shortcode. You can go to the Settings/Media Library Assistant Custom Fields tab and define a rule that maps file size to a WordPress custom field. The steps required are:
 <ol>
 <li>Navigate to the Settings/Media Library Assistant "Custom Fields" tab.</li>
-<li>Make sure the "Enable custom field mapping when adding new media" box is checked. If not, check the box, scroll down to the bottom of the page and click "Save Changes".</li>
-<li>Scroll down to the "Add a new Field and Mapping Rule" area.</li>
-<li>In the first text box, give your field a name, e.g., "File Size".</li>
+<li>Make sure the "Enable custom field mapping when adding new media" box is checked. If not, check the box, scroll down and click "Save Changes".</li>
+<li>Scroll down to the "Add New Rule" area on the left part of the screen.</li>
+<li>Click the "Enter new field" link to change the drop down list of existing fields to a text box.</li>
+<li>In the text box, give your field a name, e.g., "File Size".</li>
 <li>From the Data Source dropdown list, select "file_size".</li>
+<li>Leave the "Meta/Template" text box empty; it's not needed for this example.</li>
+<li>Click the "MLA Column" check box to make the field available in the Media/Assistant submenu table. You can also click the "Quick Edit" and "Bulk Edit" check boxes to make the field available in the Media/Assistant submenu table Quick Edit and Bulk Edit areas if that's useful for you.</li>
 <li>In the "Existing Text" dropdown list, select "Replace".</li>
 <li>In the "Format" dropdown list, select "Commas". This will format the values in a more attractive way.</li>
-<li>Click the "MLA Column" check box to make the field available in the Media/Assistant submenu table. You can also click the "Quick Edit" and "Bulk Edit" check boxes to make the field available in the Media/Assistant submenu table Quick Edit and Bulk Edit areas if that's useful for you.</li>
 <li>In the "Option:" dropdown list, select "Text".</li>
 <li>Click the "Delete NULL Values" checkbox.</li>
-<li>Click the "Add Field and Map All Attachments" button to save your work and create the "File Size" value for the items already in your Media Library.</li>
+<li>Click the "Add Rule" button to save your work and create the rule.</li>
 </ol>
-<p>
-On the Media/Assistant screen you can now display a File Size column. If you don't see the column, pull down the Screen Options (upper-right corner) and check the box next to File Size. Each of the terms in the column is a link; click on a value to get a list filtered by that value. You can also sort the table on File Size by clicking on the column header.</p>
-<p>
-You can use the meta_key, orderby and order parameters to sort an <code>[mla_gallery]</code> by your custom field. For example:<br />
+<p>To create the "File Size" value for the items already in your Media Library, find your new rule in the table on the right part of the screen. Hover below the "File Size" rule name and click the "Execute" rollover action.</p> 
+<p>On the Media/Assistant screen you can now display a File Size column. If you don't see the column, pull down the Screen Options (upper-right corner) and check the box next to File Size. Each of the terms in the column is a link; click on a value to get a list filtered by that value. You can also sort the table on File Size by clicking on the column header.</p>
+<p>You can use the meta_key, orderby and order parameters to sort an <code>[mla_gallery]</code> by your custom field. For example:<br />
 &nbsp;<br />
 <code>[mla_gallery post_parent=all meta_key="File Size" orderby=meta_value order=DESC]</code><br />
 &nbsp;<br />
@@ -5785,20 +5845,14 @@ The three parameters in the above example will select all of the images in your 
 </p>
 <p>
 Note the format of the <code>value</code> and <code>compare</code> parameters within the <code>meta_query</code>. Because the File Size custom field uses the "Commas" format, the values are stored as 15-character strings with leading spaces; this makes the values display and sort sensibly. You must use <code>'compare' => 'BETWEEN'</code> and give the lowest and highest values as an array in the <code>'value' => array( '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;82,168' )</code> parameter, padding each value out to exactly 15 characters wide.
-<a name="custom_field_mapping_table"></a>&nbsp;
+<a name="custom_field_rule_elements"></a>&nbsp;
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
 </p>
-<h4>The custom field mapping table</h4>
-<p>
-The table contains the rules that map data sources to custom fields. Each rule is displayed as two rows of rule parameters followed by command buttons for maintaining the rule and using it to map attachment data. The rule parameters are:
-</p>
+<h4>The custom field rule elements</h4>
 <dl>
-<dt>Enable custom field mapping when adding new media</dt>
-<dd>
-Check this box to enable mapping when uploading new media (attachments). Click Save Changes at the bottom of the screen if you change this option. Does NOT affect the operation of the "Map" buttons on the bulk edit, single edit and settings screens.<dt>Field Title</dt>
-</dd>
+<dt>Rule Name</dt>
 <dd>
 Contains the name of the custom field or metadata element to which the rule applies. Attachment metadata elements are displayed as a "meta:" prefix followed by the element name; see the <a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a> section for more details.
 </dd>
@@ -5830,6 +5884,24 @@ Most of the data elements are static, i.e., they do not change after the attachm
 The parent/reference information (parent_type, parent_title, parent_issues, reference_issues) and the "where-used" information (featured in, inserted in, gallery in and MLA gallery in) is dynamic; it will change as you define galleries, insert images in posts, define featured images, etc. Because of the database processing required to update this information, <strong><em>parent, where-used and reference data are NOT automatically refreshed</em></strong>. If you use these elements, you must manually refresh them with the "map data" buttons on the Settings screen, the bulk edit area or the Edit Media screen.
 <br />&nbsp;<br />
 Several of the data elements are sourced from the WordPress "image_meta" array. The credit, caption, copyright and title elements are taken from the IPTC/EXIF metadata (if any), but they go through a number of filtering rules that are not easy to replicate with the MLA IPTC/EXIF processing rules. You may find these "image_meta" elements more useful than the raw IPTC/EXIF metadata.
+</dd>
+<dt>Meta/Template text</dt>
+<dd>
+If you select "<strong>-- Metadata (see below) --</strong>" as the data source you must specify the name of the field you want in the text box below the data source dropdown box. Any of the fields in the <em>_wp_attachment_metadata</em> array may be named, including the new audio/video fields available with WordPress 3.6 and later. For example, "length_formatted" will return the length of a video attachment. You can specify elements within an array with a compound name, e.g., "audio.sample_rate" to get the sampling rate field from the "audio" array of a video attachment. If you simply specify "audio", you will get the values of every array element, e.g., "mp4,ISO/IEC 14496 AAC,48000,2,16,false,stereo".
+<br />&nbsp;<br />
+If you select "<strong>-- Template (see below) --</strong>" as the data source you must enter your template in the text box below the data source dropdown box. See the <a href="#custom_field_mapping_with_templates">Custom field mapping with Content Templates</a> section for more details.
+</dd>
+<dt>MLA Column checkbox</dt>
+<dd>
+Check this box if you want a custom field to appear as a sortable column in the Media/Assistant submenu table. Attachment metadata elements cannot be used as a table column; this box is ignored if the Field Title contains the "meta:" prefix.
+</dd>
+<dt>Quick Edit checkbox</dt>
+<dd>
+Check this box if you want the field to appear in the Media/Assistant submenu Quick Edit area.
+</dd>
+<dt>Bulk Edit checkbox</dt>
+<dd>
+Check this box if you want the field to appear in the Media/Assistant submenu Bulk Edit area.
 </dd>
 <dt>Existing Text dropdown</dt>
 <dd>
@@ -5886,24 +5958,6 @@ Four data sources, "file_size", "pixels", "width" and "height", are padded on th
 &nbsp;<br />
 You can also use the "<strong>raw</strong>" format to avoid the conversion of empty values, such as a numeric zero, to a single space. The first row in the above table shows this "<strong>raw</strong>" treatment; it can be useful for fields like "parent".
 </dd>
-<dt>MLA Column checkbox</dt>
-<dd>
-Check this box if you want a custom field to appear as a sortable column in the Media/Assistant submenu table. Attachment metadata elements cannot be used as a table column; this box is ignored if the Field Title contains the "meta:" prefix.
-</dd>
-<dt>Quick Edit checkbox</dt>
-<dd>
-Check this box if you want the field to appear in the Media/Assistant submenu Quick Edit area.
-</dd>
-<dt>Bulk Edit checkbox</dt>
-<dd>
-Check this box if you want the field to appear in the Media/Assistant submenu Bulk Edit area.
-</dd>
-<dt>Template/Metadata text</dt>
-<dd>
-If you select "<strong>-- Metadata (see below) --</strong>" as the data source you must specify the name of the field you want in the text box below the data source dropdown box. Any of the fields in the <em>_wp_attachment_metadata</em> array may be named, including the new audio/video fields available with WordPress 3.6 and later. For example, "length_formatted" will return the length of a video attachment. You can specify elements within an array with a compound name, e.g., "audio.sample_rate" to get the sampling rate field from the "audio" array of a video attachment. If you simply specify "audio", you will get the values of every array element, e.g., "mp4,ISO/IEC 14496 AAC,48000,2,16,false,stereo".
-<br />&nbsp;<br />
-If you select "<strong>-- Template (see below) --</strong>" as the data source you must enter your template in the text box below the data source dropdown box. See the <a href="#custom_field_mapping_with_templates">Custom field mapping with Content Templates</a> section for more details.
-</dd>
 <dt>Option Dropdown</dt>
 <dd>
 Several data sources can return more than one value. For example, the "Inserted in" source can return a list of posts/pages that contain references to Media Library items. The format option dropdown can further refine your specification where multiple values exist. There are five options:
@@ -5937,60 +5991,9 @@ The "Delete NULL values" checkbox lets you control what happens if the data sour
 <br />&nbsp;<br />
 If you use the "Multi" option you will almost certainly want to use the "Delete NULL values" option as well.
 </dd>
-</dl>
-<a name="custom_field_mapping_buttons"></a>&nbsp;
-<p>
-<a href="#backtotop">Go to Top</a>
-</p>
-<h4>Custom field mapping command buttons</h4>
-<p>
-The screen contains command buttons for maintaining the rules and using them to map attachment data. For each of the existing rules the command buttons are:
-</p>
-<dl>
-<dt>Delete Rule</dt>
+<dt>Status dropdown</dt>
 <dd>
-Click this button to delete the mapping rule but leave the custom field values assigned to attachments intact.
-</dd>
-<dt>Delete Rule AND Field</dt>
-<dd>
-Click this button to delete the mapping rule AND delete the custom field values assigned to attachments as well.
-</dd>
-<dt>Update Rule</dt>
-<dd>
-Click this button to save any changes to the rule parameters, but do not perform any mapping.
-</dd>
-<dt>Map All Attachments</dt>
-<dd>
-Click this button to map all attachments using this one rule with its current parameters.  Rule changes are <strong><em>NOT</em></strong> saved when you click this button, and <strong><em>THERE IS NO UNDO FOR THE MAPPING ACTIONS!</em></strong>
-</dd>
-</dl>
-<p>
-At the bottom of the screen are command buttons for adding a new rule, adding a new field and mapping attachment data using all of the existing rules:
-</p>
-<dl>
-<dt>Add Rule</dt>
-<dd>
-To define a new rule for an existing custom field, select the field name from the dropdown list, enter the rule parameters and click this button.
-</dd>
-<dt>Add Rule and Map All Attachments</dt>
-<dd>
-Click this button to define a new rule and map all attachments using all the rule&rsquo;s parameters.
-</dd>
-<dt>Add Field</dt>
-<dd>
-To define a new rule and a new custom field, enter the field name in the text box, enter the rule parameters and click this button.
-</dd>
-<dt>Add Field and Map All Attachments</dt>
-<dd>
-Click this button to define a new rule, define a new custom field and map all attachments using all the rule&rsquo;s parameters.
-</dd>
-<dt>Save Changes</dt>
-<dd>
-Click this button to update all of the existing rules at one time. This is handy of you change several rules at once.
-</dd>
-<dt>Map All Rules, All Attachments Now</dt>
-<dd>
-Click this button to map all attachments using all of the rules with their current parameters. Rule changes are <strong><em>NOT</em></strong> saved when you click this button, and <strong><em>THERE IS NO UNDO FOR THE MAPPING ACTIONS!</em></strong>
+The "Status" dropdown lets you turn rules on or off for most mapping purposes. If you select "Active" the rule will always be applied during a mapping operation. If you select "Inactive" the rule will NOT be applied except when explicitly included in a Bulk Action "Execute" or "Execute" rollover action.
 </dd>
 </dl>
 <a name="attachment_metadata_mapping"></a>&nbsp;
@@ -6097,13 +6100,16 @@ You can define the rules for mapping metadata on the "IPTC/EXIF" tab of the Sett
 If you just want to add a custom field to the Media/Assistant submenu, the quick edit area and/or the bulk edit area go to the "Custom Fields" tab and follow the instructions there.
 </p>
 <p>
-Two options control the metadata mapping when new items are added to the Media Library ("Enable IPTC/EXIF Mapping when adding new media") or when attachment metadata is updated ("Enable IPTC/EXIF Mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "Ajax" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
+Two options control the metadata mapping when new items are added to the Media Library ("Enable IPTC/EXIF Mapping when adding new media") or when attachment metadata is updated ("Enable IPTC/EXIF Mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
 </p>
 <ul class="mla_settings">
 <li><code>define( 'MLA_AJAX_EXCEPTIONS', 'wfu_ajax_action,upload_ugc' );</code></li>
 </ul>
 <p>
 The above example adds the "action" values for two popular file upload plugins, <a href="https://wordpress.org/plugins/wp-file-upload/" title="WordPress File Upload plugin page" target="_blank">WordPress File Upload</a> and <a href="https://wordpress.org/plugins/frontend-uploader/" title="Frontend Uploader plugin page" target="_blank">Frontend Uploader</a> respectively. Once the entry is added MLA will run the mapping rules when it detects file upload operations from the other plugin(s).
+</p>
+<p>
+If you cannot identify the proper "action" value or if your uploader uses another method to do its work you can try adding <code>define( 'MLA_AJAX_EXCEPTIONS', 'always' );</code> to your <code>wp-config.php</code> file. This value will unconditionally load full MLA support for AJAX operations and may give you better results. You can also use the <a href="#mla_debug_tab">Debug tab</a> and <code>define( 'MLA_DEBUG_LEVEL', 3 );</code> to log more information about file upload requests; that may help identify the appropriate "action" value. 
 <a name="iptc_exif_mapping_example"></a>&nbsp;
 </p>
 <p>
@@ -6588,7 +6594,7 @@ Once that line is added to the <code>wp-config.php</code> file the "Debug" tab w
 </tr>
 <tr>
 <td class="mla-doc-table-label">2, or 0x0002</td>
-<td>writes MLA-specific messages to the log for some of the "Ajax" functions such as bulk edit updates and mapping rule execution.</td>
+<td>writes MLA-specific messages to the log for some of the "AJAX" functions such as bulk edit updates and mapping rule execution.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">4, or 0x0004</td>
@@ -6604,10 +6610,10 @@ Once that line is added to the <code>wp-config.php</code> file the "Debug" tab w
 </tr>
 </table>
 <p>
-You can pick the logging categories you want by adding the above values together. For example, to log only PHP messages you can use <code>define( 'MLA_DEBUG_LEVEL', 1 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0001 );</code>. To add the "Ajax" messages you can use <code>define( 'MLA_DEBUG_LEVEL', 3 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0003 );</code>. The hexadecimal notation ( 0x0003 ) can be easier to understand when several options are involved.
+You can pick the logging categories you want by adding the above values together. For example, to log only PHP messages you can use <code>define( 'MLA_DEBUG_LEVEL', 1 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0001 );</code>. To add the "AJAX" messages you can use <code>define( 'MLA_DEBUG_LEVEL', 3 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0003 );</code>. The hexadecimal notation ( 0x0003 ) can be easier to understand when several options are involved.
 </p>
 <p>
-Although you can add logging categories to the <code>MLA_DEBUG_LEVEL</code> constant you will find it more convenient to add them in the "MLA Reporting" option on the Debug tab. There you can make changes without editing and uploading the `wp-config.php` file as your needs change. It is best to <code>define( 'MLA_DEBUG_LEVEL', 1 );</code> and make any other changes in the "MLA Reporting" option.
+Although you can add logging categories to the <code>MLA_DEBUG_LEVEL</code> constant you will find it more convenient to add them in the "MLA Reporting" option on the Debug tab. There you can make changes without editing and uploading the `wp-config.php` file as your needs change. It is best to <code>define( 'MLA_DEBUG_LEVEL', 1 );</code> and make any other changes in the "MLA Reporting" option. You can also set the "MLA Reporting" option to zero (0) to turn all logging off but leave the Debug tab active for future use. 
 </p>
 <p>
 The Debug Options screen begins with the "Debug Options" section, containing:
@@ -6631,7 +6637,7 @@ The Debug Options screen begins with the "Debug Options" section, containing:
 </tr>
 <tr>
 <td class="mla-doc-table-label">MLA&nbsp;Reporting</td>
-<td>lets you change the MLA_DEBUG_LEVEL without modifying the <code>wp-config.php</code> file. You can change any of the additional reporting categories but not the lowest bit which turns the Debug tab on and off.</td>
+<td>lets you change the MLA_DEBUG_LEVEL without modifying the <code>wp-config.php</code> file. You can change any of the additional reporting categories but not the lowest bit which turns the Debug tab on and off. You can set the option to zero (0) to turn all logging off but leave the Debug tab active.</td>
 </tr>
 </table>
 <p>

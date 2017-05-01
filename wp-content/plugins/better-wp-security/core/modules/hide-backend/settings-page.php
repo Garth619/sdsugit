@@ -1,40 +1,67 @@
 <?php
 
 final class ITSEC_Hide_Backend_Settings_Page extends ITSEC_Module_Settings_Page {
+	private $version = 1;
+
+
 	public function __construct() {
 		$this->id = 'hide-backend';
 		$this->title = __( 'Hide Backend', 'better-wp-security' );
 		$this->description = __( 'Hide the login page by changing its name and preventing access to wp-login.php and wp-admin.', 'better-wp-security' );
 		$this->type = 'advanced';
-		
+
 		parent::__construct();
 	}
-	
+
+	public function handle_form_post( $data ) {
+		$retval = ITSEC_Modules::set_settings( $this->id, $data );
+
+		if ( $retval['saved'] ) {
+			if ( $retval['new_settings']['enabled'] ) {
+				$args = array(
+					'wp-login.php?',
+					$retval['new_settings']['slug'] . '?',
+				);
+			} else {
+				$args = array(
+					$retval['old_settings']['slug'] . '?',
+					'wp-login.php?',
+				);
+			}
+
+			ITSEC_Response::add_js_function_call( 'itsec_hide_backend_update_logout_url', $args );
+		}
+	}
+
+	public function enqueue_scripts_and_styles() {
+		wp_enqueue_script( 'itsec-hide-backend-settings-page-script', plugins_url( 'js/settings-page.js', __FILE__ ), array( 'jquery' ), $this->version, true );
+	}
+
 	protected function render_description( $form ) {
-		
+
 ?>
 	<p><?php _e( 'Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform.', 'better-wp-security' ); ?></p>
 <?php
-		
+
 	}
-	
+
 	protected function render_settings( $form ) {
 		$settings = $form->get_options();
 		$permalink_structure = get_option( 'permalink_structure', false );
-		
+
 		if ( empty( $permalink_structure ) && ! is_multisite() ) {
 			echo '<div class="itsec-warning-message">';
 			printf( __( 'You must change <a href="%s">WordPress permalinks</a> to a setting other than "Plain" in order to use this feature.', 'better-wp-security' ), network_admin_url( 'options-permalink.php' ) );
 			echo "</div>\n";
-			
+
 			return;
 		}
-		
+
 ?>
 	<div class="itsec-write-files-disabled">
 		<div class="itsec-warning-message"><?php _e( 'The "Write to Files" setting is disabled in Global Settings. In order to use this feature, you must enable the "Write to Files" setting.', 'better-wp-security' ); ?></div>
 	</div>
-	
+
 	<div class="itsec-write-files-enabled">
 		<table class="form-table itsec-settings-section">
 			<tr>
@@ -45,7 +72,7 @@ final class ITSEC_Hide_Backend_Settings_Page extends ITSEC_Module_Settings_Page 
 				</td>
 			</tr>
 		</table>
-		
+
 		<table class="form-table itsec-settings-section itsec-hide-backend-enabled-content">
 			<tr>
 				<th scope="row"><label for="itsec-hide-backend-slug"><?php _e( 'Login Slug', 'better-wp-security' ); ?></label></th>
@@ -94,7 +121,7 @@ final class ITSEC_Hide_Backend_Settings_Page extends ITSEC_Module_Settings_Page 
 		</table>
 	</div>
 <?php
-		
+
 	}
 }
 

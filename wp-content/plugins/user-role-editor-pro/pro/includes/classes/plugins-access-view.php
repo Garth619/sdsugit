@@ -75,6 +75,9 @@ class URE_Plugins_Access_View {
 <?php
         foreach($all_plugins as $plugin_id=>$plugin) {
             $cb_id = pathinfo($plugin_id, PATHINFO_DIRNAME);
+            if ($cb_id=='.') {
+                $cb_id = pathinfo($plugin_id, PATHINFO_FILENAME);
+            }
 ?>
     <tr>
         <td>   

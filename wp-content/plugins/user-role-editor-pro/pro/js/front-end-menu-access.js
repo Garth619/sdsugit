@@ -97,13 +97,23 @@ function ure_store_selected_roles(el_number) {
 
 
 function ure_show_hide_roles_list(el_number) {
-    var with_roles = jQuery('#ure_show_to_logged_in_with_roles_'+ el_number).prop('checked');    
-    var container_id = 'ure_selected_roles_container_'+ el_number;
-    if (with_roles) {    // logged-in with selected roles
+    var with_roles1 = jQuery('#ure_show_to_logged_in_with_roles_'+ el_number).prop('checked');    
+    var container_id = 'ure_selected_roles_container_'+ el_number;    
+    if (with_roles1) {    // logged-in with selected roles
+        jQuery('#'+ container_id).appendTo(jQuery('#ure_roles_container1_'+ el_number));
         jQuery('#'+ container_id).show();
-    } else {
+    }
+    
+    var with_roles2 = jQuery('#ure_show_to_not_logged_in_and_with_roles_'+ el_number).prop('checked');    
+    if (with_roles2) {    // not logged-in and logged-in users with selected roles
+        jQuery('#'+ container_id).appendTo(jQuery('#ure_roles_container2_'+ el_number));
+        jQuery('#'+ container_id).show();
+    } 
+    
+    if (!with_roles1 && !with_roles2) {
         jQuery('#'+ container_id).hide();
     }
+    
 }
 
 

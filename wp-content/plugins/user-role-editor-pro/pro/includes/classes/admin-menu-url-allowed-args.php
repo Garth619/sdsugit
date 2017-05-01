@@ -103,6 +103,8 @@ class URE_Admin_Menu_URL_Allowed_Args {
     static private function get_for_upload() {
         
         $args = array(''=>array('mode'));
+        $plugins = array('enable-media-replace');
+        self::get_for_supported_plugins($args, $plugins, 'upload');
         
         return $args;
     }
@@ -119,6 +121,30 @@ class URE_Admin_Menu_URL_Allowed_Args {
         return $args;
     }
     // end of get_for_nav_menus()
+    
+    
+    static private function get_for_users() {
+        
+        $args = array(''=>array(
+            's',
+            'action',
+            'new_role',
+            'paged',
+            'action2',
+            'new_role2',
+            'orderby',
+            'order',
+            'role',
+            'user',
+            'delete_count',
+            'update',
+            '_wpnonce'
+            ));
+        $plugins = array('ultimate-member');
+        self::get_for_supported_plugins($args, $plugins, 'users');
+        
+        return $args;
+    }
     
     
     static private function get_for_admin() {
@@ -146,6 +172,7 @@ class URE_Admin_Menu_URL_Allowed_Args {
         $post_new = self::get_for_post_new();                
         $upload = self::get_for_upload();
         $nav_menus = self::get_for_nav_menus();
+        $users = self::get_for_users();
         $admin = self::get_for_admin();
         
         $args0 = array(
@@ -154,6 +181,7 @@ class URE_Admin_Menu_URL_Allowed_Args {
             'post-new.php'=>$post_new,            
             'upload.php'=>$upload,
             'nav-menus.php'=>$nav_menus,
+            'users.php'=>$users,
             'admin.php'=>$admin
         );
         $args1 = apply_filters('ure_admin_menu_access_allowed_args', $args0);

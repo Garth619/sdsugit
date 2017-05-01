@@ -726,7 +726,8 @@ class MLAQuery {
 				case 'exact':
 				case 'mla-tax':
 				case 'mla-term':
-					$clean_request[ $key ] = sanitize_key( $value );
+//					$clean_request[ $key ] = sanitize_key( $value );
+					$clean_request[ $key ] = sanitize_title_for_query( $value );
 					break;
 				case 'orderby':
 					if ( in_array( $value, array( 'none', 'post__in' ) ) ) {

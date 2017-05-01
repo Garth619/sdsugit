@@ -18,6 +18,7 @@ class URE_bbPress_Pro extends URE_bbPress {
                 
         add_action('plugins_loaded', array($this, 'do_not_reload_roles'), 9);
         add_filter('bbp_get_caps_for_role', array($this, 'get_caps_for_role'), 10, 2);
+        add_action('wp_roles_init', array($this, 'add_forums_roles'), 10);
     }
     // end of __construct()
     
@@ -34,6 +35,34 @@ class URE_bbPress_Pro extends URE_bbPress {
         return $wp_roles->roles;
     }
     // end of get_roles()
+    
+    /**
+     * Replace bbPress bbp_add_forums_roles() in order to not overwrite bbPress roles loaded from the database
+     * 
+     * @param array $wp_roles
+     * @return array
+     */
+    public function add_forums_roles($wp_roles = null) {
+        
+        // Attempt to get global roles if not passed in & not mid-initialization
+	if ((null===$wp_roles) && !doing_action('wp_roles_init')) {
+            $wp_roles = bbp_get_wp_roles();
+	}
+        
+        $bbp_roles = bbp_get_dynamic_roles();
+        // Loop through dynamic roles and add them (if needed) to the $wp_roles array
+	foreach ($bbp_roles  as $role_id=>$details) {
+            if (isset($wp_roles->roles[$role_id])) {
+                continue;
+            }
+            $wp_roles->roles[$role_id] = $details;
+            $wp_roles->role_objects[$role_id] = new WP_Role( $role_id, $details['capabilities']);
+            $wp_roles->role_names[$role_id] = $details['name'];
+	}
+        
+        return $wp_roles;
+    }
+    // end of add_forums_roles()
     
     
     /**

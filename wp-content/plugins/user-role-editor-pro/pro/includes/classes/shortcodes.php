@@ -11,9 +11,9 @@ class URE_Shortcodes {
  
     private $lib = null;
     
-    public function __construct(Ure_Lib_Pro $lib) {
+    public function __construct() {
     
-        $this->lib = $lib;
+        $this->lib = Ure_Lib_Pro::get_instance();
         $activate_content_for_roles_shortcode = $this->lib->get_option('activate_content_for_roles_shortcode', false);
         if ($activate_content_for_roles_shortcode) {
             add_action('init', array($this, 'add_content_shortcode_for_roles'));
@@ -29,9 +29,19 @@ class URE_Shortcodes {
     }
     // end of add_content_shortcode_for_roles()
 
-    
-    private function show_for_roles($roles) {
+
+    /**
+     * Check if current user has at least one of roles inside $roles array
+     * @global WP_User $current_user
+     * @param array $roles
+     * @return boolean
+     */
+    private function show_for_roles_or($roles) {
         global $current_user;
+
+        if (empty($roles)) {
+            return false;
+        }
         
         $show_content = false;
         foreach($roles as $role) {
@@ -48,11 +58,45 @@ class URE_Shortcodes {
         
         return $show_content;
     }
-    // end of show_for_roles()
+    // end of show_for_roles_or()
     
     
-    private function show_for_all_except_roles($roles) {
+    /**
+     * Check if current user has all roles inside $roles array simultaneously
+     * @global WP_User $current_user
+     * @param array $roles
+     * @return boolean
+     */
+    private function show_for_roles_and($roles) {
         global $current_user;
+        
+        if (empty($roles)) {
+            return false;
+        }
+        
+        $show_content = true;
+        foreach($roles as $role) {
+            $role = trim($role);
+            if ($role=='none' && $current_user->ID==0) {
+                break;
+            }
+            if (!current_user_can($role)) {
+                $show_content = false;
+                break;
+            }
+        }
+        
+        return $show_content;
+    }
+    // end of show_for_roles_and()
+    
+    
+    private function show_for_all_except_roles_or($roles) {
+        global $current_user;
+        
+        if (empty($roles)) {
+            return false;
+        }
         
         $show_content = true;
         foreach($roles as $role) {
@@ -69,7 +113,109 @@ class URE_Shortcodes {
         
         return $show_content;
     }
-    // end of show_for_all_except_roles()
+    // end of show_for_all_except_roles_or()
+    
+    
+    /**
+     * Check if current user does not have all roles inside $roles array simultaneously
+     * @global WP_User $current_user
+     * @param array $roles
+     * @return boolean
+     */
+    private function show_for_all_except_roles_and($roles) {
+        global $current_user;
+        
+        if (empty($roles)) {
+            return false;
+        }
+        
+        $show_content = true; 
+        foreach($roles as $role) {
+            $role = trim($role);
+            if ($role=='none' && $current_user->ID==0) {
+                $show_content = false;
+                break;
+            }
+        }
+        if (!$show_content) {
+            return false;
+        }
+        
+        $can_it = 0;
+        foreach($roles as $role) {
+            if (current_user_can($role)) {
+                $can_it++;
+            }
+        }
+        if ($can_it==count($roles)) {   // user can all roles inside $roles array
+            $show_content = false;
+        }
+        
+        return $show_content;
+    }
+    // end of show_for_all_except_roles_and()
+    
+    
+    private function extract_roles($key, $value) {
+        
+        if (!empty($key) && substr($key, -1)!=='s') {
+            $key .= 's';    // use 'roles' instead of possible 'role'
+        }
+        $logic = ''; $roles = null;
+        if (!empty($value)) {
+            if (strpos($value, ',')!==false) {
+                $roles = explode(',', $value);
+                $logic = 'or';
+            } elseif (strpos($value, '&&')!==false) {
+                $roles = explode('&&', $value);
+                $logic = 'and';
+            } else {
+                $roles = array($value);
+                $logic = 'or';
+            }
+        }
+        
+        if (!empty($roles)) {
+            $roles = array_map('trim', $roles);
+        }
+        
+        $control = array(
+            // or: 'role1, role2': check if user has role1 or role2; 
+            // and: role1 && role2': check if user has both role1 and role2.simultaneously
+            'logic'=>$logic,
+            // roles or except_roles
+            'check'=>$key,
+            'roles'=>$roles
+        );
+        
+        return $control;
+    }
+    // end of extract_roles()
+    
+    
+    private function is_show_content($control) {        
+        if (empty($control['roles']) || empty($control['check'])) {
+            return false;
+        }
+        
+        $show_content = true;
+        if ($control['check']=='roles') {
+            if ($control['logic']=='or') {
+                $show_content = $this->show_for_roles_or($control['roles']);
+            } else {
+                $show_content = $this->show_for_roles_and($control['roles']);
+            }
+        } elseif($control['check']=='except_roles') {
+            if ($control['logic']=='or') {
+                $show_content = $this->show_for_all_except_roles_or($control['roles']);
+            } else {
+                $show_content = $this->show_for_all_except_roles_and($control['roles']);
+            }
+        }
+
+        return $show_content;
+    }
+    // end of is_show_content()
     
     
     public function process_content_shortcode_for_roles($atts, $content=null) {                
@@ -85,26 +231,15 @@ class URE_Shortcodes {
                     'except_roles'=>'',
                     'except_role'=>''
                 ), 
-                $atts);
-        if (!empty($attrs['roles'])) {
-            $roles = explode(',', $attrs['roles']);
-        } elseif (!empty($attrs['role'])) {
-            $roles = explode(',', $attrs['role']);
-        } else {
-            $roles = array();
-        }        
-        if (!empty($roles)) {   
-            $show_content = $this->show_for_roles($roles);
-        } else {
-            if (!empty($attrs['except_roles'])) {
-                $except_roles = explode(',', $attrs['except_roles']);
-            } elseif (!empty($attrs['except_role'])) {
-                $except_roles = explode(',', $attrs['except_role']);
-            } else {
-                $except_roles = array();
-            }            
-            $show_content = $this->show_for_all_except_roles($except_roles);    
-        }
+                $atts);                
+        foreach($attrs as $key=>$value) {
+            $control = $this->extract_roles($key, $value);
+            if (!empty($control['roles'])) {
+                break;
+            }
+        }                        
+        
+        $show_content = $this->is_show_content($control);        
         if (!$show_content) {
             $content = '';
         } else {
@@ -116,4 +251,4 @@ class URE_Shortcodes {
     // end of process_content_shortcode_for_roles()
     
 }
-// end of URE_Shortcodes
+// end of URE_Shortcodes class

@@ -492,3 +492,20 @@
 	Bug Fix: Fixed bug that prevented Network Brute Force Protection from working properly on some sites.
 3.0.1 - 2017-02-09 - Chris Jean
 	Bug Fix: Fixed bug that prevented Away Mode from activating on some sites.
+3.1.0 - 2017-03-09 - Chris Jean
+	Enhancement: Improved plugin performance by reducing the number of queries made on each page.
+	Enhancement: Reduced memory and CPU usage due to various code improvements.
+	Bug Fix: A database backup will no longer be created when first activating the plugin.
+	Bug Fix: Added compatibility for MySQL strict mode in database creation syntax.
+	Bug Fix: Removed warning about a "non well formed numeric value encountered" in PHP 7.1.
+	Bug Fix: Modifications to wp-config.php, .htaccess, and nginx.conf files are now properly re-added upon reactivation.
+	Bug Fix: Fixed full settings for Hide Backend being displayed after disabling the feature and saving the settings.
+	Bug Fix: Enabling or disabling the Hide Backend feature will update the "Log Out" link so that it works as expected without having to load a new page.
+	Bug Fix: Enabling or disabling the Hide Backend feature now properly updates the .htaccess/nginx.conf file on enable and disable rather than at some future point.
+	Bug Fix: Fixed issue that could cause improper database table creation on multisite sites.
+3.1.1 - 2017-03-14 - Chris Jean
+	Bug Fix: Fixed a bug that could prevent settings from saving properly if the site was migrated to a new server or a new home path on the server.
+3.1.2 - 2017-03-23 - Chris Jean
+	Bug Fix: When a requesting IP address cannot be found, default to 127.0.0.1. This fixes issues with some alternate cron setups.
+	Bug Fix: Having more than one iThemes Security modification in a .htaccess, nginx.conf, or wp-config.php file will no longer result in having all the file content between each section removed when updating the file.
+	Bug Fix: Modifications to the wp-config.php file added by W3 Total Cache now have their Windows-style newlines preserved when iThemes Security updates the file.

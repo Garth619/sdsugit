@@ -106,15 +106,20 @@ if ( ! empty( $mla_plugin_loader_error_messages ) ) {
 		/*
 		 * Quick and Bulk Edit requires full support for content templates, etc.
 		 * IPTC/EXIF and Custom Field mapping require full support, too.
+		 * NOTE: AJAX upload_attachment is no longer used - see /wp-admin/asynch-upload.php
 		 */
-		$ajax_exceptions = array( MLACore::JAVASCRIPT_INLINE_EDIT_SLUG, 'mla-inline-mapping-iptc-exif-scripts', 'mla-inline-mapping-custom-scripts', 'mla-polylang-quick-translate', 'mla-inline-edit-upload-scripts', 'mla-inline-edit-view-scripts', 'upload-attachment' );
-
-		if ( MLA_AJAX_EXCEPTIONS ) {
-			$ajax_exceptions = array_merge( $ajax_exceptions, explode( ',', MLA_AJAX_EXCEPTIONS ) );
-		}
+		$ajax_exceptions = array( MLACore::JAVASCRIPT_INLINE_EDIT_SLUG, 'mla-inline-mapping-iptc-exif-scripts', 'mla-inline-mapping-custom-scripts', 'mla-polylang-quick-translate', 'mla-inline-edit-upload-scripts', 'mla-inline-edit-view-scripts', 'mla-inline-edit-custom-scripts', 'upload-attachment' );
 
  		$ajax_only = true;
-		if ( isset( $_REQUEST['action'] ) ) {
+		if ( MLA_AJAX_EXCEPTIONS ) {
+			if ( 'always' === trim( strtolower( MLA_AJAX_EXCEPTIONS ) ) ) {
+				$ajax_only = false;
+			} else {
+				$ajax_exceptions = array_merge( $ajax_exceptions, explode( ',', MLA_AJAX_EXCEPTIONS ) );
+			}
+		}
+
+		if ( $ajax_only && isset( $_REQUEST['action'] ) ) {
 			if ( in_array( $_REQUEST['action'], $ajax_exceptions ) ) {
 				$ajax_only = false;
 			} elseif ( 'mla-update-compat-fields' == $_REQUEST['action'] ) {
@@ -134,6 +139,7 @@ if ( ! empty( $mla_plugin_loader_error_messages ) ) {
 			}
 		}
 
+		MLA_Ajax::$ajax_only = $ajax_only; // for debug logging
 		if ( $ajax_only ) {
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-query.php' );
 			add_action( 'init', 'MLAQuery::initialize', 0x7FFFFFFF );

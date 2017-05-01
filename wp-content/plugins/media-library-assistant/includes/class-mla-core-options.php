@@ -1048,14 +1048,14 @@ class MLACoreOptions {
 					'name' => __( 'Enable custom field mapping when adding new media', 'media-library-assistant' ),
 					'type' => 'checkbox',
 					'std' => '',
-					'help' => __( 'Check this option to enable mapping when uploading new media (attachments).<br>&nbsp;&nbsp;Click Save Changes at the bottom of the screen if you change this option.<br>&nbsp;&nbsp;Does NOT affect the operation of the "Map" buttons on the bulk edit, single edit and settings screens.', 'media-library-assistant' )),
+					'help' => __( 'See Help menu.', 'media-library-assistant' )),
 
 			'enable_custom_field_update' =>
 				array('tab' => 'custom_field',
 					'name' => __( 'Enable custom field mapping when updating media metadata', 'media-library-assistant' ),
 					'type' => 'checkbox',
 					'std' => '',
-					'help' => __( 'Check this option to enable mapping when media (attachments) metadata is regenerated,<br>&nbsp;&nbsp;e.g., when the Media/Edit Media "Edit Image" functions are used.', 'media-library-assistant' )),
+					'help' => __( 'See Help menu.', 'media-library-assistant' )),
 
 			'custom_field_mapping' =>
 				array('tab' => '',

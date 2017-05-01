@@ -79,7 +79,9 @@
 <div class="[+mla_messages_class+]">
 <p>
 [+messages+]
-</p></div>
+</p>
+[+dismiss_button+]
+</div>
 <!-- template="shortcode-list" -->
 <div id="mla-shortcode-list">
 <p>[+Shortcodes made available+]:</p>

@@ -141,6 +141,15 @@ class MLACore {
 	const MLA_ADMIN_SINGLE_CUSTOM_FIELD_MAP = 'single_item_custom_field_map';
 
 	/**
+	 * mla_admin_action value for purging Custom Field values
+	 *
+	 * @since 2.50
+	 *
+	 * @var	string
+	 */
+	const MLA_ADMIN_SINGLE_CUSTOM_FIELD_PURGE = 'single_item_custom_field_purge';
+
+	/**
 	 * mla_admin_action value for mapping IPTC/EXIF metadata
 	 *
 	 * @since 1.00
@@ -1014,6 +1023,7 @@ class MLACore {
 
 		foreach ( $option_values as $key => $value ) {
 			$slug = 'c_' . $index++; // sanitize_title( $key ); Didn't handle HTML in name, e.g., "R><B"
+//error_log( __LINE__ . " mla_custom_field_support( {$key}, {$slug} ) value = " . var_export( $value, true ), 0 );
 
 			switch( $support_type ) {
 				case 'custom_columns':
@@ -1563,22 +1573,16 @@ class MLACore {
 	public static $admin_columns_storage_model = NULL;
 
 	/**
-	 * Define the Media/Assistant submenu screen to the Admin Columns plugin
+	 * Define the Media/Assistant submenu screen to the (old) Admin Columns plugin
 	 *
 	 * @since 2.22
 	 *
 	 * @param	array	$storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object] )
 	 * @param	object	$cpac CPAC, the root CodePress Admin Columns object
 	 */
-	public static function admin_columns_support( $storage_models, $cpac ) {
-		// Check for the correct Storage model
-		if( class_exists( 'AC_StorageModel_Media', false ) ) {
-			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support.php' );
-			MLACore::$admin_columns_storage_model = new CPAC_Storage_Model_MLA();
-		} else {
-			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support-deprecated.php' );
-			MLACore::$admin_columns_storage_model = new CPAC_Deprecated_Storage_Model_MLA();
-		}
+	public static function admin_columns_support_deprecated( $storage_models, $cpac ) {
+		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support-deprecated.php' );
+		MLACore::$admin_columns_storage_model = new CPAC_Deprecated_Storage_Model_MLA();
 
 		/*
 		 * Put MLA before/after WP Media Library so is_columns_screen() will work
@@ -1606,6 +1610,128 @@ class MLACore {
 		}
 
 		return $new_models;
+	}
+	
+	/**
+	 * Remove duplicate columns from the Admin Columns "Custom" section
+	 *
+	 * @since 2.50
+	 *
+	 * @param CPAC_Column[] $columns
+	 * @param $storage_model
+	 */
+	public static function remove_column_types_deprecated( $columns, $storage_model ) {
+error_log( __LINE__ . " MLACore::remove_column_types_deprecated storage_model = " . var_export( get_class ( $storage_model ), true ), 0 );
+
+		if ( $storage_model instanceof CPAC_Deprecated_Storage_Model_MLA ) {
+error_log( __LINE__ . " MLACore::remove_column_types_deprecated column_types = " . var_export( array_keys( $columns ), true ), 0 );
+
+			$exclude = array(
+				'comments',
+				'title',
+				'column-actions',
+				'column-alternate_text',
+				'column-attached_to',
+				'column-author_name',
+				'column-caption',
+				'column-description',
+				'column-file_name',
+				'column-full_path',
+				'column-mediaid',
+				'column-mime_type',
+				'column-taxonomy',
+/*
+				'column-meta',
+				'column-available_sizes',
+				'column-dimensions',
+				'column-exif_data',
+				'column-file_size',
+				'column-height',
+				'column-image',
+				'column-used_by_menu',
+				'column-width',
+ */
+			);
+
+			foreach ( $exclude as $column_type ) {
+				if ( array_key_exists( $column_type, $columns ) ) {
+error_log( __LINE__ . " MLACore::remove_column_types_deprecated remove = " . var_export( $column_type, true ), 0 );
+				}
+				
+				//$listscreen->deregister_column_type( $column_type );
+			}
+		}
+	}
+	
+	/**
+	 * Set MLA-specific inline editing strategy
+	 *
+	 * @since 2.50
+	 *
+	 * @param ACP_Editing_Model $model
+	 */
+	public static function add_editing_strategy( $model ) {
+		if ( 'mla-media-assistant' === $model->get_column()->get_list_screen()->get_key() ) {
+			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support.php' );
+			$model->set_strategy( new AC_Addon_MLA_Editing_Strategy( $model ) );
+		}
+
+		return $model;
+	}
+
+	/**
+	 * Create and register MLA-specific list screen handler for Admin Columns
+	 *
+	 * @since 2.50
+	 */
+	public static function register_list_screen() {
+		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support.php' );
+		AC()->register_list_screen( new AC_Addon_MLA_ListScreen );
+	}
+
+	/**
+	 * Remove duplicate columns from the Admin Columns "Custom" section
+	 *
+	 * @since 2.50
+	 *
+	 * @param AC_ListScreen $listscreen
+	 */
+	public static function remove_column_types( $listscreen ) {
+//error_log( __LINE__ . " MLACore::remove_column_types key = " . var_export( $listscreen->get_key(), true ), 0 );
+		if ( $listscreen instanceof AC_Addon_MLA_ListScreen ) {
+error_log( __LINE__ . " MLACore::remove_column_types column_types = " . var_export( array_keys( $listscreen->get_column_types() ), true ), 0 );
+
+			$exclude = array(
+				'comments',
+				'title',
+				'column-actions',
+				'column-alternate_text',
+				'column-attached_to',
+				'column-author_name',
+				'column-caption',
+				'column-description',
+				'column-file_name',
+				'column-full_path',
+				'column-mediaid',
+				'column-mime_type',
+				'column-taxonomy',
+/*
+				'column-meta',
+				'column-available_sizes',
+				'column-dimensions',
+				'column-exif_data',
+				'column-file_size',
+				'column-height',
+				'column-image',
+				'column-used_by_menu',
+				'column-width',
+ */
+			);
+
+			foreach ( $exclude as $column_type ) {
+				$listscreen->deregister_column_type( $column_type );
+			}
+		}
 	}
 } // Class MLACore
 
@@ -1691,5 +1817,11 @@ add_action( 'init', 'MLAMime::initialize', 0x7FFFFFFF );
 /*
  * Admin Columns plugin support
  */
-add_filter( 'cac/storage_models', 'MLACore::admin_columns_support', 10, 2 );
+add_filter( 'cac/storage_models', 'MLACore::admin_columns_support_deprecated', 10, 2 );
+//add_action( 'cac/column_types', 'MLACore::remove_column_types_deprecated', 10, 2 );
+
+add_filter( 'acp/editing/model', 'MLACore::add_editing_strategy', 10, 1 );
+add_action( 'ac/list_screens', 'MLACore::register_list_screen', 10, 0 );
+add_action( 'acp/column_types', 'MLACore::remove_column_types', 10, 1 );
+add_action( 'ac/column_types', 'MLACore::remove_column_types', 10, 1 );
 ?>

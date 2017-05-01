@@ -104,7 +104,13 @@ class URE_Content_View_Restrictions_Controller {
                 // take into account data with the same access model only as the 1st one found
                 if ($access_model==$blocked['access_model']) {                    
                     $blocked['data'] = self::data_merge($blocked['data'], $data, 'posts');
+                    if (isset($data['authors'])) {
+                        $blocked['data'] = self::data_merge($blocked['data'], $data, 'authors');
+                    }
                     $blocked['data'] = self::data_merge($blocked['data'], $data, 'terms');
+                    if (isset($data['own_data_only']) && $data['own_data_only']==1) {
+                            $blocked['data']['own_data_only'] = 1;
+                    }                    
                 }
             }
         }
@@ -137,8 +143,7 @@ class URE_Content_View_Restrictions_Controller {
     // end of load_access_data_for_user()
     
 
-    static private function get_access_data_from_post() {
-        $lib = URE_Lib_Pro::get_instance();
+    static private function get_keys_to_skip() {
         $keys_to_skip = array(
             'action', 
             'ure_nonce', 
@@ -147,37 +152,110 @@ class URE_Content_View_Restrictions_Controller {
             'ure_object_name', 
             'user_role', 
             'ure_access_model',
-            'ure_posts_list');
-        $access_model = $_POST['ure_access_model'];
-        if ($access_model!=1 && $access_model!=2) { // got invalid value
-            $access_model = 1;  // use default value
-        }        
-        $access_error_action = $_POST['ure_post_access_error_action'];
-        if ($access_error_action!=1 && $access_error_action!=2) { // got invalid value
-            $access_error_action = 1;  // use "return 404 HTTP error" as a default value
+            'ure_posts_list',
+            'ure_posts_authors_list',
+            'ure_own_data_only');
+        
+        return $keys_to_skip;
+    }
+    // end of get_keys_to_skip()
+    
+    
+    static private function get_access_model() {
+        $result = filter_input(INPUT_POST, 'ure_access_model', FILTER_VALIDATE_INT);
+        if ($result!=1 && $result!=2) { // got invalid value
+            $result = 1;  // use default value
         }
-        $access_data = array(
-            'access_model'=>$access_model, 
-            'access_error_action'=>$access_error_action,
-            'data'=>array('terms'=>array(), 'posts'=>array()));
+        
+        return $result;
+    }
+    // end of get_access_model()
+    
+    
+    static private function get_access_error_action() {
+        $result = filter_input(INPUT_POST, 'ure_post_access_error_action', FILTER_VALIDATE_INT);
+        if ($result!=1 && $result!=2) { // got invalid value
+            $result = 1;  // use "return 404 HTTP error" as a default value
+        }
+        
+        return $result;
+    }
+    // end of get_access_error_action()
+    
+    
+    static private function get_terms() {
+        $keys_to_skip = self::get_keys_to_skip();
+        $terms = array();
         foreach (array_keys($_POST) as $key) {
             if (in_array($key, $keys_to_skip)) {
                 continue;
             }
             $value = filter_var($key, FILTER_SANITIZE_STRING);
             $values = explode('_', $value);
-            $term_id = $values[1];
+            $term_id = (int) $values[1];
             if ($term_id>0) {
-                $access_data['data']['terms'][] = $term_id;
+                $terms[] = $term_id;
             }
         }
         
-        if (!empty($_POST['ure_posts_list'])) {
-            $posts_list = explode(',', trim($_POST['ure_posts_list']));
-            if (count($posts_list)>0) {                
-                $access_data['data']['posts'] = $lib->filter_int_array($posts_list);
-            }            
+        return $terms;
+    }
+    // end of get_terms()
+
+
+    static private function get_posts() {
+        $posts = array();
+        $posts_list_str = filter_input(INPUT_POST, 'ure_posts_list', FILTER_SANITIZE_STRING);
+        if (!empty($posts_list_str)) {
+            $posts = URE_Utils::filter_int_array_from_str($posts_list_str);
         }
+        
+        return $posts;
+    }
+    // end of get_posts()
+    
+    
+    static private function get_authors() {
+        $authors = array();
+        $authors_list_str = filter_input(INPUT_POST, 'ure_posts_authors_list', FILTER_SANITIZE_STRING);
+        if (!empty($authors_list_str)) {
+            $authors = URE_Utils::filter_int_array_from_str($authors_list_str);
+        }
+        
+        return $authors;
+    }
+    // end of get_authors()
+    
+    
+    static private function get_own_data_only() {
+        $value = 0;
+        if (!empty($_POST['ure_own_data_only'])) {
+            $value = 1;
+        }
+        
+        return $value;
+    }
+    // end of get_own_data_only()
+    
+    
+    static private function get_access_data_from_post() {
+
+        $access_model = self::get_access_model();        
+        $access_error_action = self::get_access_error_action();
+        $terms = self::get_terms();
+        $posts = self::get_posts();
+        $authors = self::get_authors();
+        $own_data_only = self::get_own_data_only();
+        $access_data = array(
+            'access_model'=>$access_model, 
+            'access_error_action'=>$access_error_action,
+            'data'=>array(
+                'terms'=>$terms,
+                'posts'=>$posts, 
+                'authors'=>$authors,
+                'own_data_only'=>$own_data_only
+                )
+            );                                                        
         
         return $access_data;
     }

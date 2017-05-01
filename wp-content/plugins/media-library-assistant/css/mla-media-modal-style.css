@@ -182,6 +182,23 @@
 	text-decoration: underline;
 }
 
+/**
+ * Responsive layout
+ */
+@media only screen and (max-width: 900px) {
+}
+
+/* Responsive on portrait and landscape */
+@media only screen and (max-width: 640px), screen and (max-height: 400px) {
+}
+
+/* Landscape specific header override */
+@media screen and (max-height: 400px) {
+}
+
+@media only screen and (max-width: 480px) {
+}
+
 /** === INCLUDED BY ANTONIO === */
 
 /** For responsive control, use the following media queries */

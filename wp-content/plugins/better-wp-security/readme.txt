@@ -2,8 +2,8 @@
 Contributors: ithemes, chrisjean, gerroald, mattdanner
 Tags: security, security plugin, malware, hack, secure, block, SSL, admin, htaccess, lockdown, login, protect, protection, anti virus, attack, injection, login security, maintenance, permissions, prevention, authentication, administration, password, brute force, ban, permissions, bots, user agents, xml rpc, security log
 Requires at least: 4.5
-Tested up to: 4.7.2
-Stable tag: 6.1.1
+Tested up to: 4.7.3
+Stable tag: 6.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -187,6 +187,24 @@ Free support may be available with the help of the community in the <a href="htt
 5. Free malware scan powered by Sucuri SiteCheck.
 
 == Changelog ==
+
+= 6.2.1 =
+ * Bug Fix: When a requesting IP address cannot be found, default to 127.0.0.1. This fixes issues with some alternate cron setups.
+ * Bug Fix: Having more than one iThemes Security modification in a .htaccess, nginx.conf, or wp-config.php file will no longer result in having all the file content between each section removed when updating the file.
+ * Bug Fix: Modifications to the wp-config.php file added by W3 Total Cache now have their Windows-style newlines preserved when iThemes Security updates the file.
+
+= 6.2.0 =
+ * Enhancement: Improved plugin performance by reducing the number of queries made on each page.
+ * Enhancement: Reduced memory and CPU usage due to various code improvements.
+ * Bug Fix: A database backup will no longer be created when first activating the plugin.
+ * Bug Fix: Added compatibility for MySQL strict mode in database creation syntax.
+ * Bug Fix: Removed warning about a "non well formed numeric value encountered" in PHP 7.1.
+ * Bug Fix: Modifications to wp-config.php, .htaccess, and nginx.conf files are now properly re-added upon reactivation.
+ * Bug Fix: Fixed full settings for Hide Backend being displayed after disabling the feature and saving the settings.
+ * Bug Fix: Enabling or disabling the Hide Backend feature will update the "Log Out" link so that it works as expected without having to load a new page.
+ * Bug Fix: Enabling or disabling the Hide Backend feature now properly updates the .htaccess/nginx.conf file on enable and disable rather than at some future point.
+ * Bug Fix: Fixed issue that could cause improper database table creation on multisite sites.
+ * Bug Fix: Fixed a bug that could prevent settings from saving properly if the site was migrated to a new server or a new home path on the server.
 
 = 6.1.1 =
  * Bug Fix: Fixed bug that prevented Away Mode from activating on some sites.
@@ -1648,5 +1666,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 6.1.1 =
-Version 6.1.1 fixes a bug that could prevent Away Mode from functioning. It is recommended for all users.
+= 6.2.1 =
+Version 6.2.1 contains important bug fixes. It is recommended for all users.

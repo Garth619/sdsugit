@@ -21,7 +21,7 @@ class MLASettings_Upload {
 	 *
 	 * @var	string
 	 */
-	const JAVASCRIPT_INLINE_EDIT_UPLOAD_OBJECT = 'mla_inline_edit_upload_vars';
+	const JAVASCRIPT_INLINE_EDIT_UPLOAD_OBJECT = 'mla_inline_edit_settings_vars';
 
 	/**
 	 * Load the tab's Javascript files
@@ -48,6 +48,7 @@ class MLASettings_Upload {
 			'comma' => _x( ',', 'tag_delimiter', 'media-library-assistant' ),
 			'useSpinnerClass' => false,
 			'ajax_nonce' => wp_create_nonce( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ),
+			'tab' => 'upload',
 			'fields' => array( 'original_slug', 'slug', 'mime_type', 'icon_type', 'core_type', 'mla_type', 'source', 'standard_source' ),
 			'checkboxes' => array( 'disabled' ),
 			'ajax_action' => MLASettings::JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG,
@@ -60,7 +61,7 @@ class MLASettings_Upload {
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_script( MLASettings::JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG,
-			MLA_PLUGIN_URL . "js/mla-inline-edit-upload-scripts{$suffix}.js", 
+			MLA_PLUGIN_URL . "js/mla-inline-edit-settings-scripts{$suffix}.js", 
 			array( 'wp-lists', 'suggest', 'jquery' ), MLACore::CURRENT_MLA_VERSION, false );
 
 		wp_localize_script( MLASettings::JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG,
@@ -576,7 +577,7 @@ class MLASettings_Upload {
 	} // mla_compose_upload_tab
 
 	/**
-	 * Ajax handler for Upload MIME Types inline editing (quick and bulk edit)
+	 * Ajax handler for Upload MIME Types inline editing (quick edit)
 	 *
 	 * Adapted from wp_ajax_inline_save in /wp-admin/includes/ajax-actions.php
 	 *
@@ -704,13 +705,17 @@ class MLA_Upload_List_Table extends WP_List_Table {
 	 * @since 1.40
 	 *
 	 * @param	mixed	false or array with current list of hidden columns, if any
-	 * @param	string	'managesettings_page_mla-settings-menucolumnshidden'
+	 * @param	string	'managesettings_page_mla-settings-menu-uploadcolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		return $result ? $result : self::_default_hidden_columns();
+		if ( false !== $result ) {
+			return $result;
+		}
+
+		return self::_default_hidden_columns();
 	}
 
 	/**
@@ -1362,13 +1367,17 @@ class MLA_Upload_Optional_List_Table extends WP_List_Table {
 	 * @since 1.40
 	 *
 	 * @param	mixed	false or array with current list of hidden columns, if any
-	 * @param	string	'managesettings_page_mla-settings-menucolumnshidden'
+	 * @param	string	'managesettings_page_mla-settings-menu-uploadcolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		return $result ? $result : self::_default_hidden_columns();
+		if ( false !== $result ) {
+			return $result;
+		}
+
+		return self::_default_hidden_columns();
 	}
 
 	/**

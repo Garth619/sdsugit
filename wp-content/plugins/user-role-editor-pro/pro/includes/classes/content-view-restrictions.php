@@ -38,14 +38,14 @@ class URE_Content_View_Restrictions {
         add_action('edit_attachment', array($this, 'save_meta_data'));
         
         // exclude prohibited posts/pages and other post types from listings
-        new URE_Content_View_Restrictions_Posts_List();
+        URE_Content_View_Restrictions_Posts_List::get_instance();
                         
         // set content view restrictions
-        add_filter('the_content', array($this, 'restrict'));
-        add_filter('get_the_excerpt', array($this, 'restrict'));
-        add_filter('the_excerpt', array($this, 'restrict'));
-        add_filter('the_content_feed', array($this, 'restrict'));
-        add_filter('comment_text_rss', array($this, 'restrict'));
+        add_filter('the_content', array($this, 'restrict'), 999);
+        add_filter('get_the_excerpt', array($this, 'restrict'), 999);
+        add_filter('the_excerpt', array($this, 'restrict'), 999);
+        add_filter('the_content_feed', array($this, 'restrict'), 999);
+        add_filter('comment_text_rss', array($this, 'restrict'), 999);
         
         // Apply WordPress formatting filters for the post access error message.
         add_filter('ure_post_access_error_message', 'wptexturize');
@@ -114,21 +114,23 @@ class URE_Content_View_Restrictions {
         
         $selected_roles = explode(', ', $content_for_roles);
         $roles_list = '<input type="checkbox" id="ure_roles_auto_select" name="ure_roles_selector" value="1"><hr/>';
-        foreach($wp_roles->roles as $role_id=>$role_data) {
+        $roles = array_keys($wp_roles->roles);
+        asort($roles);
+        foreach($roles as $role_id) {
             if (in_array($role_id, $selected_roles)) {
                 $role_selected = 'checked';
             } else {
                 $role_selected = '';
             }
             $roles_list .= '<input type="checkbox" id="'. $role_id .'" name="'. $role_id .'" class="ure_role_cb" value="1" '. $role_selected .'>&nbsp'.
-                           '<label for="'. $role_id .'">' .$role_data['name'] .' ('. $role_id .')</label><br>'."\n";
+                           '<label for="'. $role_id .'">' .$wp_roles->roles[$role_id]['name'] .' ('. $role_id .')</label><br>'."\n";
         }
         $roles_list .= '<input type="checkbox" id="no_role" name="no_role" class="ure_role_cb" value="1" '. (in_array('no_role', $selected_roles) ? 'checked' : '') . '>&nbsp'.
                            '<label for="no_role">No role for this site</label><br>'."\n";        
         
         return $roles_list;
     }
-    // end of get_roles_list()
+    // end of get_roles_list_html()
     
     
     /**
@@ -163,7 +165,7 @@ class URE_Content_View_Restrictions {
         if (empty($content_view_access_error_action)) {
             $content_view_access_error_action = $this->lib->get_option('content_view_access_error_action', 2);
             // It's possible to modify default value for the post view access error action: 1 - 404 HTTP error or 2 - show error message
-            $content_view_access_error_action = apply_filters('ure_default_post_access_error_action', 2);
+            $content_view_access_error_action = apply_filters('ure_default_post_access_error_action', $content_view_access_error_action);
         }
         
         $post_access_error_message = get_post_meta($post->ID, self::post_access_error_message, true);        
@@ -187,7 +189,7 @@ class URE_Content_View_Restrictions {
         <input type="radio" id="content_view_whom_any_role" name="ure_content_view_whom" value="2"  <?php checked($content_view_whom, 2); ?> class="ure_content_view_whom" > 
         <label for="content_view_whom_any_role"><?php echo esc_html_e('Any User Role (logged in only)', 'user-role-editor'); ?></label><br>
         <input type="radio" id="content_view_whom_selected_roles" name="ure_content_view_whom" value="3"  <?php checked($content_view_whom, 3); ?> class="ure_content_view_whom" > 
-        <label for="ure_content_view_whom_selected_roles"><?php echo esc_html_e('Selected User Roles / (logged in only)', 'user-role-editor'); ?></label>
+        <label for="ure_content_view_whom_selected_roles"><?php echo esc_html_e('Selected User Roles', 'user-role-editor'); ?></label>
         <div id="ure_selected_roles_container" style="display: none; padding-left: 20px;">
             <button id="edit_content_for_roles"><?php echo esc_html_e('Edit Roles List', 'user-role-editor');?></button><br>
             <div style="padding-top: 5px;">
@@ -236,7 +238,7 @@ class URE_Content_View_Restrictions {
         if (!current_user_can(self::view_posts_access_cap)) {
             return;
         }
-        wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core', 'jquery-ui-button', 'jquery'));            
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'));            
         wp_register_script('ure-pro-content-view-restrictions', plugins_url('/pro/js/content-view-restrictions.js', URE_PLUGIN_FULL_PATH));
         wp_enqueue_script('ure-pro-content-view-restrictions');
         wp_localize_script('ure-pro-content-view-restrictions', 'ure_data_pro', array(
@@ -464,6 +466,35 @@ class URE_Content_View_Restrictions {
         return $restricted;
     }
     // end of is_post_restricted_for_role()
+
+
+    public static function is_author_restricted_for_role($author_id, $blocked) {
+        global $current_user;
+        
+        $blocked_list = isset($blocked['data']['authors']) ? $blocked['data']['authors'] : array();
+        if (isset($blocked['data']['own_data_only']) && $blocked['data']['own_data_only']==1) {
+            if (!in_array($current_user->ID, $blocked_list)) {
+                $blocked_list[] = $current_user->ID;
+            }
+        }
+        if (count($blocked_list)==0) {
+            return false;
+        }
+        
+        $restricted = false;
+        if ($blocked['access_model']==1) { // Selected
+            if (in_array($author_id, $blocked_list)) {
+                $restricted = true;
+            }
+        } else {
+            if (!in_array($author_id, $blocked_list)) {
+                $restricted = true;
+            }
+        }
+        
+        return $restricted;
+    }
+    // end of is_post_restricted_for_role()    
     
     
     public static function is_term_restricted_for_role($post_id, $blocked) {
@@ -589,7 +620,7 @@ class URE_Content_View_Restrictions {
             return $content;
         }
                 
-        // no restrictions for users who may edit this post
+        // no restrictions for users who can edit this post
         if ($this->lib->can_edit($post1)) {
             return $content;
         }
@@ -658,6 +689,29 @@ class URE_Content_View_Restrictions {
         return $result;
     }
     // end of get_post_view_access_users()
+    
+    
+    public static function current_user_can_view($post_id) {
+        
+        
+        $lib = URE_Lib_Pro::get_instance();
+        $activated = $lib->get_option('activate_content_for_roles', false);
+        if (!$activated) {
+            return true;
+        }
+        if (current_user_can('administrator')) {
+            return true;
+        }
+        
+        $cvrpl = URE_Content_View_Restrictions_Posts_List::get_instance();
+        $prohibited_posts = $cvrpl->get_current_user_prohibited_posts();
+        if (!in_array($post_id, $prohibited_posts)) {
+            return true;
+        }
+             
+        return false;
+    }
+    // end of can_view()
                     
 }
 // end of URE_Content_View_Restrictions class

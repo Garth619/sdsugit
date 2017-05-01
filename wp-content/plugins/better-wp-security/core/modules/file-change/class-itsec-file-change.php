@@ -24,8 +24,6 @@ class ITSEC_File_Change {
 	 */
 	function run() {
 
-		global $itsec_globals;
-
 		$settings = ITSEC_Modules::get_settings( 'file-change' );
 		$interval = 86400; //Run daily
 
@@ -44,7 +42,7 @@ class ITSEC_File_Change {
 		if (
 			( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) &&
 			isset( $settings['last_run'] ) &&
-			( $itsec_globals['current_time'] - $interval ) > $settings['last_run'] &&
+			( ITSEC_Core::get_current_time() - $interval ) > $settings['last_run'] &&
 			( ! defined( 'ITSEC_FILE_CHECK_CRON' ) || false === ITSEC_FILE_CHECK_CRON )
 		) {
 
@@ -122,8 +120,6 @@ class ITSEC_File_Change {
 	 */
 	public function logs_metabox_content() {
 
-		global $itsec_globals;
-
 		if ( ! class_exists( 'ITSEC_File_Change_Log' ) ) {
 			require( dirname( __FILE__ ) . '/class-itsec-file-change-log.php' );
 		}
@@ -145,7 +141,7 @@ class ITSEC_File_Change {
 
 		$next_run_raw = $settings['last_run'] + $interval;
 
-		if ( date( 'j', $next_run_raw ) == date( 'j', $itsec_globals['current_time'] ) ) {
+		if ( date( 'j', $next_run_raw ) == date( 'j', ITSEC_Core::get_current_time() ) ) {
 			$next_run_day = __( 'Today', 'better-wp-security' );
 		} else {
 			$next_run_day = __( 'Tomorrow', 'better-wp-security' );

@@ -374,25 +374,31 @@ class Ure_Lib_Pro extends Ure_Lib {
     
     /**
      * Returns a list of post IDs for provided terms ID list
-     * @param (array or string of comma separated integers) $terms_list
-     * @return array
+     * @param array or string (of comma separated integers) $terms_list
+     * @return array (of integers) posts ID
      */
     public function get_posts_by_terms($terms_list) {
         global $wpdb;        
         
         if (is_array($terms_list)) {
-            $terms_list_str = URE_Utils::filter_int_array_to_str($terms_list);
+            $terms_list_csv = URE_Utils::filter_int_array_to_str($terms_list);
         } else {
-            $terms_list_str = trim($terms_list);
+            $terms_list_csv = trim($terms_list);
         }
-        if (empty($terms_list)) {
+        if (empty($terms_list_csv)) {
             return array();
         }
         
-        $query = "select object_id from {$wpdb->term_relationships} where term_taxonomy_id in ($terms_list_str)";
+        // SQL command was built on the base of command from wp-includes/taxonomy.php function get_objects_in_term(), line #653 (WP version 4.7.3)
+        $query = "SELECT a.object_id
+                    FROM {$wpdb->term_relationships} a 
+                        INNER JOIN {$wpdb->term_taxonomy} b ON a.term_taxonomy_id=b.term_taxonomy_id
+                    WHERE b.term_id IN ($terms_list_csv)";
         $post_ids = $wpdb->get_col($query);
         if (!is_array($post_ids)) {
             $post_ids = array();
+        } else {
+            $post_ids = array_unique($post_ids);
         }
         
         return $post_ids;
@@ -449,6 +455,32 @@ class Ure_Lib_Pro extends Ure_Lib {
     // end of is_new_post()
     
     
+    /**
+     * Determines if a post, identified by the specified ID, exist
+     * within the WordPress database.
+     * 
+     * Note that this function uses the 'acme_' prefix to serve as an
+     * example for how to use the function within a theme. If this were
+     * to be within a class, then the prefix would not be necessary.
+     *
+     * @param    int    $id    The ID of the post to check
+     * @return   bool          True if the post exists; otherwise, false.
+     * @since    1.0.0
+     */
+    public function post_exists($post_id) {
+        
+        $post = WP_Post::get_instance($post_id);
+        if (is_object($post) && $post->ID>0) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+        
+        return $result;
+    }
+    // end of post_exists()
+    
+
     public function about() {
 ?>       
         <h2>User Role Editor Pro</h2>

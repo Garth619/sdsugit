@@ -385,6 +385,28 @@ ul.mla_settings li {
 	margin-right: 2em;
 }
 
+#mla-add-custom-field-table {
+	margin-bottom: 15px;
+}
+
+#mla-add-custom-field-table th {
+	padding: 5px 0px 5px 5px;
+	width: 10px;
+}
+
+#mla-add-custom-field-table td {
+	padding: 5px 0px 5px 0px;
+}
+
+#mla-add-custom-field-toggle {
+	text-decoration:none;
+}
+
+#mla-new-custom-field-table input[type="text"],
+#mla-add-custom-field-table select {
+	width: 100%;
+}
+
 /*
  * Help and Documentation content
  */

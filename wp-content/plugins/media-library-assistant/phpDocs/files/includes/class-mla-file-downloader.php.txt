@@ -33,13 +33,30 @@ class MLAFileDownloader {
 	 */
 	public static function mla_process_download_file() {
 		self::_mla_debug_add( 'mla_process_download_file, REQUEST = ' . var_export( $_REQUEST, true ) );
+		
+		$message = '';
+		
 		if ( isset( $_REQUEST['mla_download_file'] ) && isset( $_REQUEST['mla_download_type'] ) ) {
 			if( ini_get( 'zlib.output_compression' ) ) { 
 				ini_set( 'zlib.output_compression', 'Off' );
 			}
 
 			$file_name = $_REQUEST['mla_download_file'];
+			$match_name = str_replace( '\\', '/', $file_name );
+			$base_dir = pathinfo( __FILE__, PATHINFO_DIRNAME );
+			$match_dir = str_replace( '\\', '/', $base_dir );
+			$allowed_path = substr( $match_dir, 0, strpos( $match_dir, 'plugins' ) );
 
+			if ( 0 !== strpos( $match_name, $allowed_path ) ) {
+				$message = 'ERROR: download path out of bounds.';
+			} elseif ( false !== strpos( $match_name, '..' ) ) {
+				$message = 'ERROR: download path invalid.';
+			}
+		} else {
+			$message = 'ERROR: download argument(s) not set.';
+		}
+
+		if ( empty( $message ) ) {
 			header('Pragma: public'); 	// required
 			header('Expires: 0');		// no cache
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -52,23 +69,22 @@ class MLAFileDownloader {
 			header('Connection: close');
 
 			readfile( $file_name );
-			exit();
 		} else {
-			$message = __( 'ERROR', 'media-library-assistant' ) . ': ' . 'download argument(s) not set.';
 			self::_mla_debug_add( $message );
+
+			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+			echo '<html xmlns="http://www.w3.org/1999/xhtml">';
+			echo '<head>';
+			echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+			echo '<title>Download Error</title>';
+			echo '</head>';
+			echo '';
+			echo '<body>';
+			echo $message;
+			echo '</body>';
+			echo '</html> ';
 		}
 
-		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-		echo '<html xmlns="http://www.w3.org/1999/xhtml">';
-		echo '<head>';
-		echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-		echo '<title>Download Error</title>';
-		echo '</head>';
-		echo '';
-		echo '<body>';
-		echo $message;
-		echo '</body>';
-		echo '</html> ';
 		exit();
 	}
 

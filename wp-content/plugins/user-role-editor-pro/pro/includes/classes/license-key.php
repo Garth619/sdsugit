@@ -51,15 +51,15 @@ class URE_License_Key {
     private function decode_license_state($license_state) {
         switch ($license_state) {
             case 'active': {
-                $result = esc_html('Active', 'user-role-editor');
+                $result = esc_html__('Active', 'user-role-editor');
                 break;
             }
             case 'expired': {
-                $result = esc_html('Expired', 'user-role-editor');
+                $result = esc_html__('Expired', 'user-role-editor');
                 break;
             }
             default: {
-                $result = esc_html('Invalid', 'user-role-editor');
+                $result = esc_html__('Invalid', 'user-role-editor');
                 break;
             }
         }

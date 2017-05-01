@@ -73,13 +73,13 @@ final class ITSEC_Lib {
 		}
 
 		//Set up log table
-		$tables = "CREATE TABLE " . $wpdb->prefix . "itsec_log (
+		$tables = "CREATE TABLE " . $wpdb->base_prefix . "itsec_log (
 				log_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 				log_type varchar(20) NOT NULL DEFAULT '',
 				log_function varchar(255) NOT NULL DEFAULT '',
 				log_priority int(2) NOT NULL DEFAULT 1,
-				log_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-				log_date_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				log_date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+				log_date_gmt datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
 				log_host varchar(40),
 				log_username varchar(60),
 				log_user bigint(20) UNSIGNED,
@@ -92,7 +92,7 @@ final class ITSEC_Lib {
 				) " . $charset_collate . ";";
 
 		//set up lockout table
-		$tables .= "CREATE TABLE " . $wpdb->prefix . "itsec_lockouts (
+		$tables .= "CREATE TABLE " . $wpdb->base_prefix . "itsec_lockouts (
 				lockout_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 				lockout_type varchar(20) NOT NULL,
 				lockout_start datetime NOT NULL,
@@ -112,7 +112,7 @@ final class ITSEC_Lib {
 				) " . $charset_collate . ";";
 
 		//set up temp table
-		$tables .= "CREATE TABLE " . $wpdb->prefix . "itsec_temp (
+		$tables .= "CREATE TABLE " . $wpdb->base_prefix . "itsec_temp (
 				temp_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 				temp_type varchar(20) NOT NULL,
 				temp_date datetime NOT NULL,
@@ -127,7 +127,7 @@ final class ITSEC_Lib {
 				KEY temp_username (temp_username)
 				) " . $charset_collate . ";";
 
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		@dbDelta( $tables );
 
 	}
@@ -367,6 +367,12 @@ final class ITSEC_Lib {
 			if ( ! empty( $ip ) ) {
 				break;
 			}
+		}
+
+		if ( empty( $ip ) ) {
+			// If an IP is not found, force it to a localhost IP that would not be blacklisted as this typically
+			// indicates a local request that does not provide the localhost IP.
+			$ip = '127.0.0.1';
 		}
 
 		$GLOBALS['__itsec_remote_ip'] = (string) $ip;
@@ -664,8 +670,10 @@ final class ITSEC_Lib {
 		if ( - 1 < $memory_limit ) {
 
 			$unit = strtolower( substr( $memory_limit, - 1 ) );
+			$memory_limit = (int) $memory_limit;
 
 			$new_unit = strtolower( substr( $new_memory_limit, - 1 ) );
+			$new_memory_limit = (int) $new_memory_limit;
 
 			if ( 'm' == $unit ) {
 

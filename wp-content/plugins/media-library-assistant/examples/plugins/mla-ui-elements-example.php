@@ -5,29 +5,31 @@
  *
  * In this example:
  *
- * 1. If you add "use_filters=true" to an [mla_term_list] shortcode this plugin will retain the selected
- *    terms when the page is refreshed and pass them back into the shortcode.
+ * 1. If you add "use_filters=true" to an [mla_term_list] shortcode this plugin will retain the
+ *    selected terms when the page is refreshed and pass them back into the shortcode.
  *
- * 2. If you add "add_filters_to=any" to an [mla_gallery] shortcode this plugin will retain settings for
- *    terms search, keyword search, taxonomy queries and posts_per_page when the page is refreshed or
- *    pagination moves to a new page.
+ * 2. If you add "add_filters_to=any" to an [mla_gallery] shortcode this plugin will retain
+ *    settings for terms search, keyword search, taxonomy queries and posts_per_page when the
+ *    page is refreshed or pagination moves to a new page.
  *
- * 3. If you add "add_filters_to=<taxonomy_slug>" to an [mla_gallery] shortcode this plugin will do the
- *    actions in 2. and will also match the taxonomy_slug to a simple taxonomy query (if present) and
- *    add that query to the taxonomy queries. If the simple query is 'muie-no-terms', it will be ignored.
+ * 3. If you add "add_filters_to=<taxonomy_slug>" to an [mla_gallery] shortcode this plugin will
+ *    do the actions in 2. and will also match the taxonomy_slug to a simple taxonomy query (if
+ *    present) and add that query to the taxonomy queries. If the simple query is 'muie-no-terms',
+ *    it will be ignored.
  *
- * 4. Shortcodes are provided to generate text box controls and retain their settings when the page 
- *    is refreshed or pagination moves to a new page:
+ * 4. Shortcodes are provided to generate text box controls and retain their settings when the
+ *    page is refreshed or pagination moves to a new page:
  *
  *    [muie_terms_search] generates a terms search text box
  *    [muie_keyword_search] generates a keyword search text box
  *    [muie_orderby] generates an order by dropdown control
  *    [muie_order] generates ascending/descending radio buttons
  *    [muie_per_page] generates an items per page text box
- *    [muie_assigned_items_count] returns the number of items assigned to any term(s) in the selected taxonomy
+ *    [muie_assigned_items_count] returns the number of items assigned to any term(s) in the
+ *    selected taxonomy
  *
- * 5. With a bit of work you can add a tag cloud that works with these filters. Here's an example you can
- * adapt for your application:
+ * 5. With a bit of work you can add a tag cloud that works with these filters. Here's an example
+ *    you can adapt for your application:
  *
  * <style type='text/css'>
  * #mla-tag-cloud .mla_current_item {
@@ -63,7 +65,7 @@
  * https://wordpress.org/support/topic/shortcode-456/
  *
  * @package MLA UI Elements Example
- * @version 1.05
+ * @version 1.08
  */
 
 /*
@@ -71,10 +73,10 @@ Plugin Name: MLA UI Elements Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Provides shortcodes to improve user experience for [mla_term_list], [mla_tag_cloud] and [mla_gallery] shortcodes
 Author: David Lingren
-Version: 1.05
+Version: 1.08
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
-Copyright 2016 David Lingren
+Copyright 2016-2017 David Lingren
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -131,13 +133,22 @@ class MLAUIElementsExample {
 	}
 
 	/**
-	 * Pass term_list_name parameters from [mla_term_list] to [mla_gallery] for muie_filters
+	 * Pass mla_control_name parameters from [mla_term_list] to [mla_gallery] for muie_filters
 	 *
 	 * @since 1.05
 	 *
-	 * @var	array
+	 * @var	array [ $mla_control_name ] = $_REQUEST[ $mla_control_name ]
 	 */
-	private static $term_list_names = array();
+	private static $mla_control_names = array();
+
+	/**
+	 * Pass term_id/slug choices from [mla_term_list] to [mla_gallery] for muie_filters
+	 *
+	 * @since 1.07
+	 *
+	 * @var	array [ taxonomy ] = 'term_id' or 'slug'
+	 */
+	private static $mla_option_values = array();
 
 	/**
 	 * Look for 'muie_filters' that pass the selected parameters from page to page of a paginated gallery
@@ -147,78 +158,128 @@ class MLAUIElementsExample {
 	 * @param	array	the shortcode parameters passed in to the shortcode
 	 */
 	public static function mla_term_list_attributes( $shortcode_attributes ) {
-//error_log( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
-
-		// Multiple dropdowns for the same taxonomy?
-		if ( !empty( $shortcode_attributes['mla_markup'] ) && 'term-list-named' === $shortcode_attributes['mla_markup'] ) {
-			$term_list_name = $shortcode_attributes['term_list_name'];
-		} else {
-			$term_list_name = false;
+		// Exit if this is not a "filtered" term list
+		if ( empty( $shortcode_attributes['use_filters'] )  || ( 'true' !== trim ( strtolower( $shortcode_attributes['use_filters'] ) ) ) ) {
+			return $shortcode_attributes;
 		}
-//error_log( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes $term_list_name = ' . var_export( $term_list_name, true ), 0 );
-		
-		// See if this is a "filtered" term list
-		if ( !empty( $shortcode_attributes['use_filters'] )  && ( 'true' == strtolower( $shortcode_attributes['use_filters'] ) ) ) {
-			// Pagination links, e.g. Previous or Next, have muie_filters that encode the form parameters
-			if ( !empty( $_REQUEST['muie_filters'] ) ) {
-				$filters = json_decode( trim( stripslashes( $_REQUEST['muie_filters'] ), '"' ), true );
 
-				if ( !empty( $filters['tax_input'] ) ) {
-					$_REQUEST['tax_input'] = $filters['tax_input'];
-				}
-				
-				if ( $term_list_name && !empty( $filters[ $term_list_name ] ) ) {
-					$_REQUEST[ $term_list_name ] = $filters[ $term_list_name ];
-				}
-			}
-
-			if ( $term_list_name && !empty( $_REQUEST[ $term_list_name ] ) ) {
-				$_REQUEST['tax_input'][ $shortcode_attributes['taxonomy'] ][] = $_REQUEST[ $term_list_name ];
-				self::$term_list_names[ $term_list_name ] = $_REQUEST[ $term_list_name ];
-			}
-
-			// If nothing is set for this taxonomy we're done
-			if ( empty( $_REQUEST['tax_input'] ) || !array_key_exists( $shortcode_attributes['taxonomy'], $_REQUEST['tax_input'] ) ) {
-				return $shortcode_attributes;
-			}
-
-			$terms = $_REQUEST['tax_input'][ $shortcode_attributes['taxonomy'] ];
-//error_log( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes $terms = ' . var_export( $terms, true ), 0 );
-
-			// Check for a dropdown control with "All Terms" selected
-			if ( empty( $shortcode_attributes['option_all_value'] ) ) {
-				$option_all = array_search( '0', $terms );
+		$mla_debug = ( ! empty( $shortcode_attributes['mla_debug'] ) ) ? trim( strtolower( $shortcode_attributes['mla_debug'] ) ) : false;
+		if ( $mla_debug ) {
+			if ( 'true' == $mla_debug ) {
+				MLACore::mla_debug_mode( 'buffer' );
+			} elseif ( 'log' == $mla_debug ) {
+				MLACore::mla_debug_mode( 'log' );
 			} else {
-				$option_all = array_search( $shortcode_attributes['option_all_value'], $terms );
+				$mla_debug = false;
+			}
+		}
+
+		if ( $mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes input = ' . var_export( $shortcode_attributes, true ) );
+		}
+
+		// Pass "slug" overides to mla_gallery_attributes; using the slug is a common practice
+		$mla_option_value = in_array( $shortcode_attributes['mla_option_value'], array( '{+slug+}', '[+slug+]' ) ) ? 'slug' : 'term_id';
+		foreach( explode( ',', $shortcode_attributes['taxonomy'] ) as $taxonomy ) {
+			self::$mla_option_values[ $taxonomy ] = $mla_option_value;
+		}
+
+		// Allow for multiple taxonomies and named controls
+		$taxonomy = implode( '-', explode( ',', $shortcode_attributes['taxonomy'] ) );
+		$mla_control_name = !empty( $shortcode_attributes['mla_control_name'] ) ? $shortcode_attributes['mla_control_name'] : false;
+		if ( $mla_control_name  ) {
+			if ( $index = strpos( $mla_control_name, '[]' ) ) {
+				$mla_control_name = substr( $mla_control_name, 0, $index );
+			}
+		}
+
+		// Pagination links, e.g. Previous or Next, have muie_filters that encode the form parameters
+		if ( !empty( $_REQUEST['muie_filters'] ) ) {
+			$filters = json_decode( trim( stripslashes( $_REQUEST['muie_filters'] ), '"' ), true );
+
+			if ( !empty( $filters['tax_input'] ) ) {
+				$_REQUEST['tax_input'] = $filters['tax_input'];
 			}
 
-			if ( false !== $option_all ) {
-				unset( $terms[ $option_all ] );
+			if ( $mla_control_name && !empty( $filters[ $mla_control_name ] ) ) {
+				$_REQUEST[ $mla_control_name ] = $filters[ $mla_control_name ];
 			}
+		}
 
-			if ( empty( $shortcode_attributes['option_all_text'] ) ) {
-				$option_all = array_search( '', $terms );
+		// Check for a named control with possible taxonomy.term values from "combined" taxonomies
+		if ( $mla_control_name && !empty( $_REQUEST[ $mla_control_name ] ) ) {
+			self::$mla_control_names[ $mla_control_name ] = $_REQUEST[ $mla_control_name ];
+			if ( is_scalar( $_REQUEST[ $mla_control_name ] ) ) {
+				$input = array( $_REQUEST[ $mla_control_name ] );
 			} else {
-				$option_all = array_search( sanitize_title( $shortcode_attributes['option_all_text'] ), $terms );
+				$input = $_REQUEST[ $mla_control_name ];
 			}
 			
-			if ( false !== $option_all ) {
-				unset( $terms[ $option_all ] );
-			}
+			foreach( $input as $input_element ) {
+				$value = explode( '.', $input_element );
 
-			// Pass selected terms to the shortcode
-			if ( !empty( $terms ) ) {
-				if ( $term_list_name && !empty( $_REQUEST[ $term_list_name ] ) ) {
-					$shortcode_attributes[ $shortcode_attributes['mla_item_parameter'] ] = $_REQUEST[ $term_list_name ];
+				if ( 2 === count( $value ) ) {
+					$taxonomy = $value[0];
+					$_REQUEST['tax_input'][ $taxonomy ][] = $value[1];
 				} else {
-					$shortcode_attributes[ $shortcode_attributes['mla_item_parameter'] ] = implode( ',', $_REQUEST['tax_input'][ $shortcode_attributes['taxonomy'] ] );
+					$_REQUEST['tax_input'][ $taxonomy ][] = $input_element;
 				}
 			}
-
-			unset( $shortcode_attributes['use_filters'] );
 		}
 
-//error_log( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
+		// If nothing is set for this taxonomy we're done
+		if ( empty( $_REQUEST['tax_input'] ) || !array_key_exists( $taxonomy, $_REQUEST['tax_input'] ) ) {
+			if ( $mla_debug ) {
+				MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes no changes' );
+			}
+
+			return $shortcode_attributes;
+		}
+
+		$terms = $_REQUEST['tax_input'][ $taxonomy ];
+
+		// Check for a dropdown control with "All Terms" selected
+		if ( empty( $shortcode_attributes['option_all_value'] ) ) {
+			$option_all = array_search( '0', $terms );
+		} else {
+			$option_all = array_search( $shortcode_attributes['option_all_value'], $terms );
+		}
+
+		if ( false !== $option_all ) {
+			unset( $terms[ $option_all ] );
+		}
+
+		if ( empty( $shortcode_attributes['option_all_text'] ) ) {
+			$option_all = array_search( '', $terms );
+		} else {
+			$option_all = array_search( sanitize_title( $shortcode_attributes['option_all_text'] ), $terms );
+		}
+
+		if ( false !== $option_all ) {
+			unset( $terms[ $option_all ] );
+		}
+
+		// Reflect option_all changes in the query arguments
+		$_REQUEST['tax_input'][ $taxonomy ] = $terms;
+		if ( $mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes tax_input = ' . var_export( $_REQUEST['tax_input'], true ) );
+		}
+
+		// Pass selected terms to the shortcode
+		if ( !empty( $terms ) ) {
+			if ( $mla_control_name && !empty( $_REQUEST[ $mla_control_name ] ) ) {
+				$shortcode_attributes[ $shortcode_attributes['mla_item_parameter'] ] = $_REQUEST[ $mla_control_name ];
+			} else {
+				$shortcode_attributes[ $shortcode_attributes['mla_item_parameter'] ] = implode( ',', $_REQUEST['tax_input'][ $taxonomy ] );
+			}
+		}
+
+		unset( $shortcode_attributes['use_filters'] );
+
+		if ( $mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_term_list_attributes returns = ' . var_export( $shortcode_attributes, true ) );
+		}
+
 		return $shortcode_attributes;
 	} // mla_term_list_attributes
 
@@ -230,12 +291,24 @@ class MLAUIElementsExample {
 	 * @param	array	the shortcode parameters passed in to the shortcode
 	 */
 	public static function mla_gallery_attributes( $shortcode_attributes ) {
-//error_log( __LINE__ . ' MLAUIElementsExample::mla_gallery_attributes $shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
-		/*
-		 * Only process shortcodes that allow filters
-		 */
+		// Only process shortcodes that allow filters
 		if ( empty( $shortcode_attributes['add_filters_to'] ) ) {
 			return $shortcode_attributes;
+		}
+
+		$mla_debug = ( ! empty( $shortcode_attributes['mla_debug'] ) ) ? trim( strtolower( $shortcode_attributes['mla_debug'] ) ) : false;
+		if ( $mla_debug ) {
+			if ( 'true' == $mla_debug ) {
+				MLACore::mla_debug_mode( 'buffer' );
+			} elseif ( 'log' == $mla_debug ) {
+				MLACore::mla_debug_mode( 'log' );
+			} else {
+				$mla_debug = false;
+			}
+		}
+
+		if ( $mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_gallery_attributes input = ' . var_export( $shortcode_attributes, true ) );
 		}
 
 		// Unpack filter values encoded for pagination links
@@ -259,16 +332,21 @@ class MLAUIElementsExample {
 
 		// Fill these in from $_REQUEST parameters
 		$muie_filters = array();
-		
+
+		$mla_control_name = !empty( $shortcode_attributes['mla_control_name'] ) ? $shortcode_attributes['mla_control_name'] : '';
+		if ( !empty( $_REQUEST[ $mla_control_name ] ) ) {
+			$muie_filters[ $mla_control_name ] = $_REQUEST[ $mla_control_name ];
+		}
+
 		// Add the orderby & order parameters
 		if ( !empty( $_REQUEST['muie_orderby'] ) ) {
 			$muie_filters['muie_orderby'] = $shortcode_attributes['orderby'] = $_REQUEST['muie_orderby'];
 		}
-		
+
 		if ( !empty( $_REQUEST['muie_meta_key'] ) ) {
 			$muie_filters['muie_meta_key'] = $shortcode_attributes['meta_key'] = $_REQUEST['muie_meta_key'];
 		}
-		
+
 		if ( !empty( $_REQUEST['muie_order'] ) ) {
 			$muie_filters['muie_order'] = $shortcode_attributes['order'] = $_REQUEST['muie_order'];
 		}
@@ -301,13 +379,38 @@ class MLAUIElementsExample {
 			$tax_input = array();
 		}
 
-		// Add the [mla_term_list term_list_name=] parameter(s)
-		if ( !empty( self::$term_list_names ) ) {
-			$muie_filters = array_merge( $muie_filters, self::$term_list_names );
+		// Add the [mla_term_list mla_control_name=] parameter(s)
+		if ( !empty( self::$mla_control_names ) ) {
+			$muie_filters = array_merge( $muie_filters, self::$mla_control_names );
 		}
 
 		if ( ! ( empty( $shortcode_attributes[ $filter_taxonomy ] ) && empty( $tax_input ) ) ) {
 			$tax_query = '';
+
+			// Validate other tax_query parameters or set defaults
+			$tax_relation = 'AND';
+			if ( isset( $shortcode_attributes['tax_relation'] ) ) {
+				$attr_value = strtoupper( $shortcode_attributes['tax_relation'] );
+				if ( in_array( $attr_value, array( 'AND', 'OR' ) ) ) {
+					$tax_relation = $attr_value;
+				}
+			}
+
+			$default_operator = 'IN';
+			if ( isset( $shortcode_attributes['tax_operator'] ) ) {
+				$attr_value = strtoupper( $shortcode_attributes['tax_operator'] );
+				if ( in_array( $attr_value, array( 'IN', 'NOT IN', 'AND' ) ) ) {
+					$default_operator = $attr_value;
+				}
+			}
+
+			$default_children = 'true';
+			if ( isset( $shortcode_attributes[ 'tax_include_children' ] ) ) {
+				$attr_value = strtolower( $shortcode_attributes[ 'tax_include_children' ] );
+				if ( in_array( $attr_value, array( 'false', 'true' ) ) ) {
+					$default_children = $attr_value;
+				}
+			}
 
 			// Look for the optional "simple taxonomy query" as an initial filter
 			if ( !empty( $shortcode_attributes[ $filter_taxonomy ] ) ) {
@@ -319,37 +422,20 @@ class MLAUIElementsExample {
 					} else {
 						$option_all = array_search( $shortcode_attributes['option_all_value'], $terms );
 					}
-	
+
 					if ( false !== $option_all ) {
 						unset( $terms[ $option_all ] );
 					}
 
 					if ( !empty( $terms ) ) {
 						$values = "array( '" . implode( "', '", $terms ) . "' )";
-						$tax_query .= "array('taxonomy' => '{$filter_taxonomy}' ,'field' => 'slug','terms' => {$values}, 'operator' => 'IN'), ";
+						$tax_query .= "array('taxonomy' => '{$filter_taxonomy}' ,'field' => 'slug','terms' => {$values}, 'operator' => '{$default_operator}', 'include_children' => {$default_children} ), ";
 					}
 				}
 
 				unset( $shortcode_attributes[ $filter_taxonomy ] );
 			}
 
-			// Validate other tax_query parameters or set defaults
-			$tax_relation = 'AND';
-			if ( isset( $shortcode_attributes['tax_relation'] ) ) {
-				$attr_value = strtoupper( $shortcode_attributes['tax_relation'] );
-				if ( in_array( $attr_value, array( 'AND', 'OR' ) ) ) {
-					$tax_relation = $attr_value;
-				}
-			}
-			
-			$tax_operator = 'IN';
-			if ( isset( $shortcode_attributes['tax_operator'] ) ) {
-				$attr_value = strtoupper( $shortcode_attributes['tax_operator'] );
-				if ( in_array( $attr_value, array( 'IN', 'NOT IN', 'AND' ) ) ) {
-					$tax_operator = $attr_value;
-				}
-			}
-			
 			foreach ( $tax_input as $taxonomy => $terms ) {
 				// simple taxonomy query overrides tax_input
 				if ( $taxonomy == $filter_taxonomy ) {
@@ -368,21 +454,40 @@ class MLAUIElementsExample {
 				}
 
 				if ( !empty( $terms ) ) {
-					$field = 'term_id';
+					// Numeric values could still be a slug
+					$field = self::$mla_option_values[ $taxonomy ];
 					foreach ( $terms as $term ) {
-						if ( ! is_integer( $term ) ) {
+						if ( ! ctype_digit( $term ) ) {
 							$field = 'slug';
 							break;
 						}
 					}
-					
+
 					if ( 'term_id' == $field ) {
 						$values = 'array( ' . implode( ',', $terms ) . ' )';
 					} else {
 						$values = "array( '" . implode( "','", $terms ) . "' )";
 					}
-					
-					$tax_query .= "array('taxonomy' => '{$taxonomy}' ,'field' => '{$field}','terms' => {$values}, 'operator' => '" . $tax_operator . "'), ";
+
+					// Taxonomy-specific "operator"					
+					$tax_operator = $default_operator;
+					if ( isset( $shortcode_attributes[ $taxonomy . '_operator' ] ) ) {
+						$attr_value = strtoupper( $shortcode_attributes[ $taxonomy . '_operator' ] );
+						if ( in_array( $attr_value, array( 'IN', 'NOT IN', 'AND' ) ) ) {
+							$tax_operator = $attr_value;
+						}
+					}
+
+					// Taxonomy-specific "include_children"					
+					$tax_children = $default_children;
+					if ( isset( $shortcode_attributes[ $taxonomy . '_children' ] ) ) {
+						$attr_value = strtolower( $shortcode_attributes[ $taxonomy . '_children' ] );
+						if ( in_array( $attr_value, array( 'false', 'true' ) ) ) {
+							$tax_children = $attr_value;
+						}
+					}
+
+					$tax_query .= "array('taxonomy' => '{$taxonomy}' ,'field' => '{$field}','terms' => {$values}, 'operator' => '{$tax_operator}', 'include_children' => {$tax_children} ), ";
 				}
 			}
 
@@ -405,6 +510,11 @@ class MLAUIElementsExample {
 		}
 
 		unset( $shortcode_attributes['add_filters_to'] );
+
+		if ( $mla_debug ) {
+			MLACore::mla_debug_add( __LINE__ . ' MLAUIElementsExample::mla_gallery_attributes returns = ' . var_export( $shortcode_attributes, true ) );
+		}
+
 		return $shortcode_attributes;
 	} // mla_gallery_attributes
 
@@ -653,7 +763,7 @@ class MLAUIElementsExample {
 			$sort_fields = $allowed_fields;
 		} else {
 			$sort_fields = array();
-			
+
 			if ( 0 === strpos( $arguments['sort_fields'], 'array' ) ) {
 				$function = @create_function('', 'return ' . $arguments['sort_fields'] . ';' );
 				if ( is_callable( $function ) ) {
@@ -683,12 +793,12 @@ class MLAUIElementsExample {
 			$custom_key = '';
 			$custom_spec = '';
 		}
-		
+
 		if ( !empty( $custom_spec ) ) {
 			$spec_parts = explode( '=>', $custom_spec );
 			$spec_key = trim( $spec_parts[0], ' \'"' );
 			$spec_suffix = '';
-			
+
 			$tail = strrpos( $spec_key, ' DESC' );
 			if ( ! ( false === $tail ) ) {
 				$spec_key = substr( $spec_key, 0, $tail );
@@ -708,7 +818,7 @@ class MLAUIElementsExample {
 		if ( empty( $sort_fields ) ) {
 			return '';
 		}
-		
+
 		// Unpack filter values encoded for pagination links
 		if ( !empty( $_REQUEST['muie_filters'] ) ) {
 			$filters = json_decode( trim( stripslashes( $_REQUEST['muie_filters'] ), '"' ), true );
@@ -717,7 +827,7 @@ class MLAUIElementsExample {
 				$_REQUEST['muie_orderby'] = $filters['muie_orderby'];
 			}
 		}
-		
+
 		if ( !empty( $_REQUEST['muie_orderby'] ) ) {
 			$current_value = $_REQUEST['muie_orderby'];
 		} else {
@@ -729,9 +839,9 @@ class MLAUIElementsExample {
 		} else {
 			$output = '';
 		}
-		
+
 		$output .= '<select name="muie_orderby" id="muie-orderby">' . "\n";
-		
+
 		foreach ( $sort_fields as $value => $label ) {
 			$value = 'empty' === $value ? '' : $value;
 
@@ -791,13 +901,13 @@ class MLAUIElementsExample {
 				$_REQUEST['muie_order'] = $filters['muie_order'];
 			}
 		}
-		
+
 		if ( !empty( $_REQUEST['muie_order'] ) ) {
 			$current_value = $_REQUEST['muie_order'];
 		} else {
 			$current_value = $arguments['default_order'];
 		}
-		
+
 		if ( 'DESC' === $current_value ) {
 			$asc_selected = '';
 			$desc_selected = ' checked="checked"';
@@ -842,7 +952,7 @@ class MLAUIElementsExample {
 
 		// Accept only the attributes we need and supply defaults
 		$arguments = shortcode_atts( $default_arguments, $attr );
-		
+
 		/*
 		 * Build an array of individual clauses that can be filtered
 		 */
@@ -929,7 +1039,7 @@ class MLAUIElementsExample {
 		$query[] = 'WHERE (';
 		$query[] = $clauses['where'];
 		$query[] = ') ) as subquery';
-		
+
 		$query =  join(' ', $query);
 		$count = $wpdb->get_var( $query );
 		return number_format( (float) $count );

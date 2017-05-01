@@ -790,11 +790,13 @@ class MLAData {
 					}
 				}
 
-				$mb_suffix = ' MB';
 				$threshold = 10240;
 				$kb_suffix = ' KB';
+				$mb_suffix = ' MB';
+				$precision = 3;
 
 				if ( is_array( $args['args'] ) ) {
+					$precision = isset( $args['args'][3] ) ? absint( $args['args'][3] ) : $precision;
 					$mb_suffix = isset( $args['args'][2] ) ? $args['args'][2] : $mb_suffix;
 					$kb_suffix = isset( $args['args'][1] ) ? $args['args'][1] : $kb_suffix;
 					$args['args'] = $args['args'][0];
@@ -806,9 +808,9 @@ class MLAData {
 
 				$number = (float) $number;
 				if ( 1048576 < $number ) {
-					$value = number_format( ( $number/1048576 ), 3 ) . $mb_suffix;
+					$value = number_format( ( $number/1048576 ), $precision ) . $mb_suffix;
 				} elseif ( $threshold < $number ) {
-					$value = number_format( ( $number/1024 ), 3 ) . $kb_suffix;
+					$value = number_format( ( $number/1024 ), $precision ) . $kb_suffix;
 				} else {
 					$value = number_format( $number );
 				}
@@ -984,7 +986,9 @@ class MLAData {
 						}
 					}
 
-					if ( is_scalar( $record ) ) {
+					if ( 'raw' == $value['format'] ) {
+						$text = $record;
+					} elseif ( is_scalar( $record ) ) {
 						$text = sanitize_text_field( (string) $record );
 					} elseif ( is_array( $record ) ) {
 						if ( 'export' == $value['option'] ) {
@@ -1285,7 +1289,7 @@ class MLAData {
 		foreach ( $matches[0] as $match ) {
 			$key = substr( $match, 2, (strlen( $match ) - 4 ) );
 			$result = array( 'prefix' => '', 'value' => '', 'option' => $default_option, 'format' => 'native' );
-			$match_count = preg_match( '/\[\+([^:]+):(.+)\+\]/', $match, $matches );
+			$match_count = preg_match( '/\[\+([^,:]+):(.+)\+\]/', $match, $matches );
 			if ( 1 == $match_count ) {
 				$result['prefix'] = $matches[1];
 				$tail = $matches[2];
@@ -3097,8 +3101,11 @@ class MLAData {
 						}
 
 						$results['mla_exif_metadata'][ $element_name ] = $element_value;
-					}
-				}
+					} // foreach $section_data
+				} // foreach $exif_data
+				
+				// $exif_data is used for enhanced values below
+				$exif_data = $results['mla_exif_metadata'];
 			} // exif_read_data
 
 			$results['mla_xmp_metadata'] = self::mla_parse_xmp_metadata( $path, 0 );
@@ -3869,53 +3876,89 @@ class MLAData {
 
 				$taxonomy_obj = get_taxonomy( $taxonomy );
 
-				if ( current_user_can( $taxonomy_obj->cap->assign_terms ) ) {
-					if ( is_array( $tags ) ) // array of int = hierarchical, comma-delimited string = non-hierarchical.
-						$tags = array_filter( $tags );
-
-					switch ( $tax_action ) {
-						case 'add':
-							if ( ! empty( $tags ) ) {
-								$action_name = __( 'Adding', 'media-library-assistant' );
-								$result = wp_set_post_terms( $post_id, $tags, $taxonomy, true );
-							}
-							break;
-						case 'remove':
-							$action_name = __( 'Removing', 'media-library-assistant' );
-							$tags = self::_remove_terms( $post_id, $tags, $taxonomy_obj );
-							$result = wp_set_post_terms( $post_id, $tags, $taxonomy );
-
-							if ( empty( $tags ) ) {
-								$result = true;
-							}
-							break;
-						case 'replace':
-							$action_name = __( 'Replacing', 'media-library-assistant' );
-							$result = wp_set_post_terms( $post_id, $tags, $taxonomy );
-
-							if ( empty( $tags ) ) {
-								$result = true;
-							}
-							break;
-						default:
-							$action_name = __( 'Ignoring', 'media-library-assistant' );
-							$result = NULL;
-							// ignore anything else
-					}
-
-					/*
-					 * Definitive results check would use:
-					 * do_action( 'set_object_terms', $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids );
-					 * in /wp_includes/taxonomy.php function wp_set_object_terms()
-					 */
-					if ( ! empty( $result ) ) {
-						delete_transient( MLA_OPTION_PREFIX . 't_term_counts_' . $taxonomy );
-						/* translators: 1: action_name, 2: taxonomy */
-						$message .= sprintf( __( '%1$s "%2$s" terms', 'media-library-assistant' ) . '<br>', $action_name, $taxonomy );
-					}
-				} else { // current_user_can
+				if ( ! current_user_can( $taxonomy_obj->cap->assign_terms ) ) {
 					/* translators: 1: taxonomy */
 					$message .= sprintf( __( 'You cannot assign "%1$s" terms', 'media-library-assistant' ) . '<br>', $taxonomy );
+					continue;
+				}
+				
+				// array of int = hierarchical, comma-delimited string = flat.
+				if ( is_array( $tags ) ) {
+					$tags = array_filter( $tags );
+				} else {
+					/*
+					 * Convert flat taxonomy input to term IDs, to avoid ambiguity.
+					 * Adapted from edit_post() in /wp-admin/includes/post.php
+					 */
+					$comma = _x( ',', 'tag delimiter' );
+					if ( ',' !== $comma ) {
+						$tags = str_replace( $comma, ',', $tags );
+					}
+					$tags = explode( ',', trim( $tags, " \n\t\r\0\x0B," ) );
+
+					$clean_terms = array();
+					foreach ( $tags as $tag ) {
+						// Empty terms are invalid input.
+						if ( empty( $tag ) ) {
+							continue;
+						}
+		
+						$_term = get_terms( $taxonomy, array(
+							'name' => $tag,
+							'fields' => 'ids',
+							'hide_empty' => false,
+						) );
+		
+						if ( ! empty( $_term ) ) {
+							$clean_terms[] = intval( $_term[0] );
+						} else {
+							// No existing term was found, so pass the string. A new term will be created.
+							$clean_terms[] = $tag;
+						}
+					}
+		
+					$tags = $clean_terms;
+				}
+
+				switch ( $tax_action ) {
+					case 'add':
+						if ( ! empty( $tags ) ) {
+							$action_name = __( 'Adding', 'media-library-assistant' );
+							$result = wp_set_post_terms( $post_id, $tags, $taxonomy, true );
+						}
+						break;
+					case 'remove':
+						$action_name = __( 'Removing', 'media-library-assistant' );
+						$tags = self::_remove_terms( $post_id, $tags, $taxonomy_obj );
+						$result = wp_set_post_terms( $post_id, $tags, $taxonomy );
+
+						if ( empty( $tags ) ) {
+							$result = true;
+						}
+						break;
+					case 'replace':
+						$action_name = __( 'Replacing', 'media-library-assistant' );
+						$result = wp_set_post_terms( $post_id, $tags, $taxonomy );
+
+						if ( empty( $tags ) ) {
+							$result = true;
+						}
+						break;
+					default:
+						$action_name = __( 'Ignoring', 'media-library-assistant' );
+						$result = NULL;
+						// ignore anything else
+				}
+
+				/*
+				 * Definitive results check would use:
+				 * do_action( 'set_object_terms', $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids );
+				 * in /wp_includes/taxonomy.php function wp_set_object_terms()
+				 */
+				if ( ! empty( $result ) ) {
+					delete_transient( MLA_OPTION_PREFIX . 't_term_counts_' . $taxonomy );
+					/* translators: 1: action_name, 2: taxonomy */
+					$message .= sprintf( __( '%1$s "%2$s" terms', 'media-library-assistant' ) . '<br>', $action_name, $taxonomy );
 				}
 			} // foreach $tax_input
 		} // ! empty $tax_input

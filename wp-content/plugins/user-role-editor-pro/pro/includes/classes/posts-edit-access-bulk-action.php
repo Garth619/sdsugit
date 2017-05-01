@@ -78,7 +78,7 @@ class URE_Posts_Edit_Access_Bulk_Action {
         </div>
 <?php
         
-        wp_enqueue_script('jquery-ui-dialog', false, array('jquery-ui-core','jquery-ui-button', 'jquery') );
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core','jquery-ui-button', 'jquery') );
         wp_register_script( 'ure-bulk-edit-access', plugins_url( '/pro/js/ure-bulk-edit-access.js', URE_PLUGIN_FULL_PATH ) );
         wp_enqueue_script ( 'ure-bulk-edit-access' );      
         wp_localize_script( 'ure-bulk-edit-access', 'ure_bulk_edit_access_data', array(
@@ -97,7 +97,7 @@ class URE_Posts_Edit_Access_Bulk_Action {
         global $wpdb;                
                 
         if (!current_user_can('ure_edit_posts_access')) {
-            $answer = array('result'=>'failure', 'message'=>html_esc__('You do not have enough permissions for this action.','user-role-editor'));
+            $answer = array('result'=>'failure', 'message'=>esc_html__('You do not have enough permissions for this action.','user-role-editor'));
             return $answer;
         }
         $what_todo = $this->lib->get_request_var('what_todo', 'post', 'int');
@@ -109,7 +109,7 @@ class URE_Posts_Edit_Access_Bulk_Action {
         
         $user_ids_str = $this->lib->get_request_var('user_ids', 'post');
         if (empty($user_ids_str)) {
-            $answer = array('result'=>'failure', 'message'=>html_esc__('Provide users ID list.','user-role-editor'));
+            $answer = array('result'=>'failure', 'message'=>esc_html__('Provide users ID list.','user-role-editor'));
             return $answer;
         }
         
@@ -119,7 +119,7 @@ class URE_Posts_Edit_Access_Bulk_Action {
         $users_ids_arr = explode(',',$user_ids_str);
         $users_ids_str1 = URE_Utils::filter_int_array_to_str($users_ids_arr);
         if (empty($users_ids_str1)) {
-            $answer = array('result'=>'failure', 'message'=>html_esc__('Provide valid users ID list (integers separated by commas).', 'user-role-editor'));
+            $answer = array('result'=>'failure', 'message'=>esc_html__('Provide valid users ID list (integers separated by commas).', 'user-role-editor'));
             return $answer;
         }        
                 

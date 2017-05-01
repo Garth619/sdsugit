@@ -5,14 +5,6 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		return 'global';
 	}
 
-	public function get_valid_log_types() {
-		return array(
-			'database' => __( 'Database Only', 'better-wp-security' ),
-			'file'     => __( 'File Only', 'better-wp-security' ),
-			'both'     => __( 'Both', 'better-wp-security' ),
-		);
-	}
-
 	protected function sanitize_settings() {
 		if ( is_dir( WP_PLUGIN_DIR . '/iwp-client' ) ) {
 			$this->sanitize_setting( 'bool', 'infinitewp_compatibility', __( 'Add InfiniteWP Compatibility', 'better-wp-security' ) );
@@ -27,7 +19,7 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		}
 
 
-		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check' ) );
+		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check', 'digest_last_sent', 'digest_messages', 'build', 'activation_timestamp' ) );
 		$this->set_default_if_empty( array( 'log_location', 'nginx_file' ) );
 
 
@@ -61,7 +53,27 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		$this->sanitize_setting( 'newline-separated-emails', 'backup_email', __( 'Backup Delivery Email', 'better-wp-security' ) );
 
 
-		$allowed_tags = array(
+		$allowed_tags = $this->get_allowed_tags();
+
+		$this->settings['lockout_message'] = trim( wp_kses( $this->settings['lockout_message'], $allowed_tags ) );
+		$this->settings['user_lockout_message'] = trim( wp_kses( $this->settings['user_lockout_message'], $allowed_tags ) );
+		$this->settings['community_lockout_message'] = trim( wp_kses( $this->settings['community_lockout_message'], $allowed_tags ) );
+
+		if ( $this->settings['digest_last_sent'] <= 0 ) {
+			$this->settings['digest_last_sent'] = ITSEC_Core::get_current_time_gmt();
+		}
+	}
+
+	public function get_valid_log_types() {
+		return array(
+			'database' => __( 'Database Only', 'better-wp-security' ),
+			'file'     => __( 'File Only', 'better-wp-security' ),
+			'both'     => __( 'Both', 'better-wp-security' ),
+		);
+	}
+
+	private function get_allowed_tags() {
+		return array(
 			'a'      => array(
 				'href'  => array(),
 				'title' => array(),
@@ -79,10 +91,6 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 				'style' => array(),
 			),
 		);
-
-		$this->settings['lockout_message'] = trim( wp_kses( $this->settings['lockout_message'], $allowed_tags ) );
-		$this->settings['user_lockout_message'] = trim( wp_kses( $this->settings['user_lockout_message'], $allowed_tags ) );
-		$this->settings['community_lockout_message'] = trim( wp_kses( $this->settings['community_lockout_message'], $allowed_tags ) );
 	}
 }
 

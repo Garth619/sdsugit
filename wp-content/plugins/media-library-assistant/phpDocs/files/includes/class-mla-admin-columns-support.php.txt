@@ -3,114 +3,160 @@
  * Media Library Assistant Admin Columns (plugin) Support
  *
  * @package Media Library Assistant
- * @since 2.22
+ * @since 2.50
  */
 defined( 'ABSPATH' ) or die();
 
+if ( class_exists( 'ACP_Editing_Strategy' ) ) {
+	/**
+	 * Class Admin Columns Addon MLA (Media Library Assistant) Editing Strategy supports the Admin Columns plugin
+	 *
+	 * @package Media Library Assistant
+	 * @since 2.50
+	 */
+	class AC_Addon_MLA_Editing_Strategy extends ACP_Editing_Strategy {
+	
+		/**
+		 * Get the available items on the current page for passing them to JS
+		 *
+		 * @since 2.50
+		 *
+		 * @return array Items on the current page ([entry_id] => (array) [entry_data])
+		 */
+		public function get_rows() {
+//error_log( __LINE__ . ' AC_Addon_MLA_Editing_Strategy::get_rows ', 0 );
+			$table = $this->column->get_list_screen()->get_list_table();
+			$table->prepare_items();
+	
+//error_log( __LINE__ . ' AC_Addon_MLA_Editing_Strategy::get_rows editable rows = ' . var_export( $this->get_editable_rows( $table->items ), true ), 0 );
+			return $this->get_editable_rows( $table->items );
+		}
+	
+
+		/**
+		 * See if the user has write permission for a post/object
+		 *
+		 * @since 2.50
+		 *
+		 * @param int $post_id Object ID
+		 *
+		 * @return bool $post->ID when user can edit object else false.
+		 */
+		public function user_has_write_permission( $post_id ) {
+			$post = is_a( $post_id, 'WP_Post' ) ? $post_id : get_post( $post_id );
+	
+			return $post && isset( $post->ID ) && current_user_can( 'edit_post', $post->ID ) ? $post->ID : false;
+		}
+		
+		/**
+		 * Updates column content from inline editing
+		 *
+		 * @param int $object_id
+		 * @param array $args
+		 */
+		public function update( $id, $args ) {
+//error_log( __LINE__ . " AC_Addon_MLA_Editing_Strategy::update( {$id} ) args = " . var_export( $args, true ), 0 );
+return;
+
+			$args['ID'] = $id;
+	
+			wp_update_post( $args );
+		} // */
+	}
+}
+
 /**
- * Class CPAC Storage Model MLA (Media Library Assistant) supports the Admin Columns plugin
+ * Class Admin Columns Addon MLA (Media Library Assistant) List Screen supports the Admin Columns plugin
  *
  * @package Media Library Assistant
- * @since 2.22
+ * @since 2.50
  */
-class CPAC_Storage_Model_MLA extends AC_StorageModel_Media {
+class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 
 	/**
-	 * Calls the parent function to set some default configs,
-	 * then initializes some MLA-specific properties.
+	 * Initializes some properties, installs filters and then
+	 * calls the parent constructor to set some default configs.
 	 *
-	 * @since 2.22
+	 * @since 2.50
 	 */
-	public function init() {
-		parent::init();
+	public function __construct() {
+//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::__construct ', 0 );
+		parent::__construct();
 
-		$this->key = 'mla-media-assistant';
-		$this->label = __( 'Media Library Assistant' );
-		$this->singular_label = __( 'Assistant' );
-		$this->screen = 'media_page_' . MLACore::ADMIN_PAGE_SLUG;
-		$this->subpage = MLACore::ADMIN_PAGE_SLUG;
+		$this->set_key( 'mla-media-assistant' );
+		$this->set_label( __( 'Media Library Assistant' ) );
+		$this->set_singular_label( __( 'Assistant' ) );
+		$this->set_screen_id( 'media_page_' . MLACore::ADMIN_PAGE_SLUG );
+		$this->set_page( MLACore::ADMIN_PAGE_SLUG );
 
+		/** @see MLA_List_Table */
+		$this->set_list_table_class( 'MLA_List_Table' );
 	}
 
 	/**
-	 * Sets an MLA filter to handle custom column display.
+	 * Contains the hook that contains the manage_value callback
 	 *
-	 * @since 2.22
+	 * @since 2.50
 	 */
-	public function init_manage_value() {
-		add_filter( 'mla_list_table_column_default', array( $this, 'mla_manage_value' ), 100, 3 );
+	public function set_manage_value_callback() {
+//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::set_manage_value_callback ', 0 );
+		add_filter( 'mla_list_table_column_default', array( $this, 'column_default_value' ), 100, 3 );
 	}
 
 	/**
-	 * Returns the Media/Assistant sub menu table column slugs/keys
+	 * Default column headers
 	 *
-	 * @since 2.22
+	 * @since 2.50
 	 *
-	 * @return    array    ( index => 'column_slug' )
+	 * @return array
 	 */
-	public function get_default_column_names() {
+	public function get_column_headers() {
 		if ( ! class_exists( 'MLAQuery' ) ) {
+//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::get_column_headers require_once ', 0 );
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-query.php' );
 			MLAQuery::initialize();
 		}
+//static $first_call = true;
+//if ( $first_call ) { error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::get_column_headers (first call only)', 0 ); $first_call = false; }
 
-		return array_keys( apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns ) );
+		return apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns );
 	}
 
 	/**
-	 * Returns the custom fields assigned to Media Library items, removing those already present
-	 * in the Media/Assistant submenu table
+	 * Return the column value
 	 *
-	 * @since 2.22
+	 * @param string|null $content
+	 * @param WP_Post $object
+	 * @param string $column_name
 	 *
-	 * @return    array    ( index => array( 0 => 'custom field name' ) )
+	 * @return string|false
 	 */
-	public function get_meta() {
-		global $wpdb;
-
-		/*
-		 * Find all of the custom field names assigned to Media Library items
-		 */
-		$meta = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
-
-		/*
-		 * Find the fields already present in the submenu table
-		 */
-		$mla_columns = apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns );
-		$mla_custom = array();
-		foreach ( $mla_columns as $slug => $heading ) {
-			if ( 'c_' === substr( $slug, 0, 2 ) ) {
-				$mla_custom[] = $heading;
-			}
+	public function column_default_value( $content, $post, $column_name ) {
+		if ( is_null( $content ) ) {
+			$content = $this->get_display_value_by_column_name( $column_name, $post->ID );
 		}
 
-		/*
-		 * Remove the fields already present in the submenu table
-		 */
-		foreach ( $meta as $index => $value ) {
-			if ( in_array( esc_html( current( $value ) ), $mla_custom ) ) {
-				unset( $meta[ $index ] );
-			}
-		}
-
-		return $meta;
+//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::column_default_value( $column_name ) content = " . var_export( $content, true ), 0 );
+		return $content;
 	}
+
 
 	/**
-	 * Return the content of an Admin Columns custom column
+	 * Create and return a new MLA List Table object
 	 *
-	 * @since 2.22
+	 * @param array $args
 	 *
-	 * @param    string $content Current column content (empty string)
-	 * @param    object $item Current Media Library item
-	 * @param    string $column_name Current column slug
-	 *
-	 * @return string Column value or NULL if not an Admin Columns custom column
+	 * @return WP_List_Table|false
 	 */
-	public function mla_manage_value( $content, $item, $column_name ) {
-		$value = $this->get_display_value_by_column_name( $column_name, $item->ID );
+	public function get_list_table( $args = array() ) {
+		$class = $this->get_list_table_class();
+//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::get_list_table( $class )", 0 );
 
-		return $value ? $value : $content;
+		if ( ! class_exists( $class ) ) {
+			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-list-table.php' );
+		}
+
+		return new $class;
 	}
-} // class CPAC_Storage_Model_MLA
 
+}

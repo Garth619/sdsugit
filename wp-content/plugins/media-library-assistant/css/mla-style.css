@@ -248,17 +248,47 @@ div.mla_errors {
 }
 
 /*
- * MLA Settings page, Views and Uploads tab inline editing - adapted from load-styles.php
+ * MLA Settings page, Views, Uploads and Custom Fields tab inline editing - adapted from load-styles.php
  */
 
 #wpbody-content .bulk-edit-row-upload .inline-edit-col-left,
+#wpbody-content .bulk-edit-row-custom .inline-edit-col-left,
 #wpbody-content .bulk-edit-row-view .inline-edit-col-left {
-	width: 40%
+	width: 30%
 }
 
 #wpbody-content .bulk-edit-row-upload .inline-edit-col-right,
+#wpbody-content .bulk-edit-row-custom .inline-edit-col-right,
 #wpbody-content .bulk-edit-row-view .inline-edit-col-right {
-	width: 59%
+	width: 69%
+}
+
+#wpbody-content .quick-edit-row-custom fieldset.inline-edit-col label span.title,
+#wpbody-content .bulk-edit-row-custom fieldset.inline-edit-col-right label span.title {
+	width: 8em;
+	text-align: right
+}
+
+#wpbody-content .quick-edit-row-custom fieldset.inline-edit-col label span.checkbox-title,
+#wpbody-content .bulk-edit-row-custom fieldset.inline-edit-col-right label span.checkbox-title {
+	margin-left: .25em;
+	margin-right: 2em;
+}
+
+#wpbody-content .quick-edit-row-custom fieldset.inline-edit-col label span.dropdown-title,
+#wpbody-content .bulk-edit-row-custom fieldset.inline-edit-col-right label span.dropdown-title {
+	float:left;
+	margin-right: .25em;
+	margin-left: 2em;
+}
+
+#wpbody-content .quick-edit-row-custom fieldset.inline-edit-col label span.input-text-wrap {
+	margin-left: 8.5em;
+	width: 24em
+}
+
+#wpbody-content .quick-edit-row-custom fieldset.inline-edit-col label span.input-dropdown-wrap {
+	float:left;
 }
 
 .quick-edit-row-upload fieldset.inline-edit-col label span.title,
@@ -383,6 +413,28 @@ ul.mla_settings {
 
 ul.mla_settings li { 
 	margin-left: 2em;
+}
+
+#mla-add-custom-field-table {
+	margin-bottom: 15px;
+}
+
+#mla-add-custom-field-table th {
+	padding: 5px 5px 5px 0px;
+	width: 10px;
+}
+
+#mla-add-custom-field-table td {
+	padding: 5px 0px 5px 0px;
+}
+
+#mla-add-custom-field-toggle {
+	text-decoration:none;
+}
+
+#mla-new-custom-field-table input[type="text"],
+#mla-add-custom-field-table select {
+	width: 100%;
 }
 
 /*

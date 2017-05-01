@@ -2,7 +2,7 @@
 /**
  * Plugin Presence Checker
  *
- * Checks if some plugin is active
+ * Checks if supported plugin is active
  */
 class URE_Plugin_Presence {
 
@@ -11,11 +11,13 @@ class URE_Plugin_Presence {
     private static $plugin_ids = array(
         'contact-form-7'=>'contact-form-7/wp-contact-form-7.php',
         'download-monitor'=>'download-monitor/download-monitor.php',
+        'enable-media-replace'=>'enable-media-replace/enable-media-replace.php',
         'eventon'=>'eventON/eventon.php',
         'global-content-blocks'=>'global-content-blocks/global-content-blocks.php',
         'gravity-forms'=>'gravityforms/gravityforms.php',
         'ninja-forms'=>'ninja-forms/ninja-forms.php',
         'unitegallery'=>'unitegallery/unitegallery.php',
+        'ultimate-member'=>'ultimate-member/index.php',
         'visual-composer'=>'js_composer/js_composer.php',
         'woocommerce'=>'woocommerce/woocommerce.php',
         'woocommerce-bookings'=>'woocommerce-bookings/woocommmerce-bookings.php',        

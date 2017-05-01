@@ -28,7 +28,7 @@ class MLA {
 	 *
 	 * @var	string
 	 */
-	const MLA_DEVELOPMENT_VERSION = '';
+	const MLA_DEVELOPMENT_VERSION = '20170318';
 
 	/**
 	 * Object name for localizing JavaScript - MLA List Table
@@ -275,9 +275,14 @@ class MLA {
 			 * Primary column including icon and some margin
 			 */
 			$icon_width = ( $icon_value + 10 ) . 'px';
+			$column_width = ( $icon_value + 30 ) . 'px';
 
+			echo "  table.attachments th.column-primary {\n";
+			echo "    width: {$column_width};\n";
+			echo "  }\n";
 			echo "  table.attachments td.column-primary {\n";
 			echo "    position: relative;\n";
+			echo "    width: {$column_width};\n";
 			echo "  }\n";
 			echo "  table.attachments div.attachment-icon {\n";
 			echo "    position: absolute;\n";
@@ -287,6 +292,8 @@ class MLA {
 			echo "  table.attachments div.attachment-info {\n";
 			echo "    margin-left: {$icon_width};\n";
 			echo "    min-height: {$icon_width};\n";
+//			echo "    margin-top: 0px;\n";
+//			echo "    min-height: 0px;\n";
 			echo "  }\n";
 		} else {
 			/*
@@ -658,7 +665,7 @@ class MLA {
 		MLACore::mla_debug_add( __LINE__ . " MLA::mla_set_screen_option_filter( {$option} ) value = " . var_export( $value, true ), MLACore::MLA_DEBUG_CATEGORY_ANY );
 
 		foreach( $wp_filter['set-screen-option'] as $priority => $filters ) {
-			$debug_message = 'mla_debug $wp_filter[set-screen-option] priority = ' . var_export( $priority, true ) . '<br />';
+			$debug_message = __LINE__ . ' MLA::mla_set_screen_option_filter $wp_filter[set-screen-option] priority = ' . var_export( $priority, true ) . '<br />';
 			foreach ( $filters as $name => $descriptor ) {
 				$debug_message .= 'filter name = ' . var_export( $name, true ) . '<br />';
 			}

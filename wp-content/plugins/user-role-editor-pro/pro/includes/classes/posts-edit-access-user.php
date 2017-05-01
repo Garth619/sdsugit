@@ -749,6 +749,7 @@ class URE_Posts_Edit_Access_User {
             
         $posts_list = $this->get_posts_list();
         if (!is_array($posts_list) || count($posts_list)==0) {
+            $this->attachments_list = array();
             return $this->attachments_list;
         }
             
@@ -760,7 +761,10 @@ class URE_Posts_Edit_Access_User {
             $query .= " OR (post_parent=0 AND post_author=$current_user->ID)";
         }
         $query .= ')';                
-        $this->attachments_list = $wpdb->get_col($query);            
+        $this->attachments_list = $wpdb->get_col($query); 
+        if (!is_array($this->attachments_list)) {
+            $this->attachments_list = array();
+        }            
         
         return $this->attachments_list;
     }

@@ -13,13 +13,23 @@ class User_Role_Editor_Pro extends User_Role_Editor {
     public $screen_help = null;
 
     
-    public function __construct() {
+    public static function get_instance() {
+        if (self::$instance===null) {        
+            self::$instance = new User_Role_Editor_Pro();
+        }
+        
+        return self::$instance;
+    }
+    // end of get_instance()
+
+    
+    protected function __construct() {
         $this->lib = URE_Lib_Pro::get_instance('user_role_editor');
         
         add_action('ure_on_activation', array($this, 'execute_once'));
         parent::__construct();                                        
         add_action('plugins_loaded', array($this, 'load_addons'));                        
-        new URE_Shortcodes($this->lib);                 
+        new URE_Shortcodes();
         $this->allow_unfiltered_html(); 
         
         $this->init_updater();

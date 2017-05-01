@@ -1,14 +1,14 @@
 === Media Library Assistant ===
 Contributors: dglingren
 Donate link: http://fairtradejudaica.org/make-a-difference/donate/
-Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, photoshop, MIME, mime-type, icon, upload, file extensions, WPML, Polylang, multilanguage, multilingual, localization
+Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.7.1
-Stable tag: 2.41
+Tested up to: 4.7.3
+Stable tag: 2.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Enhances the Media Library; powerful [mla_gallery], taxonomy support, IPTC/EXIF/PDF processing, bulk/quick edit actions and where-used reporting.
+Enhances the Media Library; powerful [mla_gallery] [mla_tag_cloud] [mla_term_list], taxonomy support, IPTC/EXIF/XMP/PDF processing, bulk/quick edit.
 
 == Description ==
 
@@ -74,7 +74,7 @@ This plugin was inspired by my work on the WordPress web site for our nonprofit,
 
 1. Use the `[mla_gallery]` shortcode to add galleries of images, documents and more to your posts and pages
 
-1. Use the `[mla_tagcloud]` shortcode to add clickable lists of taxonomy terms to your posts and pages
+1. Use the `[mla_tagcloud]` and `[mla_term_list]` shortcodes to add clickable lists of taxonomy terms to your posts and pages
 
 == Frequently Asked Questions ==
 
@@ -172,60 +172,45 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
-= 2.41 =
-* New: The `mla-substitution-parameter-hooks-example.php` example plugin "parent:" prefix has been enhanced to provide access to item's parent post/page custom field values. Simply code the custom field name as the value following the "parent:" prefix.
-* New: A new "MLA Copy Item Example" plugin has been added. It adds a "Copy" action to the Media/Assistant admin submenu that lets you copy one or more existing MEdia LIbrary items, creating new items.
-* New: The `woofixit.php` example plugin has new tools. The "Fill ALT Text (CT)" and "Replace ALT Text (CT)" tools apply a Content Template to the Product Image/Product Gallery Images.
-* New: In the Settings/Media Library Assistant Documentation tab, "MLA Term List Examples" have been added.
-* New: A new setting for the Debug tab logs details of the IPTC, EXIF, XMP and PDF metadata generation process.
-* Fix: The minimum PHP version required by MLA has been updated from 5.4 to 5.3.
-* Fix: Some EXIF values sourced from the IFD0 section are now properly converted to string values, and are no longer overwritten by values from the WINXP section. The WINXP values are available separately, e.g., `[+exif:WINXP.Title+]`.
-* Fix: In the Settings/Media Library Assistant Documentation tab, links to EXIF information and standards have been updated.
-* Fix: The MLA Reporting value on the Settings/Media LIbrary Assistant Debug tab handles hexadedimal values, e.g. "0xFFFF", properly with PHP version 7.x.
-* Fix: IPTC/EXIF and custom field mapping rules now handle "invisible" custom fields (names beginning with underscore) correctly. 
-* Fix: For `[mla_gallery]`, a defect in applying the `mla_terms_connnector` parameter has been corrected.
-* Fix: For `[mla_gallery]` pagination controls are now properly displayed when the `mla_paginate_rows` is returned from the `mla_gallery_arguments` filter. See, for example, the "MLA tax query Example" plugin.
-* Fix: When Polylang is active, a problem with the "Attachments" column on the taxonomy edit submenu screens has been corrected.
-* Fix: Handling for the Media/Assistant "Entries per page:" option setting has been changed to work more reliably and optionally log some debug information.
-* Fix: Fatal PHP errors caused by `link=download` requests that do not specify all required parameters have been eliminated.
+= 2.51 =
+* Fix: For the MLA UI Elements Example plugin, some defects in handling simple taxonomy parameters such as tax_operator have been corrected.
+* Fix: Change "primary column" handling for WP 4.3+ to be more like Media/Library submenu table.
 
-= 2.40 =
-* New: For WordPress 4.7 and later, the **thumbnail generation Bulk Action can generate native thumbnails** for items uploaded to the Media Library before updating to WP 4.7.
-* New: The Settings/Media Library Assistant **Shortcodes tab has been re-written** with a more "WordPress-like" interface.
-* New: Overall **admin-mode memory requirements are reduced by 1.66MB**, or about 33%, from the previous version.
-* New: The Settings/Media Library Assistant **Examples tab has a new "View" rollover action** that lets you display the source code for an example plugin.
-* New: The Settings/Media Library Assistant **Examples tab has a new "Installed" view** that shows all installed example plugins regardless of status.
-* New: For the Media/Assistant submenu table, **the "Search Media" feature can search on file name**. You may have to adjust the Settings/Media Library Assistant General tab "Search Media Defaults" to make this a default setting.
-* New: The `mla-substitution-parameter-hooks-example.php` example plugin has been enhanced with a "parent:" prefix that provides access to item's parent post/page values as well as the "parent:permalink". It also includes a new "page:featured" parameter that returns the ID of a post/page Featured Image.
-* New: For all shortcodes, the `mla_page_parameter` parameter can contain page-level substitution parameters, e.g., `mla_page_parameter="p-{+page_ID+}"`.
-* New: For `[mla_term_list]`, a new `mla_multi_select` parameter supports multiple select dropdown controls.
-* New: For `[mla_gallery]`, the `post_parent` parameter can have multiple, comma-separated numeric values.
-* New: For `[mla_gallery]`, a new `mla_gallery_the_attachments` hook lets you read or change the array of attachments used to populate the gallery display. Four hooks have been added to give more control over the "alternative gallery shortcode" processing.
-* New: The `mla-hooks-example.php` example plugin now supports multiple taxonomy queries in the `my_custom_sql` example.
-* New: The `woofixit.php` example plugin has several new tools. In particular, the "Clear Terms" and "Assign Terms" tools replicate term assignments from WooCommerce products to items used as product images and in product galleries.
-* New: The `buddypress-hooks-example.php` example plugin uses the new `mla_gallery_the_attachments` hook to restrict gallery output to "rtMedia" items. It also includes a new `rtmedia=gallery` parameter that works with the `[rtmedia_gallery]` shortcode.
-* New: A new example plugin, `posts-per-page-example.php`, shows how to adjust the number of items per gallery page based on WordPress conditional functions such as `is_front_page()`.
-* New: A new example plugin, `mla-multi-search-example.php`, adds custom field search(es) to the keyword(s) search and combines the results.
-* New: A new example plugin, `get-post-galleries-example.php`, supports the WordPress `get_post_galleries` filter required, for example, by the Dominant Colors Lazy Loading plugin by Manuel Wieser.
-* New: A new example plugin, `mla-not-featured-view-example.php`, creates a custom Media/Assistant view of items NOT featured in any post/page.
-* New: A new example plugin, `mla-regenerate-thumbnails-example.php`, integrates the Regenerate Thumbnails plugin by Alex Mills with the Media/Assistant submenu screen.
-* New: A new example plugin, `mla-parent-wp-query-example.php`, supplies `post_parent` values from a separate`WP_Query` for the `[mla_gallery]` shortcode.
-* New: The `mla-ui-elements-example.php` example plugin now includes `[muie_orderby]` and `[muie_order]` shortcodes that generate "sticky" controls for their respective parameters.
-* New: A new Settings/Media Library Assistant General tab setting, "Show Count Column", lets you add the "Count" column back to the Media/Categories and Media/Tags taxonomy edit screens. This may be  useful for WP 4.7's attachment taxonomy support.
-* Fix: When Polylang or WPML is active, language-specific tag cloud terms have been restored.
-* Fix: When Polylang is active, the change language dropdown control in the Bulk Edit area is now processed correctly.
-* Fix: Error messages are no longer written directly to the PHP error log. They now pass through the MLA debug filtering logic.
-* Fix: Harmless PHP 7 incompatibility issues reported by the WP Engine PHP Compatibility Checker plugin have been resolved. The minimum PHP version required by MLA has been updated from 5.2 to 5.4.
-* Fix: The "where-used" processing for "MLA Gallery in" and "Gallery in" ignores pagination parameters to get a complete result, and sorting parameters because they do not affect the results.
-* Fix: For `[mla_gallery]`, the `posts_per_archive_page` is applied when the gallery is displayed in a post/page for which `is_archive()` or `is_search()` is true.
-* Fix: For `[mla_gallery]`, the "Open" template section is no longer required.
-* Fix: For `[mla_tag_cloud]` and `[mla_term_list]`, URLs with a question mark (?) are now handled correctly for the `currentlink_url` and `currentlink` substitution parameters.
-* Fix: Complete plugin support is loaded for WP REST API calls, e.g., from the WP/LR Sync plugin. This enables IPTC/EXIF and Custom Field mapping when adding new Media Library items.
-* Fix: When Polylang is active, **new flat taxonomy (e.g. Att, Tags) values can be created** in the Quick Edit and Bulk Edit areas as well as the ATTACHMENT DETAILS pane of the Media Manager Modal (popup) Window.
-* Fix: For the Settings/Media Library Assistant Custom Fields and IPTC/EXIF tabs, the mapping progress area now has a "Pause" button to more clearly reflect the ability to pause and resume the mapping operation.
-* Fix: For the Settings/Media Library Assistant Views and Uploads tabs, the "Enable ..." and "Save Changes" elements have been moved to the upper-left part of the screen to make them more obvious and accessible.
-* Fix: For the Media/Assistant submenu table, the "Attached to" column reflects the surrent user's "edit post" and "read post" capabilities for both the item and its parent; conforms to new WP 4.6 restrictions.
-* Fix: A few minor defects in the "Operations on Products, using the Product Image, Product Tags and Att. Tags" section of the "WooCommerce Fixit" example plugin have been corrected.
+= 2.50 =
+* New: The Settings/Media Library Assistant <strong>Custom Fields tab has been completely re-written</strong>, with a more WordPress-like user interface and new capabilities.
+* New: The "MLA BuddyPress & rtMedia Example" example plugin has been enhanced with an `rtmedia_ids` prameter that translates rtMedia ID values to attachment ID values, and an `rtmedia_source` parameter that filters the items returned by an `[mla_gallery]` query and uses the parameter value as a content template to extract rtMedia IDs from the items. The rtMedia IDs are translated to attachment IDs so `[mla_gallery]` can process the items.
+* New: A new "MLA Parent Category Mapping Example" plugin has been added. It assigns the parent term when child term(s) under that parent are assigned..
+* New: The "WooCommerce Fixit" example plugin has been enhanced to provide "product:" and "product_terms:" custom substitution prefixes providing access to values of the product(s) assicoated with a Media Library item.
+* New: For the "kbmb" format/option code a fourth parameter has been added to specify the number of decimal places in the results.
+* New: For `[mla_term_list]`, dropdown and checklist control names can now be changed with the `mla_control_name` parameter. This allows multiple controls on the same post/page.
+* New: For `[mla_term_list mla_output=dropdown]`, multiple taxonomies an be added to one control using compound taxonomy.term option values and the new `hierarchical=combine` parameter value.
+* New: For `[mla_galley]`, a new `tax_input` parameter supports multiple taxonomies using compound taxonomy.term option values.
+* New: The "MLA UI Elements Example" plugin has been enhanced with support for the multi-taxonomy features of the `[mla_term_list]` shortcode.
+* New: The "MLA UI Elements Example" plugin has been extended to handle checklist elements with multiple selections.
+* New: The "MLA jhdean Mapping Hooks Example" plugin has been enhanced with a new operation that removes hyperlinks from the Title field. A new Settings submenu has been added to control which options are active.
+* New: HTML span tags have been added to the "Search Media" controls on the Media/Assistant screen, allowing individual elements to be suppressed if desired.
+* New: The "MLA Substitution Parameter Hooks Example" plugin has been fixed to properly handle custom fields with multiple values.
+* New: A new `define ( 'MLA_AJAX_EXCEPTIONS', 'always' );` option can be added to `wp-config.php` to unconditionally load full MLA support when processing AJAX requests. This supports, for example, additional plugin/theme front-end file upload features.
+* Fix: When Polylang is active but no language has been defined, MLA extensions cannot succeed and so are no longer installed.
+* Fix: For the Media/Assistant submenu table, the display correctly displays all table columns when Screen Options is used to remove all hidden columns.
+* Fix: For `[mla_term_list]`, when `mla_option_value="{+slug+}"` is present numeric slug values are not confused with `term_id` values.
+* Fix: The Media/Assistant Quick and Bulk Edit areas now handle flat taxonomy names that do not match the corresponding slug values.
+* Fix: Non-text data substitution parameter values are no longer "enhanced" with `wptexturize()`, which caused problems with links, paths and file names.
+* Fix: When evaluating IPTC/EXIF hierarchical taxonomy mapping rules, names will match an existing term anywhere in the hierarchy, not just at the root level.
+* Fix: Term names with HTML special characters such as ampersand are now correctly handles when evaluating IPTC/EXIF taxonomy mapping rules.
+* Fix: A problem with filtering the Media/Assistant submenu table on terms containing accented UTF8 characters has been corrected.
+* Fix: An incompatibility with the latest version of the Photonic Gallery plugin has been resolved.
+* Fix: A problem with user-specified icons representing files of non-image MIME types has been corrected. The correct icon now displays on the Media/Assistant submenu table and in `[mla_gallery]` output.
+* Fix: Empty simple taxonomy parameters are ignored when `tax_operator` and/or `tax_include_children` parameters are also present.
+* Fix: A format/option code parsing problem with arguments contain a colon character has been fixed.
+* Fix: Two PHP version 7.x compatibility issues in the "MLA Substitution Parameter Hooks Example" plugin have been resolved.
+* Fix: The code that implements the `[mla_gallery link=download]` parameter has been changed to improve security. The new version restricts downloads to the `/wp-content/` directory subtree. Thanks to `shpik <sehun.oh@cyberone.kr>` for the suggestion and review.
+* Fix: An EXIF metadata parsing defect in MLA v2.41 which failed to process enhanced CAMERA and GPS values has been corrected.
+* Fix: MIME type support has been modified to mitigate a WordPress issue introduced in v4.7.1 and 4.6.2 that prevents the upload of Scalable Vector Graphics (SVG) files.
+
+= 2.40 - 2.41 =
+* 2.41 - Updated example plugins, EXIF improvements, PHP 5.3 compatibility, Polylang fix. Five enhancements in all, ten fixes.
+* 2.40 - Generate WP 4.7 PDF thumbnails, new Shortcodes tab, requires less admin-mode memory, Examples tab "View" action and "Installed" view. Seventeen other enhancements, fourteen fixes.
 
 = 2.30 - 2.33 =
 * 2.33 - Fix WordPress "The plugin does not have a valid header" errors on initial MLA installs. Two enhancements, one other fix.
@@ -299,8 +284,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.41 =
-Updated example plugins, EXIF improvements, PHP 5.3 compatibility, Polylang fix. Five enhancements in all, ten fixes.
+= 2.51 =
+Change "primary column" handling for WP 4.3+ to be more like Media/Library submenu table. Some MLA UI Elements Example plugin fixes.
 
 == Other Notes ==
 

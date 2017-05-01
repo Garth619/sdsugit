@@ -5,7 +5,6 @@
  * @package Media Library Assistant
  * @since 0.1
  */
-const MLA_USE_NEW_CUSTOM_FIELDS_TAB = false;
 
 /**
  * Class MLA (Media Library Assistant) Settings provides the settings page to edit the plugin option settings
@@ -31,6 +30,15 @@ class MLASettings {
 	 * @var	string
 	 */
 	const JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG = 'mla-inline-edit-upload-scripts';
+
+	/**
+	 * Slug for localizing and enqueueing JavaScript - MLA Custom Fields List Table
+	 *
+	 * @since 2.50
+	 *
+	 * @var	string
+	 */
+	const JAVASCRIPT_INLINE_EDIT_CUSTOM_SLUG = 'mla-inline-edit-custom-scripts';
 
 	/**
 	 * Slug for localizing and enqueueing JavaScript - MLA Custom tab
@@ -95,12 +103,9 @@ class MLASettings {
 				case self::JAVASCRIPT_INLINE_EDIT_VIEW_SLUG:
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-view-tab.php' );
 					break;
+				case self::JAVASCRIPT_INLINE_EDIT_CUSTOM_SLUG:
 				case self::JAVASCRIPT_INLINE_MAPPING_CUSTOM_SLUG:
-if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-custom-fields-tab.php' );
-} else {
-					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-custom-fields-tab.php' );
-}
 					break;
 				case self::JAVASCRIPT_INLINE_MAPPING_IPTC_EXIF_SLUG:
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-iptc-exif-tab.php' );
@@ -119,11 +124,7 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-shortcodes-tab.php' );
 					break;
 				case 'custom_field':
-if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-custom-fields-tab.php' );
-} else {
-					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-custom-fields-tab.php' );
-}
 					break;
 				case 'iptc_exif':
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-iptc-exif-tab.php' );
@@ -356,6 +357,7 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 	public static function mla_admin_init_action() {
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_VIEW_SLUG, 'MLASettings_View::mla_inline_edit_view_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG, 'MLASettings_Upload::mla_inline_edit_upload_action' );
+		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_CUSTOM_SLUG, 'MLASettings_CustomFields::mla_inline_edit_custom_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_MAPPING_CUSTOM_SLUG, 'MLASettings_CustomFields::mla_inline_mapping_custom_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_MAPPING_IPTC_EXIF_SLUG, 'MLASettings_IPTCEXIF::mla_inline_mapping_iptc_exif_action' );
 	}
@@ -468,6 +470,17 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 				);
 
 				add_screen_option( $option, $args );
+			} // shortcodes
+			elseif ( 'custom_field' == $_REQUEST['mla_tab'] ) {
+				$option = 'per_page';
+
+				$args = array(
+					 'label' => __( 'Rules per page', 'media-library-assistant' ),
+					'default' => 10,
+					'option' => 'mla_custom_field_rules_per_page' 
+				);
+
+				add_screen_option( $option, $args );
 			} // upload
 			elseif ( 'documentation' == $_REQUEST['mla_tab'] ) {
 				if ( isset( $_REQUEST['mla-example-display'] ) || isset( $_REQUEST['mla-example-search'] ) ) {
@@ -497,7 +510,7 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 
 		// Do we have options/help information for this tab?
 		$screen_suffix = substr( $screen->id, strlen( 'settings_page_' . MLACoreOptions::MLA_SETTINGS_SLUG ) ) ;
-		if ( ! in_array( $screen_suffix, array( '-view', '-upload', '-shortcodes', '-documentation' ) ) ) {
+		if ( ! in_array( $screen_suffix, array( '-view', '-upload', '-shortcodes', '-custom_field', '-documentation' ) ) ) {
 			return;
 		}
 
@@ -590,7 +603,7 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 	 * @return	mixed	New value if this is our option, otherwise original status
 	 */
 	public static function mla_set_screen_option_filter( $status, $option, $value ) {
-		if ( in_array( $option, array ( 'mla_views_per_page', 'mla_uploads_per_page', 'mla_types_per_page', 'mla_shortcode_templates_per_page', 'mla_example_plugins_per_page' ) ) ) {
+		if ( in_array( $option, array ( 'mla_views_per_page', 'mla_uploads_per_page', 'mla_types_per_page', 'mla_shortcode_templates_per_page', 'mla_custom_field_rules_per_page', 'mla_example_plugins_per_page' ) ) ) {
 			return $value;
 		}
 
@@ -1453,14 +1466,18 @@ if ( MLA_USE_NEW_CUSTOM_FIELDS_TAB ) {
 
 		if ( ! empty( $page_content['message'] ) ) {
 			if ( false !== strpos( $page_content['message'], __( 'ERROR', 'media-library-assistant' ) ) ) {
-				$messages_class = 'mla_errors';
+				$messages_class = 'updated error';
+				$dismiss_button = '';
 			} else {
-				$messages_class = 'mla_messages';
+				$messages_class = 'updated notice is-dismissible';
+				$dismiss_button = "  <button class=\"notice-dismiss\" type=\"button\"><span class=\"screen-reader-text\">[+dismiss_text+].</span></button>\n";
 			}
 
 			$page_values['messages'] = MLAData::mla_parse_template( self::$page_template_array['messages'], array(
+				 'mla_messages_class' => $messages_class ,
 				 'messages' => $page_content['message'],
-				 'mla_messages_class' => $messages_class 
+				 'dismiss_button' => $dismiss_button,
+				 'dismiss_text' => __( 'Dismiss this notice', 'media-library-assistant' ),
 			) );
 		}
 

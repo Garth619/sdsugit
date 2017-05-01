@@ -159,8 +159,6 @@ final class ITSEC_File_Change_Settings_Page extends ITSEC_Module_Settings_Page {
 	 */
 	public function get_filetree_data( $data ) {
 
-		global $itsec_globals;
-
 		$directory = sanitize_text_field( $data['dir'] );
 		$directory = urldecode( $directory );
 		$directory = realpath( $directory );

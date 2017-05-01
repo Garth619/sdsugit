@@ -524,6 +524,7 @@ var itsecSettingsPage = {
 		itsecSettingsPage.sendAJAXRequest( module, method, data, function( results ) {
 			if ( results.success && results.response ) {
 				jQuery( '#itsec-module-card-' + module + ' .itsec-module-settings-content-main' ).html( results.response );
+				jQuery( '.itsec-settings-toggle' ).trigger( 'change' );
 			} else if ( results.errors && results.errors.length > 0 ) {
 				itsecSettingsPage.showErrors( results.errors, results.module, 'open' );
 			}

@@ -215,7 +215,8 @@ class MLA_List_Table extends WP_List_Table {
 			$tax_object = get_taxonomy( $tax_filter );
 			$dropdown_options = array_merge( array(
 				'show_option_all' => __( 'All', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
-				'show_option_none' => __( 'No', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
+//				'show_option_none' => __( 'No', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
+				'show_option_none' => _x( 'No', 'show_option_none', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
 				'orderby' => 'name',
 				'order' => 'ASC',
 				'show_count' => false,
@@ -365,14 +366,14 @@ class MLA_List_Table extends WP_List_Table {
 	 *
 	 * @since 0.1
 	 *
-	 * @param	string	current list of hidden columns, if any
+	 * @param	mixed	false if option not present or array of current hidden columns, if any
 	 * @param	string	'managemedia_page_mla-menucolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		if ( $result ) {
+		if ( false !== $result ) {
 			return $result;
 		}
 
@@ -936,9 +937,37 @@ class MLA_List_Table extends WP_List_Table {
 				return $column_content;
 			}
 
+			$add_link = ( !$this->is_trash ) && current_user_can( 'edit_post', $item->ID );
 			list( $mime ) = explode( '/', $item->post_mime_type );
-			$final_content = "<div class=\"attachment-icon {$mime}-icon\">\n" . $this->column_icon( $item ) . "\n</div>\n";
-			return $final_content . "<div class=\"attachment-info\">\n" . $column_content . "\n</div>\n";
+			$thumb = self::_build_item_thumbnail( $item );
+			$title = _draft_or_post_title( $item );
+
+			$final_content  = "<strong class=\"has-media-icon\">\n";
+
+			if ( $add_link ) {
+				// Use the WordPress Edit Media screen
+				$view_args = self::mla_submenu_arguments();
+				if ( isset( $view_args['lang'] ) ) {
+					$edit_url = 'post.php?post=' . $item->ID . '&action=edit&mla_source=edit&lang=' . $view_args['lang'];
+				} else {
+					$edit_url = 'post.php?post=' . $item->ID . '&action=edit&mla_source=edit';
+				}
+		
+				$final_content .= sprintf( '<a href="%1$s" title="' . __( 'Edit', 'media-library-assistant' ) . ' &#8220;%2$s&#8221;">', admin_url( $edit_url ), $title ) . "\n"; 
+			}
+
+			$final_content .= "<span class=\"media-icon {$mime}-icon\">\n";
+			$final_content .= $thumb;
+			$final_content .= "</span>\n";
+			$final_content .= '<span aria-hidden="true">' . $column_content . "</span>\n";
+			$final_content .= '<span class="screen-reader-text">' . __( 'Edit', 'media-library-assistant' ) . ' ' . $title . "</span>\n";
+			
+			if ( $add_link ) {
+				$final_content .= "</a>\n";
+			}
+			
+			$final_content .= "</strong>\n";
+			return $final_content;
 		}
 
 		$actions = $this->row_actions( $this->_build_rollover_actions( $item, $column_name ) );

@@ -610,7 +610,6 @@ class MLASettings_Shortcodes {
 		$_SERVER['REQUEST_URI'] = remove_query_arg( array(
 			'mla_admin_action',
 			'mla_template_item',
-			'mla_template_item',
 			'mla_item_ID',
 			'_wpnonce',
 			'_wp_http_referer',
@@ -916,7 +915,7 @@ class MLA_Template_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * Handler for filter 'get_user_option_managesettings_page_mla-settings-menu-examplecolumnshidden'
+	 * Handler for filter 'get_user_option_managesettings_page_mla-settings-menu-shortcodescolumnshidden'
 	 *
 	 * Required because the screen.php get_hidden_columns function only uses
 	 * the get_user_option result. Set when the file is loaded because the object
@@ -925,13 +924,17 @@ class MLA_Template_List_Table extends WP_List_Table {
 	 * @since 2.40
 	 *
 	 * @param	mixed	false or array with current list of hidden columns, if any
-	 * @param	string	'managesettings_page_mla-settings-menucolumnshidden'
+	 * @param	string	'managesettings_page_mla-settings-menu-shortcodescolumnshidden'
 	 * @param	object	WP_User object, if logged in
 	 *
 	 * @return	array	updated list of hidden columns
 	 */
 	public static function mla_manage_hidden_columns_filter( $result, $option, $user_data ) {
-		return $result ? $result : self::_default_hidden_columns();
+		if ( false !== $result ) {
+			return $result;
+		}
+
+		return self::_default_hidden_columns();
 	}
 
 	/**
@@ -1315,7 +1318,7 @@ class MLA_Template_List_Table extends WP_List_Table {
 	 *
 	 * @since 2.40
 	 *
-	 * @param string $selected Optional. Currently selected status. Default 'all'.
+	 * @param string $selected Optional. Currently selected status. Default 'any'.
 	 * @return string HTML markup for dropdown box.
 	 */
 	public static function mla_get_template_status_dropdown( $selected = 'any' ) {

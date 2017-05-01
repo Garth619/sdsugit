@@ -10,14 +10,13 @@ class ITSEC_Hide_Backend {
 
 		$this->settings = ITSEC_Modules::get_settings( 'hide-backend' );
 
-		if ( ! $this->settings['enabled'] ) {
-			return;
-		}
-
-
 		add_filter( 'itsec_filter_apache_server_config_modification', array( $this, 'filter_apache_server_config_modification' ) );
 		add_filter( 'itsec_filter_litespeed_server_config_modification', array( $this, 'filter_apache_server_config_modification' ) );
 		add_filter( 'itsec_filter_nginx_server_config_modification', array( $this, 'filter_nginx_server_config_modification' ) );
+
+		if ( ! $this->settings['enabled'] ) {
+			return;
+		}
 
 
 		$jetpack_active_modules = get_option( 'jetpack_active_modules' );
@@ -65,14 +64,14 @@ class ITSEC_Hide_Backend {
 
 	public function filter_apache_server_config_modification( $modification ) {
 		require_once( dirname( __FILE__ ) . '/config-generators.php' );
-		
-		return ITSEC_Hide_Backend_Config_Generators::filter_apache_server_config_modification( $modification, $this->settings );
+
+		return ITSEC_Hide_Backend_Config_Generators::filter_apache_server_config_modification( $modification );
 	}
-	
+
 	public function filter_nginx_server_config_modification( $modification ) {
 		require_once( dirname( __FILE__ ) . '/config-generators.php' );
-		
-		return ITSEC_Hide_Backend_Config_Generators::filter_nginx_server_config_modification( $modification, $this->settings );
+
+		return ITSEC_Hide_Backend_Config_Generators::filter_nginx_server_config_modification( $modification );
 	}
 
 	/**
@@ -123,8 +122,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public
-	function execute_hide_backend() {
+	public function execute_hide_backend() {
 
 		if ( get_site_option( 'users_can_register' ) == 1 && isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . $this->settings['register'] ) {
 
@@ -281,8 +279,6 @@ class ITSEC_Hide_Backend {
 	 * @return string       Correct redirect URL
 	 */
 	public function filter_login_url( $url ) {
-
-		$t = str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
 		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 

@@ -8,42 +8,28 @@
  */
 class ITSEC_Notify {
 
-	private
-		$queue;
+	public function __construct() {
 
-	function __construct() {
+		if ( ! ITSEC_Modules::get_setting( 'global', 'digest_email' ) ) {
+			return;
+		}
 
-		global $itsec_globals;
+		if ( defined( 'ITSEC_NOTIFY_USE_CRON' ) && true === ITSEC_NOTIFY_USE_CRON ) {
 
-		$this->queue = get_site_option( 'itsec_message_queue' );
+			add_action( 'itsec_digest_email', array( $this, 'init' ) ); //Action to execute during a cron run.
 
-		if ( ITSEC_Modules::get_setting( 'global', 'digest_email' ) ) {
+			//schedule digest email
+			if ( false === wp_next_scheduled( 'itsec_digest_email' ) ) {
+				wp_schedule_event( time(), 'daily', 'itsec_digest_email' );
+			}
 
-			if ( defined( 'ITSEC_NOTIFY_USE_CRON' ) && true === ITSEC_NOTIFY_USE_CRON ) {
+		} else {
+			$last_sent = ITSEC_Modules::get_setting( 'global', 'digest_last_sent' );
+			$yesterday = ITSEC_Core::get_current_time_gmt() - DAY_IN_SECONDS;
 
-				add_action( 'itsec_digest_email', array( $this, 'init' ) ); //Action to execute during a cron run.
-
-				//schedule digest email
-				if ( false === wp_next_scheduled( 'itsec_digest_email' ) ) {
-					wp_schedule_event( time(), 'daily', 'itsec_digest_email' );
-				}
-
-			} else {
-
-				//Send digest if it has been 24 hours
-				if (
-					get_site_transient( 'itsec_notification_running' ) === false && (
-						$this->queue === false ||
-						(
-							is_array( $this->queue ) &&
-							isset( $this->queue['last_sent'] ) &&
-							$this->queue['last_sent'] < ( $itsec_globals['current_time_gmt'] - 86400 )
-						)
-					)
-				) {
-					add_action( 'init', array( $this, 'init' ) );
-				}
-
+			// Send digest if it has been 24 hours
+			if ( $last_sent < $yesterday && false === get_site_transient( 'itsec_notification_running' ) ) {
+				add_action( 'init', array( $this, 'init' ) );
 			}
 
 		}
@@ -107,32 +93,28 @@ class ITSEC_Notify {
 		}
 
 
-		if ( is_array( $this->queue ) && ! empty( $this->queue['messages'] ) && is_array( $this->queue['messages'] ) ) {
-			if ( in_array( 'file-change', $this->queue['messages'] ) ) {
-				$mail->add_section_heading( esc_html__( 'File Changes', 'better-wp-security' ), 'folder' );
-				$mail->add_text( esc_html__( 'File changes detected on the site.', 'better-wp-security' ) );
-				$send_email = true;
-			}
+		$messages = ITSEC_Modules::get_setting( 'global', 'digest_messages' );
 
-			$messages = array();
+		if ( in_array( 'file-change', $messages ) ) {
+			$mail->add_section_heading( esc_html__( 'File Changes', 'better-wp-security' ), 'folder' );
+			$mail->add_text( esc_html__( 'File changes detected on the site.', 'better-wp-security' ) );
+			$send_email = true;
 
-			foreach ( $this->queue['messages'] as $message ) {
+			foreach ( $messages as $index => $message ) {
 				if ( 'file-change' === $message ) {
-					continue;
+					unset( $messages[$index] );
 				}
+			}
+		}
 
-				$messages[] = $message;
+		if ( ! empty( $messages ) ) {
+			$mail->add_section_heading( esc_html__( 'Messages', 'better-wp-security' ), 'message' );
+
+			foreach ( $messages as $message ) {
+				$mail->add_text( $message );
 			}
 
-			if ( ! empty( $messages ) ) {
-				$mail->add_section_heading( esc_html__( 'Messages', 'better-wp-security' ), 'message' );
-
-				foreach ( $messages as $message ) {
-					$mail->add_text( $message );
-				}
-
-				$send_email = true;
-			}
+			$send_email = true;
 		}
 
 
@@ -154,12 +136,8 @@ class ITSEC_Notify {
 		$mail->add_footer();
 
 
-		$this->queue = array(
-			'last_sent' => ITSEC_Core::get_current_time_gmt(),
-			'messages'  => array(),
-		);
-
-		update_site_option( 'itsec_message_queue', $this->queue );
+		ITSEC_Modules::set_setting( 'global', 'digest_last_sent', ITSEC_Core::get_current_time_gmt() );
+		ITSEC_Modules::set_setting( 'global', 'digest_messages', array() );
 
 
 		$subject = esc_html__( 'Daily Security Digest', 'better-wp-security' );
@@ -178,12 +156,15 @@ class ITSEC_Notify {
 	public function register_file_change() {
 		// Until a better system can be devised, use the message queue to store this flag.
 
-		if ( in_array( 'file-change', $this->queue['messages'] ) ) {
+		$messages = ITSEC_Modules::get_setting( 'global', 'digest_messages' );
+
+		if ( in_array( 'file-change', $messages ) ) {
 			return;
 		}
 
-		$this->queue['messages'][] = 'file-change';
-		update_site_option( 'itsec_message_queue', $this->queue );
+		$messages[] = 'file-change';
+
+		ITSEC_Modules::set_setting( 'global', 'digest_messages', $messages );
 	}
 
 	/**
@@ -196,8 +177,6 @@ class ITSEC_Notify {
 	 * @return bool whether the message was successfully enqueue or sent
 	 */
 	public function notify( $body = null ) {
-
-		global $itsec_globals;
 
 		$allowed_tags = array(
 			'a'      => array(
@@ -221,11 +200,13 @@ class ITSEC_Notify {
 
 		if ( ITSEC_Modules::get_setting( 'global', 'digest_email' ) ) {
 
-			if ( ! in_array( wp_kses( $body, $allowed_tags ), $this->queue['messages'] ) ) {
+			$messages = ITSEC_Modules::get_setting( 'global', 'digest_messages' );
 
-				$this->queue['messages'][] = wp_kses( $body, $allowed_tags );
+			if ( ! in_array( wp_kses( $body, $allowed_tags ), $messages ) ) {
 
-				update_site_option( 'itsec_message_queue', $this->queue );
+				$messages[] = wp_kses( $body, $allowed_tags );
+
+				ITSEC_Modules::set_setting( 'global', 'digest_messages', $messages );
 
 			}
 
@@ -269,8 +250,6 @@ class ITSEC_Notify {
 	 * @return bool Whether the email contents were sent successfully.
 	 */
 	private function send_mail( $subject, $message, $headers = '', $attachments = array() ) {
-
-		global $itsec_globals;
 
 		$recipients  = ITSEC_Modules::get_setting( 'global', 'notification_email' );
 		$all_success = true;

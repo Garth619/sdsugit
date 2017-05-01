@@ -37,11 +37,13 @@ class URE_Addons_Manager {
     
     
     public static function execute_once() {
-        
+
+/*      
+ *  Do not delete: Data conversion could be needed again in a future.
         if (class_exists('URE_Admin_Menu_Hashes')) {
             URE_Admin_Menu_Hashes::require_data_conversion();
         }
-        
+*/        
     }
     // end of execute_once()
     

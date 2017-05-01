@@ -37,7 +37,7 @@ class URE_Front_End_Menu_Controller {
         }
         
         $whom = (int) $_POST['ure_show_to'][$menu_item_db_id];
-        if ($whom<1 || $whom>4) {
+        if ($whom<1 || $whom>5) {
             $whom = 1;
         }
         if (empty($_POST['ure_roles_list'][$menu_item_db_id])) {

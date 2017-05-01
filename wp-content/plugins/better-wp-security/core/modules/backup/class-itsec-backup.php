@@ -32,8 +32,6 @@ class ITSEC_Backup {
 	 */
 	function run() {
 
-		global $itsec_globals;
-
 		$this->settings = ITSEC_Modules::get_settings( 'backup' );
 
 		add_action( 'itsec_execute_backup_cron', array( $this, 'do_backup' ) );
@@ -48,6 +46,11 @@ class ITSEC_Backup {
 			return;
 		}
 
+		if ( ! $this->settings['enabled'] || $this->settings['interval'] <= 0 ) {
+			// Don't run when scheduled backups aren't enabled or the interval is zero or less.
+			return;
+		}
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			// Don't run on AJAX requests.
 			return;
@@ -58,15 +61,10 @@ class ITSEC_Backup {
 			return;
 		}
 
-		if ( $this->settings['interval'] <= 0 ) {
-			// Don't run when the interval is zero or less.
-			return;
-		}
-
 
 		$next_run = $this->settings['last_run'] + $this->settings['interval'] * DAY_IN_SECONDS;
 
-		if ( $next_run <= $itsec_globals['current_time_gmt'] ) {
+		if ( $next_run <= ITSEC_Core::get_current_time_gmt() ) {
 			add_action( 'init', array( $this, 'do_backup' ), 10, 0 );
 		}
 	}

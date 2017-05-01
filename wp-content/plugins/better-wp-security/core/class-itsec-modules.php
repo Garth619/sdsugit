@@ -20,9 +20,6 @@ final class ITSEC_Modules {
 		require_once( dirname( __FILE__ ) . '/lib/settings.php' );
 		require_once( dirname( __FILE__ ) . '/lib/storage.php' );
 
-		register_activation_hook( ITSEC_Core::get_plugin_file(), array( $this, 'run_activation' ) );
-		register_deactivation_hook( ITSEC_Core::get_plugin_file(), array( $this, 'run_deactivation' ) );
-
 		// Action triggered from another part of Security which runs when the settings page is loaded.
 		add_action( 'itsec-settings-page-init', array( $this, 'load_settings_page' ) );
 		add_action( 'itsec-logs-page-init', array( $this, 'load_settings_page' ) );
@@ -259,7 +256,11 @@ final class ITSEC_Modules {
 				}
 			}
 
-			update_site_option( 'itsec_active_modules', $self->_active_modules );
+			if ( is_multisite() ) {
+				update_site_option( 'itsec_active_modules', $self->_active_modules );
+			} else {
+				update_option( 'itsec_active_modules', $self->_active_modules );
+			}
 		}
 
 		$default_active_modules = apply_filters( 'itsec-default-active-modules', array_keys( $self->_default_active_modules ) );
@@ -403,7 +404,11 @@ final class ITSEC_Modules {
 			}
 		}
 
-		update_site_option( 'itsec_active_modules', $self->_active_modules );
+		if ( is_multisite() ) {
+			update_site_option( 'itsec_active_modules', $self->_active_modules );
+		} else {
+			update_option( 'itsec_active_modules', $self->_active_modules );
+		}
 
 		return true;
 	}
