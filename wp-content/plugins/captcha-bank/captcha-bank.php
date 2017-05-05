@@ -5,7 +5,7 @@ Plugin URI: http://beta.tech-banker.com
 Description: This plugin allows you to implement security captcha form into web forms to prevent spam.
 Author: Tech Banker
 Author URI: http://beta.tech-banker.com
-Version: 4.0.4
+Version: 4.0.5
 License: GPLv3
 Text Domain: captcha-bank
 Domain Path: /languages
@@ -32,7 +32,7 @@ else
 	if(!defined("tech_banker_services_url")) define("tech_banker_services_url","http://tech-banker-services.org");
 }
 if(!defined("tech_banker_stats_url")) define("tech_banker_stats_url", "http://stats.tech-banker-services.org");
-if(!defined("captcha_bank_version_number")) define("captcha_bank_version_number","4.0.4");
+if(!defined("captcha_bank_version_number")) define("captcha_bank_version_number","4.0.5");
 if(!is_dir(CAPTCHA_BANK_MAIN_DIR))
 {
 	wp_mkdir_p(CAPTCHA_BANK_MAIN_DIR);

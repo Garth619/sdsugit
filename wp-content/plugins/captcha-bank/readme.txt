@@ -2,7 +2,7 @@
 Contributors: wordpress-empire, contact-banker, Gallery-Bank
 Tags: antispam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, match captcha,registration, spam control, spam protection, text captcha, web form protection, captcha bank, captcha
 Requires at least: 3.0
-Tested up to: 4.7.3
+Tested up to: 4.7.4
 Stable Tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

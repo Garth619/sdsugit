@@ -77,7 +77,7 @@ else
 																				<div class="gw-go-body-cell" style="height: 16px;">____</div>
 																		 </li>
 																		 <li data-row-index="2">
-																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">29<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
+																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">12<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
 																		 </li>
 																		 <li class="gw-go-even" data-row-index="3">
 																				<div class="gw-go-body-cell" style="height: 16px;">1 Installation per License</div>
@@ -148,7 +148,7 @@ else
 																				<div class="gw-go-body-cell" style="height: 16px;">____</div>
 																		 </li>
 																		 <li data-row-index="2">
-																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">39<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
+																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">19<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
 																		 </li>
 																		 <li class="gw-go-even" data-row-index="3">
 																				<div class="gw-go-body-cell" style="height: 16px;">1 Installation per License</div>
@@ -217,7 +217,7 @@ else
 																				<div class="gw-go-body-cell" style="height: 16px;">____</div>
 																		 </li>
 																		 <li data-row-index="2">
-																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">139<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
+																				<div class="gw-go-body-cell" style="height: 75px;"><span style="color:#A4CD39;">$</span><span style="font-size:52px;color:#A4CD39;">82<br></span><span style="color:#A4CD39;">It's a one time purchase.</span></div>
 																		 </li>
 																		 <li class="gw-go-even" data-row-index="3">
 																				<div class="gw-go-body-cell" style="height: 16px;">5 Installations per License</div>
