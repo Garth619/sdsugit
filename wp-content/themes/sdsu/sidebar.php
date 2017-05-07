@@ -36,7 +36,7 @@
 						$sidebartwo = wp_get_attachment_image_src(get_field('lms_sidebar_image','option'),'full');
 						$sidebarimage = get_bloginfo('template_directory');
 						
-						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="https://academy.sumtotal.host/broker/Account/Login.aspx?wtrealm=https%3a%2f%2fACADEMY.sumtotal.host%2fcore%2f&init=true&ReturnUrl=http%3a%2f%2facademy.sumtotal.host%2fbroker%2fToken%2fSaml11.ashx%3fwa%3dwsignin1.0%26wtrealm%3dhttps%253a%252f%252fACADEMY.sumtotal.host%252fcore%252f%26wreply%3dhttps%253a%252f%252facademy.sumtotal.host%252fcore&domainid=6414A1F8CEA393B7A1E609CAA96B0702"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/sidebar.png"/></a>';
+						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="https://academy.sumtotal.host/broker/Account/Login.aspx?wtrealm=https%3A%2F%2FACADEMY.sumtotal.host%2Fcore%2F&init=true&domainid=6414A1F8CEA393B7A1E609CAA96B0702"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/sidebar.png"/></a>';
 												
 												
 					} ?>
