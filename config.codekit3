@@ -43494,6 +43494,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/wp-content\/themes\/sdsu\/images\/mock_int.png": {
+		"ft": 32768,
+		"iS": 363433,
+		"oA": 0,
+		"oAP": "\/wp-content\/themes\/sdsu\/images\/mock_int.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/wp-content\/themes\/sdsu\/images\/monthly.png": {
 		"ft": 32768,
 		"iS": 3425,
@@ -45332,6 +45343,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/themes\/sdsu\/page-mastercurriculum.php",
+		"oF": 0
+		},
+	"\/wp-content\/themes\/sdsu\/page-mockinterview.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/themes\/sdsu\/page-mockinterview.php",
 		"oF": 0
 		},
 	"\/wp-content\/themes\/sdsu\/page-newstaff copy.php": {
@@ -86160,6 +86177,126 @@
 		"oAP": "\/wp-content\/uploads\/2017\/03\/pcwta-newsletter-nov-2016.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7961,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8701,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1-300x300.jpg": {
+		"ft": 16384,
+		"iS": 21601,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1-300x300.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1-344x169.jpg": {
+		"ft": 16384,
+		"iS": 14807,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1-512x198.jpg": {
+		"ft": 16384,
+		"iS": 19834,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1-512x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-1.jpg": {
+		"ft": 16384,
+		"iS": 71378,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-1.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7961,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8701,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-300x300.jpg": {
+		"ft": 16384,
+		"iS": 21601,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-300x300.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-344x169.jpg": {
+		"ft": 16384,
+		"iS": 14807,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX-512x198.jpg": {
+		"ft": 16384,
+		"iS": 19834,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX-512x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/APEX.jpg": {
+		"ft": 16384,
+		"iS": 71378,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/APEX.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/wp-content\/uploads\/2017\/05\/erik-casas-125x123.jpg": {
 		"ft": 16384,
 		"iS": 5699,
@@ -86198,6 +86335,94 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-1024x926.png": {
+		"ft": 32768,
+		"iS": 98423,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-1024x926.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-150x150.png": {
+		"ft": 32768,
+		"iS": 4393,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-150x150.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-200x123.png": {
+		"ft": 32768,
+		"iS": 7449,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-200x123.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-300x271.png": {
+		"ft": 32768,
+		"iS": 22536,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-300x271.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-344x169.png": {
+		"ft": 32768,
+		"iS": 18378,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-344x169.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-768x694.png": {
+		"ft": 32768,
+		"iS": 138926,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-768x694.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int-940x198.png": {
+		"ft": 32768,
+		"iS": 60418,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int-940x198.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/mock_int.png": {
+		"ft": 32768,
+		"iS": 11118,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/mock_int.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/wp-content\/uploads\/2017\/05\/sirisha-125x123.jpg": {

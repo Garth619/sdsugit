@@ -2235,6 +2235,46 @@ body.logged-in header {
 .basic_vid_content {
   width: 100% !important; }
 
+/* Mock Interview */
+.county_wrapper {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 35px;
+  padding-bottom: 0px; }
+  .county_wrapper:last-of-type {
+    border: none; }
+
+.spokes_wrapper {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 25px;
+  padding-bottom: 35px;
+  width: 100%; }
+  .spokes_wrapper:last-of-type {
+    border-bottom: none; }
+
+span.mock_interview_county {
+  color: #9b010a;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 25px; }
+
+span.mock_interview_titles {
+  font-weight: bold;
+  display: block;
+  color: #424242;
+  margin-bottom: 5px; }
+
+span.mock_int_name {
+  margin-bottom: 25px;
+  display: block; }
+
+img.mock_int_image {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  display: block;
+  max-width: 350px; }
+
 @media screen and (min-width: 940px) {
   .photowall_top_half {
     float: left;
@@ -2297,7 +2337,23 @@ body.logged-in header {
 
 @media screen and (min-width: 1195px) {
   .photowall .photowall_section {
-    text-align: left; } }
+    text-align: left; }
+  /* Mock Interview */
+  .spokes_wrapper {
+    overflow: hidden;
+    max-height: 381px; }
+  .spokes_col {
+    float: left; }
+    .spokes_col:nth-of-type(1) {
+      width: 15%; }
+    .spokes_col:nth-of-type(2) {
+      width: 15%; }
+    .spokes_col:nth-of-type(3) {
+      width: 35%; }
+    .spokes_col:nth-of-type(4) {
+      width: 35%; }
+  img.mock_int_image {
+    max-width: 300px; } }
 
 @media screen and (min-width: 1250px) {
   .single_photowall_bio {
