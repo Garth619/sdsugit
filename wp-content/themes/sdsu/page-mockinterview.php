@@ -18,6 +18,7 @@ get_header(); ?>
 			<?php if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 } ?>
+
 			
 			<div class="content_wrapper" style="float:none;width:100%;">
 				<div id="content">
@@ -26,8 +27,18 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 					<h1 class="entry-title"><?php the_title();?></h1>
 					
 					
-					<h2><?php the_field('county_header');?></h2>
-					
+					<?php if ( post_password_required() ) : ?>
+
+
+						<?php echo get_the_password_form();?>
+
+
+							<?php else: ?>
+
+
+							<h2><?php the_field('county_header');?></h2>
+
+
 					
 					
 					<?php if(get_field('mock_interview_county')): ?>
@@ -152,7 +163,7 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 					
 					
 					
-					
+					<?php endif;?> <!-- password -->
 					
 					
 					
