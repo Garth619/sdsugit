@@ -1,5 +1,4 @@
 <?php
-
 /*
  * User Role Editor WordPress plugin
  * Content view access by selected roles management - at post level
@@ -325,32 +324,29 @@ class URE_Content_View_Restrictions {
         $ure_post_access_error_action = $this->lib->get_request_var('ure_post_access_error_action', 'post', 'int');
         update_post_meta($post_id, self::post_access_error_action, $ure_post_access_error_action);        
         if ($ure_post_access_error_action==3) { // custom access error message
-            $ure_post_access_error_message = $_POST['ure_post_access_error_message'];
+            $ure_post_access_error_message = $this->lib->get_request_var('ure_post_access_error_message', 'post');
             update_post_meta($post_id, self::post_access_error_message, $ure_post_access_error_message);
         }
     }
     // end of save_meta_data()
 
     
-    private function get_post_access_error_message($post_id) {        
+    private static function get_post_access_error_message($post_id) {        
         
-        $post_access_error_action = (int) get_post_meta($post_id, self::post_access_error_action, true);
-        if ($post_access_error_action==1) { // HTTP 404
-            return '';
-        }
-        
-        $post_access_error_message = '';
-        if ($post_access_error_action===3) { // Show custom access error message for this post
-            $post_access_error_message = get_post_meta($post_id, self::post_access_error_message, true);
+        $message = '';
+        $action = (int) get_post_meta($post_id, self::post_access_error_action, true);        
+        if ($action===3) { // Show custom access error message for this post
+            $message = get_post_meta($post_id, self::post_access_error_message, true);
         }
             
-        if (empty($post_access_error_message)) { // Show global access error message
-            $post_access_error_message = stripslashes($this->lib->get_option('post_access_error_message'));
+        if (empty($message)) { // Show global access error message
+            $lib = URE_Lib_Pro::get_instance();
+            $message = stripslashes($lib->get_option('post_access_error_message'));
         }        
         
-        $post_access_error_message = apply_filters('ure_post_access_error_message', $post_access_error_message);
+        $message = apply_filters('ure_post_access_error_message', $message);
         
-        return $post_access_error_message;
+        return $message;
     }
     // end of get_post_access_error_message;
     
@@ -390,7 +386,7 @@ class URE_Content_View_Restrictions {
         // permissions are applied at the post level
         $data['post_level'] = true;
         
-        $post_access_error_message = $this->get_post_access_error_message($post->ID);
+        $post_access_error_message = self::get_post_access_error_message($post->ID);
         
         if ($prohibit_allow_flag==1) { // Prohibit
             if ($content_view_whom==1) {  // For All
@@ -543,9 +539,9 @@ class URE_Content_View_Restrictions {
     // end of is_post_restricted_for_role()
 
 
-    private function check_roles_level_permissions($content) {
+    private static function check_roles_level_permissions($content, $post_id) {
     
-        global $current_user, $post;
+        global $current_user;
         
         if ($current_user->ID==0) {
             return $content;
@@ -556,29 +552,26 @@ class URE_Content_View_Restrictions {
             return $content;
         }
         
+        $restricted = false;
         if ($blocked['access_model']==1) {
-            if (self::is_object_restricted_for_role($post->ID, $blocked, 'posts')) {
-                $post_access_error_message = $this->get_post_access_error_message($post->ID);
-                return $post_access_error_message;
+            if (self::is_object_restricted_for_role($post_id, $blocked, 'posts')) {
+                $restricted = true;
+            } elseif (self::is_term_restricted_for_role($post_id, $blocked)) {
+                $restricted = true;
             }
-
-            if (self::is_term_restricted_for_role($post->ID, $blocked)) {
-                $post_access_error_message = $this->get_post_access_error_message($post->ID);
-                return $post_access_error_message;
-            }
-        } else {
-            if (self::is_post_restricted_for_role($post->ID, $blocked)) {
-                $post_access_error_message = $this->get_post_access_error_message($post->ID);
-                return $post_access_error_message;
-            }
+        } elseif (self::is_post_restricted_for_role($post_id, $blocked)) {
+            $restricted = true;            
         } 
+        if ($restricted) {
+            $content = self::get_post_access_error_message($post_id);
+        }
                         
         return $content;
     }
     // end of check_roles_level_permissions()       
     
     
-    private function get_post_from_last_query() {
+    private static function get_post_from_last_query() {
         global $wpdb;
         
         if (empty($wpdb->last_query)) {
@@ -610,7 +603,7 @@ class URE_Content_View_Restrictions {
         
         $post1 = $post; // do not touch global variable, work with its copy
         if (empty($post1) && !in_the_loop()) {
-            $post1 = $this->get_post_from_last_query();
+            $post1 = self::get_post_from_last_query();
             if (empty($post1)) {
                 return $content;
             }
@@ -619,9 +612,10 @@ class URE_Content_View_Restrictions {
         if (empty($post1->ID)) { 
             return $content;
         }
-                
+        
+        $restrict_even_if_can_edit = apply_filters('ure_restrict_content_view_for_authors_and_editors', false);        
         // no restrictions for users who can edit this post
-        if ($this->lib->can_edit($post1)) {
+        if ($this->lib->can_edit($post1) && !$restrict_even_if_can_edit) {
             return $content;
         }
         
@@ -634,7 +628,7 @@ class URE_Content_View_Restrictions {
             return $content;
         }
         
-        $content = $this->check_roles_level_permissions($content);
+        $content = self::check_roles_level_permissions($content, $post1->ID);
         
         return $content;
     }
@@ -691,9 +685,147 @@ class URE_Content_View_Restrictions {
     // end of get_post_view_access_users()
     
     
+    public static function is_active_restriction($prohibit_allow_flag, $content_view_whom, $content_for_roles) {
+        
+        if ( !isset($prohibit_allow_flag) || !in_array($prohibit_allow_flag, array(1,2)) ) {
+            return false;
+        }
+        if ( !isset($content_view_whom) || !in_array($content_view_whom, array(1,2,3)) ) {
+            return false;
+        }
+        if ($content_view_whom==3 && empty($content_for_roles)) {
+            return false;
+        }
+        
+        return true;
+    }
+    // end of is_active_restriction()
+    
+    
+    /**
+     * Converts comma separated list of roles to the array with trimmed roles ID inside
+     * 
+     * @param string $roles_str
+     * @return array
+     */
+    public static function extract_roles_from_string($roles_str) {
+        $roles = explode(',', $roles_str);
+        foreach($roles as $key=>$role) {
+            $roles[$key] = trim($role);            
+        }
+        
+        return $roles;
+    }
+    // end of extract_roles_from_string()
+    
+            
+    /*
+     * Return true if current user has at least one role from a list of roles
+     * @param array $roles
+     * @param array $prohibited
+     * @param int $post_id
+     */
+    public static function current_user_can_role($roles_str) {        
+        global $current_user;
+        
+        $roles = self::extract_roles_from_string($roles_str);
+        if (count($roles)==0) {
+            return false;
+        }
+                
+        $logged_in = is_user_logged_in();        
+        if ($logged_in) {
+            $lib = URE_Lib_Pro::get_instance();
+            foreach($roles as $role) {
+                if ($lib->user_can_role($current_user, $role)) {
+                    return true;
+                }
+            }
+        } else {
+            foreach($roles as $role) {
+                if ($role=='no_role') {
+                    return true;
+                }
+            }    
+        }
+        
+        return false;
+    }
+    // end of current_user_can_role()
+
+        
+    private static function blocked_at_post_level($post_id) {
+        
+        $prohibit_allow_flag = get_post_meta($post_id, self::prohibit_allow_flag, true);
+        $content_view_whom = get_post_meta($post_id, self::content_view_whom, true);
+        $roles_str = get_post_meta($post_id, self::content_for_roles, true);
+            
+        if (!self::is_active_restriction($prohibit_allow_flag, $content_view_whom, $roles_str)) {
+            return false;
+        }
+        
+        if ($prohibit_allow_flag==2) {  // Allow
+            if ($content_view_whom==1) { // For All
+                return false;
+            }
+            if ($content_view_whom==2) {  //  Allow to logged in only (any role)
+                if (is_user_logged_in()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if ($content_view_whom==3) {  // For selected roles only
+                if (!self::current_user_can_role($roles_str)) {
+                    return true;
+                }
+            }            
+        } elseif ($prohibit_allow_flag==1) {  // Prohibit
+            if ($content_view_whom==1) {  // For All
+                return true;
+            }
+            if ($content_view_whom==2) {
+                if (is_user_logged_in()) {  //  Allow to logged in only (any role)
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            if ($content_view_whom==3) {  // For selected roles only
+                if (self::current_user_can_role($roles_str)) {
+                    return true;
+                }
+            }
+        }
+                                        
+        return false;                        
+    }
+    // end of blocked_at_post_level()
+    
+    
+    private static function blocked_at_roles_level($post_id) {
+        
+        $restrict_even_if_can_edit = apply_filters('ure_restrict_content_view_for_authors_and_editors', false);        
+        // no restrictions for users who can edit this post
+        $lib = URE_Lib_Pro::get_instance();
+        if ($lib->can_edit($post_id) && !$restrict_even_if_can_edit) {
+            return false;
+        }
+                
+        $value = self::check_roles_level_permissions(1000, $post_id);
+        if ($value==1000) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+        
+        return $result;
+    }
+    // end of restrict()
+    
+    
     public static function current_user_can_view($post_id) {
-        
-        
+                
         $lib = URE_Lib_Pro::get_instance();
         $activated = $lib->get_option('activate_content_for_roles', false);
         if (!$activated) {
@@ -703,13 +835,15 @@ class URE_Content_View_Restrictions {
             return true;
         }
         
-        $cvrpl = URE_Content_View_Restrictions_Posts_List::get_instance();
-        $prohibited_posts = $cvrpl->get_current_user_prohibited_posts();
-        if (!in_array($post_id, $prohibited_posts)) {
-            return true;
+        if (self::blocked_at_post_level($post_id)) {
+            return false;
         }
-             
-        return false;
+        
+        if (self::blocked_at_roles_level($post_id)) {
+            return false;
+        }
+                     
+        return true;
     }
     // end of can_view()
                     

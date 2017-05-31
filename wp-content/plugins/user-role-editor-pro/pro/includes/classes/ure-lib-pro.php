@@ -76,7 +76,7 @@ class Ure_Lib_Pro extends Ure_Lib {
                         
     
     /**
-     * if returns true - make full syncronization of roles for all sites with roles from the main site
+     * if returns true - make full synchronization of roles for all sites with roles from the main site
      * else - only currently selected role update is replicated
      * 
      * @return boolean

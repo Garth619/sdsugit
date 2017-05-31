@@ -118,26 +118,23 @@ class URE_Pro_Ajax_Processor extends URE_Ajax_Processor {
     // end of get_plugins_access_data_for_role()
 
     
-    protected function ajax_check_permissions() {
-        
-        if (!wp_verify_nonce($_REQUEST['wp_nonce'], 'user-role-editor')) {
-            echo json_encode(array('result'=>'error', 'message'=>'URE: Wrong or expired request'));
-            die;
-        }
-        
+    /**
+     * Override a parent method
+     * 
+     * @return string
+     */
+    protected function get_required_cap() {
+                
         if ($this->action=='get_show_access_data_for_widget') {
-            $capability = 'ure_widgets_show_access';
+            $cap = 'ure_widgets_show_access';
         } else {
-            $capability = URE_Own_Capabilities::get_key_capability();
-        }
-        if (!current_user_can($capability)) {
-            echo json_encode(array('result'=>'error', 'message'=>'URE: Insufficient permissions'));
-            die;
+            $cap = parent::get_required_cap();
         }
         
+        return $cap;
     }
-    // end of ajax_check_permissions()
-            
+    // end of get_permission()
+                
     
     /**
      * AJAX requests dispatcher

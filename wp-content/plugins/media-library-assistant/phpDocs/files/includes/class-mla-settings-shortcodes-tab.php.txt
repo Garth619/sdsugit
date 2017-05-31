@@ -934,7 +934,7 @@ class MLA_Template_List_Table extends WP_List_Table {
 			return $result;
 		}
 
-		return self::_default_hidden_columns;
+		return self::_default_hidden_columns();
 	}
 
 	/**

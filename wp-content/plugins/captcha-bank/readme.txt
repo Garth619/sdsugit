@@ -2,7 +2,7 @@
 Contributors: wordpress-empire, contact-banker, Gallery-Bank
 Tags: antispam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, match captcha,registration, spam control, spam protection, text captcha, web form protection, captcha bank, captcha
 Requires at least: 3.0
-Tested up to: 4.7.4
+Tested up to: 4.7.5
 Stable Tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -93,6 +93,10 @@ There are lot of features also available in Premium Editions, you can check befo
 > * [Block/Unblock Countries Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/block-unblock-countries/)
 > * [Feature Requests Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/feature-requests/)
 > * [System Information Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/system-information/)
+
+**Captcha Bank uses our own Tech Banker API based on Maxmind Database to fetch location and other details based on IP Address for its feature Login Logs, Visitor Logs. For this reason, we are sending back IP Address whenever a user tries to login to your site back to our server to fetch the details.**
+
+**Captcha Bank redirects you to a Welcome Screen on Activation of the Plugin and asks you to either Skip or Opt-In for Non Sensitive  Information about your Website.**
 
 = Captcha Bank Standard Edition Features =
 
@@ -381,6 +385,23 @@ If any problem occurs, please contact us at [support@tech-banker.com](mailto:sup
 28. Text Captcha on Admin Comment Form
 
 == Changelog ==
+
+= 4.0.7 =
+
+* FIX: Proper Sanitization, Escaping, Validation of all Post Calls
+* FIX: Removal of all function_exists, class_exists, typeof from all the files.
+* FIX: Uninstall File moved to root folder and changes done as per wordpress guidelines.
+* FIX: Error Reporting in file Removed
+* FIX: Auto Updates Removed
+* FIX: Curl Calls Removed
+
+= 4.0.6 =
+
+* FIX: Code Removed from Skip Action Hook on Wizard Page
+* FIX: Code Removed from De-activation Hook in case of Skipped Wizard Page
+* FIX: Code Removed from Uninstall Hook in case of Skipped Wizard Page
+* FIX: Obsolete Code Removed
+* FIX: Major Bugs Fixed
 
 = 3.0.11 =
 

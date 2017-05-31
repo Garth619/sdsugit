@@ -28,7 +28,7 @@ class MLA {
 	 *
 	 * @var	string
 	 */
-	const MLA_DEVELOPMENT_VERSION = '20170318';
+	const MLA_DEVELOPMENT_VERSION = '';
 
 	/**
 	 * Object name for localizing JavaScript - MLA List Table
@@ -233,6 +233,8 @@ class MLA {
 		 * Optional - change the size of the thumbnail/icon images
 		 */
 		$icon_value = MLACore::mla_get_option( MLACoreOptions::MLA_TABLE_ICON_SIZE );
+		$set_column_width = !empty( $icon_value ) && is_numeric( $icon_value ) && ( 64 < $icon_value );
+		
 		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_ENABLE_MLA_ICONS ) ) {
 			if ( empty( $icon_value ) ) {
 				$icon_value = 64;
@@ -244,7 +246,8 @@ class MLA {
 
 			$icon_width = $icon_height = $icon_value . 'px';
 
-			echo "    width: auto;\n";
+			//echo "    width: auto;\n";
+			//echo "    vertical-align: top;\n";
 			echo "    height: auto;\n";
 			echo "    max-width: {$icon_width};\n";
 			echo "    max-height: {$icon_height};\n";
@@ -271,29 +274,22 @@ class MLA {
 		echo "  }\n";
 
 		if ( MLATest::$wp_4dot3_plus ) {
-			/*
-			 * Primary column including icon and some margin
-			 */
-			$icon_width = ( $icon_value + 10 ) . 'px';
-			$column_width = ( $icon_value + 30 ) . 'px';
-
-			echo "  table.attachments th.column-primary {\n";
-			echo "    width: {$column_width};\n";
-			echo "  }\n";
+			// Explicit primary column width including icon and some margin
+			if ( $set_column_width ) {
+				$column_width = ( $icon_value + 30 ) . 'px';
+	
+				echo "  table.attachments th.column-primary {\n";
+				echo "    width: {$column_width};\n";
+				echo "  }\n";
+			}
+			
 			echo "  table.attachments td.column-primary {\n";
 			echo "    position: relative;\n";
-			echo "    width: {$column_width};\n";
-			echo "  }\n";
-			echo "  table.attachments div.attachment-icon {\n";
-			echo "    position: absolute;\n";
-			echo "    top: 8px;\n";
-			echo "    left: 10px;\n";
-			echo "  }\n";
-			echo "  table.attachments div.attachment-info {\n";
-			echo "    margin-left: {$icon_width};\n";
-			echo "    min-height: {$icon_width};\n";
-//			echo "    margin-top: 0px;\n";
-//			echo "    min-height: 0px;\n";
+			
+			if ( $set_column_width ) {
+				echo "    width: {$column_width};\n";
+			}
+			
 			echo "  }\n";
 		} else {
 			/*
@@ -1040,6 +1036,15 @@ class MLA {
 	}
 
 	/**
+	 * Holds [+index+] and [+found_rows+] values for MLAData_Source::_evaluate_data_source
+	 *
+	 * @since 2.52
+	 *
+	 * @var	array
+	 */
+	public static $bulk_edit_data_source = array();
+
+	/**
 	 * Process bulk action for one or more attachments
 	 *
 	 * @since 2.00
@@ -1068,6 +1073,10 @@ class MLA {
 		MLACore::mla_debug_add( __LINE__ . " MLA::mla_process_bulk_action request = " . var_export( $request, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 
 		if ( isset( $request['cb_attachment'] ) ) {
+			self::$bulk_edit_data_source['cb_offset'] = absint( $request['cb_offset'] );
+			self::$bulk_edit_data_source['cb_count'] = absint( $request['cb_count'] );
+			self::$bulk_edit_data_source['cb_index'] = self::$bulk_edit_data_source['cb_offset'];
+
 			$item_content = apply_filters( 'mla_list_table_begin_bulk_action', NULL, $bulk_action );
 			if ( is_null( $item_content ) ) {
 				$prevent_default = false;
@@ -1094,6 +1103,8 @@ class MLA {
 			}
 
 			foreach ( $request['cb_attachment'] as $index => $post_id ) {
+				self::$bulk_edit_data_source['cb_index']++;
+				
 				if ( ! current_user_can( 'edit_post', $post_id ) ) {
 					$page_content['message'] .= __( 'ERROR', 'media-library-assistant' ) . ': ' . __( 'You are not allowed to edit Attachment: ', 'media-library-assistant' ) . $post_id . '<br>';
 					continue;

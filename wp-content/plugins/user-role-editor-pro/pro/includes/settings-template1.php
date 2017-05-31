@@ -19,19 +19,6 @@
         </td>
     </tr>
 <?php
-if (!$license_key_only) {
-?>
-    <tr>
-        <td>
-            <input type="checkbox" name="use_jquery_cdn_for_ui_css" id="use_jquery_cdn_for_ui_css" value="1" 
-                   <?php checked($use_jquery_cdn_for_ui_css, 1); ?> /> 
-            <label for="use_jquery_cdn_for_ui_css"><?php esc_html_e('Use jQuery UI CSS from jQuery CDN', 'user-role-editor'); ?></label></td>
-        <td>                        
-        </td>
-    </tr>
-<?php
-}   // if (!$license_key_only) {
-
 if (!$multisite || $license_key_only || $active_for_network) {
 ?>
       <tr>

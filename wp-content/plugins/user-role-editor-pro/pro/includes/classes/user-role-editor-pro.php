@@ -117,27 +117,7 @@ class User_Role_Editor_Pro extends User_Role_Editor {
     }
     // end of network_admin_plugin_action_links()
 
-    
-    /**
-     * It is fully overriden version of the parent method
-     */
-    public function admin_css_action() {       
         
-        wp_enqueue_style('wp-jquery-ui-dialog');
-        if (stripos($_SERVER['REQUEST_URI'], 'settings-user-role-editor')!==false) {
-            $use_jquery_cdn_for_ui_css = $this->lib->get_option('use_jquery_cdn_for_ui_css', false);
-            if ($use_jquery_cdn_for_ui_css) {
-                wp_enqueue_style('ure-jquery-ui-tabs', '//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', array(), false, 'screen');
-            } else {
-                wp_enqueue_style('ure-jquery-ui-tabs', URE_PLUGIN_URL . 'css/jquery-ui-1.10.4.custom.min.css', array(), false, 'screen');
-            }            
-        }
-        wp_enqueue_style('ure-admin-css', URE_PLUGIN_URL . 'css/ure-admin.css', array(), false, 'screen');        
-                        
-    }
-    // end of admin_css_action()    
-    
-    
     protected function is_user_profile_extention_allowed() {
         // no limits for the Pro version
         return true;

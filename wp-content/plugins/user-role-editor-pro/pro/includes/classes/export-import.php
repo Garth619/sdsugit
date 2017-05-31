@@ -31,27 +31,20 @@ class Ure_Export_Import {
     
     
     public function add_toolbar_buttons() {
-        $shown = false;
+
         if (current_user_can('ure_export_roles')) {
-            $shown = true;
 ?>
                 
                   <button id="ure_export_roles_button" class="ure_toolbar_button" title="Export All Roles to your local disk">Export</button> 
 <?php
         }
         if (current_user_can('ure_import_roles')) {
-            $shown = true;
 ?>
 
                   <button id="ure_import_roles_button" class="ure_toolbar_button" title="Import Roles from your local disk">Import</button>
 <?php
         }
-        if ( $shown && ( !is_multisite() || (is_network_admin() && is_super_admin()) ) ) {
-?>
-                  <hr />
-               
-<?php
-        }
+        
     }
     // end of add_toolbar_buttons()
     

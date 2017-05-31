@@ -329,7 +329,9 @@ class URE_Posts_Edit_Access_User {
             if (empty($value)) {
                $value = 1; // Allow by default
             }
-        }                
+        }    
+        $value = apply_filters('ure_edit_posts_access_restriction_type', $value);
+        
         $this->set_transient('restriction_type', $value);
         
         return $value;

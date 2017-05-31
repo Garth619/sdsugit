@@ -59,23 +59,6 @@ class URE_Content_View_Restrictions_Posts_List {
     }
     // end of __construct()
 
-
-    /**
-     * Converts comma separated list of roles to the array with trimmed roles ID inside
-     * 
-     * @param string $roles_str
-     * @return array
-     */
-    private function extract_roles_from_string($roles_str) {
-        $roles = explode(',', $roles_str);
-        foreach($roles as $key=>$role) {
-            $roles[$key] = trim($role);            
-        }
-        
-        return $roles;
-    }
-    // end of extract_roles_from_string()
-    
     
     private function do_not_restrict_editors($post) {
         if (!is_a( $post, 'WP_Post' )) {
@@ -86,8 +69,13 @@ class URE_Content_View_Restrictions_Posts_List {
         }
         
         $restrict_even_if_can_edit = apply_filters('ure_restrict_content_view_for_authors_and_editors', false);
+        
+        remove_action('pre_get_posts', array($this, 'hide_prohibited_posts'), 100); // to exclude recursion call by WP_Query, when query posts available for editing
+        $can_edit_post = $this->lib->can_edit($post);
+        add_action('pre_get_posts', array($this, 'hide_prohibited_posts'), 100);    // restore content view restrictions
+        
         // no restrictions for users who can edit this post/page
-        if ($this->lib->can_edit($post) && !$restrict_even_if_can_edit) {
+        if ($can_edit_post && !$restrict_even_if_can_edit) {
             return true;
         }
         
@@ -110,7 +98,7 @@ class URE_Content_View_Restrictions_Posts_List {
             return true;
         }
 
-        $roles = $this->extract_roles_from_string($ure_content_for_roles);
+        $roles = URE_Content_View_Restrictions::extract_roles_from_string($ure_content_for_roles);
         if (count($roles) == 0) {
             return true;
         }
@@ -401,7 +389,7 @@ class URE_Content_View_Restrictions_Posts_List {
                 continue;
             }
             
-            $roles = $this->extract_roles_from_string($restriction[URE_Content_View_Restrictions::content_for_roles]);
+            $roles = URE_Content_View_Restrictions::extract_roles_from_string($restriction[URE_Content_View_Restrictions::content_for_roles]);
             if ($restriction[URE_Content_View_Restrictions::prohibit_allow_flag]==1) {   // Prohibited
                 $this->check_roles_for_prohibited($roles, $post_id);
             } else {
@@ -480,6 +468,9 @@ class URE_Content_View_Restrictions_Posts_List {
         
         $blocked = URE_Content_View_Restrictions_Controller::load_access_data_for_user($current_user);
         if (empty($blocked)) {
+            return;
+        }
+        if ($blocked['access_error_action']==2) {   // Show access error message, not hide post from the listings
             return;
         }
         

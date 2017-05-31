@@ -21,6 +21,12 @@
 		"oAP": "\/.htaccess",
 		"oF": 0
 		},
+	"\/.maintenance": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.maintenance",
+		"oF": 0
+		},
 	"\/bbpress\/bbpress.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -54456,6 +54462,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/Progress-Summary-and-Action-Plan-Explanation-03-14-17.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-5-8-17-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-5-8-17-2.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-5-8-17.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -57773,6 +57785,56 @@
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-150x90.jpg": {
+		"ft": 16384,
+		"iS": 4066,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-150x90.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-200x90.jpg": {
+		"ft": 16384,
+		"iS": 4852,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-200x90.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-300x45.jpg": {
+		"ft": 16384,
+		"iS": 4998,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-300x45.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-344x90.jpg": {
+		"ft": 16384,
+		"iS": 8532,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px-344x90.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px.jpg": {
+		"ft": 16384,
+		"iS": 17674,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/CYSOC-Conference-Banner-600px.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"q": 100
 		},
 	"\/wp-content\/uploads\/2015\/06\/d-jeter-100x123.jpg": {
@@ -70584,6 +70646,30 @@
 		"oAP": "\/wp-content\/uploads\/2015\/11\/Assesing-Suicide-Risk-Flyer-2015-1.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/11\/Assessing-Risk-in-Suicide-Flyer-USE-THIS-ONE-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/11\/Assessing-Risk-in-Suicide-Flyer-USE-THIS-ONE-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/11\/Assessing-Risk-in-Suicide-Flyer-USE-THIS-ONE.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/11\/Assessing-Risk-in-Suicide-Flyer-USE-THIS-ONE.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/11\/CERTIFICATE-PRINTING-IN-PERSON.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/11\/CERTIFICATE-PRINTING-IN-PERSON.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/11\/CERTIFICATE-PRINTING.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/11\/CERTIFICATE-PRINTING.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/11\/d-gibbons-mcwayne-125x123.jpg": {
 		"ft": 16384,
 		"iS": 6237,
@@ -73244,6 +73330,46 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2016\/02\/c-kimbell-125x123.jpg": {
+		"ft": 16384,
+		"iS": 6628,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/c-kimbell-125x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/c-kimbell-125x150.jpg": {
+		"ft": 16384,
+		"iS": 7923,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/c-kimbell-125x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/c-kimbell-125x169.jpg": {
+		"ft": 16384,
+		"iS": 8845,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/c-kimbell-125x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/c-kimbell.jpg": {
+		"ft": 16384,
+		"iS": 37692,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/c-kimbell.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/wp-content\/uploads\/2016\/02\/c-zamudio-thumbnail-125x123.jpg": {
 		"ft": 16384,
 		"iS": 6670,
@@ -73443,6 +73569,66 @@
 		"iS": 29561,
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/02\/dawn-wall-thumbnail.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a-150x150.jpg": {
+		"ft": 16384,
+		"iS": 4535,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a-200x123.jpg": {
+		"ft": 16384,
+		"iS": 4664,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a-300x300.jpg": {
+		"ft": 16384,
+		"iS": 11225,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a-300x300.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a-342x169.jpg": {
+		"ft": 16384,
+		"iS": 8330,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a-342x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a-342x198.jpg": {
+		"ft": 16384,
+		"iS": 9736,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a-342x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/02\/devin-a.jpg": {
+		"ft": 16384,
+		"iS": 17416,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/02\/devin-a.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -82789,6 +82975,12 @@
 		"oAP": "\/wp-content\/uploads\/2016\/08\/Competency-to-Stand-Trial.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/08\/CYFSOC-Engaging-Families.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/CYFSOC-Engaging-Families.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/DBT-2017-Flyer-1.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -82913,6 +83105,12 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2016\/08\/Geriatric-flyer-booster-Hoarding-6.6.17-8-use-this-one.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Geriatric-flyer-booster-Hoarding-6.6.17-8-use-this-one.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/Geriatric-flyer-booster-Sexuality-12.16.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -83001,6 +83199,12 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2016\/08\/Intermediate-MI.6.20.17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Intermediate-MI.6.20.17.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/jaiya-john-150x150.jpg": {
 		"ft": 16384,
 		"iS": 5616,
@@ -83062,6 +83266,16 @@
 		"iS": 7001,
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2016\/08\/m-brissette-watson.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/me-1.jpg": {
+		"ft": 16384,
+		"iS": 33277,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/me-1.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -83313,11 +83527,73 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2016\/08\/Reducing-TAY-Marijuana-Use-Flyer-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Reducing-TAY-Marijuana-Use-Flyer-2.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/08\/Reducing-TAY-Marijuana-Use-Flyer.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Reducing-TAY-Marijuana-Use-Flyer.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/self-regulation-10-27-16.pdf": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2016\/08\/self-regulation-10-27-16.pdf",
 		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/08\/shaundrea-150x150.jpg": {
+		"ft": 16384,
+		"iS": 4022,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/shaundrea-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/shaundrea-200x123.jpg": {
+		"ft": 16384,
+		"iS": 3629,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/shaundrea-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/shaundrea-214x169.jpg": {
+		"ft": 16384,
+		"iS": 5193,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/shaundrea-214x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/shaundrea-214x198.jpg": {
+		"ft": 16384,
+		"iS": 6044,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/shaundrea-214x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/shaundrea.jpg": {
+		"ft": 16384,
+		"iS": 7934,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/shaundrea.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
 		},
 	"\/wp-content\/uploads\/2016\/08\/special-to-us-header-150x38.jpg": {
 		"ft": 16384,
@@ -83468,6 +83744,12 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/Trauma-informed-parenting-Flyer-6.8.17-USE-THIS-ONE.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Trauma-informed-parenting-Flyer-6.8.17-USE-THIS-ONE.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/08\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-2-8-17-Revised.pdf-4.pdf": {
 		"ft": 8192,
@@ -83853,6 +84135,76 @@
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2016\/11\/2016Dec12ICWA-Regs-Effective-Press-Release-final.pdf",
 		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6205,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-200x123.jpg": {
+		"ft": 16384,
+		"iS": 6945,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-300x225.jpg": {
+		"ft": 16384,
+		"iS": 14773,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-300x225.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-344x169.jpg": {
+		"ft": 16384,
+		"iS": 14700,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-768x576.jpg": {
+		"ft": 16384,
+		"iS": 72208,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-768x576.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-940x198.jpg": {
+		"ft": 16384,
+		"iS": 34172,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207.jpg": {
+		"ft": 16384,
+		"iS": 155447,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/6th-Annual-Judges-Dinner-207.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
 		},
 	"\/wp-content\/uploads\/2016\/11\/At-a-Glance-1024x91.jpg": {
 		"ft": 16384,
@@ -84292,6 +84644,78 @@
 		"oAP": "\/wp-content\/uploads\/2016\/11\/Glance_ICWAapp-handout01.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7993,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-200x123.jpg": {
+		"ft": 16384,
+		"iS": 6918,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-300x255.jpg": {
+		"ft": 16384,
+		"iS": 18797,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-300x255.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-344x169.jpg": {
+		"ft": 16384,
+		"iS": 15341,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-471x198.jpg": {
+		"ft": 16384,
+		"iS": 25143,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image-471x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image.jpg": {
+		"ft": 16384,
+		"iS": 43953,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/grahic.human-trafficking-image.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2016\/11\/Human-Trafficking-Awareness-Conf-06.21.17-4mj13.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Human-Trafficking-Awareness-Conf-06.21.17-4mj13.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/11\/ICWA-at-a-Glance-Photo-150x150.jpg": {
 		"ft": 16384,
 		"iS": 8257,
@@ -84702,6 +85126,82 @@
 		"oAP": "\/wp-content\/uploads\/2016\/11\/StandingRockICWAPR12.6.2016-1.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8489,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-200x123.jpg": {
+		"ft": 16384,
+		"iS": 9539,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-300x108.jpg": {
+		"ft": 16384,
+		"iS": 11030,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-300x108.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-344x169.jpg": {
+		"ft": 16384,
+		"iS": 17469,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-768x277.jpg": {
+		"ft": 16384,
+		"iS": 42722,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-768x277.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-940x198.jpg": {
+		"ft": 16384,
+		"iS": 35229,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes.jpg": {
+		"ft": 16384,
+		"iS": 88726,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/TIE-Capacity-Center-for-the-Tribes.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/Training-Tips-Article-David-Casey.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/Training-Tips-Article-David-Casey.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/11\/ts7th-Gen-150x150.jpg": {
 		"ft": 16384,
 		"iS": 8575,
@@ -84821,6 +85321,92 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-1024x791.jpg": {
+		"ft": 16384,
+		"iS": 149636,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-1024x791.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8797,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8315,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-300x232.jpg": {
+		"ft": 16384,
+		"iS": 20603,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-300x232.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-344x169.jpg": {
+		"ft": 16384,
+		"iS": 18142,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-768x593.jpg": {
+		"ft": 16384,
+		"iS": 96968,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-768x593.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-940x198.jpg": {
+		"ft": 16384,
+		"iS": 49471,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2.jpg": {
+		"ft": 16384,
+		"iS": 133474,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/11\/wiiazhegii-2017-0021-2.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/12\/art-of-facilitation-super-8.pdf": {
 		"ft": 8192,
@@ -85988,6 +86574,18 @@
 		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2017\/02\/2017-2-CCR-and-CFT-Meetings-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-2-CCR-and-CFT-Meetings-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-2-CCR-and-CFT-Meetings.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-2-CCR-and-CFT-Meetings.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/02\/2017-3-Updated-Version-of-the-PWB-CFT-Progress-Summary-and-Action-Plan-3-14-17.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -86297,6 +86895,12 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/AlzSD-Flyer-Eng-Span.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/AlzSD-Flyer-Eng-Span.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/05\/APEX-1-150x150.jpg": {
 		"ft": 16384,
@@ -86948,6 +87552,78 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/05\/home-safety-checklist.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/home-safety-checklist.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/05\/home-safety.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/home-safety.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby-150x150.jpg": {
+		"ft": 16384,
+		"iS": 5789,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby-200x123.jpg": {
+		"ft": 16384,
+		"iS": 6369,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby-300x214.jpg": {
+		"ft": 16384,
+		"iS": 13630,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby-300x214.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby-344x169.jpg": {
+		"ft": 16384,
+		"iS": 12353,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby-714x198.jpg": {
+		"ft": 16384,
+		"iS": 22260,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby-714x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/janice-baby.jpg": {
+		"ft": 16384,
+		"iS": 75753,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/janice-baby.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/wp-content\/uploads\/2017\/05\/Jennifer-1024x606.jpg": {
 		"ft": 16384,
 		"iS": 74945,
@@ -87103,6 +87779,46 @@
 		"iS": 218614,
 		"oA": 0,
 		"oAP": "\/wp-content\/uploads\/2017\/05\/judy.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/k-mettler-125x123.jpg": {
+		"ft": 16384,
+		"iS": 5347,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/k-mettler-125x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/k-mettler-125x150.jpg": {
+		"ft": 16384,
+		"iS": 6609,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/k-mettler-125x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/k-mettler-125x169.jpg": {
+		"ft": 16384,
+		"iS": 7508,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/k-mettler-125x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/k-mettler.jpg": {
+		"ft": 16384,
+		"iS": 9900,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/k-mettler.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -87268,6 +87984,66 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8477,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13-200x123.jpg": {
+		"ft": 16384,
+		"iS": 9320,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13-300x196.jpg": {
+		"ft": 16384,
+		"iS": 17606,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13-300x196.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13-344x169.jpg": {
+		"ft": 16384,
+		"iS": 17147,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13-450x198.jpg": {
+		"ft": 16384,
+		"iS": 25982,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13-450x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/lia-year-13.jpg": {
+		"ft": 16384,
+		"iS": 43254,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/lia-year-13.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/wp-content\/uploads\/2017\/05\/lilia-1024x606.jpg": {
 		"ft": 16384,
 		"iS": 66401,
@@ -87427,6 +88203,12 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/managing-personality-behavior-changes.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/managing-personality-behavior-changes.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/05\/margery-1024x606.jpg": {
 		"ft": 16384,
@@ -87756,6 +88538,12 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/05\/other-dementias.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/other-dementias.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/05\/pablo-1024x606.jpg": {
 		"ft": 16384,
 		"iS": 82777,
@@ -88076,6 +88864,52 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/05\/s-dominguez-125x123.jpg": {
+		"ft": 16384,
+		"iS": 6586,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/s-dominguez-125x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/s-dominguez-125x150.jpg": {
+		"ft": 16384,
+		"iS": 7634,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/s-dominguez-125x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/s-dominguez-125x169.jpg": {
+		"ft": 16384,
+		"iS": 8363,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/s-dominguez-125x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/s-dominguez.jpg": {
+		"ft": 16384,
+		"iS": 10846,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/s-dominguez.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/signs-symptoms-english-spanish.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/signs-symptoms-english-spanish.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/05\/sirisha-125x123.jpg": {
 		"ft": 16384,
 		"iS": 5799,
@@ -88206,6 +89040,58 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/05\/take-me-home-registry.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/take-me-home-registry.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/05\/terry-125x123.jpg": {
+		"ft": 16384,
+		"iS": 5369,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/terry-125x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/terry-125x150.jpg": {
+		"ft": 16384,
+		"iS": 6253,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/terry-125x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/terry-125x169.jpg": {
+		"ft": 16384,
+		"iS": 6924,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/terry-125x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/terry.jpg": {
+		"ft": 16384,
+		"iS": 8963,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/terry.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/treatable-causes-memory-loss.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/treatable-causes-memory-loss.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/05\/vat-1024x606.jpg": {
 		"ft": 16384,
 		"iS": 57381,
@@ -88285,6 +89171,12 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/05\/wandering.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/05\/wandering.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/05\/Zoe-e1494346323874.jpg": {
 		"ft": 16384,

@@ -2,8 +2,8 @@
 Contributors: Vladimir Garagulya (https://www.role-editor.com)
 Tags: user, role, editor, security, access, permission, capability
 Requires at least: 4.0
-Tested up to: 4.7.4
-Stable tag: 4.34.1
+Tested up to: 4.7.5
+Stable tag: 4.34.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,31 @@ Right decision in this case is to delete free version folder (user-role-editor) 
 
 
 == Changelog ==
+
+= [4.34.3] 23.05.2017 =
+* Core version: 4.33.1
+* Fix: Content view restrictions add-on: PHP notice was removed: Undefined variable: self in /wp-content/plugins/user-role-editor-pro/pro/includes/classes/content-view-restrictions.php on line 795
+
+
+= [4.34.2] 22.05.2017 =
+* Core version: 4.33.1
+* New: Posts/pages edit restrictions add-on: custom filter 'ure_edit_posts_access_restriction_type' was added. It allows to modify on a fly the restriction type for current user: 1 - prohibit, 2 - allow.
+* Update: "Use jQuery UI CSS from jQuery CDN" option was removed from the "General" tab of User Role Editor Pro Settings page. URE uses CSS styles included into own installation package.
+* Fix: Content view restrictions add-on: 
+* - URE_Content_View_Restrictions::current_user_can_view() returned incorrect result for some restrictions settings.
+* - URE_Content_View_Restrictions_Posts_List::do_not_restrict_editors() could intercept with Posts/pages edit restrictions add-on by recursive call of view filter when WP_Query selects posts available for editing.
+* - ure_restrict_content_view_for_authors_and_editors filter was ignored for single page content.
+* Update: Core version was updated to 4.33.1:
+* Update: Core version: "Reset" button moved from the "Users->User Role Editor" main page to the "Settings->User Role Editor->Tools" tab.
+* Update: Core version: "Users->Grant Roles" button worked only for superadmin or user with 'ure_manage_options' capability. User with 'edit_users' can use this feature now. 
+* Update: Core version: Settings tabs and dialog windows style sheets was updated to jQuery UI 1.11.4 default theme.
+* New: Core version: boolean filter 'ure_bulk_grant_roles' allows to not show "Users->Grant Roles" button if you don't need it.
+* New: Core version: boolean filter 'ure_users_select_primary_role' can hide 'Primary role' selection controls from the user profile edit page. 
+* New:  Core version: boolean filter 'ure_users_show_wp_change_role' can hide "Change Role" bulk action selection control from the Users page. So it's possible to configure permissions for user who can change just other roles of a user without changing his primary role.
+* Fix: "Users->Without Roles", "Users->Grant Roles" are shown only to the users with 'edit_users' capability.
+* Fix: Transients caching was removed from URE_Lib::_get_post_types() function. It cached post types list too early in some cases.
+
+
 = [4.34.1] 24.04.2017 =
 * Core version: 4.32.3
 * Fix: Front end menu access add-on: a lot of pages became restricted for front-end menu due to logic mistake in an access checking code. As a result related menu items were hidden from menu without a visible reason.
