@@ -571,9 +571,10 @@ echo '</ul>'; ?>
 						$imageID = get_field('pcwta_sidebar_image','option');
 						$alt_text = get_post_meta($imageID , '_wp_attachment_image_alt', true);
 						$sidebar = wp_get_attachment_image_src(get_field('pcwta_sidebar_image','option'),'full');
-						echo '<img class="sidebar_program_banner" alt="' . $alt_text . '" src="' . $sidebar[0] . '"/>';
+						echo '<img class="sidebar_program_banner" alt="' . $alt_text . '" src="' . get_bloginfo( 'template_directory' ) . '/images/pwcta1.jpg"/>';
 					}
 					
+				
 					
 					
 					if ( 
