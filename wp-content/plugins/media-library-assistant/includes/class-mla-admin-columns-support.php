@@ -24,11 +24,9 @@ if ( class_exists( 'ACP_Editing_Strategy' ) ) {
 		 * @return array Items on the current page ([entry_id] => (array) [entry_data])
 		 */
 		public function get_rows() {
-//error_log( __LINE__ . ' ACP_Addon_MLA_Editing_Strategy::get_rows ', 0 );
 			$table = $this->column->get_list_screen()->get_list_table();
 			$table->prepare_items();
 	
-//error_log( __LINE__ . ' ACP_Addon_MLA_Editing_Strategy::get_rows editable rows = ' . var_export( $this->get_editable_rows( $table->items ), true ), 0 );
 			return $this->get_editable_rows( $table->items );
 		}
 	} // class ACP_Addon_MLA_Editing_Strategy
@@ -49,7 +47,6 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 * @since 2.50
 	 */
 	public function __construct() {
-//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::__construct ', 0 );
 		parent::__construct();
 
 		$this->set_screen_id( 'media_page_' . MLACore::ADMIN_PAGE_SLUG );
@@ -74,7 +71,6 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 * @since 2.50
 	 */
 	public function set_manage_value_callback() {
-//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::set_manage_value_callback ', 0 );
 		add_filter( 'mla_list_table_column_default', array( $this, 'column_default_value' ), 100, 3 );
 	}
 
@@ -86,10 +82,7 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 * @param AC_ListScreen $listscreen
 	 */
 	public static function remove_column_types( $listscreen ) {
-//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::remove_column_types key = " . var_export( $listscreen->get_key(), true ), 0 );
 		if ( $listscreen instanceof AC_Addon_MLA_ListScreen ) {
-//error_log( __LINE__ . " MLACore::remove_column_types column_types = " . var_export( array_keys( $listscreen->get_column_types() ), true ), 0 );
-
 			$exclude = array(
 				'comments',
 				'title',
@@ -130,33 +123,25 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 * @since 2.52
 	 *
 	 * @param array                          $keys Distinct meta keys from DB
-	 * @param AC_Settings_Column_CustomField $this
+	 * @param AC_Settings_Column_CustomField $this_customfield
 	 */
-	public static function remove_custom_columns( $keys, $this ) {
-//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::remove_custom_columns keys = " . var_export( $keys, true ), 0 );
-		/*
-		 * Find the fields already present in the submenu table
-		 */
+	public static function remove_custom_columns( $keys, $this_customfield ) {
+		// Find the fields already present in the submenu table
 		$mla_columns = apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns );
-//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::remove_custom_columns mla_columns = ' . var_export( $mla_columns, true ), 0 );
 		$mla_custom = array();
 		foreach ( $mla_columns as $slug => $heading ) {
 			if ( 'c_' === substr( $slug, 0, 2 ) ) {
 				$mla_custom[] = $heading;
 			}
 		}
-//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::remove_custom_columns mla_custom = ' . var_export( $mla_custom, true ), 0 );
 
-		/*
-		 * Remove the fields already present in the submenu table
-		 */
+		// Remove the fields already present in the submenu table
 		foreach ( $keys as $index => $value ) {
 			if ( in_array( esc_html( $value ), $mla_custom ) ) {
 				unset( $keys[ $index ] );
 			}
 		}
 
-//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::remove_custom_columns keys = " . var_export( $keys, true ), 0 );
 		return $keys;
 	}
 
@@ -169,12 +154,9 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 */
 	public function get_column_headers() {
 		if ( ! class_exists( 'MLAQuery' ) ) {
-//error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::get_column_headers require_once ', 0 );
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-query.php' );
 			MLAQuery::initialize();
 		}
-//static $first_call = true;
-//if ( $first_call ) { //error_log( __LINE__ . ' AC_Addon_MLA_ListScreen::get_column_headers (first call only)', 0 ); $first_call = false; }
 
 		return apply_filters( 'mla_list_table_get_columns', MLAQuery::$default_columns );
 	}
@@ -183,7 +165,7 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 * Return the column value
 	 *
 	 * @param string|null $content
-	 * @param WP_Post $object
+	 * @param WP_Post $post
 	 * @param string $column_name
 	 *
 	 * @return string|false
@@ -193,7 +175,6 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 			$content = $this->get_display_value_by_column_name( $column_name, $post->ID );
 		}
 
-//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::column_default_value( $column_name ) content = " . var_export( $content, true ), 0 );
 		return $content;
 	}
 
@@ -207,7 +188,6 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 */
 	public function get_list_table( $args = array() ) {
 		$class = $this->get_list_table_class();
-//error_log( __LINE__ . " AC_Addon_MLA_ListScreen::get_list_table( $class )", 0 );
 
 		if ( ! class_exists( $class ) ) {
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-list-table.php' );
@@ -236,7 +216,7 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	 *
 	 * @since 2.52
 	 *
-	 * @param AC_ListScreen $listscreen
+	 * @param integer $post_id
 	 *
 	 * @return object attachment object
 	 */

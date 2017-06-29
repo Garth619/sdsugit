@@ -51,6 +51,13 @@ function ure_widgets_show_access_dialog_prepare(widget_id) {
 }
 
 
+function ure_ui_button_text(caption) {
+    var wrapper = '<span class="ui-button-text">' + caption + '</span>';
+
+    return wrapper;
+}
+
+
 function ure_widgets_show_access_dialog(data) {
     jQuery(function($) {      
         $('#ure_widgets_show_access_dialog').dialog({
@@ -75,9 +82,9 @@ function ure_widgets_show_access_dialog(data) {
           }
       });    
       $('.ui-dialog-buttonpane button:contains("Update")').attr("id", "dialog-update-button");
-      $('#dialog-update-button').html(ure_data_widgets_show_access.update_button);
+      $('#dialog-update-button').html(ure_ui_button_text(ure_data_widgets_show_access.update_button));
       $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-      $('#dialog-cancel-button').html(ure_data_widgets_show_access.cancel);      
+      $('#dialog-cancel-button').html(ure_ui_button_text(ure_data_widgets_show_access.cancel));      
       $('#ure_widgets_show_access_container').html(data.html);
       $('#ure_widgets_show_access_select_all').click(ure_widgets_show_access_auto_select);
     });                                

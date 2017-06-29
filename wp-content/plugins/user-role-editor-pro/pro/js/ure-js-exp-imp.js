@@ -60,9 +60,9 @@ function ure_import_roles_dialog() {
             }
         });
         $('.ui-dialog-buttonpane button:contains("Import")').attr("id", "dialog-import-roles-button");
-        $('#dialog-import-roles-button').html(ure_data_exp_imp.import_roles);
+        $('#dialog-import-roles-button').html(ure_ui_button_text(ure_data_exp_imp.import_roles));
         $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-        $('#dialog-cancel-button').html(ure_data.cancel);
+        $('#dialog-cancel-button').html(ure_ui_button_text(ure_data.cancel));
     });                                    
 }
 

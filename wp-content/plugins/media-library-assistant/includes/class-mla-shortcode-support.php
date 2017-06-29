@@ -3153,9 +3153,9 @@ class MLAShortcode_Support {
 			'mla_target' => '',
 			'hide_if_empty' => false,
 			'option_all_text' => '',
-			'option_all_value' => '0',
+			'option_all_value' => NULL,
 			'option_none_text' => '',
-			'option_none_value' => '-1',
+			'option_none_value' => NULL,
 
 			'depth' => 0,
 			'child_of' => 0,
@@ -3492,15 +3492,20 @@ class MLAShortcode_Support {
 					$arguments['option_none_text'] = __( 'no-terms', 'media-library-assistant' );
 				}
 
-				// Using the slug is a common practice and affects option_all_value
-				if ( in_array( $arguments['mla_option_value'], array( '{+slug+}', '[+slug+]' ) ) ) {
-					$option_none_id = -1;
-					$option_none_slug = sanitize_title( $arguments['option_none_value'] );
+				if ( !empty( $arguments['option_none_value'] ) ) {
+					$option_none_value = self::_process_shortcode_parameter( $arguments['option_none_value'], $page_values );
+					if ( is_numeric( $option_none_value ) ) {
+						$option_none_id = intval( $option_none_value );
+						$option_none_slug = sanitize_title( $arguments['option_none_text'] );
+					} else {
+						$option_none_id = -1;
+						$option_none_slug = sanitize_title( $option_none_value );
+					}
 				} else {
-					$option_none_id = intval( $arguments['option_none_value'] );
+					$option_none_id = -1;
 					$option_none_slug = sanitize_title( $arguments['option_none_text'] );
 				}
-
+				
 				$tags[0] = ( object ) array(
 					'term_id' => $option_none_id,
 					'name' => $arguments['option_none_text'],
@@ -3541,11 +3546,17 @@ class MLAShortcode_Support {
 
 		// Using the slug is a common practice and affects option_all_value
 		if ( $add_all_option ) {
-			if ( in_array( $arguments['mla_option_value'], array( '{+slug+}', '[+slug+]' ) ) ) {
-				$option_all_id = 0;
-				$option_all_slug = sanitize_title( $arguments['option_all_value'] );
+			if ( !empty( $arguments['option_all_value'] ) ) {
+				$option_all_value = self::_process_shortcode_parameter( $arguments['option_all_value'], $page_values );
+				if ( is_numeric( $option_all_value ) ) {
+					$option_all_id = intval( $option_all_value );
+					$option_all_slug = sanitize_title( $arguments['option_all_text'] );
+				} else {
+					$option_all_id = 0;
+					$option_all_slug = sanitize_title( $option_all_value );
+				}
 			} else {
-				$option_all_id = intval( $arguments['option_all_value'] );
+				$option_all_id = 0;
 				$option_all_slug = sanitize_title( $arguments['option_all_text'] );
 			}
 		} else {

@@ -3,8 +3,8 @@ Contributors: dglingren
 Donate link: http://fairtradejudaica.org/make-a-difference/donate/
 Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.7.3
-Stable tag: 2.53
+Tested up to: 4.8
+Stable tag: 2.54
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,14 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
+= 2.54 =
+* Fix: Media/Assistant "Thumbnail" bulk action, non-standard uploads directories and subdirectories are now supported and "Existing items: Delete" can be used to replace thumbnails generated for PDF and other non-image file types. 
+* Fix: For `[mla_term_list]` explicit `option_none_value` and `option_all_value` values are always used for the value of the control. Numeric values are used as the term_id and text values are used as the slug.
+* Fix: Correct PHP version 7.1.x Fatal Error defect for users of Admin Columns.
+* Fix: Eliminate PHP Notice "Undefined index: cb_offset" for Thumbnail generation and Media/Add New actions.
+* Fix: For Settings/Media Library Assistant Shortcodes tab, the "Add Template" screen now shows sections in the logical order.
+* Fix: For Settings/Media Library Assistant Shortcodes tab, pressing the Enter key now performs "Search Templates" instead of "Add New Template".
+
 = 2.53 =
 * Fix: Correct PHP Fatal Error defect for users of Admin Columns (free version).
 
@@ -303,8 +311,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.53 =
-Admin Columns Fix and improved Admin Columns Pro integration, better PHP 7 support. Example plugin improvements. Six enhancements in all, eight fixes.
+= 2.54 =
+Admin Columns/PHP 7.1.x Fix, thumbnail generation enhancements, [mla_term_list] fix and Settings/Shortcodes tab updates. Six fixes in all.
 
 == Other Notes ==
 

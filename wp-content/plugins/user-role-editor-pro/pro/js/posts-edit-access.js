@@ -78,9 +78,9 @@ function ure_posts_edit_access_dialog(data) {
           }
       });    
       $('.ui-dialog-buttonpane button:contains("Update")').attr("id", "dialog-update-button");
-      $('#dialog-update-button').html(ure_data_posts_edit_access.update_button);
+      $('#dialog-update-button').html(ure_ui_button_text(ure_data_posts_edit_access.update_button));
       $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-      $('#dialog-cancel-button').html(ure_data.cancel);
+      $('#dialog-cancel-button').html(ure_ui_button_text(ure_data.cancel));
       
       $('#ure_posts_edit_access_container').html(data.html);
       $('#ure_cb_select_all').click(ure_posts_edit_auto_select);

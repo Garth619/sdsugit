@@ -1073,9 +1073,15 @@ class MLA {
 		MLACore::mla_debug_add( __LINE__ . " MLA::mla_process_bulk_action request = " . var_export( $request, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 
 		if ( isset( $request['cb_attachment'] ) ) {
-			self::$bulk_edit_data_source['cb_offset'] = absint( $request['cb_offset'] );
-			self::$bulk_edit_data_source['cb_count'] = absint( $request['cb_count'] );
-			self::$bulk_edit_data_source['cb_index'] = self::$bulk_edit_data_source['cb_offset'];
+			if ( !empty( $request['cb_offset'] ) ) {
+				self::$bulk_edit_data_source['cb_offset'] = absint( $request['cb_offset'] );
+				self::$bulk_edit_data_source['cb_count'] = absint( $request['cb_count'] );
+				self::$bulk_edit_data_source['cb_index'] = self::$bulk_edit_data_source['cb_offset'];
+			} else {
+				self::$bulk_edit_data_source['cb_offset'] = 0;
+				self::$bulk_edit_data_source['cb_count'] = count( $request['cb_attachment'] );
+				self::$bulk_edit_data_source['cb_index'] = 0;
+			}
 
 			$item_content = apply_filters( 'mla_list_table_begin_bulk_action', NULL, $bulk_action );
 			if ( is_null( $item_content ) ) {

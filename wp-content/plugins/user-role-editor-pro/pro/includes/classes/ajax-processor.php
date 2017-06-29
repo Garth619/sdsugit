@@ -26,8 +26,8 @@ class URE_Pro_Ajax_Processor extends URE_Ajax_Processor {
     
     
     protected function get_widgets_list() {
-        $widgets = new URE_Widgets_Admin($this->lib);
-        $answer = $widgets->get_html();
+        $view = new URE_Widgets_Admin_View();
+        $answer = $view->get_html();
         
         return $answer;
     }

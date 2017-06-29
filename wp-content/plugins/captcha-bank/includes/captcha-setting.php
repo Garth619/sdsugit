@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file contains code for captcha settings  .
  *
@@ -8,40 +7,40 @@
  * @version 3.0.0
  */
 if (!defined("ABSPATH")) {
-    exit;
+   exit;
 } //exit if accessed directly
 global $wpdb, $captcha_array, $meta_data_array, $display_setting, $error_data_array;
 $display_settings_data = $wpdb->get_var
+    (
+    $wpdb->prepare
         (
-        $wpdb->prepare
-                (
-                "SELECT meta_value FROM " . captcha_bank_meta() . "
+        "SELECT meta_value FROM " . captcha_bank_meta() . "
 		WHERE meta_key = %s", "display_settings"
-        )
+    )
 );
 
-$meta_data_array = unserialize($display_settings_data);
+$meta_data_array = maybe_unserialize($display_settings_data);
 
 $display_setting = explode(",", isset($meta_data_array["settings"]) ? esc_attr($meta_data_array["settings"]) : "");
 $error_data = $wpdb->get_var
+    (
+    $wpdb->prepare
         (
-        $wpdb->prepare
-                (
-                "SELECT meta_value FROM " . captcha_bank_meta() . "
+        "SELECT meta_value FROM " . captcha_bank_meta() . "
 		WHERE meta_key = %s", "error_message"
-        )
+    )
 );
-$error_data_array = unserialize($error_data);
+$error_data_array = maybe_unserialize($error_data);
 
 $captcha_type_data = $wpdb->get_var
+    (
+    $wpdb->prepare
         (
-        $wpdb->prepare
-                (
-                "SELECT meta_value FROM " . captcha_bank_meta() . "
+        "SELECT meta_value FROM " . captcha_bank_meta() . "
 		WHERE meta_key = %s", "captcha_type"
-        )
+    )
 );
-$captcha_array = unserialize($captcha_type_data);
+$captcha_array = maybe_unserialize($captcha_type_data);
 
 $captcha_character = esc_attr($captcha_array["captcha_characters"]);
 $captcha_type = esc_attr($captcha_array["captcha_type"]);

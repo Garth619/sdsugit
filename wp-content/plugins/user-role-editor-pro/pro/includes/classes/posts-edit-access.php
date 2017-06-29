@@ -10,7 +10,8 @@
 class URE_Posts_Edit_Access {
     
     private $lib = null;
-    private $user = null;   // URE_Posts_Edit_Access_User class instance        
+    private $user = null;   // URE_Posts_Edit_Access_User class instance     
+    private $screen = null;
 
     
     public function __construct() {
@@ -18,7 +19,7 @@ class URE_Posts_Edit_Access {
         $this->lib = Ure_Lib_Pro::get_instance();        
         new URE_Posts_Edit_Access_Role();
         new URE_Posts_Edit_Access_Bulk_Action();
-        $this->user = new URE_Posts_Edit_Access_User($this);                
+        $this->user = new URE_Posts_Edit_Access_User($this);                        
         
         add_action('admin_init', array($this, 'set_final_hooks'));
         add_filter('map_meta_cap', array($this, 'block_edit_post'), 10, 4);
@@ -37,7 +38,7 @@ class URE_Posts_Edit_Access {
         if (!$this->user->is_restriction_applicable()) {
             return;
         }
-        
+                        
         // apply restrictions to the post query
         add_action('pre_get_posts', array($this, 'restrict_posts_list' ), 55);
 
@@ -45,8 +46,9 @@ class URE_Posts_Edit_Access {
         add_filter('get_pages', array($this, 'restrict_pages_list'));
 
         // Refresh counters at the Views by post statuses
-        add_filter('wp_count_posts', array($this, 'recount_wp_posts'), 10, 3);
-
+        add_filter('wp_count_posts', array($this, 'recount_wp_posts'), 10, 3);        
+        add_action('current_screen', array($this, 'add_views_filter'));                
+        
         // restrict categories available for selection at the post editor
         add_filter('list_terms_exclusions', array($this, 'exclude_terms'));        
         // Auto assign to a new create post the 1st from allowed terms
@@ -58,8 +60,8 @@ class URE_Posts_Edit_Access {
         
     }
     // end of set_final_hooks()
-    
-        
+            
+            
     public function recount_wp_posts($counts, $type, $perm) {
         global $wpdb;
 
@@ -123,6 +125,110 @@ class URE_Posts_Edit_Access {
         return $counts;
     }
     // end of recount_wp_posts()
+
+
+    public function add_views_filter() {
+        
+        $this->screen = get_current_screen();
+        if (!empty($this->screen)) {
+            add_filter("views_{$this->screen->id}", array($this, 'update_mine_view_counter'), 10, 1);
+        }
+        
+    }
+    // end of add_views_filter()
+    
+    
+    /**
+     * Helper to create links to edit.php with params.
+     *
+     * Taken from class-wp-posts-list-table.php, as it's declared as protected.
+     *
+     * @param array  $args  URL parameters for the link.
+     * @param string $label Link text.
+     * @param string $class Optional. Class attribute. Default empty string.
+     * @return string The formatted link string.
+     */
+    private function get_edit_link($args, $label, $class = '') {
+        
+        $url = add_query_arg($args, 'edit.php');
+        $class_html = '';
+        if (!empty($class)) {
+            $class_html = sprintf(' class="%s"', esc_attr($class));
+        }
+
+        return sprintf('<a href="%s"%s>%s</a>', esc_url($url), $class_html, $label);
+    }
+    // end of get_edit_link()
+    
+
+    /**
+     * Code was built on a case of WP_Posts_List_Table::get_views() (wp-admin/includes/class-wp-posts-list-table.php), WordPress v. 4.7.5
+     * 
+     * @global WP_User $current_user
+     * @global WPDB $wpdb
+     * @param array $views
+     * @return array
+     */
+    public function update_mine_view_counter($views) {
+        global $current_user, $wpdb;
+        
+        if (!isset($views['mine'])) {
+            return $views;
+        }
+        
+        $post_type = $this->screen->post_type;
+        $exclude_states   = get_post_stati( array(
+            'show_in_admin_all_list' => false,
+            ));
+        $query = "SELECT COUNT( 1 )
+                    FROM {$wpdb->posts}
+                    WHERE post_type='{$post_type}' AND 
+                        post_status NOT IN ('" . implode( "','", $exclude_states ) . "') AND 
+                        post_author={$current_user->ID}";
+        $restriction_type = $this->user->get_restriction_type();
+        $posts_list = $this->user->get_posts_list();
+        if (count($posts_list)>0) {
+            $posts_list_str = implode(',', $posts_list);
+            if ($restriction_type==1) {   // Allow
+                $query .= " AND ID IN ($posts_list_str)";
+            } elseif ($restriction_type==2) {    // Prohibit
+                $query .= " AND ID NOT IN ($posts_list_str)";
+            }
+        }
+                                                
+        $user_posts_count = intval($wpdb->get_var($query));
+        if ($user_posts_count==0) {
+            unset($views['mine']);
+            return $views;
+        }
+        
+     			$mine_args = array(
+        				'post_type' => $post_type,
+            'author' => $current_user->ID
+        );
+
+        $mine_inner_html = sprintf(
+            _nx(
+             'Mine <span class="count">(%s)</span>',
+             'Mine <span class="count">(%s)</span>',
+             $user_posts_count,
+             'posts'
+            ),
+            number_format_i18n($user_posts_count)
+       );
+       
+        if (isset($_GET['author']) && ($_GET['author']==$current_user_id)) {
+           $class = 'current';
+        } else {
+            $class = '';
+        }
+
+        $mine = $this->get_edit_link( $mine_args, $mine_inner_html, $class);
+        $views['mine'] = $mine;        
+    
+        return $views;
+    }
+    // end of update_mine_view_counter()
             
     
     public function block_edit_post($caps, $cap='', $user_id=0, $args=array()) {
@@ -204,6 +310,7 @@ class URE_Posts_Edit_Access {
         
         $restriction_type = $this->user->get_restriction_type();
         $posts_list = $this->user->get_posts_list();
+        
         if ($restriction_type==1) {   // Allow
             if (count($posts_list)==0) {
                 $query->set('p', -1);   // return empty list

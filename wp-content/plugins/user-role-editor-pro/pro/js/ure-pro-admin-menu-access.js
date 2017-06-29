@@ -72,10 +72,12 @@ function ure_admin_menu_access_dialog(data) {
             }
           }
       });    
+      
       $('.ui-dialog-buttonpane button:contains("Update")').attr("id", "dialog-update-button");
-      $('#dialog-update-button').html(ure_data_admin_menu_access.update_button);
+      $('#dialog-update-button').html(ure_ui_button_text(ure_data_admin_menu_access.update_button));
       $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-      $('#dialog-cancel-button').html(ure_data.cancel);      
+      $('#dialog-cancel-button').html(ure_ui_button_text(ure_data.cancel));
+      
       $('#ure_admin_menu_access_container').html(data.html);
       $('#ure_admin_menu_select_all').click(ure_admin_menu_auto_select);
     });                                

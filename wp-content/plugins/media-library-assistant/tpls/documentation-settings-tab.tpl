@@ -2433,7 +2433,7 @@ Dropdown and Checklist formats do not generate hyperlinks; they generate HTML in
 </tr>
 <tr>
 <td class="mla-doc-table-label">option_all_value</td>
-<td>Control value for 'all terms' option</td>
+<td>Control value for 'all terms' option. <strong>Default zero</strong>. Numeric values are used for the term_id; text values for the slug.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">option_none_text</td>
@@ -2441,7 +2441,7 @@ Dropdown and Checklist formats do not generate hyperlinks; they generate HTML in
 </tr>
 <tr>
 <td class="mla-doc-table-label">option_none_value</td>
-<td>Control value for 'no terms' option</td>
+<td>Control value for 'no terms' option. <strong>Default -1</strong>. Numeric values are used for the term_id; text values for the slug.</td>
 </tr>
 </table>
 <p>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file contains font families.
  *
@@ -8,7 +7,7 @@
  * @version 3.0.0
  */
 if (!defined("ABSPATH")) {
-    exit;
+   exit;
 } // Exit if accessed directly
 return array(
     "ABeeZee" => "ABeeZee",

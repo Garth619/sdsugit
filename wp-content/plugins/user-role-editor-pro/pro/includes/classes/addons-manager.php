@@ -70,8 +70,8 @@ class URE_Addons_Manager {
         if (class_exists('URE_Front_End_Menu_Access')) {
             $this->add('front_end_menu');
         }
-        if (class_exists('URE_Widgets_Admin')) {
-            $this->add('widgets_admin', URE_Widgets_Admin::ACCESS_DATA_KEY, esc_html__('Widgets admin access restrictions', 'user-role-editor'));
+        if (class_exists('URE_Widgets_Admin_Controller')) {
+            $this->add('widgets_admin', URE_Widgets_Admin_Controller::ACCESS_DATA_KEY, esc_html__('Widgets admin access restrictions', 'user-role-editor'));
         }
         if (class_exists('URE_Widgets_Show_Controller')) {
             $this->add('widgets_show', URE_Widgets_Show_Controller::ACCESS_DATA_KEY, esc_html__('Widgets show access restrictions', 'user-role-editor'));

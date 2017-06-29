@@ -73,10 +73,9 @@ function ure_widgets_access_dialog(data) {
           }
       });    
       $('.ui-dialog-buttonpane button:contains("Update")').attr("id", "dialog-update-button");
-      $('#dialog-update-button').html(ure_data_widgets_access.update_button);
-      $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-      $('#dialog-cancel-button').html(ure_data.cancel);
-      
+      $('#widgets-access-update-button').html(ure_ui_button_text(ure_data_widgets_access.update_button));
+      $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-access-cancel-button");
+      $('#widgets-access-cancel-button').html(ure_ui_button_text(ure_data.cancel));      
       $('#ure_widgets_access_container').html(data.html);
     });                                
     

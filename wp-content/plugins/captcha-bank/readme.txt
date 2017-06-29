@@ -1,13 +1,13 @@
-=== Captcha Bank - Best Captcha Plugin ===
-Contributors: wordpress-empire, contact-banker, Gallery-Bank
-Tags: antispam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, match captcha,registration, spam control, spam protection, text captcha, web form protection, captcha bank, captcha
+=== WordPress Captcha and Anti Spam Plugin by Captcha Bank ===
+Contributors: Gallery-Bank, contact-banker, wordpress-empire
+Tags: captcha, recaptcha, login, register, anti spam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, math captcha, text captcha
 Requires at least: 3.0
-Tested up to: 4.7.5
+Tested up to: 4.8
 Stable Tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Captcha Bank is an easy to use wordpress security plugin to prevent spam on your site while letting real people pass through with ease.
+Captcha Bank is a anti-spam captcha plugin for WordPress forms that adds secure image captcha or math captcha to prevent spam.
 
 == Description ==
 
@@ -47,6 +47,7 @@ It is an advance protection with the help of which you can increase intensity of
 There are lot of features also available in Premium Editions, you can check before downloading & purchasing. Click [here](http://beta.tech-banker.com/products/captcha-bank/) for Captcha Bank Premium Editions.
 
 > #### **Live Demos - Captcha Bank**
+
 > * [Captcha Bank](http://beta.tech-banker.com/products/captcha-bank/)
 > * [Captcha Bank Demos](http://beta.tech-banker.com/products/captcha-bank/demos/)
 > * [Installation Screen](http://beta.tech-banker.com/products/captcha-bank/demos/installation/)
@@ -385,6 +386,31 @@ If any problem occurs, please contact us at [support@tech-banker.com](mailto:sup
 28. Text Captcha on Admin Comment Form
 
 == Changelog ==
+
+= 4.0.11 =
+
+* FIX: Code Optimized
+* FIX: Major Bugs Fixed
+* TRANSLATIONS: Chinese Language Updated
+
+= 4.0.10 =
+
+* FIX: Code Optimized
+* FIX: Translation File Updated with Correct Strings
+* FIX: Obsolete Code Removed
+* TRANSLATIONS: Chinese Language Added
+* TRANSLATIONS: Spanish Language Added
+
+= 4.0.9 =
+
+* FIX: Code Optimized
+* FIX: Minor Bugs Fixed
+
+= 4.0.8 =
+
+* FIX: Code Optimized
+* FIX: Translation File Updated with Correct Strings
+* FIX: Error Reporting in file Removed
 
 = 4.0.7 =
 

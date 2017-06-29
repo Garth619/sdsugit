@@ -574,7 +574,7 @@ class URE_Posts_Edit_Access_User {
      * Get page children
      * @param int $page_id
      * @param array $all_pages ('id=>parent')
-     * @param array full list of page childrens ID
+     * @param array full list of page children ID
      */
     private function get_page_children($page_id, $all_pages, &$children) {
                 
@@ -619,13 +619,15 @@ class URE_Posts_Edit_Access_User {
                 continue;
             }
             
-            $this->get_page_children($post_id, $all_pages, $children);
-            if (empty($children)) {
-                continue;                
-            }
-            
-            $posts_list = array_merge($posts_list, $children);            
+            $page_children = array();
+            $this->get_page_children($post_id, $all_pages, $page_children);
+            if (count($page_children)>0) {
+                $children = array_merge($children, $page_children);
+            }                                    
         }   // foreach(...)
+        if (count($children)>0) {
+            $posts_list = array_merge($posts_list, $children);
+        }
         
         return $posts_list;
     }
@@ -688,10 +690,7 @@ class URE_Posts_Edit_Access_User {
             return $posts_list;
         }
         
-        $posts_list = URE_Utils::filter_int_array($posts_list);
-        for ($i=0; $i<count($posts_list); $i++) {
-            $posts_list[$i] = trim($posts_list[$i]);
-        }
+        $posts_list = URE_Utils::filter_int_array($posts_list);        
         $posts_list = $this->add_child_pages($posts_list);        
                 
         $restriction_type = $this->get_restriction_type();

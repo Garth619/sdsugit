@@ -44,7 +44,8 @@ require_once( URE_PLUGIN_DIR .'pro/includes/classes/front-end-menu-access.php');
 
 
 // Widgets Admin access
-require_once( URE_PLUGIN_DIR .'pro/includes/classes/widgets-admin.php');
+require_once( URE_PLUGIN_DIR .'pro/includes/classes/widgets-admin-controller.php');
+require_once( URE_PLUGIN_DIR .'pro/includes/classes/widgets-admin-view.php');
 require_once( URE_PLUGIN_DIR .'pro/includes/classes/widgets-admin-access.php');
 
 // Widgets Show access

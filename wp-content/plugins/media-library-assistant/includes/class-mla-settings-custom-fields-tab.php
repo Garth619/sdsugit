@@ -2362,7 +2362,7 @@ error_log( __LINE__ . " MLA_Custom_Field_Query::mla_put_custom_field_rules( {$se
 	 *
 	 * @since 2.50
  	 *
-	 * @param integer|array $ID | array( $IDs )  MLA Custom Field Rule ID(s)
+	 * @param integer|array $rule_ids | array( $IDs )  MLA Custom Field Rule ID(s)
  	 *
 	 * @return array MLA custom_field_mapping values (can be empty)
 	 * @return boolean false; MLA custom_field_rules do not exist

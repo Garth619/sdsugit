@@ -2,8 +2,8 @@
 Contributors: Vladimir Garagulya (https://www.role-editor.com)
 Tags: user, role, editor, security, access, permission, capability
 Requires at least: 4.0
-Tested up to: 4.7.5
-Stable tag: 4.34.3
+Tested up to: 4.8
+Stable tag: 4.35.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,30 @@ Right decision in this case is to delete free version folder (user-role-editor) 
 
 
 == Changelog ==
+
+= [4.35.1] 11.06.2017 =
+* Core version: 4.35
+* Fix: Posts/pages edit access add-on: 
+*   - Child pages ID list selection algorithm was fixed and optimized.
+*   - 'Mine' view posts count shows valid quantity of current user posts.
+* Fix: All add-ons: class 'ui-button-text' was added to all ui-dialog (update, cancel) buttons.
+* Core was updated to version 4.35
+* Update: Bulk capabilities selection checkbox is not shown for 'administrator' role for single site WP, and is shown if current user is superadmin for multisite WP. It was done to exclude sudden revoke of all capabilities from the 'administrator' role.
+* Update: Full copy of JQuery UI 1.11.4 custom theme CSS file (jquery-ui.css) was included.
+* Fix: User->User Role Editor page apparently loads own jQuery UI CSS (instead of use of WordPress default one) in order to exclude the conflicts with themes and plugins which can load own jQuery UI CSS globally not for own pages only.
+* Fix: "Change Log" link was replaced with secure https://www.role-editor.com/changelog
+
+
+= [4.35] 04.06.2017 =
+* Core version: 4.34
+* New: Widgets admin access add-on: It's possible to block access to sidebars.
+* Fix: Admin menu access add-on: "block not selected" model redirected user to the 1st available URL from allowed URLs with different letter case parameters, like admin.php?page=PopupBuilder
+* Update: Core version was updated to 4.34:
+* New: Multisite 'upgrade_network' capability support was added for compatibility with WordPress 4.8.
+* New: Multisite 'delete_sites' capability support was added.
+* Fix: jQuery UI CSS was updated to fix minor view inconsistency at the URE's Settings page.
+* Fix: "Reset" presentation code remainders were removed from the main User Role Editor page.
+* Fix: 'manage_links' capability was included into a wrong subgroup instead of "Core->General". It was a mistake in the capabilities group counters for that reason.
 
 = [4.34.3] 23.05.2017 =
 * Core version: 4.33.1

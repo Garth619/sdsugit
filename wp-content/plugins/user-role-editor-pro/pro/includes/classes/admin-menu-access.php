@@ -37,7 +37,7 @@ class URE_Admin_Menu_Access {
         add_action('admin_menu', array($this, 'menu_glitches_cleanup'), 999);
         add_action('admin_menu', 'URE_Admin_Menu_Copy::update', 1000);  // Jetpack uses 998. We should execute code later
         add_action('admin_head', array($this, 'protect'), 101);
-        add_action( 'customize_controls_init', array($this, 'redirect_blocked_urls'), 10);  // Especially for the customize.php URL        
+        add_action('customize_controls_init', array($this, 'redirect_blocked_urls'), 10);  // Especially for the customize.php URL        
         add_action('admin_bar_menu', array($this, 'replace_wp_admin_bar_my_sites_menu'), 19);
         add_action('wp_before_admin_bar_render', array($this, 'modify_admin_menu_bar'), 101);
         add_filter('media_view_strings', array($this, 'block_media_upload'), 99);
@@ -823,28 +823,29 @@ class URE_Admin_Menu_Access {
             return;
         }
         
-        $url = strtolower($_SERVER['REQUEST_URI']);
-        $command = $this->extract_command_from_url($url);
+        $command = $this->extract_command_from_url($_SERVER['REQUEST_URI']);
         $item_id1 = URE_Admin_Menu::calc_menu_item_id('menu', $command);
         $item_id2 = URE_Admin_Menu::calc_menu_item_id('submenu', $command);        
+        $command1 = strtolower($command);
         if ($blocked['access_model']==1) {  // block selected
             if (!(in_array($item_id1, $blocked['data']) || in_array($item_id2, $blocked['data']) ||
-                  $this->is_blocked_selected_menu_item($command))) {
-            $this->remove_welcome_panel($command, $blocked['data'], 1);
+                  $this->is_blocked_selected_menu_item($command1))) {
+            $this->remove_welcome_panel($command1, $blocked['data'], 1);
             return;
             }
         } elseif ($blocked['access_model']==2) {    // block not selected
             if (in_array($item_id1, $blocked['data']) || 
                 in_array($item_id2, $blocked['data']))  { 
-                $this->remove_welcome_panel($command, $blocked['data'], 2);
+                $this->remove_welcome_panel($command1, $blocked['data'], 2);
                 return;
             }          
-            if ($this->exclusion_for_not_selected($command, $blocked['data'])) {
+            if ($this->exclusion_for_not_selected($command1, $blocked['data'])) {
                 return;                
             }                                    
         }
-                
-        $url = $this->get_first_available_menu_item($command!=='index.php');
+          
+        $command1 = strtolower($command);
+        $url = $this->get_first_available_menu_item($command1!=='index.php');
         if (headers_sent()) {
 ?>
 <script>
