@@ -45,7 +45,7 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 			                                
 			                             
 			$args['fields'][] = array('type' => 'taxonomy',
-				                                'label' => 'Search by Category:',
+				                                // 'label' => 'Search by Category:',
 				                                'taxonomy' => 'pcwta-curriculum-categories',
 				                                'format' => 'radio',
 				                                'operator' => 'AND');

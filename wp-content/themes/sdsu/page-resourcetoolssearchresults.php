@@ -54,7 +54,7 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 			
 
 			$args['fields'][] = array('type' => 'taxonomy',
-				                                'label' => 'Search by Category:',
+				                                //'label' => 'Search by Category:',
 				                                'taxonomy' => 'academy-resources-categories',
 				                                'format' => 'radio',
 				                                'operator' => 'AND');

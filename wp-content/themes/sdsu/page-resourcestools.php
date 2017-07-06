@@ -60,7 +60,7 @@ $args['fields'][] = array('type' => 'submit',
 
 						
 			$args['fields'][] = array('type' => 'taxonomy',
-				                                'label' => 'Search by Category:',
+				                                // 'label' => 'Search by Category:',
 				                                'taxonomy' => 'academy-resources-categories',
 				                                'format' => 'radio',
 				                                'operator' => 'AND');
