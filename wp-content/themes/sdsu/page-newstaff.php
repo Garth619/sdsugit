@@ -20,7 +20,7 @@ get_header('intranet'); ?>
 			
 			<div class="photo_box_wrapper">
 				
-				<h1 class="intranet_header">Welcome <?php global $current_user; get_currentuserinfo(); echo $current_user->user_firstname;?>!</h1>
+				<h1 class="intranet_header">Welcome <?php global $current_user; get_current_user(); echo $current_user->user_firstname;?>!</h1>
 			
 			
 				<div class="photo_box">

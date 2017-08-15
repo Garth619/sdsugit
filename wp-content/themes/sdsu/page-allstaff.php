@@ -18,7 +18,7 @@ get_header('intranet'); ?>
 			<div class="intranet_wrapper_inner">
 				<div class="intranet_inner_section">
 					<div class="intranet_single_section left_section">
-						<h1 class="intranet_header">Welcome <?php global $current_user; get_currentuserinfo(); echo $current_user->user_firstname;?>!</h1>
+						<h1 class="intranet_header">Welcome <?php global $current_user; get_current_user(); echo $current_user->user_firstname;?>!</h1>
 						<a href="<?php bloginfo( 'url' ); ?>/20th-anniversary"><img class="academy_logo svg" alt="Academy For Professional Excellence" style="max-width:264px" src="<?php bloginfo( 'template_directory' ); ?>/images/newlogo.jpg"/></a>
 						
 						
