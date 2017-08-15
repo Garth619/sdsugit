@@ -110,7 +110,7 @@
 					
 					<div class="top_right">
 				<?php if ( is_user_logged_in() ): ?> 
-				<a class="welcome_settings" href="<?php bloginfo( 'url' ); ?>/wp-admin/profile.php"><?php mt_profile_img() ?>Welcome <?php global $current_user; get_currentuserinfo(); echo $current_user->user_firstname;?> <img alt="Gold Tri" class="settings" src="<?php bloginfo( 'template_directory' ); ?>/images/settings.png"/></a><a class="logout" href="<?php echo wp_logout_url( home_url() ); ?>">| Log Out</a> 
+				<a class="welcome_settings" href="<?php bloginfo( 'url' ); ?>/wp-admin/profile.php"><?php // mt_profile_img() ?>Welcome <?php global $current_user; get_current_user(); echo $current_user->user_firstname;?> <img alt="Gold Tri" class="settings" src="<?php bloginfo( 'template_directory' ); ?>/images/settings.png"/></a><a class="logout" href="<?php echo wp_logout_url( home_url() ); ?>">| Log Out</a> 
 					<?php endif; ?>
 						<div class="search" role="search">
 							<img alt="Search Our Database Below" class="search_click" src="<?php bloginfo( 'template_directory' ); ?>/images/search.png"/>
