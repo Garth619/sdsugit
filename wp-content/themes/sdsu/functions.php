@@ -288,6 +288,28 @@ add_filter('bbp_show_lead_topic', 'custom_bbp_show_lead_topic' );
 // Custom Post Types
 
 
+add_action('init', 'sdigec_recipients');    
+        
+    function sdigec_recipients() {    
+        $args = array(    
+            'label' => __('SDIGEC Recipients'),    
+            'singular_label' => __('SDIGEC Recipient'),    
+            'public' => true,    
+            'show_ui' => true,
+            'has_archive' => true,     
+            'capability_type' => 'post',
+            'map_meta_cap' => true,    
+            'hierarchical' => false,    
+            'rewrite' => true,    
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
+           );    
+        
+        register_post_type( 'sdigec_recipients' , $args );    
+    }
+
+
+
+
 
 // Photo Wall in Staff Intranet
 
@@ -429,7 +451,7 @@ add_action('init', 'staffdirectory');
  
  
  
-     add_action('init', 'bhetabios');    
+    add_action('init', 'bhetabios');    
         
     function bhetabios() {    
         $args = array(    
@@ -447,6 +469,10 @@ add_action('init', 'staffdirectory');
         
         register_post_type( 'bhetabios' , $args );    
     }
+    
+    
+    
+    
     
 
  
