@@ -15,14 +15,12 @@ get_header(); ?>
 			<?php if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 } ?>
-			<div class="sidebar_wrapper">
-				<?php get_sidebar(); ?>
-			</div><!-- sidebar wrapper -->
-			<div class="content_wrapper">
+			
+			<div class="content_wrapper" style="float:none;width:100%;">
 				<div id="content">
 					<div style="text-align:center">
 						<a href="<?php bloginfo('url');?>/programs/sdigec">Back to SDIGEC Home</a>
-							<h2>Recipients Biography</h2>
+							<h2>Stipend Recipient's Biography</h2>
 						</div>
 						<?php include('my-sdigec-recipients-singles-loop.php');?>
 
