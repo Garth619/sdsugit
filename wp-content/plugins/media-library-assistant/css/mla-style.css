@@ -415,15 +415,18 @@ ul.mla_settings li {
 	margin-left: 2em;
 }
 
+#mla-add-iptc-exif-table,
 #mla-add-custom-field-table {
 	margin-bottom: 15px;
 }
 
+#mla-add-iptc-exif-table th,
 #mla-add-custom-field-table th {
 	padding: 5px 5px 5px 0px;
 	width: 10px;
 }
 
+#mla-add-iptc-exif-table td,
 #mla-add-custom-field-table td {
 	padding: 5px 0px 5px 0px;
 }
@@ -432,7 +435,9 @@ ul.mla_settings li {
 	text-decoration:none;
 }
 
-#mla-new-custom-field-table input[type="text"],
+#mla-add-iptc-exif-table input[type="text"],
+#mla-add-iptc-exif-table select,
+#mla-add-custom-field-table input[type="text"],
 #mla-add-custom-field-table select {
 	width: 100%;
 }

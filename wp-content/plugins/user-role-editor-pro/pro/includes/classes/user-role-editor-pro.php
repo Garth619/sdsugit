@@ -28,8 +28,8 @@ class User_Role_Editor_Pro extends User_Role_Editor {
         
         add_action('ure_on_activation', array($this, 'execute_once'));
         parent::__construct();                                        
+
         add_action('plugins_loaded', array($this, 'load_addons'));                        
-        new URE_Shortcodes();
         $this->allow_unfiltered_html(); 
         
         $this->init_updater();
@@ -88,14 +88,14 @@ class User_Role_Editor_Pro extends User_Role_Editor {
             add_action('ure_dialogs_html', 'URE_Pro_View::network_update_dialog_html');
             add_action('ure_load_js_settings', array($this, 'add_js_settings_ms'));
         }
-                
+/*                
         if (!$multisite) {
             $count_users_without_role = $this->lib->get_option('count_users_without_role', 0);
             if ($count_users_without_role) {
                 add_action(URE_Assign_Role_Pro::CRON_ACTION_HOOK, array($this, 'assign_role_to_users_without_role'));
             }
         }
-        
+*/        
         $this->screen_help = new URE_Screen_Help_Pro();
     }
     // end of plugin_init()
@@ -553,15 +553,15 @@ class User_Role_Editor_Pro extends User_Role_Editor {
     }
     // end of get_post_view_access_users($)
     
-    
+/*    
     // job to execute by WP Cron scheduler
     public function assign_role_to_users_without_role() {
         
-        $assign_role = new URE_Assign_Role($this->lib);
+        $assign_role = $this->lib->get_assign_role();
         $assign_role->make();
     }
     // end of assign_role_to_users_without_role()
-
+*/
     
     public function show_notices_to_admin_only() {
         

@@ -21,8 +21,6 @@ require_once(URE_PLUGIN_DIR .'pro/includes/classes/access-ui-controller.php');
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/create-posts-cap.php');
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/post-types-own-caps.php');
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/export-import.php');
-require_once(URE_PLUGIN_DIR .'pro/includes/classes/shortcodes.php');
-
 
 // Additional modules:
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/addons-manager.php');
@@ -95,6 +93,11 @@ require_once( URE_PLUGIN_DIR .'pro/includes/classes/posts-view-access.php');
 require_once( URE_PLUGIN_DIR .'pro/includes/classes/content-view-restrictions-posts-list.php');
 require_once( URE_PLUGIN_DIR .'pro/includes/classes/content-view-restrictions.php');
 
+// Content view restrictions shortcode
+require_once(URE_PLUGIN_DIR .'pro/includes/classes/content-view-shortcode-users.php');
+require_once(URE_PLUGIN_DIR .'pro/includes/classes/content-view-shortcode-roles.php');
+require_once(URE_PLUGIN_DIR .'pro/includes/classes/content-view-shortcode.php');
 
+// User Role Editor Pro
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/user-role-editor-pro-view.php');
 require_once(URE_PLUGIN_DIR .'pro/includes/classes/user-role-editor-pro.php');

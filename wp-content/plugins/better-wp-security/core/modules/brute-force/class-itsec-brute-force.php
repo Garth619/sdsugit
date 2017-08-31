@@ -35,6 +35,8 @@ class ITSEC_Brute_Force {
 	 */
 	public function authenticate( $user, $username = '', $password = '' ) {
 
+		/** @var ITSEC_Lockout $itsec_lockout */
+		/** @var ITSEC_Logger $itsec_logger */
 		global $itsec_lockout, $itsec_logger;
 
 		//Look for the "admin" user name and ban it if it is set to auto-ban
@@ -151,6 +153,7 @@ class ITSEC_Brute_Force {
 	 */
 	public function wp_login( $username, $user = null ) {
 
+		/** @var ITSEC_Lockout $itsec_lockout */
 		global $itsec_lockout;
 
 		if ( ! $user === null ) {
@@ -177,6 +180,8 @@ class ITSEC_Brute_Force {
 	 * @return void
 	 */
 	public function handle_failed_login( $username, $details ) {
+
+		/** @var ITSEC_Lockout $itsec_lockout */
 		global $itsec_lockout, $itsec_logger;
 
 		$user_id = username_exists( $username );

@@ -11,7 +11,7 @@ class URE_Posts_Edit_Access_User {
     
     const CONTENT_EDIT_ACCESS = 'ure_content_edit_access';
     const TRANSIENT_EXPIRE = 15;
-    private $lib = null;    // Ure_Lib_Pro class instance
+    private $lib = null;    // URE_Lib_Pro class instance
     private $pea = null;    // URE_Posts_Edit_Access class instance
     private $user_meta = null;    // user meta keys
     private $attachments_list = null;       

@@ -32,11 +32,11 @@ class URE_GF_Access {
             (SELECT count(0) FROM {$this->form_table_name} WHERE is_active=0 AND is_trash = 0 ) as inactive,
             (SELECT count(0) FROM {$this->form_table_name} WHERE is_trash=1) as trash
             ";
-        add_action( 'edit_user_profile', array(&$this, 'edit_user_allowed_forms_list'), 10, 2 );     
-        add_action( 'profile_update', array(&$this, 'save_user_allowed_forms_list'), 10 );
-        add_action( 'admin_head', array(&$this, 'prohibited_links_redirect') );
+        add_action( 'edit_user_profile', array($this, 'edit_user_allowed_forms_list'), 10, 2 );     
+        add_action( 'profile_update', array($this, 'save_user_allowed_forms_list'), 10 );
+        add_action( 'admin_head', array($this, 'prohibited_links_redirect') );
         //add_action( 'admin_enqueue_scripts', array( &$this, 'load_js' ) );
-        add_action('admin_init', array(&$this, 'set_final_hooks'));
+        add_action('admin_init', array($this, 'set_final_hooks'));
         
     }
     // end of __construct()
@@ -162,30 +162,114 @@ class URE_GF_Access {
     // end of get_allowed_forms()
     
     
-    protected function check_import_link() {
+    protected function is_allowed_import_link() {
         global $current_user;
-        
-        $link = 'admin.php?page=gf_export&view=import_form';
-        if (stripos($_SERVER['REQUEST_URI'], $link)===false || 
-            $this->lib->user_has_capability($current_user, 'administrator')) {
-            return false;
-        }
-                
+                        
         $allowed_forms_list = $this->get_allowed_forms();
         if ($this->lib->user_has_capability($current_user, 'gravityforms_import') && count($allowed_forms_list)==0) {
-            return false;
+            return true;
         }
 ?>
         <script>
             document.location.href = '<?php echo admin_url('admin.php?page=gf_export'); ?>';
         </script>
 <?php                    
-                die;
-        
+        die;        
     }
     // end of check_import_link()
     
+    
+    private function is_controled_url($args) {
+        if ($args['page']=='gf_export') {
+            if ( !(isset($args['view']) && $args['view']=='import_form') ) {
+                return false;                
+            }
+            if ($this->is_allowed_import_link()) {
+                return false;
+            }
+        } elseif ($args['page']=='gf_edit_forms') {
+            // we control URLs similar too:
+            //  admin.php?page=gf_edit_forms&id=
+            //  admin.php?page=gf_edit_forms&view=settings
+            if ( !(isset($args['id']) || (isset($args['view']) && $args['view']=='settings')) ) {
+                return false;
+            }
+        } elseif ($args['page']=='gf_entries') {
+            // we control URLs similar too:
+            // admin.php?page=gf_entries&id=
+            // admin.php?page=gf_entries&view=entry&id=
+            if ( !(isset($args['id']) || (isset($args['view']) && $args['view']=='entry')) ) {
+                return false;
+            }
+        }
         
+        return true;
+    }
+    // end of is_controled_url()
+    
+        
+    private function get_form_id($args) {
+        
+        $id = 0;        
+        if ( isset($args['id']) ) {
+            $id = (int) $args['id'];
+        } elseif (isset($_POST['action_argument'])) {   // delete, duplicate
+            $id = (int) $_POST['action_argument'];            
+        } elseif (isset($_POST['form'])) {  // bulk actions
+            $allowed_forms_list = $this->get_allowed_forms();            
+            foreach($_POST['form'] as $form_id) {
+                if (!in_array($form_id, $allowed_forms_list)) {
+                    $id = $form_id;
+                    break;
+                }
+            }
+        }        
+        
+        return $id;
+    }
+    // end of get_form_id()
+    
+    
+    private function is_allowed_entry($args) {
+        global $wpdb;
+        
+        if (!isset($args['lid'])) { //  it's not an entry view request
+            return true;
+        }
+        
+        // check access to entries
+        $lid = filter_input(INPUT_GET, 'lid', FILTER_SANITIZE_NUMBER_INT);
+        if (empty($lid)) {
+            return false;
+        }
+        
+        $entries_table_name = GFFormsModel::get_lead_table_name();
+        $query = "SELECT form_id FROM {$entries_table_name} WHERE id={$lid} LIMIT 0, 1";
+        $form_id = $wpdb->get_var($query);
+        $allowed_forms_list = $this->get_allowed_forms();
+        if (!in_array($form_id, $allowed_forms_list)) {
+            return false;
+        }
+        
+        return true;
+    }
+    // end of is_allowed_entry()
+    
+
+    private function redirect_to_forms() {
+    
+        // its late to user wp_redirect() ad WP sent some headers already, so use this method for redirection
+?>
+        <script>
+            document.location.href = '<?php echo admin_url('admin.php?page=gf_edit_forms'); ?>';
+        </script>
+<?php                    
+        die;
+        
+    }
+    // end of redirect_to_forms()
+
+    
     public function prohibited_links_redirect() {
         
         global $current_user;
@@ -194,58 +278,33 @@ class URE_GF_Access {
         if ( empty($min_cap) ) {
             return;   
         }
-    
-        $this->check_import_link();
         
-        $result = false;
-        $links_to_block = array(
-            'admin.php?page=gf_edit_forms&id=', 
-            'admin.php?page=gf_edit_forms&view=settings', 
-            'admin.php?page=gf_entries&id=',
-            'admin.php?page=gf_entries&view=entries&id='
-            );
-        foreach ( $links_to_block as $link ) {
-            $result = stripos($_SERVER['REQUEST_URI'], $link);
-            if ($result !== false) {
-                break;
-            }
-        }
-        if ($result === false) {    // other URL, no need to block
+        $url_parts = wp_parse_url($_SERVER['REQUEST_URI']);
+        if (strpos($url_parts['path'], 'admin.php')===false) {  // URL is not under our control
             return;
-        }    
+        }
+        
+        $args = wp_parse_args($url_parts['query'], array());
+        if (!$this->is_controled_url($args)) {
+            return;
+        }
 
-        $id = 0;
-        // extract form id
-        $args = wp_parse_args($_SERVER['REQUEST_URI'], array() );    
-        if ( isset($args['id']) ) {
-            $id = (int) $args['id'];
-        } elseif (isset($_POST['action_argument'])) {   // delete, duplicate
-            $id = (int) $_POST['action_argument'];            
-        } elseif (isset($_POST['form'])) {  // bulk actions
-            $allowed_forms_list = $this->get_allowed_forms();                
-            foreach($_POST['form'] as $form_id) {
-                if (!in_array($form_id, $allowed_forms_list)) {
-                    $id = $form_id;
-                    break;
-                }
-            }
+        $allowed_forms_list = $this->get_allowed_forms();
+        if (count($allowed_forms_list)==0) {   // no limits
+            return;
         }
-        if (!isset($allowed_forms_list)) {
-           $allowed_forms_list = $this->get_allowed_forms();                
+        
+        $id = $this->get_form_id($args);                
+        if ($id==0) {
+            return;
+        }                  
+        
+        if ( !in_array($id, $allowed_forms_list) ) {    // access to this form is prohibited - redirect user back to the forms list
+            $this->redirect_to_forms();
         }
-        if ($id>0) {
-            if (count($allowed_forms_list)==0) {   // no limits
-                return;
-            }                
-            if ( !in_array($id, $allowed_forms_list) ) {    // access to this form is prohibited - redirect user back to the forms list
-                // its late to user wp_redirect() ad WP sent some headers already, so use this method for redirection
-?>
-        <script>
-            document.location.href = '<?php echo admin_url('admin.php?page=gf_edit_forms'); ?>';
-        </script>
-<?php                    
-                die;
-            }
+        
+        if (!$this->is_allowed_entry($args)) {  // requiested entry belongs to not allowed form - redirect user back to the forms list
+            $this->redirect_to_forms();
         }
                                     
     }

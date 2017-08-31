@@ -31,14 +31,13 @@ class URE_Admin_Menu_View {
     
     public static function add_js() {
         
-        wp_register_script('ure-admin-menu-access', plugins_url( '/pro/js/ure-pro-admin-menu-access.js', URE_PLUGIN_FULL_PATH));
+        wp_register_script('ure-admin-menu-access', plugins_url( '/pro/js/admin-menu-access.js', URE_PLUGIN_FULL_PATH));
         wp_enqueue_script ('ure-admin-menu-access');
         wp_localize_script('ure-admin-menu-access', 'ure_data_admin_menu_access', 
                 array(
                     'admin_menu' => esc_html__('Admin Menu', 'user-role-editor'),
                     'dialog_title' => esc_html__('Admin menu', 'user-role-editor'),
-                    'update_button' => esc_html__('Update', 'user-role-editor'),
-                    'network_admin' => is_network_admin() ? 1 : 0
+                    'update_button' => esc_html__('Update', 'user-role-editor')
                 ));
         
     }

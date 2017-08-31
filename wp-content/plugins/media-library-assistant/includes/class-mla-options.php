@@ -1561,6 +1561,10 @@ class MLAOptions {
 					continue;
 				}
 
+				if ( isset( $setting_value['active'] ) && false == $setting_value['active'] ) {
+					continue;
+				}
+
 				if ( 'none' == $setting_value['iptc_value'] ) {
 					$iptc_value = '';
 				} else {
@@ -1674,6 +1678,10 @@ class MLAOptions {
 
 				$setting_value = apply_filters( 'mla_mapping_rule', $setting_value, $post->ID, 'iptc_exif_taxonomy_mapping', $attachment_metadata );
 				if ( NULL === $setting_value ) {
+					continue;
+				}
+
+				if ( isset( $setting_value['active'] ) && false == $setting_value['active'] ) {
 					continue;
 				}
 
@@ -1850,6 +1858,10 @@ class MLAOptions {
 					continue;
 				}
 
+				if ( isset( $setting_value['active'] ) && false == $setting_value['active'] ) {
+					continue;
+				}
+
 				if ( 'none' == $setting_value['iptc_value'] ) {
 					$iptc_value = '';
 				} else {
@@ -1958,7 +1970,7 @@ class MLAOptions {
 	 *
 	 * @return	string	HTML markup with select field options
 	 */
-	private static function _compose_iptc_option_list( $selection = 'none' ) {
+	public static function mla_compose_iptc_option_list( $selection = 'none' ) {
 		$option_template = MLAOptions::$mla_option_templates['iptc-exif-select-option'];
 		$option_values = array (
 			'selected' => ( 'none' == $selection ) ? 'selected="selected"' : '',
@@ -1978,7 +1990,7 @@ class MLAOptions {
 		} // foreach iptc_key
 
 		return $iptc_options;
-	} // _compose_iptc_option_list
+	} // mla_compose_iptc_option_list
 
 	/**
 	 * Compose an hierarchical taxonomy Parent options list with current selection
@@ -1991,7 +2003,7 @@ class MLAOptions {
 	 *
 	 * @return	string	HTML markup with select field options
 	 */
-	private static function _compose_parent_option_list( $taxonomy, $selection = 0 ) {
+	public static function mla_compose_parent_option_list( $taxonomy, $selection = 0 ) {
 		$dropdown_options = array(
 			'show_option_all' => '',
 			'show_option_none' => '&mdash; ' . __( 'None (select a value)', 'media-library-assistant' ) . ' &mdash;',
@@ -2025,7 +2037,7 @@ class MLAOptions {
 		$dropdown_options = str_replace( "value='-1' ", 'value="0"', $dropdown_options );
 
 		return $dropdown_options;
-	} // _compose_parent_option_list
+	} // mla_compose_parent_option_list
 
 	/**
 	 * Update Standard field portion of IPTC/EXIF mappings
@@ -2475,7 +2487,7 @@ class MLAOptions {
 								'key' => esc_attr( $row_name ),
 								'name_attr' => esc_attr( $row_value['name'] ),
 								'name' => esc_html( $row_value['name'] ),
-								'iptc_field_options' => MLAOptions::_compose_iptc_option_list( $row_value['iptc_value'] ),
+								'iptc_field_options' => MLAOptions::mla_compose_iptc_option_list( $row_value['iptc_value'] ),
 								'exif_size' => MLACoreOptions::MLA_EXIF_SIZE,
 								'exif_text' => esc_attr( $row_value['exif_value'] ),
 								'iptc_selected' => '',
@@ -2547,7 +2559,7 @@ class MLAOptions {
 
 							if ( array_key_exists( $row_name, $current_values['taxonomy'] ) ) {
 								$current_value = $current_values['taxonomy'][ $row_name ];
-								$row_values['iptc_field_options'] = MLAOptions::_compose_iptc_option_list( $current_value['iptc_value'] );
+								$row_values['iptc_field_options'] = MLAOptions::mla_compose_iptc_option_list( $current_value['iptc_value'] );
 								$row_values['exif_text'] = esc_attr( $current_value['exif_value'] );
 
 								if ( $current_value['iptc_first'] ) {
@@ -2570,12 +2582,12 @@ class MLAOptions {
 										'array' => 'taxonomy',
 										'key' => esc_attr( $row_name ),
 										'element' => 'parent',
-										'options' => MLAOptions::_compose_parent_option_list( $row_name, $parent )
+										'options' => MLAOptions::mla_compose_parent_option_list( $row_name, $parent )
 									);
 									$row_values['parent_select'] = MLAData::mla_parse_template( $select_template, $select_values );
 								}
 							} else {
-								$row_values['iptc_field_options'] = MLAOptions::_compose_iptc_option_list( 'none' );
+								$row_values['iptc_field_options'] = MLAOptions::mla_compose_iptc_option_list( 'none' );
 								$row_values['iptc_selected'] = 'selected="selected"';
 								$row_values['keep_selected'] = 'selected="selected"';
 
@@ -2584,7 +2596,7 @@ class MLAOptions {
 										'array' => 'taxonomy',
 										'key' => esc_attr( $row_name ),
 										'element' => 'parent',
-										'options' => MLAOptions::_compose_parent_option_list( $row_name, 0 )
+										'options' => MLAOptions::mla_compose_parent_option_list( $row_name, 0 )
 									);
 									$row_values['parent_select'] = MLAData::mla_parse_template( $select_template, $select_values );
 								}
@@ -2649,7 +2661,7 @@ class MLAOptions {
 									'key' => esc_attr( $row_name ),
 									'name_attr' => esc_attr( $current_value['name'] ),
 									'name' => esc_html( $current_value['name'] ),
-									'iptc_field_options' => MLAOptions::_compose_iptc_option_list( $current_value['iptc_value'] ),
+									'iptc_field_options' => MLAOptions::mla_compose_iptc_option_list( $current_value['iptc_value'] ),
 									'exif_size' => MLACoreOptions::MLA_EXIF_SIZE,
 									'exif_text' => esc_attr( $current_value['exif_value'] ),
 									'iptc_selected' => '',
@@ -2744,7 +2756,7 @@ class MLAOptions {
 							'Add new Rule' => __( 'Add a new Mapping Rule', 'media-library-assistant' ),
 							'index' => MLACoreOptions::MLA_NEW_CUSTOM_RULE,
 							'field_name_options' => MLAOptions::mla_compose_custom_field_option_list( 'none', $current_values['custom'] ),
-							'iptc_field_options' => MLAOptions::_compose_iptc_option_list( 'none' ),
+							'iptc_field_options' => MLAOptions::mla_compose_iptc_option_list( 'none' ),
 							'exif_size' => MLACoreOptions::MLA_EXIF_SIZE,
 							'exif_text' => '',
 							'iptc_selected' => 'selected="selected"',
@@ -2790,7 +2802,7 @@ class MLAOptions {
 							'Add new Field' => __( 'Add a new Field and Mapping Rule', 'media-library-assistant' ),
 							'index' => MLACoreOptions::MLA_NEW_CUSTOM_FIELD,
 							'field_name_size' => '24',
-							'iptc_field_options' => MLAOptions::_compose_iptc_option_list( 'none' ),
+							'iptc_field_options' => MLAOptions::mla_compose_iptc_option_list( 'none' ),
 							'exif_size' => MLACoreOptions::MLA_EXIF_SIZE,
 							'exif_text' => '',
 							'iptc_selected' => 'selected="selected"',

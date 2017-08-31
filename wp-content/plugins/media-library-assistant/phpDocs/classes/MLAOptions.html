@@ -117,7 +117,7 @@
         <li class="nav-header">
             <i class="icon-custom icon-method"></i> Methods
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method public">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method public">
         <a href="#method_initialize" title="initialize :: Initialization function, similar to __construct()">
             <span class="description">Initialization function, similar to __construct()</span><pre>initialize</pre>
         </a>
@@ -144,6 +144,18 @@
                                                                                                         <li class="method public">
         <a href="#method_mla_compose_data_source_option_list" title="mla_compose_data_source_option_list :: Compose a (Custom Field) Data Source Options list with current selection">
             <span class="description">Compose a (Custom Field) Data Source Options list with current selection</span><pre>mla_compose_data_source_option_list</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_mla_compose_iptc_option_list" title="mla_compose_iptc_option_list :: Compose an IPTC Options list with current selection">
+            <span class="description">Compose an IPTC Options list with current selection</span><pre>mla_compose_iptc_option_list</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_mla_compose_parent_option_list" title="mla_compose_parent_option_list :: Compose an hierarchical taxonomy Parent options list with current selection">
+            <span class="description">Compose an hierarchical taxonomy Parent options list with current selection</span><pre>mla_compose_parent_option_list</pre>
         </a>
     </li>
 
@@ -254,16 +266,6 @@ settings are being updated or reset.</span><pre>mla_taxonomy_support</pre>
         <li class="nav-header private">» Private
             <ul>
                                                                             <li class="method private">
-                            <a href="#method__compose_iptc_option_list" title="_compose_iptc_option_list :: Compose an IPTC Options list with current selection">
-                                <span class="description">Compose an IPTC Options list with current selection</span><pre>_compose_iptc_option_list</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method__compose_parent_option_list" title="_compose_parent_option_list :: Compose an hierarchical taxonomy Parent options list with current selection">
-                                <span class="description">Compose an hierarchical taxonomy Parent options list with current selection</span><pre>_compose_parent_option_list</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
                             <a href="#method__get_custom_field_names" title="_get_custom_field_names :: Generate a list of all (post) Custom Field names">
                                 <span class="description">Generate a list of all (post) Custom Field names</span><pre>_get_custom_field_names</pre>
                             </a>
@@ -303,7 +305,7 @@ settings are being updated or reset.</span><pre>mla_taxonomy_support</pre>
                                 <span class="description">Update Taxonomy term portion of IPTC/EXIF mappings</span><pre>_update_iptc_exif_taxonomy_mapping</pre>
                             </a>
                         </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -348,101 +350,7 @@ and provides functions to get and put them from/to WordPress option variables</p
                                                                                                                                                                                 </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method__compose_iptc_option_list"></a>
-                        <div class="element clickable method private  method__compose_iptc_option_list" data-toggle="collapse" data-target=".method__compose_iptc_option_list .collapse">
-                            <h2>Compose an IPTC Options list with current selection</h2>
-                            <pre>_compose_iptc_option_list( $selection = &#039;none&#039;) : string</pre>
-                            <div class="labels">
-                                                                <span class="label">static</span>                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.00
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>contains row and table templates</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$selection</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>string</code><p><p>HTML markup with select field options</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method__compose_parent_option_list"></a>
-                        <div class="element clickable method private  method__compose_parent_option_list" data-toggle="collapse" data-target=".method__compose_parent_option_list .collapse">
-                            <h2>Compose an hierarchical taxonomy Parent options list with current selection</h2>
-                            <pre>_compose_parent_option_list( $taxonomy,  $selection) : string</pre>
-                            <div class="labels">
-                                                                <span class="label">static</span>                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.00
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>contains row and table templates</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$taxonomy</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$selection</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>string</code><p><p>HTML markup with select field options</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method__get_custom_field_names"></a>
+                                                                <a id="method__get_custom_field_names"></a>
                         <div class="element clickable method private  method__get_custom_field_names" data-toggle="collapse" data-target=".method__get_custom_field_names .collapse">
                             <h2>Generate a list of all (post) Custom Field names</h2>
                             <pre>_get_custom_field_names() : array</pre>
@@ -975,6 +883,100 @@ haven't been mapped to any attachments, yet.</p></div>
                                                                                                                     </table>
 
                                                                             <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$selection</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>HTML markup with select field options</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mla_compose_iptc_option_list"></a>
+                        <div class="element clickable method public  method_mla_compose_iptc_option_list" data-toggle="collapse" data-target=".method_mla_compose_iptc_option_list .collapse">
+                            <h2>Compose an IPTC Options list with current selection</h2>
+                            <pre>mla_compose_iptc_option_list( $selection = &#039;none&#039;) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    since
+                                                </th>
+                                                <td>
+                                                                                                                                                                        1.00
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>contains row and table templates</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$selection</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>HTML markup with select field options</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mla_compose_parent_option_list"></a>
+                        <div class="element clickable method public  method_mla_compose_parent_option_list" data-toggle="collapse" data-target=".method_mla_compose_parent_option_list .collapse">
+                            <h2>Compose an hierarchical taxonomy Parent options list with current selection</h2>
+                            <pre>mla_compose_parent_option_list( $taxonomy,  $selection) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    since
+                                                </th>
+                                                <td>
+                                                                                                                                                                        1.00
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>contains row and table templates</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$taxonomy</h4>
+                                                <code></code><p></p>
+                                            </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$selection</h4>
                                                 <code></code><p></p>
@@ -1813,7 +1815,7 @@ added to the Media Library.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Fri, 16 Jun 2017 12:25:08 -0700.<br/>
+            generated on Tue, 11 Jul 2017 20:25:48 -0700.<br/>
     </footer>
     </body>
 </html>

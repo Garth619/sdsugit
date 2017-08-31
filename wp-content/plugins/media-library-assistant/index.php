@@ -16,7 +16,7 @@ Description: Enhances the Media Library; powerful [mla_gallery] [mla_tag_cloud] 
 Author: David Lingren, Fair Trade Judaica
 Text Domain: media-library-assistant
 Domain Path: /languages
-Version: 2.54
+Version: 2.60
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2011-2017 David Lingren

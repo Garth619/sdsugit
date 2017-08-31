@@ -11,23 +11,36 @@
  *  - The "single_query()" and "double_query()" functions provide simplified, higher-performance
  *    alternatives to the standard WordPress tax_query.
  *
- * A custom shortcode parameter, "my_custom_sql", activates the logic in this plugin. See the
- * "mla_gallery_query_arguments" function for documentation on the parameter.
+ * A custom shortcode parameter, "my_custom_sql", activates the logic in this plugin.
+ *
+ * The "my_custom_sql" parameter accepts these query arguments:
+ *  - one or more taxonomy=slug(,slug)... arguments, which will be joined by OR
+ *  - include_children=true
+ *  - author=ID(,ID...)
+ *  - order and/or orderby
+ *
+ * The shortcode can also contain the post_mime_type and/or keyword search parameters
+ * (outside "my_custom_sql") to further filter the results. The double_query() function is
+ * called when the request contains post_mime_type, keyword search or orderby/order parameters.
  *
  * Created for support topic "Slow queries"
  * opened on 7/4/2014 by "aptharsia".
- * https://wordpress.org/support/topic/slow-queries-1
+ * https://wordpress.org/support/topic/slow-queries-1/
  *
  * Enhanced for support topic "REALLY Slow Queries........  Help! :)"
  * opened on 8/16/2014 by "alexapaige".
- * https://wordpress.org/support/topic/really-slow-queries-help
+ * https://wordpress.org/support/topic/really-slow-queries-help/
  *
  * Enhanced for support topic "MLATaxQuery with keyword search and pagination"
  * opened on 10/15/2015 by "CabinetWorks".
- * https://wordpress.org/support/topic/mlataxquery-with-keyword-search-and-pagination
+ * https://wordpress.org/support/topic/mlataxquery-with-keyword-search-and-pagination/
+ *
+ * Enhanced for support topic "Gallery page with many images takes too long to load"
+ * opened on 6/27/2017 by "davidjhk".
+ * https://wordpress.org/support/topic/gallery-page-with-many-images-takes-too-long-to-load/
  *
  * @package MLA tax query Example
- * @version 1.04
+ * @version 1.05
  */
 
 /*
@@ -35,10 +48,10 @@ Plugin Name: MLA tax query Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Replaces the WP_Query tax_query with a more efficient, direct SQL query
 Author: David Lingren
-Version: 1.04
+Version: 1.05
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
-Copyright 2013 - 2016 David Lingren
+Copyright 2013 - 2017 David Lingren
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -282,15 +295,6 @@ class MLATaxQueryExample {
 		 * parameter is not present, we have nothing to do. If the parameter IS present,
 		 * single_query() or double_query() extracts  taxonomy values, then builds a custom
 		 * query that does a simple, high-performance search.
-		 *
-		 * The "my_custom_sql" parameter accepts these query arguments:
-		 * - one or more taxonomy=slug(,slug)... arguments, which will be joined by OR
-		 * - include_children=true
-		 * - order and/or orderby
-		 *
-		 * The shortcode can also contain the post_mime_type and/or keyword search parameters
-		 * to further filter the results. The double_query() function is called when the request
-		 * contains post_mime_type, keyword search or orderby/order parameters.
 		 */		
 		if ( isset( self::$shortcode_attributes['my_custom_sql'] ) ) {
 			if ( self::$shortcode_attributes['is_double'] ) {
@@ -465,12 +469,15 @@ class MLATaxQueryExample {
 		} // ! is_pagination
 
 		$query =  join(' ', $query);
+		if ( 0 < count( $query_parameters ) ) {
+			$query = $wpdb->prepare( $query, $query_parameters );
+		}
+		
 		if ( $is_pagination ) {
-			$count = $wpdb->get_var( $wpdb->prepare( $query, $query_parameters ) );
-			return $count;
+			return $wpdb->get_var( $query );
 		}
 
-		$ids = $wpdb->get_results( $wpdb->prepare( $query, $query_parameters ) );
+		$ids = $wpdb->get_results( $query );
 		if ( is_array( $ids ) ) {
 			$includes = array();
 			foreach ( $ids as $id ) {
@@ -495,6 +502,7 @@ class MLATaxQueryExample {
 	 *
 	 * - one or more taxonomy term lists, with include_children
 	 * - one or more post_mime_types
+	 * - one or more author IDs
 	 * - ORDER BY post table fields
 	 *
 	 * @since 1.01
@@ -600,6 +608,10 @@ class MLATaxQueryExample {
 			}
 		} else {
 			$query[] = "AND (p.post_mime_type LIKE 'image/%%')";
+		}
+
+		if ( ! empty( $my_query_vars['author'] ) ) {
+			$query[] = "AND (p.post_author IN (" . $my_query_vars['author'] . ") )";
 		}
 
 		if ( isset( self::$search_attributes['s'] ) ) {
@@ -748,11 +760,15 @@ class MLATaxQueryExample {
 		} // ! is_pagination
 
 		$query = join(' ', $query);
+		if ( 0 < count( $query_parameters ) ) {
+			$query = $wpdb->prepare( $query, $query_parameters );
+		}
+		
 		if ( $is_pagination ) {
-			return $wpdb->get_var( $wpdb->prepare( $query, $query_parameters ) );
+			return $wpdb->get_var( $query );
 		}
 
-		$ids = $wpdb->get_results( $wpdb->prepare( $query, $query_parameters ) );
+		$ids = $wpdb->get_results( $query );
 		if ( is_array( $ids ) ) {
 			$includes = array();
 			foreach ( $ids as $id ) {

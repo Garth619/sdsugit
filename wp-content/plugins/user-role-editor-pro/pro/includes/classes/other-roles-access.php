@@ -52,15 +52,14 @@ class URE_Other_Roles_Access {
 
 
     public function add_js() {
-        wp_register_script( 'ure-other-roles-access', plugins_url( '/pro/js/ure-pro-other-roles-access.js', URE_PLUGIN_FULL_PATH ) );
+        wp_register_script( 'ure-other-roles-access', plugins_url( '/pro/js/other-roles-access.js', URE_PLUGIN_FULL_PATH ) );
         wp_enqueue_script ( 'ure-other-roles-access' );
         wp_localize_script( 'ure-other-roles-access', 'ure_data_other_roles_access',
                 array(
                     'other_roles' => esc_html__('Other Roles', 'user-role-editor'),
                     'dialog_title' => esc_html__('Other Roles Access', 'user-role-editor'),
                     'update_button' => esc_html__('Update', 'user-role-editor'),
-                    'edit_users_required' => esc_html__('Turn ON "edit_users" capability to manage access of current role to other roles', 'user-role-editor'),
-                    'network_admin' => is_network_admin() ? 1 : 0
+                    'edit_users_required' => esc_html__('Turn ON "edit_users" capability to manage access of current role to other roles', 'user-role-editor')                    
                 ));
     }
     // end of add_js()    

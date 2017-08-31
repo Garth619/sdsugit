@@ -136,6 +136,33 @@ class URE_Admin_Menu_Copy {
     // end of force_update()
 
     /**
+     * Remove from submenu copy any submenu which is not linked to the main menu item
+     * 
+     * @param array $menu_copy
+     * @param array $submenu_copy
+     * @return array
+     */
+    private static function cleanup_submenu($menu_copy, $submenu_copy) {
+        
+        foreach(array_keys($submenu_copy) as $submenu_key) {
+            $found = false;
+            foreach($menu_copy as $menu_item) {
+                if ($menu_item[2]==$submenu_key) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {  //  Submenu was not linked to any available menu, remove it 
+                unset($submenu_copy[$submenu_key]);
+            }
+        }
+        
+        return $submenu_copy;
+    }
+    // end of cleanup_submenu()
+
+    
+    /**
      * Save current WordPress admin menu for future use via AJAX requests, when menu is not available
      * 
      */
@@ -152,7 +179,8 @@ class URE_Admin_Menu_Copy {
         
         $menu_hashes = array();        
         $menu_copy = $menu;
-        $submenu_copy = $submenu;
+        $submenu_copy = self::cleanup_submenu($menu_copy, $submenu);        
+        
         foreach($menu_copy as $key=>$menu_item) {
             self::$admin_is_parent = false;
             if (URE_Admin_Menu::is_separator($menu_item[4])) {   // do not include separators
@@ -172,7 +200,7 @@ class URE_Admin_Menu_Copy {
                 continue;
             }
             
-            // Go through submenu
+            // Go through submenu and build submenu item link
             foreach($submenu_copy[$menu_key] as $key1=>$items) {
                 if (isset($items[2])) {
                     $link = self::get_submenu_item_link($items[2], $menu_key);

@@ -3,7 +3,7 @@ Contributors: Vladimir Garagulya (https://www.role-editor.com)
 Tags: user, role, editor, security, access, permission, capability
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 4.35.1
+Stable tag: 4.36.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,28 @@ Right decision in this case is to delete free version folder (user-role-editor) 
 
 
 == Changelog ==
+= [4.36.1] 20.07.2017 =
+* Core version: 4.35.3
+* Core version was updated to 4.35.3:
+* Fix: Multiple roles assignment (including default roles) did not work at "Users->Add New" new-user.php (contexts: add-existing-user, add-new-user) page for WordPress multisite.
+
+= [4.36] 18.07.2017 =
+* Core version: 4.35.2
+* New: Content view restrictions shortcode: 'users', 'except_users' attributes were added to the existing 'user_role_editor' shortcode. It's possible to use digital user IDs or symbolic user logins, e.g. users="11, 25, billy" or except_users="18, peggy".
+* Fix: Admin menu access add-on: submenu which is not linked to the main menu are removed now from internal URE Pro data structures to exclude PHP notices, like Undefined offset: 3 in wp-content/plugins/user-role-editor-pro/pro/includes/classes/admin-menu-access.php on line 214
+* Update: JavaScript code enhancements.
+* Core version was updated to 4.35.2:
+* Fix: Multiple default roles (if defined at URE's settings) are selected automatically at 'add-new-user' page.
+* Update: Code enhancement for protection of users with 'administrator' role from each other. Current user can see his own record and edit own profile.
+
+= [4.35.2] 10.07.2017 =
+* Core version: 4.35.1
+* Fix: Gravity Forms access add-on: view of entries from prohibited forms via direct URL was not blocked. 
+* Fix: Admin menu access add-on: It was not possible to block menu items when user had access to some submenu item, like "Categories", but did not have access to a top level menu, like 'Posts'. 'Categories' was shown in spite of it was configured as blocked.
+* Core was updated to version 4.35.1:
+* Fix: "Grant Roles" button at the bottom of "Users" page did not work as had the same ID as a similar button at the top of this page.
+* Update: when bbPress plugin is active, "Grant Roles" does not revoke bbPress role granted to user anymore.
+* Fix: The same ID "move_from_no_role" and "move_from_no_role_dialog" were output twice at "Users" page.
 
 = [4.35.1] 11.06.2017 =
 * Core version: 4.35

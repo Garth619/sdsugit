@@ -57,9 +57,9 @@ There is no "trash" area or "undo" feature, so use the "Purge Values" and "Delet
 <!-- template="mla-add-new" -->
 <!-- title="Add New Rule" order="60" -->
 <p>The left-hand side of the screen contains all the fields you need to define a new custom field rule. Name is required, and must not have a rule already defined for it; the other fields are not or have default values. There is more information about each field in the text under the value area.</p>
-<p>You can pick from a list of the custom fields already associated with one or more items. If you want to define a new custom field, click "Enter nre field" and type the new field's name in the text box.</p>
+<p>You can pick from a list of the custom fields already associated with one or more items. If you want to define a new custom field, click "Enter new field" and type the new field's name in the text box.</p>
 <p><strong>NOTE:</strong> To save your work and add the rule, you must scroll down to the bottom of the form and click "Add Rule".</p>
-<p>You can find complete information on each of the custom field mapping rule fields in the "The custom field mapping table" portion of the "Documentation on Custom Field Mapping Rules" section of the Documentation tab (see the "For more information" link in the sidebar at the right).</p>
+<p>You can find complete information on each of the custom field mapping rule fields in the "The custom field rule elements" portion of the "Documentation on Custom Field Mapping Rules" section of the Documentation tab (see the "For more information" link in the sidebar at the right).</p>
 <!-- template="mla-read-only" -->
 <!-- title="Read Only Rules" order="70" -->
 <p>Long ago in an MLA version far away there was a bug that caused some custom field mapping rule names to be mis-interpreted. This added multiple rules for the same custom field to the table.</p>

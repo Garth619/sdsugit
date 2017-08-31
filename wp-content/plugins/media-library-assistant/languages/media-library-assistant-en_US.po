@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Media Library Assistant\n"
-"POT-Creation-Date: 2017-05-25 22:30-0700\n"
-"PO-Revision-Date: 2017-05-25 22:30-0700\n"
+"POT-Creation-Date: 2017-07-11 20:39-0700\n"
+"PO-Revision-Date: 2017-07-11 20:40-0700\n"
 "Language-Team: David Lingren <david@fairtradejudaica.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -286,6 +286,13 @@ msgid "Icon Size"
 msgstr ""
 
 msgid "Enter the size of the thumbnail/icon images, in pixels"
+msgstr ""
+
+msgid "Show Primary Column File Name"
+msgstr ""
+
+msgid ""
+"Check/uncheck this option to show/omit the file name from the primary column."
 msgstr ""
 
 msgid "Bulk Chunk Size"
@@ -1437,6 +1444,9 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+msgid "File name"
+msgstr ""
+
 msgid "(no title: bad ID)"
 msgstr ""
 
@@ -2394,6 +2404,12 @@ msgstr ""
 msgid "PAUSED"
 msgstr ""
 
+msgid "Custom field mapping settings updated."
+msgstr ""
+
+msgid "Custom field no mapping changes detected."
+msgstr ""
+
 msgid "No custom field mapping rules to process."
 msgstr ""
 
@@ -2545,7 +2561,7 @@ msgstr ""
 msgid "Execute All Rules"
 msgstr ""
 
-msgid "Add New Rule"
+msgid "Add New Custom Field Rule"
 msgstr ""
 
 msgid "Nothing to execute"
@@ -2770,11 +2786,25 @@ msgctxt "table_view_plural"
 msgid "Uninstalled"
 msgstr ""
 
-#, php-format
-msgid "%1$s: No %2$s settings to process."
+msgid "updated."
 msgstr ""
 
-msgid "updated."
+msgid "EXIF element name or Content Template"
+msgstr ""
+
+msgid "Delimiters"
+msgstr ""
+
+msgid "Standard field mapping"
+msgstr ""
+
+msgid "Taxonomy term mapping"
+msgstr ""
+
+msgid "Custom field mapping"
+msgstr ""
+
+msgid "Edit IPTC EXIF Rule cancelled."
 msgstr ""
 
 msgid "IPTC &amp; EXIF Mapping Progress"
@@ -2786,52 +2816,46 @@ msgstr ""
 msgid ""
 "In this tab you can define the rules for mapping IPTC (International Press "
 "Telecommunications Council) and EXIF (EXchangeable Image File) metadata to "
-"WordPress standard attachment fields, taxonomy terms and custom fields. "
-"<strong>NOTE:</strong> settings changes will not be made permanent until you "
-"click \"Save Changes\" at the bottom of this page."
+"WordPress standard attachment fields, taxonomy terms and custom fields."
 msgstr ""
 
-#, php-format
-msgid ""
-"You can find more information about using the controls in this tab to define "
-"mapping rules and apply them in the %1$s section of the Documentation."
+msgctxt "list_table_column"
+msgid "IPTC Value"
 msgstr ""
 
-msgid "IPTC/EXIF Options documentation"
+msgctxt "list_table_column"
+msgid "EXIF/Template Value"
 msgstr ""
 
-msgid "Standard field mapping"
+msgctxt "list_table_column"
+msgid "Priority "
 msgstr ""
 
-msgid "Map All Attachments, Standard Fields Now"
+msgctxt "list_table_column"
+msgid "Delimiter(s)"
 msgstr ""
 
-msgid "Taxonomy term mapping"
-msgstr ""
-
-msgid "Map All Attachments, Taxonomy Terms Now"
-msgstr ""
-
-msgid "Custom field mapping"
-msgstr ""
-
-msgid "Map All Attachments, Custom Fields Now"
-msgstr ""
-
-#, php-format
-msgid ""
-"Click %1$s to update the \"Enable IPTC/EXIF mapping...\" checkbox and/or all "
-"rule changes and additions at once. <strong>No rule mapping will be "
-"performed.</strong>"
-msgstr ""
-
-msgid "Edit IPTC EXIF Rule cancelled."
-msgstr ""
-
-msgid "IPTC EXIF and Attachment Metadata Processing Options"
+msgctxt "list_table_column"
+msgid "Parent"
 msgstr ""
 
 msgid "Purge IPTC EXIF values"
+msgstr ""
+
+msgctxt "table_view_singular"
+msgid "Standard"
+msgstr ""
+
+msgctxt "table_view_plural"
+msgid "Standard"
+msgstr ""
+
+msgctxt "table_view_singular"
+msgid "Taxonomy"
+msgstr ""
+
+msgctxt "table_view_plural"
+msgid "Taxonomy"
 msgstr ""
 
 #, php-format
@@ -2928,13 +2952,13 @@ msgid ""
 "hyphens (-)."
 msgstr ""
 
+msgid "Copy"
+msgstr ""
+
 msgid "View Template"
 msgstr ""
 
 msgid "Edit Template"
-msgstr ""
-
-msgid "Copy"
 msgstr ""
 
 msgid "Add Template cancelled."

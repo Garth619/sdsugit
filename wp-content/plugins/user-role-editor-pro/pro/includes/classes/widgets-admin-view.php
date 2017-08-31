@@ -41,8 +41,7 @@ class URE_Widgets_Admin_View {
                     'widgets' => esc_html__('Widgets', 'user-role-editor'),
                     'dialog_title' => esc_html__('Widgets Access', 'user-role-editor'),
                     'update_button' => esc_html__('Update', 'user-role-editor'),
-                    'edit_theme_options_required' => esc_html__('Turn ON "edit_theme_options" capability to manage widgets permissions', 'user-role-editor'),
-                    'network_admin' => is_network_admin() ? 1 : 0
+                    'edit_theme_options_required' => esc_html__('Turn ON "edit_theme_options" capability to manage widgets permissions', 'user-role-editor')
                 ));
     }
     // end of add_js()    

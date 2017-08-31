@@ -7,7 +7,7 @@
  * 
 */
 
-class Ure_Lib_Pro extends Ure_Lib {
+class URE_Lib_Pro extends URE_Lib {
     
     public static function get_instance($options_id = '') {
         
@@ -362,15 +362,15 @@ class Ure_Lib_Pro extends Ure_Lib {
     // end of direct_network_roles_update()
     
     
-    
+/*    
     // create assign_role object
     public function get_assign_role() {
-        $assign_role = new URE_Assign_Role_Pro($this);
+        $assign_role = new URE_Assign_Role_Pro();
         
         return $assign_role;
     }
     // end of get_assign_role()
-
+*/
     
     /**
      * Returns a list of post IDs for provided terms ID list
@@ -480,6 +480,19 @@ class Ure_Lib_Pro extends Ure_Lib {
     }
     // end of post_exists()
     
+    
+    public function get_all_editable_roles() {
+        
+        $roles = get_editable_roles();  // WordPress roles
+        if (!empty($this->bbpress)) {
+            $bbp_roles = $this->bbpress->get_bbp_editable_roles();    // bbPress roles
+            $roles = array_merge($roles, $bbp_roles);
+        }
+        
+        return $roles;
+    }
+    // end of get_all_editable_roles()
+    
 
     public function about() {
 ?>       
@@ -528,4 +541,4 @@ class Ure_Lib_Pro extends Ure_Lib {
     // end of about()
 
 }
-// end of Ure_Lib_Pro()
+// end of URE_Lib_Pro()

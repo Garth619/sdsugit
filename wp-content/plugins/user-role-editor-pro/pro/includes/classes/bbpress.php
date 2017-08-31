@@ -12,7 +12,7 @@
 class URE_bbPress_Pro extends URE_bbPress {
 
     
-    protected function __construct(Ure_Lib_Pro $lib) {
+    protected function __construct(URE_Lib_Pro $lib) {
         
         parent::__construct($lib);
                 
@@ -135,5 +135,30 @@ class URE_bbPress_Pro extends URE_bbPress {
     }
     // end of do_not_reload_roles()
     
+    
+    public function get_bbp_editable_roles() {
+        
+        $all_bbp_roles = bbp_get_dynamic_roles();
+        
+        return $all_bbp_roles;        
+    }
+    // end of get_bbp_editable_roles()
+    
+
+    /**
+     * Return bbPress roles found at $roles array. Used to exclude bbPress roles from processing, as free version should not support them
+     * 
+     * @param array $roles
+     * @return array
+     */
+    public function extract_bbp_roles($roles) {
+        
+        $roles = array();  // Pro version supports processing bbPress roles, so there is no need to exclude them
+                
+        return $roles;
+    }
+    // end of extract_bbp_roles()
+    
+
 }
 // end of URE_bbPress_Pro class

@@ -97,6 +97,9 @@ class URE_Addons_Manager {
         if (class_exists('URE_Content_View_Restrictions')) {
             $this->add('content_view');
         }
+        if (class_exists('URE_Content_View_Shortcode')) {
+            $this->add('content_view_shortcode');
+        }
         
     }
     // end of init_addons_list()
@@ -323,8 +326,24 @@ class URE_Addons_Manager {
         }
         
     }
-    // end of load_content_view_restrictions_module()
+    // end of load_content_view_access_module()
         
+    
+    private function load_content_view_shortcode_access_module() {
+        
+        if (is_network_admin()) {
+            return;
+        }
+
+        $activate = $this->lib->get_option('activate_content_for_roles_shortcode', false);
+        if ($activate) {            
+            new URE_Content_View_Shortcode();
+            $this->activate('content_view_shortcode');
+        }
+        
+    }
+    // end of load_content_view_access_module()
+    
     
     public function load_addons() {
         

@@ -129,6 +129,11 @@ class MLACoreOptions {
 	const MLA_TABLE_ICON_SIZE = 'table_icon_size';
 
 	/**
+	 * Provides a unique name for the Media/Assistant submenu table thumbnail/icon size option
+	 */
+	const MLA_SHOW_FILE_NAME = 'show_file_name';
+
+	/**
 	 * Provides a unique name for the Bulk Update and Map All chunk size option
 	 */
 	const MLA_BULK_CHUNK_SIZE = 'bulk_chunk_size';
@@ -610,6 +615,14 @@ class MLACoreOptions {
 					'std' => '',
 					'size' => 5,
 					'help' => __( 'Enter the size of the thumbnail/icon images, in pixels', 'media-library-assistant' )),
+
+			self::MLA_SHOW_FILE_NAME =>
+				array('tab' => 'general',
+					'name' => __( 'Show Primary Column File Name', 'media-library-assistant' ),
+					'type' => 'checkbox',
+					'autoload' => true,
+					'std' => '',
+					'help' => __( 'Check/uncheck this option to show/omit the file name from the primary column.', 'media-library-assistant' )),
 
 			self::MLA_BULK_CHUNK_SIZE =>
 				array('tab' => 'general',

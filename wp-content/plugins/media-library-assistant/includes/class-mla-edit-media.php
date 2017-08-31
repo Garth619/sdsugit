@@ -458,9 +458,15 @@ class MLAEdit {
 	public static function mla_update_attachment_metadata_postfilter( $data, $post_id, $options = array( 'is_upload' => true ) ) {
 		if ( ( true == $options['is_upload'] ) && ! empty( $_REQUEST['mlaAddNewBulkEditFormString'] ) ) {
 			/*
-			 * Clean up the inputs, which have everything from the enclosing <form>
+			 * Clean up the inputs, which have everything from the enclosing <form>.
+			 * wp_parse_args converts plus signs to spaces, which we must avoid.
 			 */
-			$args = wp_parse_args( stripslashes( urldecode( $_REQUEST['mlaAddNewBulkEditFormString'] ) ) );
+			$args = wp_parse_args( stripslashes( str_replace( '%2B', 'urlencodedmlaplussign', $_REQUEST['mlaAddNewBulkEditFormString'] ) ) );
+			foreach ( $args as $key => $arg ) {
+				if ( is_string( $arg ) && 0 === strpos( $arg, 'template:' ) ) {
+					$args[ $key ] = str_replace( 'urlencodedmlaplussign', '+', $arg );
+				}
+			}
 
 			unset( $args['parent'] );
 			unset( $args['children'] );

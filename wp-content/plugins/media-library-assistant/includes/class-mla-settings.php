@@ -50,6 +50,15 @@ class MLASettings {
 	const JAVASCRIPT_INLINE_MAPPING_CUSTOM_SLUG = 'mla-inline-mapping-custom-scripts';
 
 	/**
+	 * Slug for localizing and enqueueing JavaScript - MLA IPTC/EXIF List Table
+	 *
+	 * @since 2.60
+	 *
+	 * @var	string
+	 */
+	const JAVASCRIPT_INLINE_EDIT_IPTC_EXIF_SLUG = 'mla-inline-edit-iptc-exif-scripts';
+
+	/**
 	 * Slug for localizing and enqueueing JavaScript - MLA IPTC/EXIF tab
 	 *
 	 * @since 2.00
@@ -107,6 +116,7 @@ class MLASettings {
 				case self::JAVASCRIPT_INLINE_MAPPING_CUSTOM_SLUG:
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-custom-fields-tab.php' );
 					break;
+				case self::JAVASCRIPT_INLINE_EDIT_IPTC_EXIF_SLUG:
 				case self::JAVASCRIPT_INLINE_MAPPING_IPTC_EXIF_SLUG:
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-settings-iptc-exif-tab.php' );
 					break;
@@ -359,6 +369,7 @@ class MLASettings {
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_UPLOAD_SLUG, 'MLASettings_Upload::mla_inline_edit_upload_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_CUSTOM_SLUG, 'MLASettings_CustomFields::mla_inline_edit_custom_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_MAPPING_CUSTOM_SLUG, 'MLASettings_CustomFields::mla_inline_mapping_custom_action' );
+		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_EDIT_IPTC_EXIF_SLUG, 'MLASettings_IPTCEXIF::mla_inline_edit_iptc_exif_action' );
 		add_action( 'wp_ajax_' . self::JAVASCRIPT_INLINE_MAPPING_IPTC_EXIF_SLUG, 'MLASettings_IPTCEXIF::mla_inline_mapping_iptc_exif_action' );
 	}
 
@@ -481,7 +492,18 @@ class MLASettings {
 				);
 
 				add_screen_option( $option, $args );
-			} // upload
+			} // custom_field
+			elseif ( 'iptc_exif' == $_REQUEST['mla_tab'] ) {
+				$option = 'per_page';
+
+				$args = array(
+					 'label' => __( 'Rules per page', 'media-library-assistant' ),
+					'default' => 10,
+					'option' => 'mla_iptc_exif_rules_per_page' 
+				);
+
+				add_screen_option( $option, $args );
+			} // iptc_exif
 			elseif ( 'documentation' == $_REQUEST['mla_tab'] ) {
 				if ( isset( $_REQUEST['mla-example-display'] ) || isset( $_REQUEST['mla-example-search'] ) ) {
 					$option = 'per_page';
@@ -510,7 +532,7 @@ class MLASettings {
 
 		// Do we have options/help information for this tab?
 		$screen_suffix = substr( $screen->id, strlen( 'settings_page_' . MLACoreOptions::MLA_SETTINGS_SLUG ) ) ;
-		if ( ! in_array( $screen_suffix, array( '-view', '-upload', '-shortcodes', '-custom_field', '-documentation' ) ) ) {
+		if ( ! in_array( $screen_suffix, array( '-view', '-upload', '-shortcodes', '-custom_field', '-iptc_exif', '-documentation' ) ) ) {
 			return;
 		}
 
@@ -603,7 +625,7 @@ class MLASettings {
 	 * @return	mixed	New value if this is our option, otherwise original status
 	 */
 	public static function mla_set_screen_option_filter( $status, $option, $value ) {
-		if ( in_array( $option, array ( 'mla_views_per_page', 'mla_uploads_per_page', 'mla_types_per_page', 'mla_shortcode_templates_per_page', 'mla_custom_field_rules_per_page', 'mla_example_plugins_per_page' ) ) ) {
+		if ( in_array( $option, array ( 'mla_views_per_page', 'mla_uploads_per_page', 'mla_types_per_page', 'mla_shortcode_templates_per_page', 'mla_custom_field_rules_per_page', 'mla_iptc_exif_rules_per_page', 'mla_example_plugins_per_page' ) ) ) {
 			return $value;
 		}
 

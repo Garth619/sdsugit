@@ -81,9 +81,9 @@ var ure_plugins_access = {
             }
         });
         jQuery('.ui-dialog-buttonpane button:contains("Update")').attr("id", "dialog-update-button");
-        jQuery('#dialog-update-button').html(ure_data_plugins_access.update_button);
+        jQuery('#dialog-update-button').html(ure_ui_button_text(ure_data_plugins_access.update_button));
         jQuery('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "dialog-cancel-button");
-        jQuery('#dialog-cancel-button').html(ure_data.cancel);
+        jQuery('#dialog-cancel-button').html(ure_ui_button_text(ure_data.cancel));
 
         jQuery('#ure_plugins_access_container').html(data.html);
         jQuery('#ure_plugins_access_select_all').click(ure_plugins_access.auto_select);

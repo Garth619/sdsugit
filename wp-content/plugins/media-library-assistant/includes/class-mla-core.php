@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.54';
+	const CURRENT_MLA_VERSION = '2.60';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -157,6 +157,15 @@ class MLACore {
 	 * @var	string
 	 */
 	const MLA_ADMIN_SINGLE_MAP = 'single_item_map';
+
+	/**
+	 * mla_admin_action value for purging IPTC/EXIF metadata
+	 *
+	 * @since 2.60
+	 *
+	 * @var	string
+	 */
+	const MLA_ADMIN_SINGLE_PURGE = 'single_item_purge';
 
 	/**
 	 * mla_admin_action value for setting an item's parent object

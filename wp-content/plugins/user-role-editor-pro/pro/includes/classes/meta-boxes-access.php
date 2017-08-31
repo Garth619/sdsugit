@@ -55,8 +55,7 @@ class URE_Meta_Boxes_Access {
                     'meta_boxes' => esc_html__('Meta Boxes', 'user-role-editor'),
                     'dialog_title' => esc_html__('Meta Boxes', 'user-role-editor'),
                     'update_button' => esc_html__('Update', 'user-role-editor'),
-                    'edit_posts_required' => esc_html__('Turn ON at least "edit_posts" capability to manage access to meta_boxes for this role', 'user-role-editor'),
-                    'network_admin' => is_network_admin() ? 1 : 0
+                    'edit_posts_required' => esc_html__('Turn ON at least "edit_posts" capability to manage access to meta_boxes for this role', 'user-role-editor')
                 ));
     }
     // end of add_js()    
@@ -88,12 +87,12 @@ class URE_Meta_Boxes_Access {
         
         $ure_object_type = filter_input(INPUT_POST, 'ure_object_type', FILTER_SANITIZE_STRING);
         if ($ure_object_type!=='role' && $ure_object_type!=='user') {
-            $this->lib->set_notification( esc_html__('URE: widgets access: Wrong object type. Data was not updated.', 'user-role-editor') );
+            $this->lib->set_notification( esc_html__('URE: Meta boxes access: Wrong object type. Data was not updated.', 'user-role-editor') );
             return;
         }
         $ure_object_name = filter_input(INPUT_POST, 'ure_object_name', FILTER_SANITIZE_STRING);
         if (empty($ure_object_name)) {
-            $this->lib->set_notification( esc_html__('URE: widgets access: Empty object name. Data was not updated', 'user-role-editor') );
+            $this->lib->set_notification( esc_html__('URE: Meta boxes access: Empty object name. Data was not updated', 'user-role-editor') );
             return;
         }
                         
@@ -102,7 +101,7 @@ class URE_Meta_Boxes_Access {
         } else {
             $this->objects->save_access_data_for_user($ure_object_name);
         }
-        $this->lib->set_notification( esc_html__('Widgets access data was updated successfully', 'user-role-editor') );
+        $this->lib->set_notification( esc_html__('Meta boxes access data was updated successfully', 'user-role-editor') );
         
     }
     // end of update_access()

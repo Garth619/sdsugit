@@ -212,9 +212,7 @@ class MLA {
 	public static function mla_admin_print_styles_action() {
 		echo "<style type='text/css'>\n";
 
-		/*
-		 * Optional - limit width of the views list
-		 */
+		// Optional - limit width of the views list
 		$width_value = MLACore::mla_get_option( MLACoreOptions::MLA_TABLE_VIEWS_WIDTH );
 		if ( !empty( $width_value ) ) {
 			if ( is_numeric( $width_value ) ) {
@@ -229,9 +227,7 @@ class MLA {
 
 		echo "  img.mla_media_thumbnail {\n";
 
-		/*
-		 * Optional - change the size of the thumbnail/icon images
-		 */
+		// Optional - change the size of the thumbnail/icon images
 		$icon_value = MLACore::mla_get_option( MLACoreOptions::MLA_TABLE_ICON_SIZE );
 		$set_column_width = !empty( $icon_value ) && is_numeric( $icon_value ) && ( 64 < $icon_value );
 		
@@ -246,8 +242,6 @@ class MLA {
 
 			$icon_width = $icon_height = $icon_value . 'px';
 
-			//echo "    width: auto;\n";
-			//echo "    vertical-align: top;\n";
 			echo "    height: auto;\n";
 			echo "    max-width: {$icon_width};\n";
 			echo "    max-height: {$icon_height};\n";
@@ -274,6 +268,23 @@ class MLA {
 		echo "  }\n";
 
 		if ( MLATest::$wp_4dot3_plus ) {
+			// Emulate WordPress styles in list-tables.css
+			echo "  table.attachments .column-primary strong {\n";
+			echo "    display: block;\n";
+			echo "    margin-bottom: .2em;\n";
+			echo "    font-size: 14px;\n";
+			echo "  }\n";
+	
+			echo "  table.attachments .column-primary .media-icon {\n";
+			echo "    float: left;\n";
+			echo "    margin: 0 9px 0 0;\n";
+			echo "    font-size: 14px;\n";
+			echo "  }\n";
+	
+			echo "  table.attachments .column-primary div.row-actions {\n";
+			echo "    clear: both;\n";
+			echo "  }\n";
+	
 			// Explicit primary column width including icon and some margin
 			if ( $set_column_width ) {
 				$column_width = ( $icon_value + 30 ) . 'px';
@@ -1316,13 +1327,15 @@ class MLA {
 		}
 
 		echo "<div class=\"wrap\">\n";
-		echo "<div id=\"icon-upload\" class=\"icon32\"><br/></div>\n";
-		echo "<h2>{$page_title}"; // trailing </h2> is action-specific
+//		echo "<div id=\"icon-upload\" class=\"icon32\"><br/></div>\n";
+		echo "<h1 class=\"wp-heading-inline\">{$page_title}"; // trailing </h1> is action-specific
 
 		if ( !current_user_can( 'upload_files' ) ) {
-			echo ' - ' . __( 'ERROR', 'media-library-assistant' ) . "</h2>\n";
+			echo ' - ' . __( 'ERROR', 'media-library-assistant' ) . "</h1>\n";
 			wp_die( __( 'You do not have permission to manage attachments.', 'media-library-assistant' ) );
 		}
+
+		$heading_tail = "</h1>\n<a href=\"media-new.php\" class=\"page-title-action\">" . esc_html_x('Add New', 'file') . "</a>\n<hr class=\"wp-header-end\">\n";
 
 		$page_content = array(
 			'message' => '',
@@ -1480,17 +1493,17 @@ class MLA {
 			 * Display Attachments list
 			 */
 			if ( !empty( $_REQUEST['heading_suffix'] ) ) {
-				echo ' - ' . esc_html( $_REQUEST['heading_suffix'] ) . "</h2>\n";
+				echo ' - ' . esc_html( $_REQUEST['heading_suffix'] ) . $heading_tail;
 			} elseif ( !empty( $_REQUEST['mla_terms_search'] ) ) {
-					echo ' - ' . __( 'term search results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['mla_terms_search']['phrases'] ) ) ) . "\"</h2>\n";
+					echo ' - ' . __( 'term search results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['mla_terms_search']['phrases'] ) ) ) . $heading_tail;
 			} elseif ( !empty( $_REQUEST['s'] ) ) {
 				if ( empty( $_REQUEST['mla_search_fields'] ) ) {
-					echo ' - ' . __( 'post/parent results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['s'] ) ) ) . "\"</h2>\n";
+					echo ' - ' . __( 'post/parent results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['s'] ) ) ) . "\"" . $heading_tail;
 				} else {
-					echo ' - ' . __( 'search results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['s'] ) ) ) . "\"</h2>\n";
+					echo ' - ' . __( 'search results for', 'media-library-assistant' ) . ' "' . esc_html( stripslashes( trim( $_REQUEST['s'] ) ) ) . "\"" . $heading_tail;
 				}
 			} else {
-				echo "</h2>\n";
+				echo $heading_tail;
 			}
 
 			if ( !empty( $page_content['message'] ) ) {
@@ -1523,7 +1536,7 @@ class MLA {
 			}
 
 			//	 Forms are NOT created automatically, wrap the table in one to use features like bulk actions
-			echo '<form action="' . admin_url( $form_url ) . '" method="post" id="mla-filter">' . "\n";
+			echo "\n" . '<form action="' . admin_url( $form_url ) . '" method="post" id="mla-filter">' . "\n";
 			/*
 			 * Include the Search Media box
 			 */

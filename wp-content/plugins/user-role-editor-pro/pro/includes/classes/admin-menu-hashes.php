@@ -153,7 +153,7 @@ class URE_Admin_Menu_Hashes {
     
     
     /**
-     * Add coversion data task to the URE's tasks queue for the later execution by 'admin_menu' action
+     * Add conversion data task to the URE's tasks queue for the later execution by 'admin_menu' action
      * 
      * @param URE_Task_Queue $task_queue
      */

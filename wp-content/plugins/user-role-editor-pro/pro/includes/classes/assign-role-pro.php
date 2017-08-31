@@ -1,10 +1,12 @@
 <?php
+// Currently this module is not used
 /**
- * Project: User Role Editor plugin
- * Author: Vladimir Garagulya
+ * Project: User Role Editor Pro plugin
+ * Assign role to users without role by WP_CRON in background
+ * Author: Vladimir Garagulia
  * Author email: support@role-editor.com
  * Author URI: https://www.role-editor.com
- * Greetings: some ideas and code samples for long runing cron job was taken from the "Broken Link Checker" plugin (Janis Elst).
+ * Greetings: some ideas and code samples for long running CRON job was taken from the "Broken Link Checker" plugin (Janis Elst).
  * License: GPL v2+
  * 
  * Assign role to the users without role stuff
@@ -173,4 +175,4 @@ class URE_Assign_Role_Pro extends URE_Assign_Role {
     // end of assign_role_to_users_without_role()
     
 }
-// end of URE_Assign_Role class
+// end of URE_Assign_Role_Pro class

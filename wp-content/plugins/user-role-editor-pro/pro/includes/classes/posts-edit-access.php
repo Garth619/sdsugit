@@ -16,7 +16,7 @@ class URE_Posts_Edit_Access {
     
     public function __construct() {
     
-        $this->lib = Ure_Lib_Pro::get_instance();        
+        $this->lib = URE_Lib_Pro::get_instance();        
         new URE_Posts_Edit_Access_Role();
         new URE_Posts_Edit_Access_Bulk_Action();
         $this->user = new URE_Posts_Edit_Access_User($this);                        

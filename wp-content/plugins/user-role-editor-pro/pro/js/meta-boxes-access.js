@@ -19,7 +19,7 @@ function ure_meta_boxes_access_dialog_prepare() {
             action: 'ure_ajax',
             sub_action: 'get_meta_boxes_list',
             current_role: ure_current_role,
-            network_admin: ure_data_meta_boxes_access.network_admin,
+            network_admin: ure_data.network_admin,
             wp_nonce: ure_data.wp_nonce
         },
         success: function(response) {

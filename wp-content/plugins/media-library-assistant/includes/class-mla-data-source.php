@@ -477,7 +477,7 @@ class MLAData_Source {
 				 * Now expand the template using the above Data Source values
 				 */
 				$template = '[+template:' . $data_value['meta_name'] . '+]';
-				$item_values = MLAData::mla_expand_field_level_parameters( $template, NULL, $item_values, $post_id, $data_value['keep_existing'], $default_option );
+				$item_values = MLAData::mla_expand_field_level_parameters( $template, NULL, $item_values, $post_id, $data_value['keep_existing'], $default_option, $attachment_metadata );
 
 				if ( 'array' ==  $default_option ) {
 					$result = MLAData::mla_parse_array_template( $template, $item_values );

@@ -3728,7 +3728,9 @@ class MLAShortcode_Support {
 					$markup_values['found_rows'] = count( $root_terms );
 				}
 
-				self::_compose_term_list( $list, $tag_links, $root_terms, $markup_values, $arguments, $attr );
+				if ( count( $root_terms ) ) {
+					self::_compose_term_list( $list, $tag_links, $root_terms, $markup_values, $arguments, $attr );
+				}
 			}
 		} else {
 			$markup_values['thename'] = self::_process_shortcode_parameter( $mla_control_name, $markup_values );
@@ -3754,7 +3756,9 @@ class MLAShortcode_Support {
 				array_unshift( $tags, $option_all );
 			}
 
-			self::_compose_term_list( $list, $tag_links, $tags, $markup_values, $arguments, $attr );
+			if ( count( $tags ) ) {
+				self::_compose_term_list( $list, $tag_links, $tags, $markup_values, $arguments, $attr );
+			}
 		}
 
 		if ( 'array' == $arguments['mla_output'] || empty($arguments['echo']) ) {

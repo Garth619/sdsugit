@@ -19,7 +19,7 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		}
 
 
-		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check', 'digest_last_sent', 'digest_messages', 'build', 'activation_timestamp' ) );
+		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check', 'digest_last_sent', 'digest_messages', 'build', 'activation_timestamp', 'lock_file' ) );
 		$this->set_default_if_empty( array( 'log_location', 'nginx_file' ) );
 
 
@@ -28,7 +28,6 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		$this->sanitize_setting( 'bool', 'blacklist', __( 'Blacklist Repeat Offender', 'better-wp-security' ) );
 		$this->sanitize_setting( 'bool', 'email_notifications', __( 'Email Lockout Notifications', 'better-wp-security' ) );
 		$this->sanitize_setting( 'bool', 'allow_tracking', __( 'Allow Data Tracking', 'better-wp-security' ) );
-		$this->sanitize_setting( 'bool', 'lock_file', __( 'Disable File Locking', 'better-wp-security' ) );
 		$this->sanitize_setting( 'bool', 'proxy_override', __( 'Override Proxy Detection', 'better-wp-security' ) );
 		$this->sanitize_setting( 'bool', 'hide_admin_bar', __( 'Hide Security Menu in Admin Bar', 'better-wp-security' ) );
 		$this->sanitize_setting( 'bool', 'show_error_codes', __( 'Show Error Codes', 'better-wp-security' ) );

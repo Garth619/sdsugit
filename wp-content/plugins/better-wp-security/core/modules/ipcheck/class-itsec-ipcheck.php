@@ -226,6 +226,8 @@ class ITSEC_IPCheck {
 	 * @return void
 	 */
 	public function wp_login() {
+
+		/** @var ITSEC_Lockout $itsec_lockout */
 		global $itsec_logger, $itsec_lockout;
 
 		$this->load_settings();
@@ -244,6 +246,8 @@ class ITSEC_IPCheck {
 	 * @return void
 	 */
 	public function handle_failed_login( $username, $details ) {
+
+		/** @var ITSEC_Lockout $itsec_lockout */
 		global $itsec_logger, $itsec_lockout;
 
 		$this->load_settings();

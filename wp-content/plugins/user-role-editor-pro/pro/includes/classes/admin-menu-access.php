@@ -55,24 +55,21 @@ class URE_Admin_Menu_Access {
     
     
     /* 
-     * Remove menus that have no accessible submenus and require privileges
-     * that the user does not have.
-     * 
+     * Remove menus that require privileges which a user does not have.
      */
     private function remove_prohibited_items() {
-        global $menu, $submenu;
+        global $menu;
         
-        foreach ($menu as $menu_item) {
-            if (current_user_can($menu_item[1])) {
-                continue;
-            }
-            
+        foreach ($menu as $key=>$menu_item) {
+            if (!current_user_can($menu_item[1])) {
+                unset($menu[$key]);
+            }            
             
         } // foreach($menu ...
         
     }
     // end of remove_prohibited_items()
-    
+  
     
     /**
      * Some plugins incorrectly modify globals $menu/$submenu and users with changed permissions may get broken $menu/submenu$ structures.
@@ -100,6 +97,30 @@ class URE_Admin_Menu_Access {
     }
     // end of menu_glitches_cleanup
     
+    
+    /**
+     * Try to search an initial key in case it was changed according to a current user privileges, like in case when
+     * user has 'manage_categories', but does not have 'edit_posts', when submenu index becomes 
+     * edit-tags.php?taxonomy=category instead of initial edit.php, which was saved with $submenu_copy.
+     * 
+     * @param type $key
+     * @param type $submenu_copy 
+     */
+    private function search_initial_submenu_key($key, $submenu_copy) {
+
+        foreach($submenu_copy as $ind=>$items) {
+            foreach($items as $item) {
+                if ($item[2]===$key) {
+                    return $ind;
+                }
+            }
+        }
+        
+        return false;
+    }
+    // end of search_initial_submenu_key()
+    
+    
     /** 
      * Compare links of the current WordPress admin submenu and its copy used by User Role Editor admin access add-on
      * The same menu items may have different indexes at the $submenu global array built for the current user and 
@@ -115,22 +136,26 @@ class URE_Admin_Menu_Access {
         global $submenu;
         
         if (!isset($submenu_copy[$key]) || !is_array($submenu_copy[$key])) {
-            return false;
+            $key0 = $this->search_initial_submenu_key($key, $submenu_copy);
+            if (empty($key0)) {
+                return false;
+            }            
+        } else {
+            $key0 = $key;
         }
-        
         $link1 = URE_Admin_Menu::normalize_link($submenu[$key][$key1][2]);
-        if (isset($submenu_copy[$key][$key1])) {
-            $link2 = URE_Admin_Menu::normalize_link($submenu_copy[$key][$key1][2]);
+        if (isset($submenu_copy[$key0][$key1])) {
+            $link2 = URE_Admin_Menu::normalize_link($submenu_copy[$key0][$key1][2]);
             if ($link1==$link2) { // submenu item does not match with the same index at a copy
-                return $key1;
+                return array('key0'=>$key0, 'key'=>$key1);
             }
         }
         
-        $key2 = $this->get_key_from_menu_copy($submenu[$key][$key1], $submenu_copy[$key]);
+        $key2 = $this->get_key_from_menu_copy($submenu[$key][$key1], $submenu_copy[$key0]);
         if (!empty($key2)) {
-            $link2 = URE_Admin_Menu::normalize_link($submenu_copy[$key][$key2][2]);
+            $link2 = URE_Admin_Menu::normalize_link($submenu_copy[$key0][$key2][2]);
             if ($link1==$link2) {
-                return $key2;
+                return array('key0'=>$key0, 'key'=>$key2);
             }
         }
         
@@ -180,11 +205,13 @@ class URE_Admin_Menu_Access {
         $this->blocked_urls = array();
         foreach($submenu as $key=>$menu_item) {
             foreach(array_keys($menu_item) as $key1) {
-                $key2 = $this->find_submenu_item($key, $key1, $submenu_copy);
-                if ($key2===false) {
+                $data = $this->find_submenu_item($key, $key1, $submenu_copy);
+                if (empty($data)) {
                     continue;
                 }                
-                $link = URE_Admin_Menu::normalize_link($submenu_copy[$key][$key2][3]);
+                $key0 = $data['key0'];
+                $key2 = $data['key'];
+                $link = URE_Admin_Menu::normalize_link($submenu_copy[$key0][$key2][3]);
                 $this->remove_submenu_item($link, $blocked, $key, $key1);
             } 
             
@@ -205,8 +232,12 @@ class URE_Admin_Menu_Access {
                         
         // replace relative links in submenu to the full path absolute links 
         foreach (array_keys($submenu[$old_submenu_key]) as $item_key) {
-            $key2 = $this->find_submenu_item($old_submenu_key, $item_key, $submenu_copy);
-            $submenu[$old_submenu_key][$item_key][2] = $submenu_copy[$old_submenu_key][$key2][3];
+            $data = $this->find_submenu_item($old_submenu_key, $item_key, $submenu_copy);
+            if (!empty($data)) {
+                $key0 = $data['key0'];
+                $key2 = $data['key'];
+                $submenu[$old_submenu_key][$item_key][2] = $submenu_copy[$key0][$key2][3];
+            }
         }
         
         // re-link submenu to another key
@@ -229,15 +260,17 @@ class URE_Admin_Menu_Access {
         } else {
             reset($submenu[$submenu_key]);
             $submenu_1st_key = key($submenu[$submenu_key]);
-            $key2 = $this->find_submenu_item($submenu_key, $submenu_1st_key, $submenu_copy);
+            $data = $this->find_submenu_item($submenu_key, $submenu_1st_key, $submenu_copy);
             if (empty($key2)) {
                 return;
             }
+            $key0 = $data['key0'];
+            $key2 = $data['key'];
             if (count($submenu[$submenu_key])==1) {
-                $menu[$key][0] = $submenu_copy[$submenu_key][$key2][0];   // replace Menu item title
+                $menu[$key][0] = $submenu_copy[$key0][$key2][0];   // replace Menu item title
             }
-            $menu[$key][1] = $submenu_copy[$submenu_key][$key2][1];   // Menu item capability            
-            $menu[$key][2] = $submenu_copy[$submenu_key][$key2][3];   // absolute menu item link            
+            $menu[$key][1] = $submenu_copy[$key0][$key2][1];   // Menu item capability            
+            $menu[$key][2] = $submenu_copy[$key0][$key2][3];   // absolute menu item link            
             $this->relink_submenu($submenu_key, $menu[$key][2], $submenu_copy);          
         }        
     }

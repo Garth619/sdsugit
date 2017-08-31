@@ -794,9 +794,24 @@ body.page-id-42 img.pdf_icon, body.page.page-id-42 a.pdf br {
 .sidebar_program_banner {
 	max-width:100%;
 	height:auto;
-	margin-bottom:25px;
+	margin-bottom:5px;
 	border: 1px solid #ccc;
   padding: 4px;
+ }
+ 
+ 
+ a.request_account {
+	 color:#9b010a;
+	 font-weight: 400;
+	 font-size:15px;
+	 display: block;
+	 text-decoration: none;
+	 transition: all .2s ease-in-out;
+	 margin-bottom:30px;
+	 text-align: center;
+	 &:hover {
+		 color:#9c6c4e;
+	 }
  }
  
  

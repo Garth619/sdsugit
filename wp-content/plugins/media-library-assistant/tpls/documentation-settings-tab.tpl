@@ -164,8 +164,7 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 </li>
 <ul class="mla-doc-toc-list">
 <li><a href="#iptc_exif_mapping_example">IPTC/EXIF mapping example</a></li>
-<li><a href="#iptc_exif_mapping_tables">IPTC/EXIF mapping tables</a></li>
-<li><a href="#iptc_exif_mapping_buttons">IPTC/EXIF mapping command buttons</a></li>
+<li><a href="#iptc_exif_mapping_tables">The IPTC/EXIF rule elements</a></li>
 <li><a href="#iptc_exif_mapping_with_templates">EXIF/Template mapping with Content Templates</a></li>
 <li><a href="#pdf_iptc_exif_mapping">IPTC/EXIF Mapping for PDF Documents</a></li>
 <li><a href="#other_iptc_exif_mapping">Other mapping techniques</a></li>
@@ -5894,7 +5893,7 @@ Contains a list of data elements you can map to the custom field. You can also s
 </tr>
 <tr>
 <td class="mla-doc-table-label">--&nbsp;Metadata&nbsp;(see&nbsp;below)&nbsp;--</td>
-<td>WordPress attachment metadata, from the <em>_wp_attachment_metadata</em> array. Enter the field you want in the text box below the dropdown list. More coding guidelines are given in the "<a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a>" section above.</td>
+<td>WordPress attachment metadata, from the <em>_wp_attachment_metadata</em> array. Enter the field you want in the text box below the dropdown list. More coding guidelines are given in the "<a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a>" section below.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">--&nbsp;Template&nbsp;(see&nbsp;below)&nbsp;--</td>
@@ -6112,18 +6111,18 @@ There are two other ways you can perform custom field mapping for one or more ex
 </p>
 <h3>IPTC &amp; EXIF Processing Options</h3>
 <p>
-Some image file formats such as JPEG DCT or TIFF Rev 6.0 support the addition of data about the image, or <em>metadata</em>, in the image file. Many popular image processing programs such as Adobe PhotoShop allow you to populate metadata fields with information such as a copyright notice, caption, the image author and keywords that categorize the image in a larger collection. WordPress uses some of this information to populate the Title, Slug and Description fields when you add an image to the Media Library.
+Some image file formats such as JPEG DCT or TIFF Rev 6.0 support the addition of data about the image, or <em>metadata</em>, in the image file. In addition, many JPEG, TIFF and PDF files use the Extensible Metadata Platform (XMP)</a> framework. XMP metadata varies from image to image but is often extensive. Many popular image processing programs such as Adobe PhotoShop allow you to populate metadata fields with information such as a copyright notice, caption, the image author and keywords that categorize the image in a larger collection. WordPress uses some of this information to populate the Title, Slug and Description fields when you add an image to the Media Library.
 </p>
 <p>
-The Media Library Assistant has powerful tools for copying image metadata to:
+The Media Library Assistant has powerful tools for copying metadata to:
 <ul class="mla_settings">
 <li>the WordPress standard fields, e.g., the Caption</li>
-<li>taxonomy terms, e.g., in categories, tags or custom taxonomies</li>
+<li>taxonomy terms, e.g., in categories, tags or custom taxonomies like Att. Categories and Att. Tags</li>
 <li>WordPress Custom Fields</li>
 </ul>
-You can define the rules for mapping metadata on the "IPTC/EXIF" tab of the Settings page. You can choose to automatically apply the rules when new media are added to the Library (or not). You can click the "Map IPTC/EXIF metadata" button on the Edit Media/Edit Single Item screen or in the bulk edit area to selectively apply the rules to one or more images. You can click the "Map All Attachments Now" to apply the rules to <strong><em>ALL of the images in your library</em></strong> at one time.
+You can define the rules for mapping metadata on the "IPTC/EXIF" tab of the Settings page. You can choose to automatically apply the rules when new media are added to the Library (or not). You can click the "Map IPTC/EXIF metadata" button on the Edit Media/Edit Single Item screen or in the bulk edit area to selectively apply the rules to one or more images. You can use the "Execute" functions in the tab to apply the rules to one, some or <strong><em>ALL</em></strong> of the images in your library at one time.
 </p>
-<p>If you click any of the three "Map All Attachments, ... Now" buttons, the rules currently displayed in that category will be immediately applied to <strong>all</strong> of the attachments in your site. Rule changes are <strong>not</strong> saved when you click any of these buttons. THERE<strong> IS NO UNDO FOR THESE ACTIONS!</strong></p>
+<p>If you use any of the "Execute" functions, the selected rule(s) will be immediately applied to <strong>all</strong> of the attachments in your Media Library. THERE<strong> IS NO UNDO FOR THESE ACTIONS!</strong></p>
 <p>
 If you just want to add a custom field to the Media/Assistant submenu, the quick edit area and/or the bulk edit area go to the "Custom Fields" tab and follow the instructions there.
 </p>
@@ -6155,18 +6154,21 @@ DateTime 2012:12:01 17:37:05<br />
 <p>
 You can go to the Settings/Media Library Assistant IPTC/EXIF tab and define a rule that maps any of these fields to a WordPress custom field. The steps required are:
 <ol>
-<li>Go to the Settings/Media Library Assistant IPTC/EXIF tab.</li>
-<li>Make sure the "Enable IPTC/EXIF Mapping when adding new media" box is checked.</li>
-<li>Scroll down to the "Custom field mapping" section.</li>
-<li>If you have already defined "Date Time Created" as a custom field, use the "Add a new Mapping Rule" section and select the field name in the first dropdown. If the field does not yet exist, use the "Add a new Field and Mapping Rule" section and enter, for example, "Date Time Created" in the first text box.</li>
+<li>Navigate to the Settings/Media Library Assistant IPTC/EXIF tab.</li>
+<li>Make sure the "Enable IPTC/EXIF Mapping when adding new media" box is checked.  If not, check the box, scroll down and click "Save Changes".</li>
+<li>Scroll down to the "Add New Custom Field Rule" section.</li>
+<li>If you have already defined "Date Time Created" as a custom field, select the field name in the first dropdown. If the field does not yet exist, click the "Enter new field" link to change the drop down list of existing fields to a text box and enter, for example, "Date Time Created" in the text box.</li>
 <li>Leave the "IPTC Value" dropdown list set to the default "None (select a value)" setting.</li>
 <li>Enter "DateTimeOriginal" in the EXIF/Template Value field.</li>
 <li>Set the Priority dropdown to "EXIF".</li>
 <li>Set the Existing Text dropdown to "Keep", unless you want to wipe out any values you've assigned earlier.</li>
-<li>Click "Add Rule/Add Field" to save your rule.</li>
+<li>In the "Format" dropdown list, select "Native".</li>
+<li>In the "Option:" dropdown list, select "Text".</li>
+<li>Click the "Delete NULL Values" checkbox. This prevents storing an empty value in the database for items that do not have a "DateTimeOriginal" value.</li>
+<li>Click "Add Rule" to save your rule.</li>
 </ol>
 <p>
-If you are feeling confident you can click the "Add Rule/Field and Map All Attachments" button to save your rule and map all of the attachments in your Media Library in one step. If you want to test your work first, you can go to the Media/Assistant submenu table and click the "Edit" rollover action for an image you know has keywords. Click the "Map IPTC/EXIF Metadata" link in the upper right "Save" area of the screen, then look down at the Caption meta box and see if your value is correct. Once you've got your rule working you can update individual images, use the Bulk Edit area to update groups of images or use the "Map All Attachments" button below your rule to process all of your images.
+If you want to test your work, you can go to the Media/Assistant submenu table and click the "Edit" rollover action for an image you know has keywords. Click the "Map IPTC/EXIF Metadata" link in the upper right "Save" area of the screen, then look down at the Custom Fields meta box and see if your "Date Time Created" value is present and correct. Once you've got your rule working you can update individual images, use the Bulk Edit area to update groups of images or use the "Execute" rollover action for your rule to process all of your images.
 </p>
 <p>
 You can use the meta_key, orderby and order parameters to sort an <code>[mla_gallery]</code> by your custom field. For example:<br />
@@ -6181,14 +6183,15 @@ The three parameters in the above example will select all of the images in your 
 <p>
 <a href="#backtotop">Go to Top</a>
 </p>
-<h4>IPTC/EXIF mapping tables</h4>
+<h4>The IPTC/EXIF rule elements</h4>
 <p>
-The three mapping tables on the IPTC/EXIF tab have the following columns:
+All types of IPTC/EXIF mapping rules have the following common elements:
+</p>
 <dl>
 <dt>Field Title</dt>
-<dd>The standard field title, taxonomy name or Custom Field name. In the Custom Field table you can define a new field by entering its name in the blank box at the bottom of the list; the value will be saved when you click "Save Changes" at the bottom of the screen.
+<dd>The standard field title, taxonomy name or Custom Field name. In the Add New Custom Field Rule area you can define a new field by clicking the "Enter new field" link and entering its name in the text box; the value will be saved when you click "Add Rule" at the bottom of the area.
 <br />&nbsp;<br />
-You can also use the Custom field mapping section of this screen to define rules for adding or updating elements within the WordPress-supplied "Attachment Metadata", stored in the "_wp_attachment_metadata" custom field. Code the "meta:" prefix in the Field Title textbox to make the destination of the rule an element of the Attachment Metadata; see the <a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a> section for more details.
+You can also use the Add New Custom Field Rule area to define rules for adding or updating elements within the WordPress-supplied "Attachment Metadata", stored in the "_wp_attachment_metadata" custom field. Code the "meta:" prefix in the Field Title textbox to make the destination of the rule an element of the Attachment Metadata; see the <a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a> section for more details.
 </dd>
 <dt>IPTC Value</dt>
 <dd>The IPTC (International Press Telecommunications Council) metadata, if any, embedded in the image file. For this category, you can select any of the IPTC DataSet tag and field identifiers, e.g., "2#025" for the Keywords field. The dropdown list has the identifier and the "friendly name" MLA defines for most of the IPTC fields; see the table of identifiers and friendly names in the table below. You can find more information in the <a href="http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf" title="IPTC-NAA Information Interchange Model Version No. 4.1 specification" target="_blank">IPTC-NAA Information Interchange Model Version No. 4.1 specification</a>.
@@ -6201,9 +6204,9 @@ MLA uses a standard PHP function, <a href="http://php.net/manual/en/function.exi
 <br />&nbsp;<br />
 MLA provides enhanced access to GPS values within the EXIF metadata; more details are given in the <a href="#mla_gps_values">Enhanced GPS values</a> section below.
 <br />&nbsp;<br />
-Two special exif "pseudo-values" are available; <strong>ALL_IPTC</strong> and <strong>ALL_EXIF</strong>. These return a string representation (in &quot;export&quot; format) of all IPTC or EXIF data respectively. You can use these pseudo-values to examine the metadata in an image, find field names and see what values are embedded in the image.
+You can also enter a <strong>Content Template</strong> here by coding the "template:" prefix at the beginning of the value. Do <strong>not</strong> add the "[+" and "+]" delimiters; the prefix is all you need. You can use a Content Template to access XMP metadata as an alternative to EXIF metadata. More information about using templates here is given below.
 <br />&nbsp;<br />
-You can also enter a Content Template here by coding the "template:" prefix at the beginning of the value. Do <strong>not</strong> add the "[+" and "+]" delimiters; the prefix is all you need. More information about using templates here is given below.
+Two special exif "pseudo-values" are available; <strong>ALL_IPTC</strong> and <strong>ALL_EXIF</strong>. These return a string representation (in &quot;export&quot; format) of all IPTC or EXIF data respectively. You can use these pseudo-values to examine the metadata in an image, find field names and see what values are embedded in the image.
 </dd>
 <dt>Priority</dt>
 <dd>If both the IPTC Value and the EXIF Value are non-blank for a particular image, you can select which of the values will be used for the mapping.
@@ -6211,9 +6214,12 @@ You can also enter a Content Template here by coding the "template:" prefix at t
 <dt>Existing Text</dt>
 <dd>Images already in the Media Library will have non-blank values in many fields and may have existing terms in a taxonomy. You can select "Keep" to retain these values or "Replace" to always map a metadata value into the field. For a taxonomy, "Keep" will retain any terms already assigned to the item and "Replace" will delete any existing terms before assigning metadata values as terms.
 </dd>
+<dt>Status</dt>
+<dd>The "Status" dropdown lets you turn rules on or off for most mapping purposes. If you select "Active" the rule will always be applied during a mapping operation. If you select "Inactive" the rule will NOT be applied except when explicitly included in a Bulk Action "Execute" or "Execute" rollover action. 
+</dd>
 </dl>
 <p>
-The Taxonomy term mapping table has two additional columns:
+The Taxonomy mapping rules have two additional elements:
 </p>
 <dl>
 <dt>Delimiter(s)</dt>
@@ -6224,84 +6230,21 @@ In some cases multiple terms will be contained in a single IPTC or EXIF value. F
 <dd>For hierarchical taxonomies such as Categories you can select one of the existing terms in the taxonomy as the parent term for any terms you are mapping from metadata values. For example, you could define "IPTC Keywords" as a parent and then assign all of the 2#025 values under that parent term.
 </dd>
 </dl>
-<a name="iptc_exif_mapping_buttons"></a>&nbsp;
 <p>
-<a href="#backtotop">Go to Top</a>
-</p>
-<h4>IPTC/EXIF mapping command buttons</h4>
-<p>
-To the right of each table heading is a "Map All Attachments, ... Now" button. When you click one of these buttons, the mapping rules in that table are applied to <strong><em>ALL of the images in the Media Library</em></strong>. This is a great way to bring your media items up to date, but it is <strong><em>NOT REVERSIBLE</em></strong>, so think carefully before you click! Each button applies the rules in just one category, so (for example) you can update taxonomy terms without disturbing standard or custom field values.
-</p>
-<p>
-These immediate mapping buttons <strong><em>DO NOT</em></strong> save any rules changes you've made, so you can make a temporary rule change and process your attachments without disturbing the standing rules.
+The Custom Field mapping rules have three additional elements (see <a href="#custom_field_rule_elements">The custom field rule elements</a> for more information on these elements):
 </p>
 <dl>
-<dt>Map All Attachments, Standard Fields Now</dt>
+<dt>Format</dt>
 <dd>
-Click this button to map the Title, Name/Slug, ALT Text, Caption and Description rules for all attachments.
+The Format element has a "commas" value that can improve the results of sorting on numeric values and a "raw" value that changes the handling of "empty" values such as zero.
 </dd>
-<dt>Map All Attachments, Taxonomy Terms Now</dt>
-<dd>
-Click this button to map IPTC/EXIF values such as keywords to taxonomy terms.
+<dt>Option</dt>
+<dd>Some metadata fields can contain more than one value. For example, the "Keywords" field can contain a list of terms that describe the item. The format option dropdown can further refine your specification where multiple values exist.
 </dd>
-<dt>Map All Attachments, Custom Fields Now</dt>
-<dd>
-Click this button to map all attachments using all of the IPTC/EXIF to custom field rules.
+<dt>Delete NULL Values</dt>
+<dd>The "Delete NULL values" checkbox lets you control what happens if the data source you've selected does not have a value for every attachment.
 </dd>
 </dl>
-<p>
-For each of the IPTC/EXIF to custom field existing rules the command buttons are:
-</p>
-<dl>
-<dt>Delete Rule</dt>
-<dd>
-Click this button to delete the mapping rule but leave the custom field values assigned to attachments intact.
-</dd>
-<dt>Delete Rule AND Field</dt>
-<dd>
-Click this button to delete the mapping rule AND delete the custom field values assigned to attachments as well.
-</dd>
-<dt>Update Rule</dt>
-<dd>
-Click this button to save any changes to the rule parameters, but do not perform any mapping.
-</dd>
-<dt>Map All Attachments</dt>
-<dd>
-Click this button to map all attachments using this one rule with its current parameters.  Rule changes are <strong><em>NOT</em></strong> saved when you click this button, and <strong><em>THERE IS NO UNDO FOR THE MAPPING ACTIONS!</em></strong>
-</dd>
-</dl>
-<p>
-Below the existing custom field rules there are command buttons for adding a new IPTC/EXIF to custom field rule, adding a new field and mapping attachment data using all of the existing rules:
-</p>
-<dl>
-<dt>Add Rule</dt>
-<dd>
-To define a new rule for an existing custom field, select the field name from the dropdown list, enter the rule parameters and click this button.
-</dd>
-<dt>Add Rule and Map All Attachments</dt>
-<dd>
-Click this button to define a new rule and map all attachments using all the rule&rsquo;s parameters.
-</dd>
-<dt>Add Field</dt>
-<dd>
-To define a new rule and a new custom field, enter the field name in the text box, enter the rule parameters and click this button.
-</dd>
-<dt>Add Field and Map All Attachments</dt>
-<dd>
-Click this button to define a new rule, define a new custom field and map all attachments using all the rule&rsquo;s parameters.
-</dd>
-</dl>
-<p>
-At the bottom of the screen is a command button for saving <strong><em>all</em></strong> of the rule updates at one time:
-</p>
-<dl>
-<dt>Save Changes</dt>
-<dd>
-Click this button to update all of the existing rules at one time. This is handy of you change several rules at once.
-</dd>
-</dl>
-<p>
-"Save Changes" is the <strong><em>only</em></strong> command button that saves changes made in the Standard Field Mapping and Taxonomy Term Mapping sections. </p>
 <a name="iptc_exif_mapping_with_templates"></a>&nbsp;
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -6309,6 +6252,14 @@ Click this button to update all of the existing rules at one time. This is handy
 <h4>EXIF/Template mapping with Content Templates</h4>
 <p>
 If you code the "template:" prefix at the beginning of the EXIF/Template value you have all the power of Content Templates at your disposal. Do <strong>not</strong> add the "[+" and "+]" delimiters; the prefix is all you need.
+</p>
+<p>
+A template can be used to access any XMP metadata your items contain. For example:<br>
+&nbsp;<br>
+<code>template:([+xmp:Title+])</code><br>
+<code>template:([+xmp:Regions.RegionList.*.*.Name,array+])</code><br>
+&nbsp;<br>
+Note the use of parentheses around the XMP parameters, which replace missing values with an empty value to enable proper rule processing.
 </p>
 <p>
 Within a template, all of the <a href="#field_level_data_sources">Data sources for custom field mapping</a> are available. For example, you can code <code>[+pixels+]</code> or <code>[+size_keys,single+]</code>.

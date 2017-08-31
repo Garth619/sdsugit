@@ -928,10 +928,11 @@ class MLAData {
 	 * @param	integer	Optional: attachment ID for attachment-specific placeholders
 	 * @param	boolean	Optional: for option 'multi', retain existing values
 	 * @param	string	Optional: default option value
+	 * @param	array	Optional: attachment_metadata, required during item uploads
 	 *
 	 * @return	array	( parameter => value ) for all field-level parameters and anything in $markup_values
 	 */
-	public static function mla_expand_field_level_parameters( $tpl, $query = NULL, $markup_values = array(), $post_id = 0, $keep_existing = false, $default_option = 'text' ) {
+	public static function mla_expand_field_level_parameters( $tpl, $query = NULL, $markup_values = array(), $post_id = 0, $keep_existing = false, $default_option = 'text', $upload_metadata = NULL ) {
 		static $cached_post_id = 0, $item_metadata = NULL, $attachment_metadata = NULL, $id3_metadata = NULL;
 
 		if ( $cached_post_id != $post_id ) {
@@ -950,12 +951,14 @@ class MLAData {
 
 			switch ( $value['prefix'] ) {
 				case 'template':
-					$markup_values = self::mla_expand_field_level_parameters( $value['value'], $query , $markup_values, $post_id, $keep_existing, $default_option );
+					$markup_values = self::mla_expand_field_level_parameters( $value['value'], $query , $markup_values, $post_id, $keep_existing, $default_option, $upload_metadata );
 					$template_count++;
 					break;
 				case 'meta':
 					if ( is_null( $item_metadata ) ) {
-						if ( 0 < $post_id ) {
+						if ( is_array( $upload_metadata ) ) {
+							$item_metadata = $upload_metadata;
+						} elseif ( 0 < $post_id ) {
 							$item_metadata = get_metadata( 'post', $post_id, '_wp_attachment_metadata', true );
 						} else {
 							break;
@@ -2209,7 +2212,7 @@ class MLAData {
 	 *
 	 * @var	array
 	 */
-	private static $mla_iptc_records = array(
+	public static $mla_iptc_records = array(
 		// Envelope Record
 		"1#000" => "Model Version",
 		"1#005" => "Destination",
@@ -3002,6 +3005,11 @@ class MLAData {
 		}
 
 		if ( ! empty( $path ) ) {
+			if ( !file_exists( $path ) ) {
+				MLACore::mla_debug_add( __LINE__ . ' ' . __( 'ERROR', 'media-library-assistant' ) . ': ' . "mla_fetch_attachment_image_metadata( {$post_id}, {$path} ) not found", MLACore::MLA_DEBUG_CATEGORY_ANY );
+				return $results;
+			}
+
 			if ( 'pdf' == strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) ) {
 				if ( !class_exists( 'MLAPDF' ) ) {
 					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-pdf.php' );
@@ -3075,7 +3083,7 @@ class MLAData {
 				}
 				restore_error_handler();
 
-				MLACore::mla_debug_add( __LINE__ . ' mla_fetch_attachment_image_metadata exif_data = ' . var_export( $exif_data, true ), MLACore::MLA_DEBUG_CATEGORY_METADATA );
+				MLACore::mla_debug_add( __LINE__ . ' mla_fetch_attachment_image_metadata (PHP ' . phpversion() . ') exif_data = ' . var_export( $exif_data, true ), MLACore::MLA_DEBUG_CATEGORY_METADATA );
 
 				if ( ! empty( $exception ) ) {
 					MLAData::$mla_IPTC_EXIF_errors[] = sprintf( '(%1$s) %2$s', $exception->getCode(), $exception->getMessage() );
