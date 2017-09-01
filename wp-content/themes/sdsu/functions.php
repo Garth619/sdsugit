@@ -297,7 +297,7 @@ add_action('init', 'sdigec_recipients');
             'public' => true,    
             'show_ui' => true,
             'has_archive' => true,     
-            'capability_type' => 'post',
+            'capability_type' => 'sdigec_recipients',
             'map_meta_cap' => true,    
             'hierarchical' => false,    
             'rewrite' => true,    
