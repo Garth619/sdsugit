@@ -1007,6 +1007,12 @@ textarea {
 	font-size: 12px;
 	line-height: 18px;
 }
+
+
+body.page-current-enewsletter, body.page-enewsletter-draft {
+	color:#000;
+}
+
 hr {
 	background-color: #cccccc;
 	border: 0;
