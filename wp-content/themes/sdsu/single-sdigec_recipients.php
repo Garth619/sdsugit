@@ -19,7 +19,7 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 			<div class="content_wrapper" style="float:none;width:100%;">
 				<div id="content">
 					<div style="text-align:center">
-						<a href="<?php bloginfo('url');?>/programs/sdigec">Back to Student Stipend Recipients</a>
+						<a href="<?php bloginfo('url');?>/programs/sdigec/student-stipend-recipients">Back to Student Stipend Recipients</a>
 							<h2>Stipend Recipient's Biography</h2>
 						</div>
 						<?php include('my-sdigec-recipients-singles-loop.php');?>
