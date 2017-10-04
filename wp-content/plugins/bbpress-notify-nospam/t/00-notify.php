@@ -115,19 +115,20 @@ class Tests_bbPress_notify_no_spam_notify_new extends WP_UnitTestCase
 	{
 		$bbpnns = bbPress_Notify_NoSpam::bootstrap();
 		
-		$this->assertTrue( (bool ) has_filter( 'bbpress_notify_recipients_hidden_forum', array( $bbpnns, 'munge_newtopic_recipients' )), 
+		$this->assertTrue( (bool ) has_filter( 'bbpress_notify_recipients_hidden_forum', array( $bbpnns, 'munge_newpost_recipients' )), 
 				'bbpress_notify_recipients_hidden_forum filter exists' );
 		
 		$expected = array( 'foo', 'bar' );
-		$recipients = apply_filters( 'bbpress_notify_recipients_hidden_forum', $expected, $this->forum_id );
+		$recipients = apply_filters( 'bbpress_notify_recipients_hidden_forum', $expected, 'topic', $this->forum_id );
 		
 		$this->assertEquals( $expected, $recipients, 'Filter returns input array for non-hidden forum' );
 
 		//hide forum
 		bbp_hide_forum( $this->forum_id );
 		
-		$recipients = apply_filters( 'bbpress_notify_recipients_hidden_forum', $expected, $this->forum_id );
-		$this->assertEquals( 'administrator', $recipients, 'Filter returns \'administrator\' for non-hidden forum' );
+		$recipients = apply_filters( 'bbpress_notify_recipients_hidden_forum', $expected, 'topic', $this->forum_id );
+		
+		$this->assertEquals( array('administrator'), $recipients, 'Filter returns \'administrator\' array element for non-hidden forum' );
 		
 	}
 	
@@ -217,19 +218,22 @@ class Tests_bbPress_notify_no_spam_notify_new extends WP_UnitTestCase
 	{
 		$roles = array( 'administrator' );
 		
+		remove_all_filters('bbpnns_filter_recipients_before_send');
+		
 		// Non-hidden forum
 		update_option( 'bbpress_notify_newtopic_recipients', $roles );
 		
 		$bbpnns = bbPress_Notify_NoSpam::bootstrap();
 		$users = get_users( array( 'role' => join(', ', $roles) ) );
-
+		
 		$recipients = array();
 		foreach ( $users as $u )
 		{
 			$recipients[ $u->ID ] = $u;
 		}
-		
+
 		list( $got_recipients, $body ) = $bbpnns->send_notification( $recipients, 'test subject', 'test_body' );
+
 		$this->assertEquals( $recipients, $got_recipients, 'Test mode got expected recipients' );
 		
 		// Hidden forum returns admins only
@@ -238,7 +242,7 @@ class Tests_bbPress_notify_no_spam_notify_new extends WP_UnitTestCase
 		$roles = array( 'administrator', 'subscriber' );
 		$roles = (array) apply_filters( 'bbpress_notify_recipients_hidden_forum', $roles, $this->forum_id );
 	
-		$users = get_users( array( 'role' => join(', ', $roles) ) );
+		$users = get_users( array( 'role__in' => $roles ) );
 		
 		$recipients = array();
 		foreach ( $users as $u )
@@ -254,6 +258,23 @@ class Tests_bbPress_notify_no_spam_notify_new extends WP_UnitTestCase
 		
 		$this->assertTrue( ! empty ( $result ), 'Filtered send_notification returns users' );
 	}
+	
+	
+// 	public function test_build_email()
+// 	{
+// 		$type    = 'reply';
+// 		$subject = 'Vinny&#39;s test with quotes';
+// 		$body    = 'This is a test';
+		
+// 		update_option( "bbpress_notify_new{$type}_email_subject", $subject );
+// 		update_option( "bbpress_notify_new{$type}_email_body", $body );
+		
+// 		$bbpnns = bbPress_Notify_NoSpam::bootstrap();
+// 		list( $email_subject, $email_body ) = $bbpnns->_build_email( 'reply', $this->reply_id );
+		
+// 		var_dump($email_subject, $email_body);
+// 	}
+	
 	
 	public function test_notify_on_save()
 	{

@@ -57,10 +57,11 @@ if (!is_user_logged_in()) {
         Created On: 25-08-2016 13:13
         Created By: Tech Banker Team
        */
-      function cpb_captcha_bank_parent() {
-         global $wpdb;
-         $obj_dbHelper_install_parent = new dbHelper_install_script_captcha_bank();
-         $sql = "CREATE TABLE IF NOT EXISTS " . captcha_bank_parent() . "
+      if (!function_exists("cpb_captcha_bank_parent")) {
+         function cpb_captcha_bank_parent() {
+            global $wpdb;
+            $obj_dbHelper_install_parent = new dbHelper_install_script_captcha_bank();
+            $sql = "CREATE TABLE IF NOT EXISTS " . captcha_bank_parent() . "
 				(
 					`id` int(10) NOT NULL AUTO_INCREMENT,
 					`type` longtext NOT NULL,
@@ -68,65 +69,67 @@ if (!is_user_logged_in()) {
 					PRIMARY KEY (`id`)
 				)
 				ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COLLATE= utf8_general_ci";
-         dbDelta($sql);
+            dbDelta($sql);
 
-         $data = "INSERT INTO " . captcha_bank_parent() . " (`type`, `parent_id`) VALUES
+            $data = "INSERT INTO " . captcha_bank_parent() . " (`type`, `parent_id`) VALUES
 				('captcha_setup', 0),
 				('general_settings', 0),
 				('logs','0'),
 				('other_settings', 0),
 				('advance_security', 0);";
-         dbDelta($data);
+            dbDelta($data);
 
-         $parent_table_data = $wpdb->get_results
-             (
-             "SELECT * FROM " . captcha_bank_parent()
-         );
+            $parent_table_data = $wpdb->get_results
+                (
+                "SELECT * FROM " . captcha_bank_parent()
+            );
 
-         foreach ($parent_table_data as $row) {
-            switch (esc_attr($row->type)) {
-               case "captcha_setup":
-                  $insert_captcha_setup_array = array();
-                  $insert_captcha_setup_array["captcha_type"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_captcha_setup_array["display_settings"] = isset($row->id) ? intval($row->id) : 0;
+            foreach ($parent_table_data as $row) {
+               switch (esc_attr($row->type)) {
+                  case "captcha_setup":
+                     $insert_captcha_setup_array = array();
+                     $insert_captcha_setup_array["captcha_type"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_captcha_setup_array["display_settings"] = isset($row->id) ? intval($row->id) : 0;
 
-                  $insert_captcha_setup_data = array();
-                  foreach ($insert_captcha_setup_array as $key => $value) {
-                     $insert_captcha_setup_data["type"] = $key;
-                     $insert_captcha_setup_data["parent_id"] = $value;
-                     $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $insert_captcha_setup_data);
-                  }
-                  break;
+                     $insert_captcha_setup_data = array();
+                     foreach ($insert_captcha_setup_array as $key => $value) {
+                        $insert_captcha_setup_data["type"] = $key;
+                        $insert_captcha_setup_data["parent_id"] = $value;
+                        $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $insert_captcha_setup_data);
+                     }
+                     break;
 
-               case "general_settings":
-                  $insert_parent_data = array();
-                  $insert_parent_data["alert_setup"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_parent_data["error_message"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_parent_data["email_templates"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_parent_data["roles_and_capabilities"] = isset($row->id) ? intval($row->id) : 0;
-                  foreach ($insert_parent_data as $key => $value) {
-                     $parent_value = array();
-                     $parent_value["type"] = $key;
-                     $parent_value["parent_id"] = $value;
-                     $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $parent_value);
-                  }
-                  break;
+                  case "general_settings":
+                     $insert_parent_data = array();
+                     $insert_parent_data["alert_setup"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_parent_data["error_message"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_parent_data["email_templates"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_parent_data["roles_and_capabilities"] = isset($row->id) ? intval($row->id) : 0;
+                     foreach ($insert_parent_data as $key => $value) {
+                        $parent_value = array();
+                        $parent_value["type"] = $key;
+                        $parent_value["parent_id"] = $value;
+                        $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $parent_value);
+                     }
+                     break;
 
-               case "advance_security":
-                  $insert_advance_security_array = array();
-                  $insert_advance_security_array["blocking_options"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_advance_security_array["country_blocks"] = isset($row->id) ? intval($row->id) : 0;
+                  case "advance_security":
+                     $insert_advance_security_array = array();
+                     $insert_advance_security_array["blocking_options"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_advance_security_array["country_blocks"] = isset($row->id) ? intval($row->id) : 0;
 
-                  $insert_advance_security_data = array();
-                  foreach ($insert_advance_security_array as $key => $value) {
-                     $insert_advance_security_data["type"] = $key;
-                     $insert_advance_security_data["parent_id"] = $value;
-                     $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $insert_advance_security_data);
-                  }
-                  break;
+                     $insert_advance_security_data = array();
+                     foreach ($insert_advance_security_array as $key => $value) {
+                        $insert_advance_security_data["type"] = $key;
+                        $insert_advance_security_data["parent_id"] = $value;
+                        $obj_dbHelper_install_parent->insertCommand(captcha_bank_parent(), $insert_advance_security_data);
+                     }
+                     break;
+               }
             }
          }
       }
+
       /*
         Function Name: cpb_captcha_bank_meta
         Parameter: No
@@ -134,10 +137,11 @@ if (!is_user_logged_in()) {
         Created On: 25-08-2016 13:15
         Created By: Tech Banker Team
        */
-      function cpb_captcha_bank_meta() {
-         global $wpdb;
-         $obj_dbHelper_install_meta_table = new dbHelper_install_script_captcha_bank();
-         $sql = "CREATE TABLE IF NOT EXISTS " . captcha_bank_meta() . "
+      if (!function_exists("cpb_captcha_bank_meta")) {
+         function cpb_captcha_bank_meta() {
+            global $wpdb;
+            $obj_dbHelper_install_meta_table = new dbHelper_install_script_captcha_bank();
+            $sql = "CREATE TABLE IF NOT EXISTS " . captcha_bank_meta() . "
 				(
 					`id` int(10) NOT NULL AUTO_INCREMENT,
 					`meta_id` int(10) NOT NULL,
@@ -146,194 +150,195 @@ if (!is_user_logged_in()) {
 					PRIMARY KEY (`id`)
 				)
 				ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COLLATE= utf8_general_ci";
-         dbDelta($sql);
-         $admin_email = get_option("admin_email");
-         $parent_table_data = $wpdb->get_results
-             (
-             "SELECT * FROM " . captcha_bank_parent()
-         );
+            dbDelta($sql);
+            $admin_email = get_option("admin_email");
+            $parent_table_data = $wpdb->get_results
+                (
+                "SELECT * FROM " . captcha_bank_parent()
+            );
 
-         foreach ($parent_table_data as $row) {
-            switch (esc_attr($row->type)) {
-               case "captcha_type":
-                  $captcha_type_array = array();
-                  $captcha_type_array["captcha_type_text_logical"] = "logical_captcha";
-                  $captcha_type_array["captcha_characters"] = "4";
-                  $captcha_type_array["captcha_type"] = "alphabets_and_digits";
-                  $captcha_type_array["text_case"] = "upper_case";
-                  $captcha_type_array["case_sensitive"] = "enable";
-                  $captcha_type_array["captcha_width"] = "225";
-                  $captcha_type_array["captcha_height"] = "70";
-                  $captcha_type_array["captcha_background"] = "bg4.jpg";
-                  $captcha_type_array["border_style"] = "0,solid,#cccccc";
-                  $captcha_type_array["lines"] = "5";
-                  $captcha_type_array["lines_color"] = "#707070";
-                  $captcha_type_array["noise_level"] = "100";
-                  $captcha_type_array["noise_color"] = "#707070";
-                  $captcha_type_array["text_transperancy"] = "10";
-                  $captcha_type_array["signature_text"] = "Captcha Bank";
-                  $captcha_type_array["signature_style"] = "7,#ff0000";
-                  $captcha_type_array["signature_font"] = "Roboto:100";
-                  $captcha_type_array["text_shadow_color"] = "#cfc6cf";
-                  $captcha_type_array["mathematical_operations"] = "arithmetic";
-                  $captcha_type_array["arithmetic_actions"] = "1,1,1,1";
-                  $captcha_type_array["relational_actions"] = "1,1";
-                  $captcha_type_array["arrange_order"] = "1,1";
-                  $captcha_type_array["text_style"] = "24,#000000";
-                  $captcha_type_array["text_font"] = "Roboto";
+            foreach ($parent_table_data as $row) {
+               switch (esc_attr($row->type)) {
+                  case "captcha_type":
+                     $captcha_type_array = array();
+                     $captcha_type_array["captcha_type_text_logical"] = "logical_captcha";
+                     $captcha_type_array["captcha_characters"] = "4";
+                     $captcha_type_array["captcha_type"] = "alphabets_and_digits";
+                     $captcha_type_array["text_case"] = "upper_case";
+                     $captcha_type_array["case_sensitive"] = "enable";
+                     $captcha_type_array["captcha_width"] = "225";
+                     $captcha_type_array["captcha_height"] = "70";
+                     $captcha_type_array["captcha_background"] = "bg4.jpg";
+                     $captcha_type_array["border_style"] = "0,solid,#cccccc";
+                     $captcha_type_array["lines"] = "5";
+                     $captcha_type_array["lines_color"] = "#707070";
+                     $captcha_type_array["noise_level"] = "100";
+                     $captcha_type_array["noise_color"] = "#707070";
+                     $captcha_type_array["text_transperancy"] = "10";
+                     $captcha_type_array["signature_text"] = "Captcha Bank";
+                     $captcha_type_array["signature_style"] = "7,#ff0000";
+                     $captcha_type_array["signature_font"] = "Roboto:100";
+                     $captcha_type_array["text_shadow_color"] = "#cfc6cf";
+                     $captcha_type_array["mathematical_operations"] = "arithmetic";
+                     $captcha_type_array["arithmetic_actions"] = "1,1,1,1";
+                     $captcha_type_array["relational_actions"] = "1,1";
+                     $captcha_type_array["arrange_order"] = "1,1";
+                     $captcha_type_array["text_style"] = "24,#000000";
+                     $captcha_type_array["text_font"] = "Roboto";
 
-                  $captcha_type_data = array();
-                  $captcha_type_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $captcha_type_data["meta_key"] = "captcha_type";
-                  $captcha_type_data["meta_value"] = serialize($captcha_type_array);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $captcha_type_data);
-                  break;
+                     $captcha_type_data = array();
+                     $captcha_type_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $captcha_type_data["meta_key"] = "captcha_type";
+                     $captcha_type_data["meta_value"] = serialize($captcha_type_array);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $captcha_type_data);
+                     break;
 
-               case "error_message":
-                  $error_message_data = array();
-                  $error_message_data["for_login_attempts_error"] = "<p>Your Maximum Login Attempts left : <strong>[maxAttempts]</strong></p>";
-                  $error_message_data["for_invalid_captcha_error"] = "You have entered an Invalid Captcha. Please try again.";
-                  $error_message_data["for_blocked_ip_address_error"] = "<p>Your IP Address <strong>[ip_address]</strong> has been blocked by the Administrator for security purposes.</p>\r\n<p>Please contact the Website Administrator for more details.</p>";
-                  $error_message_data["for_captcha_empty_error"] = "Your Captcha is Empty. Please enter Captcha and try again.";
-                  $error_message_data["for_blocked_ip_range_error"] = "<p>Your IP Range <strong>[ip_range]</strong> has been blocked by the Administrator for security purposes.</p>\r\n<p>Please contact the Website Administrator for more details.</p>";
-                  $error_message_data["for_blocked_country_error"] = "<p>Unfortunately, your country location <strong>[country_location]</strong> has been blocked by the Administrator for security purposes.</p><p>Please contact the Website Administrator for more details.</p>";
+                  case "error_message":
+                     $error_message_data = array();
+                     $error_message_data["for_login_attempts_error"] = "<p>Your Maximum Login Attempts left : <strong>[maxAttempts]</strong></p>";
+                     $error_message_data["for_invalid_captcha_error"] = "You have entered an Invalid Captcha. Please try again.";
+                     $error_message_data["for_blocked_ip_address_error"] = "<p>Your IP Address <strong>[ip_address]</strong> has been blocked by the Administrator for security purposes.</p>\r\n<p>Please contact the Website Administrator for more details.</p>";
+                     $error_message_data["for_captcha_empty_error"] = "Your Captcha is Empty. Please enter Captcha and try again.";
+                     $error_message_data["for_blocked_ip_range_error"] = "<p>Your IP Range <strong>[ip_range]</strong> has been blocked by the Administrator for security purposes.</p>\r\n<p>Please contact the Website Administrator for more details.</p>";
+                     $error_message_data["for_blocked_country_error"] = "<p>Unfortunately, your country location <strong>[country_location]</strong> has been blocked by the Administrator for security purposes.</p><p>Please contact the Website Administrator for more details.</p>";
 
-                  $insert_error_message_data = array();
-                  $insert_error_message_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_error_message_data["meta_key"] = "error_message";
-                  $insert_error_message_data["meta_value"] = serialize($error_message_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_error_message_data);
-                  break;
+                     $insert_error_message_data = array();
+                     $insert_error_message_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_error_message_data["meta_key"] = "error_message";
+                     $insert_error_message_data["meta_value"] = serialize($error_message_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_error_message_data);
+                     break;
 
-               case "display_settings":
-                  $display_setting_data = array();
-                  $display_setting_data["settings"] = "1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+                  case "display_settings":
+                     $display_setting_data = array();
+                     $display_setting_data["settings"] = "1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
-                  $insert_display_settings_data = array();
-                  $insert_display_settings_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_display_settings_data["meta_key"] = "display_settings";
-                  $insert_display_settings_data["meta_value"] = serialize($display_setting_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_display_settings_data);
-                  break;
+                     $insert_display_settings_data = array();
+                     $insert_display_settings_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_display_settings_data["meta_key"] = "display_settings";
+                     $insert_display_settings_data["meta_value"] = serialize($display_setting_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_display_settings_data);
+                     break;
 
-               case "alert_setup":
-                  $alert_setup_data = array();
-                  $alert_setup_data["email_when_a_user_fails_login"] = "disable";
-                  $alert_setup_data["email_when_a_user_success_login"] = "disable";
-                  $alert_setup_data["email_when_an_ip_address_is_blocked"] = "disable";
-                  $alert_setup_data["email_when_an_ip_address_is_unblocked"] = "disable";
-                  $alert_setup_data["email_when_an_ip_range_is_blocked"] = "disable";
-                  $alert_setup_data["email_when_an_ip_range_is_unblocked"] = "disable";
+                  case "alert_setup":
+                     $alert_setup_data = array();
+                     $alert_setup_data["email_when_a_user_fails_login"] = "disable";
+                     $alert_setup_data["email_when_a_user_success_login"] = "disable";
+                     $alert_setup_data["email_when_an_ip_address_is_blocked"] = "disable";
+                     $alert_setup_data["email_when_an_ip_address_is_unblocked"] = "disable";
+                     $alert_setup_data["email_when_an_ip_range_is_blocked"] = "disable";
+                     $alert_setup_data["email_when_an_ip_range_is_unblocked"] = "disable";
 
-                  $insert_alert_setup_data = array();
-                  $insert_alert_setup_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_alert_setup_data["meta_key"] = "alert_setup";
-                  $insert_alert_setup_data["meta_value"] = serialize($alert_setup_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_alert_setup_data);
-                  break;
+                     $insert_alert_setup_data = array();
+                     $insert_alert_setup_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_alert_setup_data["meta_key"] = "alert_setup";
+                     $insert_alert_setup_data["meta_value"] = serialize($alert_setup_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_alert_setup_data);
+                     break;
 
-               case "roles_and_capabilities":
-                  $roles_and_capabilities_data = array();
-                  $roles_and_capabilities_data["roles_and_capabilities"] = "1,1,1,0,0,0";
-                  $roles_and_capabilities_data["administrator_privileges"] = "1,1,1,1,1,1,1,1,1";
-                  $roles_and_capabilities_data["author_privileges"] = "0,0,1,1,0,1,0,1,0";
-                  $roles_and_capabilities_data["editor_privileges"] = "0,0,1,0,0,1,0,1,1";
-                  $roles_and_capabilities_data["contributor_privileges"] = "0,0,1,0,0,1,0,1,0";
-                  $roles_and_capabilities_data["subscriber_privileges"] = "0,0,0,0,0,0,0,0,0";
-                  $roles_and_capabilities_data["others_full_control_capability"] = "0";
-                  $roles_and_capabilities_data["other_privileges"] = "0,0,0,0,0,0,0,0,0";
-                  $roles_and_capabilities_data["show_captcha_bank_top_bar_menu"] = "enable";
+                  case "roles_and_capabilities":
+                     $roles_and_capabilities_data = array();
+                     $roles_and_capabilities_data["roles_and_capabilities"] = "1,1,1,0,0,0";
+                     $roles_and_capabilities_data["administrator_privileges"] = "1,1,1,1,1,1,1,1,1";
+                     $roles_and_capabilities_data["author_privileges"] = "0,0,1,1,0,1,0,1,0";
+                     $roles_and_capabilities_data["editor_privileges"] = "0,0,1,0,0,1,0,1,1";
+                     $roles_and_capabilities_data["contributor_privileges"] = "0,0,1,0,0,1,0,1,0";
+                     $roles_and_capabilities_data["subscriber_privileges"] = "0,0,0,0,0,0,0,0,0";
+                     $roles_and_capabilities_data["others_full_control_capability"] = "0";
+                     $roles_and_capabilities_data["other_privileges"] = "0,0,0,0,0,0,0,0,0";
+                     $roles_and_capabilities_data["show_captcha_bank_top_bar_menu"] = "enable";
 
-                  $user_capabilities = get_others_capabilities_captcha_bank();
-                  $other_roles_array = array();
-                  $other_roles_access_array = array(
-                      "manage_options",
-                      "edit_plugins",
-                      "edit_posts",
-                      "publish_posts",
-                      "publish_pages",
-                      "edit_pages",
-                      "read"
-                  );
-                  foreach ($other_roles_access_array as $role) {
-                     if (in_array($role, $user_capabilities)) {
-                        array_push($other_roles_array, $role);
+                     $user_capabilities = get_others_capabilities_captcha_bank();
+                     $other_roles_array = array();
+                     $other_roles_access_array = array(
+                         "manage_options",
+                         "edit_plugins",
+                         "edit_posts",
+                         "publish_posts",
+                         "publish_pages",
+                         "edit_pages",
+                         "read"
+                     );
+                     foreach ($other_roles_access_array as $role) {
+                        if (in_array($role, $user_capabilities)) {
+                           array_push($other_roles_array, $role);
+                        }
                      }
-                  }
-                  $roles_and_capabilities_data["capabilities"] = $other_roles_array;
+                     $roles_and_capabilities_data["capabilities"] = $other_roles_array;
 
-                  $insert_roles_and_capabilities_data = array();
-                  $insert_roles_and_capabilities_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_roles_and_capabilities_data["meta_key"] = "roles_and_capabilities";
-                  $insert_roles_and_capabilities_data["meta_value"] = serialize($roles_and_capabilities_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_roles_and_capabilities_data);
-                  break;
+                     $insert_roles_and_capabilities_data = array();
+                     $insert_roles_and_capabilities_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_roles_and_capabilities_data["meta_key"] = "roles_and_capabilities";
+                     $insert_roles_and_capabilities_data["meta_value"] = serialize($roles_and_capabilities_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_roles_and_capabilities_data);
+                     break;
 
-               case "blocking_options":
-                  $blocking_options_data = array();
-                  $blocking_options_data["auto_ip_block"] = "enable";
-                  $blocking_options_data["maximum_login_attempt_in_a_day"] = "5";
-                  $blocking_options_data["block_for_time"] = "1Hour";
+                  case "blocking_options":
+                     $blocking_options_data = array();
+                     $blocking_options_data["auto_ip_block"] = "enable";
+                     $blocking_options_data["maximum_login_attempt_in_a_day"] = "5";
+                     $blocking_options_data["block_for_time"] = "1Hour";
 
-                  $insert_blocking_options_data = array();
-                  $insert_blocking_options_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_blocking_options_data["meta_key"] = "blocking_options";
-                  $insert_blocking_options_data["meta_value"] = serialize($blocking_options_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_blocking_options_data);
-                  break;
+                     $insert_blocking_options_data = array();
+                     $insert_blocking_options_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_blocking_options_data["meta_key"] = "blocking_options";
+                     $insert_blocking_options_data["meta_value"] = serialize($blocking_options_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_blocking_options_data);
+                     break;
 
-               case "country_blocks":
-                  $blocking_options_data = array();
-                  $blocking_options_data["country_block_data"] = "";
+                  case "country_blocks":
+                     $blocking_options_data = array();
+                     $blocking_options_data["country_block_data"] = "";
 
-                  $insert_blocking_options_data = array();
-                  $insert_blocking_options_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_blocking_options_data["meta_key"] = "country_blocks";
-                  $insert_blocking_options_data["meta_value"] = serialize($blocking_options_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_blocking_options_data);
-                  break;
+                     $insert_blocking_options_data = array();
+                     $insert_blocking_options_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_blocking_options_data["meta_key"] = "country_blocks";
+                     $insert_blocking_options_data["meta_value"] = serialize($blocking_options_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_blocking_options_data);
+                     break;
 
-               case "email_templates":
-                  $email_templates_data = array();
-                  $email_templates_data["template_for_user_success"] = "<p>Hi,</p><p>A login attempt has been successfully made to your website [site_url] from user <strong>[username]</strong> at [date_time] from IP Address <strong>[ip_address]</strong>.</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Username:</strong> [username]</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong>[ip_address]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
-                  $email_templates_data["template_for_user_failure"] = "<p>Hi,</p><p>An unsuccessful attempt to login at your website [site_url] was being made by user <strong>[username]</strong> at [date_time] from IP Address <strong>[ip_address]</strong>.</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Username:</strong> [username]</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]<p><strong>IP Address:</strong> [ip_address]</p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
-                  $email_templates_data["template_for_ip_address_blocked"] = "<p>Hi,</p><p>An IP Address <strong>[ip_address]</strong> has been Blocked <strong>[blocked_for]</strong> to your website [site_url].</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_address]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
-                  $email_templates_data["template_for_ip_address_unblocked"] = "<p>Hi,</p><p>An IP Address <strong>[ip_address]</strong> has been Unblocked from your website [site_url] </p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_address]</p><p>Thanks & Regards</p><p>Technical Support Team</p><p>[site_url]</p>";
-                  $email_templates_data["template_for_ip_range_blocked"] = "<p>Hi,</p><p>An IP Range from <strong>[start_ip_range]</strong> to <strong>[end_ip_range]</strong> has been Blocked <strong>[blocked_for]</strong> to your website [site_url].</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><strong>IP Address:</strong> [ip_range]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
-                  $email_templates_data["template_for_ip_range_unblocked"] = "<p>Hi,</p><p>An IP Range from <strong>[start_ip_range]</strong> to <strong>[end_ip_range]</strong> has been Unblocked from your website [site_url] .</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_range]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
+                  case "email_templates":
+                     $email_templates_data = array();
+                     $email_templates_data["template_for_user_success"] = "<p>Hi,</p><p>A login attempt has been successfully made to your website [site_url] from user <strong>[username]</strong> at [date_time] from IP Address <strong>[ip_address]</strong>.</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Username:</strong> [username]</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong>[ip_address]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
+                     $email_templates_data["template_for_user_failure"] = "<p>Hi,</p><p>An unsuccessful attempt to login at your website [site_url] was being made by user <strong>[username]</strong> at [date_time] from IP Address <strong>[ip_address]</strong>.</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Username:</strong> [username]</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]<p><strong>IP Address:</strong> [ip_address]</p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
+                     $email_templates_data["template_for_ip_address_blocked"] = "<p>Hi,</p><p>An IP Address <strong>[ip_address]</strong> has been Blocked <strong>[blocked_for]</strong> to your website [site_url].</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_address]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
+                     $email_templates_data["template_for_ip_address_unblocked"] = "<p>Hi,</p><p>An IP Address <strong>[ip_address]</strong> has been Unblocked from your website [site_url] </p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_address]</p><p>Thanks & Regards</p><p>Technical Support Team</p><p>[site_url]</p>";
+                     $email_templates_data["template_for_ip_range_blocked"] = "<p>Hi,</p><p>An IP Range from <strong>[start_ip_range]</strong> to <strong>[end_ip_range]</strong> has been Blocked <strong>[blocked_for]</strong> to your website [site_url].</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><strong>IP Address:</strong> [ip_range]</p><p><strong>Resource:</strong>[resource]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
+                     $email_templates_data["template_for_ip_range_unblocked"] = "<p>Hi,</p><p>An IP Range from <strong>[start_ip_range]</strong> to <strong>[end_ip_range]</strong> has been Unblocked from your website [site_url] .</p><p><u>Here is the detailed footprint at the Request</u> :-</p><p><strong>Date/Time:</strong> [date_time]</p><p><strong>website:</strong> [site_url]</p><p><strong>IP Address:</strong> [ip_range]</p><p>Thanks & Regards</p><p><strong>Technical Support Team</strong></p><p>[site_url]</p>";
 
-                  $email_templates_message = array("Login Success Notification- Captcha Bank", "Login Failure Notification- Captcha Bank", "IP Address Blocked Notification - Captcha Bank", "IP Address Unblocked Notification - Captcha Bank", "IP Range Blocked Notification - Captcha Bank", "IP Range Unblocked Notification - Captcha Bank");
-                  $count = 0;
-                  foreach ($email_templates_data as $key => $value) {
-                     $email_templates_data_array = array();
-                     $email_templates_data_array["send_to"] = $admin_email;
-                     $email_templates_data_array["email_cc"] = "";
-                     $email_templates_data_array["email_bcc"] = "";
-                     $email_templates_data_array["email_subject"] = $email_templates_message[$count];
-                     $email_templates_data_array["email_message"] = $value;
-                     $count++;
+                     $email_templates_message = array("Login Success Notification- Captcha Bank", "Login Failure Notification- Captcha Bank", "IP Address Blocked Notification - Captcha Bank", "IP Address Unblocked Notification - Captcha Bank", "IP Range Blocked Notification - Captcha Bank", "IP Range Unblocked Notification - Captcha Bank");
+                     $count = 0;
+                     foreach ($email_templates_data as $key => $value) {
+                        $email_templates_data_array = array();
+                        $email_templates_data_array["send_to"] = $admin_email;
+                        $email_templates_data_array["email_cc"] = "";
+                        $email_templates_data_array["email_bcc"] = "";
+                        $email_templates_data_array["email_subject"] = $email_templates_message[$count];
+                        $email_templates_data_array["email_message"] = $value;
+                        $count++;
 
-                     $insert_email_templates_data = array();
-                     $insert_email_templates_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                     $insert_email_templates_data["meta_key"] = $key;
-                     $insert_email_templates_data["meta_value"] = serialize($email_templates_data_array);
-                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_email_templates_data);
-                  }
-                  break;
+                        $insert_email_templates_data = array();
+                        $insert_email_templates_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                        $insert_email_templates_data["meta_key"] = $key;
+                        $insert_email_templates_data["meta_value"] = serialize($email_templates_data_array);
+                        $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_email_templates_data);
+                     }
+                     break;
 
-               case "other_settings":
-                  $other_settings_data = array();
-                  $other_settings_data["remove_tables_at_uninstall"] = "enable";
-                  $other_settings_data["live_traffic_monitoring"] = "disable";
-                  $other_settings_data["visitor_logs_monitoring"] = "disable";
-                  $other_settings_data["ip_address_fetching_method"] = "";
+                  case "other_settings":
+                     $other_settings_data = array();
+                     $other_settings_data["remove_tables_at_uninstall"] = "enable";
+                     $other_settings_data["live_traffic_monitoring"] = "disable";
+                     $other_settings_data["visitor_logs_monitoring"] = "disable";
+                     $other_settings_data["ip_address_fetching_method"] = "";
 
-                  $insert_other_settings_data = array();
-                  $insert_other_settings_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
-                  $insert_other_settings_data["meta_key"] = "other_settings";
-                  $insert_other_settings_data["meta_value"] = serialize($other_settings_data);
-                  $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_other_settings_data);
-                  break;
+                     $insert_other_settings_data = array();
+                     $insert_other_settings_data["meta_id"] = isset($row->id) ? intval($row->id) : 0;
+                     $insert_other_settings_data["meta_key"] = "other_settings";
+                     $insert_other_settings_data["meta_value"] = serialize($other_settings_data);
+                     $obj_dbHelper_install_meta_table->insertCommand(captcha_bank_meta(), $insert_other_settings_data);
+                     break;
+               }
             }
          }
       }

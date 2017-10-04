@@ -26,67 +26,6 @@ if (!is_user_logged_in()) {
       </div>
       </div>
       </div>
-      <div class="popup" data-popup="ux_open_popup_translator">
-         <div class="popup-inner">
-            <div class="portlet box vivid-green" style="margin-bottom:0px;">
-               <div class="portlet-title">
-                  <div class="caption" id="ux_div_action">
-                     <?php echo $cpb_translation_request; ?>
-                  </div>
-               </div>
-               <div class="portlet-body form">
-                  <div id="ux_div_popup_header">
-                     <form id="ux_frm_language_translator">
-                        <div class="form-body">
-                           <div class="row">
-                              <div class="col-md-6 popup-control">
-                                 <div class="form-group">
-                                    <label class="control-label">
-                                       <?php echo $cpb_feature_requests_name_title; ?> :
-                                       <i class="icon-custom-question tooltips" data-original-title="<?php echo $cpb_popup_your_name_tooltip; ?>" data-placement="right"></i>
-                                       <span class="required" aria-required="true">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" name="ux_txt_your_name" id="ux_txt_your_name" value="" placeholder="<?php echo $cpb_feature_requests_name_placeholder; ?>">
-                                 </div>
-                              </div>
-                              <div class="col-md-6 popup-control">
-                                 <div class="form-group">
-                                    <label class="control-label">
-                                       <?php echo $cpb_feature_requests_email_title; ?> :
-                                       <i class="icon-custom-question tooltips" data-original-title="<?php echo $cpb_popup_your_email_tooltip; ?>" data-placement="right"></i>
-                                       <span class="required" aria-required="true">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" name="ux_txt_email_address" id="ux_txt_email_address" value=""  placeholder="<?php echo $cpb_feature_requests_email_placeholder; ?>">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <label class="control-label">
-                                 <?php echo $cpb_language_interested_to_translate; ?> :
-                                 <i class="icon-custom-question tooltips" data-original-title="<?php echo $cpb_language_interested_to_translate_tooltip; ?>" data-placement="right"></i>
-                                 <span class="required" aria-required="true">*</span>
-                              </label>
-                              <input type="text" class="form-control" name="ux_txt_language" id="ux_txt_language"  value="" placeholder="<?php echo $cpb_language_interested_to_translate_placeholder; ?>">
-                           </div>
-                           <div class="form-group">
-                              <label class="control-label">
-                                 <?php echo $cpb_popup_query; ?> :
-                                 <i class="icon-custom-question tooltips" data-original-title="<?php echo $cpb_popup_query_tooltip; ?>" data-placement="right"></i>
-                                 <span class="required" aria-required="true">*</span>
-                              </label>
-                              <textarea class="form-control" name="ux_txtarea_query" id="ux_txtarea_query" rows="7" placeholder="<?php echo $cpb_popup_query_placeholder; ?>"><?php echo "Hi,\r\r\nI am interested in translating your plugin Captcha Bank in my native language.\r\r\nPlease get back to me!\r\r\nThanks"; ?></textarea>
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                           <input type="button" data-popup-close-translator="ux_open_popup_translator" class="btn vivid-green" name="ux_btn_close" id="ux_btn_close" value="<?php echo $cpb_close; ?>">
-                           <input type="submit"  class="btn vivid-green" name="ux_btn_send_request" id="ux_btn_send_request" value="<?php echo $cpb_feature_requests_send_request; ?>">
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
       <script type="text/javascript">
          jQuery(".tooltips").tooltip_tip({placement: "left"});
          jQuery("li > a").parents("li").each(function ()
@@ -216,37 +155,6 @@ if (!is_user_logged_in()) {
                jQuery(o).text(arr[i].t);
             });
          }
-
-         // Close popup
-         jQuery("[data-popup-close-translator]").on("click", function (e)
-         {
-            var confirm_close = confirm(<?php echo json_encode($cpb_confirm_close); ?>);
-            if (confirm_close === true)
-            {
-               var targeted_popup_class = jQuery(this).attr("data-popup-close-translator");
-               jQuery('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
-            }
-
-            e.preventDefault();
-         });
-         function open_popup_captcha_bank()
-         {
-            jQuery("[data-popup-open]").on("click", function (e)
-            {
-               var targeted_popup_class = jQuery(this).attr("data-popup-open");
-               jQuery('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
-
-               e.preventDefault();
-            });
-         }
-
-
-         function show_pop_up_captcha_bank()
-         {
-            open_popup_captcha_bank();
-         }
-
-
          function check_color_captcha_bank(id)
          {
             jQuery(id).val() === "" ? jQuery(id).val("#000000") : jQuery(id).val();
@@ -262,8 +170,6 @@ if (!is_user_logged_in()) {
                event.preventDefault();
             }
          }
-
-
          function ip2long(IP)
          {
             var i = 0;
@@ -288,8 +194,6 @@ if (!is_user_logged_in()) {
             }
             return IP[1] * (IP[0] === 1 || 16777216) + IP[2] * (IP[0] <= 2 || 65536) + IP[3] * (IP[0] <= 3 || 256) + IP[4] * 1;
          }
-
-
          function base64_encode_captcha_bank(data)
          {
             var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -317,8 +221,6 @@ if (!is_user_logged_in()) {
             var r = data.length % 3;
             return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
          }
-
-
          function get_datatable_captcha_bank(id)
          {
             var oTable = jQuery(id).dataTable
@@ -340,7 +242,6 @@ if (!is_user_logged_in()) {
                     });
             return oTable;
          }
-
          function check_all_captcha_bank(id)
          {
             if ((jQuery("input:checked", oTable.fnGetFilteredNodes()).length) === jQuery("input[type=checkbox]", oTable.fnGetFilteredNodes()).length)
@@ -351,8 +252,6 @@ if (!is_user_logged_in()) {
                jQuery(id).removeAttr("checked");
             }
          }
-
-
          function cpb_colorpicker(id, value)
          {
             jQuery("#" + id).colpick
@@ -370,7 +269,6 @@ if (!is_user_logged_in()) {
                jQuery(this).colpickSetColor("#" + this.value);
             });
          }
-
          jQuery(document).ready(function ()
          {
             jQuery("#ux_txt_cpb_start_date").datepicker
@@ -438,7 +336,6 @@ if (!is_user_logged_in()) {
       }
       ?>
          }
-
          function delete_selected_log_captcha_bank(meta_id, overlay_loading, url)
          {
             var confirm_delete = confirm(<?php echo json_encode($cpb_confirm_delete); ?>);
@@ -462,8 +359,6 @@ if (!is_user_logged_in()) {
                        });
             }
          }
-
-
          function captcha_bank_show_time_for(id, div_id)
          {
             if (jQuery(id).val() === "block")
@@ -474,74 +369,6 @@ if (!is_user_logged_in()) {
                jQuery(div_id).css("display", "none");
             }
          }
-
-         var translation_request_array = [];
-         var url = "<?php echo tech_banker_url . "/feedbacks.php"; ?>";
-         var domain_url = "<?php echo site_url(); ?>";
-         var cpb_frm_language_translator = jQuery("#ux_frm_language_translator");
-         cpb_frm_language_translator.validate
-                 ({
-                    rules:
-                            {
-                               ux_txt_your_name:
-                                       {
-                                          required: true
-                                       },
-                               ux_txt_email_address:
-                                       {
-                                          required: true,
-                                          email: true
-                                       },
-                               ux_txt_language:
-                                       {
-                                          required: true
-                                       },
-                               ux_txtarea_query:
-                                       {
-                                          required: true
-                                       }
-                            },
-                    errorPlacement: function ()
-                    {
-
-                    },
-                    highlight: function (element)
-                    {
-                       jQuery(element).closest(".form-group").removeClass("has-success").addClass("has-error");
-                    },
-                    success: function (label, element)
-                    {
-                       var icon = jQuery(element).parent(".input-icon").children("i");
-                       jQuery(element).closest(".form-group").removeClass("has-error").addClass("has-success");
-                       icon.removeClass("fa-warning").addClass("fa-check");
-                    },
-                    submitHandler: function ()
-                    {
-                       translation_request_array.push(jQuery("#ux_txt_your_name").val());
-                       translation_request_array.push(jQuery("#ux_txt_email_address").val());
-                       translation_request_array.push(domain_url);
-                       translation_request_array.push(jQuery("#ux_txt_language").val());
-                       translation_request_array.push(jQuery("#ux_txtarea_query").val());
-                       overlay_loading_captcha_bank(<?php echo json_encode($cpb_feature_request); ?>);
-                       jQuery.post(url,
-                               {
-                                  data: JSON.stringify(translation_request_array),
-                                  param: "captcha_bank_translation_request"
-                               },
-                               function ()
-                               {
-                                  setTimeout(function ()
-                                  {
-                                     remove_overlay_captcha_bank();
-                                     window.location.href = "admin.php?page=captcha_bank";
-                                  }, 3000);
-                               });
-                    }
-                 });
-         jQuery(document).ready(function ()
-         {
-            open_popup_captcha_bank();
-         });
       <?php
       $captcha_bank_wizard = get_option("captcha-bank-wizard-set-up");
       $captcha_bank_page_url = $captcha_bank_wizard == "" ? "captcha_bank_wizard" : esc_attr($_GET["page"]);
@@ -1169,10 +996,10 @@ if (!is_user_logged_in()) {
                                 },
                                 submitHandler: function ()
                                 {
-                                   var ip_address = check_ip_address_captcha_bank();
-                                   if (ip_address === true)
+                                   var ip_address_flag = check_ip_address_captcha_bank();
+                                   if (ip_address_flag === true)
                                    {
-                                      var ip_address = JSON.stringify(jQuery("#ux_txt_address").val());
+                                      var ip_address = jQuery("#ux_txt_address").val();
                                       jQuery.post(ajaxurl,
                                               {
                                                  data: base64_encode_captcha_bank(jQuery("#ux_frm_manage_ip_addreses").serialize()),
@@ -1309,8 +1136,8 @@ if (!is_user_logged_in()) {
                                    {
                                       if (ip2long(control_start_range.val()) < ip2long(control_end_range.val()))
                                       {
-                                         var start_range = JSON.stringify(jQuery("#ux_txt_start_ip_range").val());
-                                         var end_range = JSON.stringify(jQuery("#ux_txt_end_range").val());
+                                         var start_range = jQuery("#ux_txt_start_ip_range").val();
+                                         var end_range = jQuery("#ux_txt_end_range").val();
                                          jQuery.post(ajaxurl,
                                                  {
                                                     data: base64_encode_captcha_bank(jQuery("#ux_frm_manage_ip_ranges").serialize()),
@@ -1609,66 +1436,6 @@ if (!is_user_logged_in()) {
                              });
                   <?php
                }
-               break;
-            case "captcha_bank_feature_requests":
-               ?>
-                  jQuery("#ux_li_feature_requests").addClass("active");
-                  load_sidebar_content_captcha_bank();
-                  var features_array = [];
-                  var url = "<?php echo tech_banker_url . "/feedbacks.php" ?>";
-                  var domain_url = "<?php echo site_url(); ?>";
-                  jQuery("#ux_frm_feature_requests").validate
-                          ({
-                             rules:
-                                     {
-                                        ux_txt_your_name:
-                                                {
-                                                   required: true
-                                                },
-                                        ux_txt_email_address:
-                                                {
-                                                   required: true,
-                                                   email: true
-                                                },
-                                        ux_txtarea_feature_request:
-                                                {
-                                                   required: true
-                                                }
-                                     },
-                             errorPlacement: function ()
-                             {
-                             },
-                             highlight: function (element)
-                             {
-                                jQuery(element).closest(".form-group").removeClass("has-success").addClass("has-error");
-                             },
-                             success: function (label, element)
-                             {
-                                var icon = jQuery(element).parent(".input-icon").children("i");
-                                jQuery(element).closest(".form-group").removeClass("has-error").addClass("has-success");
-                                icon.removeClass("fa-warning").addClass("fa-check");
-                             },
-                             submitHandler: function ()
-                             {
-                                features_array.push(jQuery("#ux_txt_your_name").val(), jQuery("#ux_txt_email_address").val(), domain_url, jQuery("#ux_txtarea_feature_request").val());
-                                overlay_loading_captcha_bank(<?php echo json_encode($cpb_feature_request); ?>);
-                                jQuery.post(url,
-                                        {
-                                           data: JSON.stringify(features_array),
-                                           param: "captcha_bank_feature_requests"
-                                        },
-                                        function ()
-                                        {
-                                           setTimeout(function ()
-                                           {
-                                              remove_overlay_captcha_bank();
-                                              window.location.href = "admin.php?page=captcha_bank_feature_requests";
-                                           },
-                                                   3000);
-                                        });
-                             }
-                          });
-               <?php
                break;
             case "captcha_bank_system_information":
                ?>

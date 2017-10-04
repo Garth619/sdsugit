@@ -124,9 +124,9 @@ if (!is_user_logged_in()) {
          add_submenu_page($cpb_block_unblock_ip_address_label, $cpb_block_unblock_ip_address_label, "", "read", "captcha_bank_block_unblock_ip_addresses", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_block_unblock_ip_addresses");
          add_submenu_page($cpb_block_unblock_ip_range_label, $cpb_block_unblock_ip_range_label, "", "read", "captcha_bank_block_unblock_ip_ranges", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_block_unblock_ip_ranges");
          add_submenu_page($cpb_block_unblock_countries_label, $cpb_block_unblock_countries_label, "", "read", "captcha_bank_block_unblock_countries", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_block_unblock_countries");
-         add_submenu_page("captcha_bank", $cpb_feature_requests, $cpb_feature_requests, "read", "captcha_bank_feature_requests", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_feature_requests");
+         add_submenu_page("captcha_bank", $cpb_support_forum, $cpb_support_forum, "read", "https://wordpress.org/support/plugin/captcha-bank", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "");
          add_submenu_page("captcha_bank", $cpb_system_information_menu, $cpb_system_information_menu, "read", "captcha_bank_system_information", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_system_information");
-         add_submenu_page("captcha_bank", $cpb_upgrade, $cpb_upgrade, "read", "captcha_bank_premium_editions", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "captcha_bank_premium_editions");
+         add_submenu_page("captcha_bank", $cpb_upgrade, $cpb_upgrade, "read", "https://captcha-bank.tech-banker.com/pricing/", $check_captcha_bank_wizard == "" ? "captcha_bank_wizard" : "");
       }
 
       /*
@@ -170,9 +170,6 @@ if (!is_user_logged_in()) {
          }
          if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/queries.php")) {
             include_once CAPTCHA_BANK_DIR_PATH . "includes/queries.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php")) {
-            $web_font_list = include_once CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php";
          }
          if (file_exists(CAPTCHA_BANK_DIR_PATH . "views/captcha-settings/captcha-setup.php")) {
             include_once CAPTCHA_BANK_DIR_PATH . "views/captcha-settings/captcha-setup.php";
@@ -563,35 +560,6 @@ if (!is_user_logged_in()) {
          }
       }
       /*
-        Function Name: captcha_bank_feature_requests
-        Parameters: No
-        Description: This function is used to create feature request menu .
-        Created On: 25-08-2016 15:25
-        Created By: Tech Banker Team
-       */
-      function captcha_bank_feature_requests() {
-         global $wpdb;
-         $user_role_permission = get_users_capabilities_captcha_bank();
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/translations.php")) {
-            include CAPTCHA_BANK_DIR_PATH . "includes/translations.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/header.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/header.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/sidebar.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/sidebar.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/queries.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/queries.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "views/feature-requests/feature-requests.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "views/feature-requests/feature-requests.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/footer.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/footer.php";
-         }
-      }
-      /*
         Function Name: captcha_bank_system_information
         Parameters: No
         Description: This function is used to create system information .
@@ -616,35 +584,6 @@ if (!is_user_logged_in()) {
          }
          if (file_exists(CAPTCHA_BANK_DIR_PATH . "views/system-information/system-information.php")) {
             include_once CAPTCHA_BANK_DIR_PATH . "views/system-information/system-information.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/footer.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/footer.php";
-         }
-      }
-      /*
-        Function Name: captcha_bank_premium_editions
-        Parameters: No
-        Description: This function is used to create  premium_editions menu.
-        Created On: 26-08-2016 11:59
-        Created By: Tech Banker Team
-       */
-      function captcha_bank_premium_editions() {
-         global $wpdb;
-         $user_role_permission = get_users_capabilities_captcha_bank();
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/translations.php")) {
-            include CAPTCHA_BANK_DIR_PATH . "includes/translations.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/header.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/header.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/sidebar.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/sidebar.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/queries.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "includes/queries.php";
-         }
-         if (file_exists(CAPTCHA_BANK_DIR_PATH . "views/premium-editions/premium-editions.php")) {
-            include_once CAPTCHA_BANK_DIR_PATH . "views/premium-editions/premium-editions.php";
          }
          if (file_exists(CAPTCHA_BANK_DIR_PATH . "includes/footer.php")) {
             include_once CAPTCHA_BANK_DIR_PATH . "includes/footer.php";

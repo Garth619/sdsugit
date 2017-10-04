@@ -22,30 +22,6 @@ if (!is_user_logged_in()) {
    if (!$access_granted) {
       return;
    } elseif (captcha_settings_captcha_bank == "1") {
-      $font_value = isset($meta_data_array["text_font"]) ? stripslashes(htmlspecialchars_decode($meta_data_array["text_font"])) : "";
-      $signature_font_value = isset($meta_data_array["signature_font"]) ? stripslashes(htmlspecialchars_decode($meta_data_array["signature_font"])) : "";
-
-      if ($meta_data_array["captcha_type_text_logical"] == "text_captcha") {
-         $font_css = get_fonts_captcha_bank("http://fonts.googleapis.com/css?family=" . captcha_bank_UrlEncode($font_value));
-         $signature_font_css = get_fonts_captcha_bank("http://fonts.googleapis.com/css?family=" . captcha_bank_UrlEncode($signature_font_value));
-         preg_match_all("#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#", $font_css, $match);
-         preg_match_all("#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#", $signature_font_css, $match_signature);
-         foreach ($match as $val => $key) {
-            if ($val == 0) {
-               $arr = $key;
-            }
-         }
-         foreach ($match_signature as $value => $key) {
-            if ($value == 0) {
-               $arr_sign = $key;
-            }
-         }
-
-         $font_url = get_fonts_captcha_bank($arr[0]);
-         $font_url_signature = get_fonts_captcha_bank($arr_sign[0]);
-         file_put_contents(CAPTCHA_BANK_DIR_PATH . "/fonts/font.ttf", $font_url);
-         file_put_contents(CAPTCHA_BANK_DIR_PATH . "/fonts/font-signature.ttf", $font_url_signature);
-      }
       $captcha_type_update = wp_create_nonce("captcha_bank_file");
       $border_style = explode(",", isset($meta_data_array["border_style"]) ? esc_attr($meta_data_array["border_style"]) : "");
       $signature_style = explode(",", isset($meta_data_array["signature_style"]) ? esc_attr($meta_data_array["signature_style"]) : "");
@@ -84,23 +60,13 @@ if (!is_user_logged_in()) {
                      <i class="icon-custom-layers"></i>
                      <?php echo $cpb_captcha_setup_menu; ?>
                   </div>
-                  <a href="http://beta.tech-banker.com/products/captcha-bank/" target="_blank" class="premium-editions"><?php echo $cpb_upgrade_to ?></a>
+                  <p class="premium-editions">
+                     <?php echo $cpb_upgrade_need_help ?><a href="https://captcha-bank.tech-banker.com/" target="_blank" class="premium-editions-documentation"><?php echo $cpb_documentation ?></a><?php echo $cpb_read_and_check; ?><a href="https://captcha-bank.tech-banker.com/frontend-demos/" target="_blank" class="premium-editions-documentation"><?php echo $cpb_demos_section; ?></a> 
+                  </p>
                </div>
                <div class="portlet-body form">
                   <form id="ux_frm_text_captcha">
                      <div class="form-body">
-                        <?php
-                        if ($cpb_message_translate_help != "") {
-                           ?>
-                           <div class="note note-danger">
-                              <h4 class="block">
-                                 <?php echo $cpb_important_disclaimer; ?>
-                              </h4>
-                              <strong><?php echo $cpb_message_translate_help; ?> <a href="javascript:void(0);" data-popup-open="ux_open_popup_translator" class="custom_links" onclick="show_pop_up_captcha_bank();"><?php echo $cpb_message_translate_here; ?></a></strong>
-                           </div>
-                           <?php
-                        }
-                        ?>
                         <div class="form-group">
                            <label class="control-label">
                               <?php echo $cpb_captcha_bank_type_breadcrumb; ?> :
@@ -258,20 +224,10 @@ if (!is_user_logged_in()) {
                                     </label>
                                     <select name="ux_ddl_text_font" id="ux_ddl_text_font" class="form-control">
                                        <?php
-                                       foreach ($web_font_list as $key => $value) {
-                                          $text = "";
-                                          if ($value != "Roboto Condensed") {
-                                             $text = "disabled";
-                                          }
-                                          ?>
-                                          <option value="<?php echo $key; ?>" <?php
-                                          if (isset($text)) {
-                                             echo $text;
-                                          }
-                                          ?>><?php echo $value; ?></option>
-                                                  <?php
-                                               }
-                                               ?>
+                                       if (file_exists(CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php")) {
+                                          include CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php";
+                                       }
+                                       ?>
                                     </select>
                                  </div>
                               </div>
@@ -409,10 +365,8 @@ if (!is_user_logged_in()) {
                                     </label>
                                     <select name="ux_ddl_sign_font" id="ux_ddl_sign_font" class="form-control">
                                        <?php
-                                       foreach ($web_font_list as $key => $value) {
-                                          ?>
-                                          <option disabled="disabled" value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                          <?php
+                                       if (file_exists(CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php")) {
+                                          include CAPTCHA_BANK_DIR_PATH . "lib/web-fonts.php";
                                        }
                                        ?>
                                     </select>

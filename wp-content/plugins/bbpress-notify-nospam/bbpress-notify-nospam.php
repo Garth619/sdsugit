@@ -2,7 +2,7 @@
 /*
 * Plugin Name:  bbPress Notify (No-Spam)
 * Description:  Sends email notifications upon topic/reply creation, as long as it's not flagged as spam. If you like this plugin, <a href="https://wordpress.org/support/view/plugin-reviews/bbpress-notify-nospam#postform" target="_new">help share the trust and rate it!</a>
-* Version:      1.15.4
+* Version:      1.15.9.1
 * Author:       <a href="http://usestrict.net" target="_new">Vinny Alves (UseStrict Consulting)</a>
 * License:      GNU General Public License, v2 ( or newer )
 * License URI:  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -25,7 +25,7 @@ load_plugin_textdomain( 'bbpress_notify', false, dirname( plugin_basename( __FIL
 
 class bbPress_Notify_noSpam {
 	
-	const VERSION = '1.15.4';
+	const VERSION = '1.15.9.1';
 	
 	protected $settings_section = 'bbpress_notify_options';
 	
@@ -64,7 +64,7 @@ class bbPress_Notify_noSpam {
 			
 // 			add_action( 'admin_notices', array( $this, 'maybe_show_admin_message' ) );
 
-			add_action( 'admin_notices', array( $this, 'maybe_show_surety_message' ) );
+// 			add_action( 'admin_notices', array( $this, 'maybe_show_surety_message' ) );
 			
 			add_action( 'wp_ajax_usc_dismiss_notice', array( $this, 'handle_notice_dismissal' ) );
 			
@@ -130,8 +130,8 @@ class bbPress_Notify_noSpam {
 			add_filter( 'bbp_subscription_mail_message', '__return_false' );
 		}
 		
-		// Munge bbpress_notify_newtopic_recipients if forum is hidden
-		add_filter( 'bbpress_notify_recipients_hidden_forum', array( $this, 'munge_newtopic_recipients' ), 10, 2 );
+		// Munge bbpress_notify_newpost_recipients if forum is hidden
+		add_filter( 'bbpress_notify_recipients_hidden_forum', array( $this, 'munge_newpost_recipients' ), 10, 3 );
 		
 		// Allow other plugins to fetch available topic tags
 		add_filter( 'bbpnns_available_tags', array( $this, 'get_available_tags' ), 10, 1 ); // deprecated, but still works
@@ -480,7 +480,8 @@ jQuery(document).ready(function($){
 	{
 		$opt = ( 'topic' === $type ) ? 'bbpress_notify_newtopic_recipients' : 'bbpress_notify_newreply_recipients';
 		
-		$roles = apply_filters( 'bbpress_notify_recipients_hidden_forum', get_option( $opt ), $forum_id );
+		$roles = get_option( $opt );
+		$roles = apply_filters( 'bbpress_notify_recipients_hidden_forum', $roles, $type, $forum_id );
 		
 		$recipients = array();
 		foreach ( ( array ) $roles as $role )
@@ -526,19 +527,19 @@ jQuery(document).ready(function($){
 	/**
 	 * @since 1.5
 	 * @desc Forces admin-only recipients if forum is hidden
-	 * @param array $recipients
+	 * @param array $type
 	 * @param number $topic_id
 	 * @return array
 	 */
-	public function munge_newtopic_recipients( $recipients=array(), $forum_id = 0 )
+	public function munge_newpost_recipients( $roles=array(), $type, $forum_id = 0 )
 	{
 		if ( true === ( bool ) bbp_is_forum_hidden( $forum_id ) &&
-		    true === ( bool ) get_option( 'bbpress_notify_hidden_forum_topic_override', true ) )
+		     true === ( bool ) get_option( "bbpress_notify_hidden_forum_{$type}_override", true ) )
 		{
-			$recipients = 'administrator';
+			$roles = array('administrator');
 		}
 	
-		return $recipients;
+		return $roles;
 	}
 	
 	
@@ -605,24 +606,24 @@ jQuery(document).ready(function($){
 		if ( 'topic' === $type )
 		{
 			$content = bbp_get_topic_content( $post_id );
-			$title   = html_entity_decode( strip_tags( bbp_get_topic_title( $post_id ) ), ENT_NOQUOTES, 'UTF-8' );
-			$excerpt = html_entity_decode( strip_tags( bbp_get_topic_excerpt( $post_id, $excerpt_size ) ), ENT_NOQUOTES, 'UTF-8' );
+			$title   = wp_specialchars_decode( strip_tags( bbp_get_topic_title( $post_id ) ), ENT_QUOTES );
+			$excerpt = wp_specialchars_decode( strip_tags( bbp_get_topic_excerpt( $post_id, $excerpt_size ) ), ENT_QUOTES );
 			$author  = bbp_get_topic_author( $post_id );
 			$url     = apply_filters( 'bbpnns_topic_url', bbp_get_topic_permalink( $post_id ), $post_id, $title );
-			$forum 	 = html_entity_decode( strip_tags( get_the_title( bbp_get_topic_forum_id( $post_id ) ) ), ENT_NOQUOTES, 'UTF-8' );
+			$forum 	 = wp_specialchars_decode( strip_tags( get_the_title( bbp_get_topic_forum_id( $post_id ) ) ), ENT_QUOTES );
 		}
 		elseif ( 'reply' === $type )
 		{
 			$content = bbp_get_reply_content( $post_id );
-			$title   = html_entity_decode( strip_tags( bbp_get_reply_title( $post_id ) ), ENT_NOQUOTES, 'UTF-8' );
-			$excerpt = html_entity_decode( strip_tags( bbp_get_reply_excerpt( $post_id, $excerpt_size ) ), ENT_NOQUOTES, 'UTF-8' );
+			$title   = wp_specialchars_decode( strip_tags( bbp_get_reply_title( $post_id ) ), ENT_QUOTES );
+			$excerpt = wp_specialchars_decode( strip_tags( bbp_get_reply_excerpt( $post_id, $excerpt_size ) ), ENT_QUOTES );
 			$author  = bbp_get_reply_author( $post_id );
 			$url     = apply_filters( 'bbpnns_reply_url', bbp_get_reply_permalink( $post_id ), $post_id, $title );
-			$forum 	 = html_entity_decode( strip_tags( get_the_title( bbp_get_reply_forum_id( $post_id ) ) ), ENT_NOQUOTES, 'UTF-8' );
+			$forum 	 = wp_specialchars_decode( strip_tags( get_the_title( bbp_get_reply_forum_id( $post_id ) ) ), ENT_QUOTES );
 			
 			// Topic-specific stuff in replies
 			$topic_id     = bbp_get_reply_topic_id( $post_id );
-			$topic_title  = html_entity_decode( strip_tags( bbp_get_topic_title( $topic_id ) ), ENT_NOQUOTES, 'UTF-8' );
+			$topic_title  = wp_specialchars_decode( strip_tags( bbp_get_topic_title( $topic_id ) ), ENT_QUOTES );
 			$topic_author = bbp_get_topic_author( $topic_id );
 			$topic_author_email = bbp_get_topic_author_email( $topic_id );
 			
@@ -634,7 +635,7 @@ jQuery(document).ready(function($){
 		
 		$content = preg_replace( '/<br\s*\/?>/is', PHP_EOL, $content );
 		$content = preg_replace( '/(?:<\/p>\s*<p>)/ism', PHP_EOL . PHP_EOL, $content );
-		$content = html_entity_decode( strip_tags( $content ), ENT_NOQUOTES, 'UTF-8' );
+		$content = wp_specialchars_decode( strip_tags( $content ), ENT_QUOTES );
 		
 		$topic_reply = apply_filters( 'bbpnns_topic_reply', bbp_get_reply_url( $post_id ), $post_id, $title );
 		
@@ -661,26 +662,27 @@ jQuery(document).ready(function($){
 		$email_body = str_replace( "[$type-author-email]", $author_email, $email_body );
 		
 		/**
-		 * Also do some topic tag replacement for titles. See https://wordpress.org/support/topic/tags-for-reply-e-mail-body/
+		 * Also do some topic tag replacement in replies. See https://wordpress.org/support/topic/tags-for-reply-e-mail-body/
 		 * @since 1.15.3
 		 */
 		if ( 'reply' === $type )
 		{
+			$email_subject = str_replace( "[topic-title]", $topic_title, $email_subject );
+			$email_subject = str_replace( "[topic-author]", $topic_author, $email_subject );
+			$email_subject = str_replace( "[topic-author-email]", $topic_author_email, $email_subject );
+			
 			$email_body = str_replace( "[topic-title]", $topic_title, $email_body );
 			$email_body = str_replace( "[topic-author]", $topic_author, $email_body );
 			$email_body = str_replace( "[topic-author-email]", $topic_author_email, $email_body );
-		}
-		
-		/**
-		 * @since 1.10
-		 */
-		if ( 'reply' === $type && ( strpos( $email_body, '[topic-url]' ) || strpos( $email_subject, '[topic-url]' ) ) )
-		{
-			$topic_id  = bbp_get_reply_topic_id( $post_id );
-			$topic_url = bbp_get_topic_permalink( $topic_id );
 			
-			$email_subject = str_replace( '[topic-url]', $topic_url, $email_subject );
-			$email_body    = str_replace( '[topic-url]', $topic_url, $email_body );
+			if ( strpos( $email_body, '[topic-url]' ) || strpos( $email_subject, '[topic-url]' ) )
+			{
+				$topic_id  = bbp_get_reply_topic_id( $post_id );
+				$topic_url = apply_filters( 'bbpnns_topic_url', bbp_get_topic_permalink( $topic_id ), $topic_id, $title );
+					
+				$email_subject = str_replace( '[topic-url]', $topic_url, $email_subject );
+				$email_body    = str_replace( '[topic-url]', $topic_url, $email_body );
+			}
 		}
 		
 		/**

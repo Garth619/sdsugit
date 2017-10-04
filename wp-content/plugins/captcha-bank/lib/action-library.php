@@ -37,8 +37,8 @@ if (!is_user_logged_in()) {
          $obj_dbHelper_captcha_bank = new dbHelper_captcha_bank();
          switch (esc_attr($_REQUEST["param"])) {
             case "wizard_captcha_bank":
-               if (wp_verify_nonce((isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : ""), "captcha_bank_check_status")) {
-                  $type = isset($_REQUEST["type"]) ? esc_attr($_REQUEST["type"]) : "";
+               if (wp_verify_nonce((isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : ""), "captcha_bank_check_status")) {
+                  $type = isset($_REQUEST["type"]) ? sanitize_text_field($_REQUEST["type"]) : "";
                   update_option("captcha-bank-wizard-set-up", $type);
                   if ($type == "opt_in") {
                      $plugin_info_captcha_bank = new plugin_info_captcha_bank();
@@ -88,32 +88,32 @@ if (!is_user_logged_in()) {
                }
                break;
             case "captcha_type_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_bank_file")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_bank_file")) {
                   parse_str(isset($_REQUEST["data"]) ? base64_decode($_REQUEST["data"]) : "", $captcha_type_data);
-                  $arithmetic = isset($_REQUEST["arithmetic"]) ? json_decode(stripcslashes($_REQUEST["arithmetic"])) : "";
+                  $arithmetic = isset($_REQUEST["arithmetic"]) ? array_map("intval",is_array(json_decode(stripcslashes($_REQUEST["arithmetic"]))) ? json_decode(stripcslashes($_REQUEST["arithmetic"])) : array()) : array();
                   $update_text_captcha = array();
                   $where = array();
 
-                  $update_text_captcha["captcha_type_text_logical"] = isset($captcha_type_data["ux_ddl_captcha_type"]) ? esc_attr($captcha_type_data["ux_ddl_captcha_type"]) : "";
+                  $update_text_captcha["captcha_type_text_logical"] = isset($captcha_type_data["ux_ddl_captcha_type"]) ? sanitize_text_field($captcha_type_data["ux_ddl_captcha_type"]) : "";
                   $update_text_captcha["captcha_characters"] = isset($captcha_type_data["ux_txt_character"]) ? intval($captcha_type_data["ux_txt_character"]) : 0;
-                  $update_text_captcha["captcha_type"] = isset($captcha_type_data["ux_ddl_alphabets"]) ? esc_attr($captcha_type_data["ux_ddl_alphabets"]) : "";
-                  $update_text_captcha["text_case"] = isset($captcha_type_data["ux_ddl_case"]) ? esc_attr($captcha_type_data["ux_ddl_case"]) : "";
-                  $update_text_captcha["case_sensitive"] = isset($captcha_type_data["ux_ddl_case_disable"]) ? esc_attr($captcha_type_data["ux_ddl_case_disable"]) : "";
+                  $update_text_captcha["captcha_type"] = isset($captcha_type_data["ux_ddl_alphabets"]) ? sanitize_text_field($captcha_type_data["ux_ddl_alphabets"]) : "";
+                  $update_text_captcha["text_case"] = isset($captcha_type_data["ux_ddl_case"]) ? sanitize_text_field($captcha_type_data["ux_ddl_case"]) : "";
+                  $update_text_captcha["case_sensitive"] = isset($captcha_type_data["ux_ddl_case_disable"]) ? sanitize_text_field($captcha_type_data["ux_ddl_case_disable"]) : "";
                   $update_text_captcha["captcha_width"] = isset($captcha_type_data["ux_txt_width"]) ? intval($captcha_type_data["ux_txt_width"]) : 0;
                   $update_text_captcha["captcha_height"] = isset($captcha_type_data["ux_txt_height"]) ? intval($captcha_type_data["ux_txt_height"]) : 0;
                   $update_text_captcha["captcha_background"] = "bg4.jpg";
-                  $update_text_captcha["border_style"] = isset($captcha_type_data["ux_txt_border_style"]) ? esc_attr(implode(",", $captcha_type_data["ux_txt_border_style"])) : "";
+                  $update_text_captcha["border_style"] = isset($captcha_type_data["ux_txt_border_style"]) ? sanitize_text_field(implode(",", $captcha_type_data["ux_txt_border_style"])) : "";
                   $update_text_captcha["lines"] = isset($captcha_type_data["ux_txt_line"]) ? intval($captcha_type_data["ux_txt_line"]) : "";
-                  $update_text_captcha["lines_color"] = isset($captcha_type_data["ux_txt_color"]) ? esc_attr($captcha_type_data["ux_txt_color"]) : "";
+                  $update_text_captcha["lines_color"] = isset($captcha_type_data["ux_txt_color"]) ? sanitize_text_field($captcha_type_data["ux_txt_color"]) : "";
                   $update_text_captcha["noise_level"] = isset($captcha_type_data["ux_txt_noise_level"]) ? intval($captcha_type_data["ux_txt_noise_level"]) : 0;
-                  $update_text_captcha["noise_color"] = isset($captcha_type_data["ux_txt_noise_color"]) ? esc_attr($captcha_type_data["ux_txt_noise_color"]) : "";
+                  $update_text_captcha["noise_color"] = isset($captcha_type_data["ux_txt_noise_color"]) ? sanitize_text_field($captcha_type_data["ux_txt_noise_color"]) : "";
                   $update_text_captcha["text_transperancy"] = isset($captcha_type_data["ux_txt_transperancy"]) ? intval($captcha_type_data["ux_txt_transperancy"]) : "";
                   $update_text_captcha["signature_text"] = "Captcha Bank";
                   $update_text_captcha["signature_style"] = "7,#ff0000";
                   $update_text_captcha["signature_font"] = "Roboto:100";
-                  $update_text_captcha["text_shadow_color"] = isset($captcha_type_data["ux_txt_shadow_color"]) ? esc_attr($captcha_type_data["ux_txt_shadow_color"]) : "";
-                  $update_text_captcha["mathematical_operations"] = isset($captcha_type_data["ux_rdl_mathematical_captcha"]) ? esc_attr($captcha_type_data["ux_rdl_mathematical_captcha"]) : "";
-                  $update_text_captcha["arithmetic_actions"] = esc_attr(implode(",", $arithmetic));
+                  $update_text_captcha["text_shadow_color"] = isset($captcha_type_data["ux_txt_shadow_color"]) ? sanitize_text_field($captcha_type_data["ux_txt_shadow_color"]) : "";
+                  $update_text_captcha["mathematical_operations"] = isset($captcha_type_data["ux_rdl_mathematical_captcha"]) ? sanitize_text_field($captcha_type_data["ux_rdl_mathematical_captcha"]) : "";
+                  $update_text_captcha["arithmetic_actions"] = sanitize_text_field(implode(",", $arithmetic));
                   $update_text_captcha["relational_actions"] = "1,1";
                   $update_text_captcha["arrange_order"] = "1,1";
                   $update_text_captcha["text_style"] = "24,#000000";
@@ -127,10 +127,10 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_display_settings_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_bank_settings")) {
-                  $checkbox_array = isset($_REQUEST["checkbox_array"]) ? json_decode(stripcslashes($_REQUEST["checkbox_array"])) : "";
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_bank_settings")) {
+                  $checkbox_array = isset($_REQUEST["checkbox_array"]) ? array_map("intval", is_array(json_decode(stripcslashes($_REQUEST["checkbox_array"]))) ? json_decode(stripcslashes($_REQUEST["checkbox_array"])) : array()) : array();
                   $update_display_settings_array = array();
-                  $update_display_settings_array["settings"] = esc_attr(implode(",", $checkbox_array));
+                  $update_display_settings_array["settings"] = sanitize_text_field(implode(",", $checkbox_array));
 
                   $where = array();
                   $update_data = array();
@@ -141,7 +141,7 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_log_delete_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_selected_logs_delete")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_selected_logs_delete")) {
                   $where = array();
                   $meta_id = isset($_REQUEST["meta_id"]) ? intval($_REQUEST["meta_id"]) : 0;
                   $where["meta_id"] = $meta_id;
@@ -152,14 +152,14 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_blocking_options_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_bank_options")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_bank_options")) {
                   parse_str(isset($_REQUEST["data"]) ? base64_decode($_REQUEST["data"]) : "", $blocking_option_data);
                   $update_captcha_type = array();
                   $where = array();
 
-                  $update_captcha_type["auto_ip_block"] = isset($blocking_option_data["ux_ddl_auto_ip"]) ? esc_attr($blocking_option_data["ux_ddl_auto_ip"]) : "";
+                  $update_captcha_type["auto_ip_block"] = isset($blocking_option_data["ux_ddl_auto_ip"]) ? sanitize_text_field($blocking_option_data["ux_ddl_auto_ip"]) : "";
                   $update_captcha_type["maximum_login_attempt_in_a_day"] = isset($blocking_option_data["ux_txt_login"]) ? intval($blocking_option_data["ux_txt_login"]) : 0;
-                  $update_captcha_type["block_for_time"] = isset($blocking_option_data["ux_ddl_blocked_for"]) ? esc_attr($blocking_option_data["ux_ddl_blocked_for"]) : "";
+                  $update_captcha_type["block_for_time"] = isset($blocking_option_data["ux_ddl_blocked_for"]) ? sanitize_text_field($blocking_option_data["ux_ddl_blocked_for"]) : "";
 
                   $update_blocking_options_data = array();
                   $where["meta_key"] = "blocking_options";
@@ -169,12 +169,12 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_manage_ip_address_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_address")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_address")) {
                   parse_str(isset($_REQUEST["data"]) ? base64_decode($_REQUEST["data"]) : "", $advance_security_data);
-                  $ip = isset($_REQUEST["ip_address"]) ? ip2long(json_decode(stripslashes($_REQUEST["ip_address"]))) : 0;
+                  $ip = isset($_REQUEST["ip_address"]) ? ip2long(sanitize_text_field($_REQUEST["ip_address"])) : 0;
                   $ip_address = long2ip($ip);
                   $get_ip = get_ip_location_captcha_bank($ip_address);
-                  $blocked_for = isset($advance_security_data["ux_ddl_hour"]) ? esc_attr($advance_security_data["ux_ddl_hour"]) : "";
+                  $blocked_for = isset($advance_security_data["ux_ddl_hour"]) ? sanitize_text_field($advance_security_data["ux_ddl_hour"]) : "";
                   $location = $get_ip->country_name == "" && $get_ip->city == "" ? "" : $get_ip->country_name == "" ? "" : $get_ip->city == "" ? $get_ip->country_name : $get_ip->city . ", " . $get_ip->country_name;
 
                   $ip_address_count = $wpdb->get_results
@@ -202,7 +202,7 @@ if (!is_user_logged_in()) {
                   $ip_exists = false;
                   foreach ($ip_address_ranges_data as $data) {
                      $ip_range_unserialized_data = maybe_unserialize($data->meta_value);
-                     $ip_range_match_data = isset($ip_range_unserialized_data["ip_range"]) ? esc_attr($ip_range_unserialized_data["ip_range"]) : 0;
+                     $ip_range_match_data = isset($ip_range_unserialized_data["ip_range"]) ? sanitize_text_field($ip_range_unserialized_data["ip_range"]) : 0;
                      $data_range = explode(",", $ip_range_match_data);
                      if ($ip >= $data_range[0] && $ip <= $data_range[1]) {
                         $ip_exists = true;
@@ -228,7 +228,7 @@ if (!is_user_logged_in()) {
                      $insert_manage_ip_address["ip_address"] = $ip;
                      $insert_manage_ip_address["blocked_for"] = $blocked_for;
                      $insert_manage_ip_address["location"] = isset($location) ? esc_html($location) : "";
-                     $insert_manage_ip_address["comments"] = isset($advance_security_data["ux_txtarea_comments"]) ? esc_attr($advance_security_data["ux_txtarea_comments"]) : "";
+                     $insert_manage_ip_address["comments"] = isset($advance_security_data["ux_txtarea_comments"]) ? sanitize_text_field($advance_security_data["ux_txtarea_comments"]) : "";
                      $insert_manage_ip_address["date_time"] = CAPTCHA_BANK_LOCAL_TIME;
                      $insert_manage_ip_address["meta_id"] = $last_id;
 
@@ -247,7 +247,7 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_delete_ip_address_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_address_delete")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_address_delete")) {
                   $where = array();
                   $where_parent = array();
                   $id = isset($_REQUEST["id"]) ? intval($_REQUEST["id"]) : 0;
@@ -261,11 +261,12 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_manage_ip_ranges_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_ranges")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_ranges")) {
                   parse_str(isset($_REQUEST["data"]) ? base64_decode($_REQUEST["data"]) : "", $ip_range_data);
-                  $start_ip_range = isset($_REQUEST["start_range"]) ? ip2long(json_decode(stripslashes($_REQUEST["start_range"]))) : 0;
-                  $end_ip_range = isset($_REQUEST["end_range"]) ? ip2long(json_decode(stripslashes($_REQUEST["end_range"]))) : 0;
-                  $blocked_for = isset($ip_range_data["ux_ddl_blocked"]) ? esc_attr($ip_range_data["ux_ddl_blocked"]) : "";
+                  $start_ip_range = isset($_REQUEST["start_range"]) ? ip2long(sanitize_text_field($_REQUEST["start_range"])) : 0;
+                  $end_ip_range = isset($_REQUEST["end_range"]) ? ip2long(sanitize_text_field($_REQUEST["end_range"])) : 0;
+                  
+                  $blocked_for = isset($ip_range_data["ux_ddl_blocked"]) ? sanitize_text_field($ip_range_data["ux_ddl_blocked"]) : "";
                   $get_ip = get_ip_location_captcha_bank(long2ip($start_ip_range));
                   $location = $get_ip->country_name == "" && $get_ip->city == "" ? "" : $get_ip->country_name == "" ? "" : $get_ip->city == "" ? $get_ip->country_name : $get_ip->city . ", " . $get_ip->country_name;
 
@@ -308,7 +309,7 @@ if (!is_user_logged_in()) {
                      $insert_manage_ip_range["ip_range"] = $start_ip_range . "," . $end_ip_range;
                      $insert_manage_ip_range["blocked_for"] = $blocked_for;
                      $insert_manage_ip_range["location"] = $location;
-                     $insert_manage_ip_range["comments"] = isset($ip_range_data["ux_txtarea_manage_ip_range"]) ? esc_attr($ip_range_data["ux_txtarea_manage_ip_range"]) : "";
+                     $insert_manage_ip_range["comments"] = isset($ip_range_data["ux_txtarea_manage_ip_range"]) ? sanitize_text_field($ip_range_data["ux_txtarea_manage_ip_range"]) : "";
                      $insert_manage_ip_range["date_time"] = CAPTCHA_BANK_LOCAL_TIME;
                      $insert_manage_ip_range["meta_id"] = $last_id;
 
@@ -327,7 +328,7 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_delete_ip_range_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_ranges_delete")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_manage_ip_ranges_delete")) {
                   $where = array();
                   $where_parent = array();
                   $id = isset($_REQUEST["id"]) ? intval($_REQUEST["id"]) : 0;
@@ -341,8 +342,8 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_type_email_templates_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_type_email_templates")) {
-                  $templates = isset($_REQUEST["data"]) ? esc_attr($_REQUEST["data"]) : "";
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_type_email_templates")) {
+                  $templates = isset($_REQUEST["data"]) ? sanitize_text_field($_REQUEST["data"]) : "";
                   $email_templates_data = $wpdb->get_results
                       (
                       $wpdb->prepare
@@ -358,15 +359,15 @@ if (!is_user_logged_in()) {
                break;
 
             case "captcha_bank_other_settings_module":
-               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? esc_attr($_REQUEST["_wp_nonce"]) : "", "captcha_bank_other_settings")) {
+               if (wp_verify_nonce(isset($_REQUEST["_wp_nonce"]) ? ($_REQUEST["_wp_nonce"]) : "", "captcha_bank_other_settings")) {
                   parse_str(isset($_REQUEST["data"]) ? base64_decode($_REQUEST["data"]) : "", $update_array);
                   $update_captcha_type = array();
                   $where = array();
 
-                  $update_captcha_type["remove_tables_at_uninstall"] = isset($update_array["ux_ddl_remove_tables"]) ? esc_attr($update_array["ux_ddl_remove_tables"]) : "";
-                  $update_captcha_type["live_traffic_monitoring"] = isset($update_array["ux_ddl_live_traffic_monitoring"]) ? esc_attr($update_array["ux_ddl_live_traffic_monitoring"]) : "";
-                  $update_captcha_type["visitor_logs_monitoring"] = isset($update_array["ux_ddl_visitor_log_monitoring"]) ? esc_attr($update_array["ux_ddl_visitor_log_monitoring"]) : "";
-                  $update_captcha_type["ip_address_fetching_method"] = isset($update_array["ux_ddl_ip_address_fetching_method"]) ? esc_attr($update_array["ux_ddl_ip_address_fetching_method"]) : "";
+                  $update_captcha_type["remove_tables_at_uninstall"] = isset($update_array["ux_ddl_remove_tables"]) ? sanitize_text_field($update_array["ux_ddl_remove_tables"]) : "";
+                  $update_captcha_type["live_traffic_monitoring"] = isset($update_array["ux_ddl_live_traffic_monitoring"]) ? sanitize_text_field($update_array["ux_ddl_live_traffic_monitoring"]) : "";
+                  $update_captcha_type["visitor_logs_monitoring"] = isset($update_array["ux_ddl_visitor_log_monitoring"]) ? sanitize_text_field($update_array["ux_ddl_visitor_log_monitoring"]) : "";
+                  $update_captcha_type["ip_address_fetching_method"] = isset($update_array["ux_ddl_ip_address_fetching_method"]) ? sanitize_text_field($update_array["ux_ddl_ip_address_fetching_method"]) : "";
 
                   $update_data = array();
                   $where["meta_key"] = "other_settings";

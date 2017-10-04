@@ -33,9 +33,8 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
             $wpdb->query("DROP TABLE IF EXISTS " . $wpdb->prefix . "captcha_bank_meta");
 
             delete_option("captcha-bank-version-number");
-            delete_option("captcha-bank-wizard-set-up");
-            delete_option("cpb_tech_banker_site_id");
             delete_option("captcha_option");
+            delete_option("cpb_admin_notice");
          }
       }
    }

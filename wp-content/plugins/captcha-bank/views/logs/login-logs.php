@@ -56,23 +56,13 @@ if (!is_user_logged_in()) {
                      <i class="icon-custom-clock"></i>
                      <?php echo $cpb_recent_login_on_world_map; ?>
                   </div>
-                  <a href="http://beta.tech-banker.com/products/captcha-bank/" target="_blank" class="premium-editions"><?php echo $cpb_upgrade_to ?></a>
+                  <p class="premium-editions">
+                     <?php echo $cpb_upgrade_need_help ?><a href="https://captcha-bank.tech-banker.com/" target="_blank" class="premium-editions-documentation"><?php echo $cpb_documentation ?></a><?php echo $cpb_read_and_check; ?><a href="https://captcha-bank.tech-banker.com/frontend-demos/" target="_blank" class="premium-editions-documentation"><?php echo $cpb_demos_section; ?></a> 
+                  </p>
                </div>
                <div class="portlet-body form">
                   <form id="ux_frm_recent_login_logs">
                      <div class="form-body">
-                        <?php
-                        if ($cpb_message_translate_help != "") {
-                           ?>
-                           <div class="note note-danger">
-                              <h4 class="block">
-                                 <?php echo $cpb_important_disclaimer; ?>
-                              </h4>
-                              <strong><?php echo $cpb_message_translate_help; ?> <a href="javascript:void(0);" data-popup-open="ux_open_popup_translator" class="custom_links" onclick="show_pop_up_captcha_bank();"><?php echo $cpb_message_translate_here; ?></a></strong>
-                           </div>
-                           <?php
-                        }
-                        ?>
                         <div id="map_canvas" class="custom-map"></div>
                      </div>
                   </form>

@@ -189,10 +189,8 @@
 .page-sidebar-tech-banker .page-sidebar-menu-tech-banker li > a > .badge
 {
    float: right;
+   margin-top: 1px;
    margin-right: 0px;
-   color: #fff;
-   background-color: #ed6b75;
-   padding : 2px 5px;
 }
 .page-sidebar-tech-banker .page-sidebar-menu-tech-banker .sub-menu
 {
@@ -497,4 +495,12 @@
    {
       width: 100%;
    }
+}
+.badge
+{
+   float: right;
+   margin-right: 0px;
+   color: #fff;
+   background-color: #ed6b75;
+   padding : 2px 5px; 
 }

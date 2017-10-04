@@ -50,11 +50,6 @@ if (!is_user_logged_in()) {
          switch (esc_attr($_GET["page"])) {
             case "captcha_bank":
                $meta_data_array = get_captcha_bank_meta_data("captcha_type");
-               function get_fonts_captcha_bank($url) {
-
-                  $font = @file_get_contents($url);
-                  return $font;
-               }
                break;
 
             case "captcha_bank_message_settings":

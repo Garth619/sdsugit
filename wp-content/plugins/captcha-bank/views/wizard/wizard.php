@@ -34,11 +34,11 @@ if (!is_user_logged_in()) {
                               </div>
                               <div class="col-md-4 center">
                                  <b>
-                                    <i class="dashicons dashicons-wordpress"></i>
+                                    <i class="dashicons dashicons-wordpress cpb-dashicons-wordpress"></i>
                                  </b>
                               </div>
                               <div class="col-md-2 center">
-                                 <i class="dashicons dashicons-plus"></i>
+                                 <i class="dashicons dashicons-plus cpb-dashicons-plus"></i>
                               </div>
                               <div class="col-md-4 center">
                                  <img src="<?php echo plugins_url("assets/global/img/wizard-icon.png", dirname(dirname(__FILE__))); ?>" height="110" width="110">
@@ -63,7 +63,7 @@ if (!is_user_logged_in()) {
                                  <div class="col-md-6">
                                     <ul>
                                        <li>
-                                          <i class="dashicons dashicons-admin-users"></i>
+                                          <i class="dashicons dashicons-admin-users cpb-dashicons-admin-users"></i>
                                           <div class="admin">
                                              <span><strong>User Details</strong></span>
                                              <p>Name and Email Address</p>
@@ -74,7 +74,7 @@ if (!is_user_logged_in()) {
                                  <div class="col-md-6 align align2">
                                     <ul>
                                        <li>
-                                          <i class="dashicons dashicons-admin-plugins"></i>
+                                          <i class="dashicons dashicons-admin-plugins cpb-dashicons-admin-plugins"></i>
                                           <div class="admin-plugins">
                                              <span><strong>Current Plugin Status</strong></span>
                                              <p>Activation, Deactivation and Uninstall</p>
@@ -85,7 +85,7 @@ if (!is_user_logged_in()) {
                                  <div class="col-md-6">
                                     <ul>
                                        <li>
-                                          <i class="dashicons dashicons-testimonial"></i>
+                                          <i class="dashicons dashicons-testimonial cpb-dashicons-testimonial"></i>
                                           <div class="testimonial">
                                              <span><strong>Notifications</strong></span>
                                              <p>Updates &amp; Announcements</p>
@@ -96,7 +96,7 @@ if (!is_user_logged_in()) {
                                  <div class="col-md-6 align2">
                                     <ul>
                                        <li>
-                                          <i class="dashicons dashicons-welcome-view-site"></i>
+                                          <i class="dashicons dashicons-welcome-view-site cpb-dashicons-welcome-view-site"></i>
                                           <div class="settings">
                                              <span><strong>Website Overview</strong></span>
                                              <p>Site URL, WP Version, PHP Info, Plugins &amp; Themes Info</p>
@@ -109,19 +109,19 @@ if (!is_user_logged_in()) {
                                  <div class="tech-banker-actions">
                                     <a onclick="plugin_stats_captcha_bank('opt_in');" class="button button-primary-wizard">
                                        <strong>Opt-In &amp; Continue </strong>
-                                       <i class="dashicons dashicons-arrow-right-alt"></i>
+                                       <i class="dashicons dashicons-arrow-right-alt cpb-dashicons-arrow-right-alt"></i>
                                     </a>
                                     <a onclick="plugin_stats_captcha_bank('skip');" class="button button-secondary-wizard" tabindex="2">
                                        <strong>Skip &amp; Continue </strong>
-                                       <i class="dashicons dashicons-arrow-right-alt"></i>
+                                       <i class="dashicons dashicons-arrow-right-alt cpb-dashicons-arrow-right-alt"></i>
                                     </a>
                                     <div class="clearfix"></div>
                                  </div>
                               </div>
                               <div class="col-md-12 terms">
-                                 <a href="http://beta.tech-banker.com/privacy-policy/" target="_blank">Privacy Policy</a>
+                                 <a href="https://captcha-bank.tech-banker.com/privacy-policy/" target="_blank">Privacy Policy</a>
                                  <span> - </span>
-                                 <a href="http://beta.tech-banker.com/terms-conditions/" target="_blank">Terms &amp; Conditions</a>
+                                 <a href="https://captcha-bank.tech-banker.com/terms-conditions/" target="_blank">Terms &amp; Conditions</a>
                               </div>
                            </div>
                         </div>

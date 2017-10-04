@@ -189,11 +189,11 @@ if (!is_user_logged_in()) {
                         </li>
                      </ul>
                   </li>
-                  <li id="ux_li_feature_requests">
-                     <a href="admin.php?page=captcha_bank_feature_requests">
-                        <i class="icon-custom-call-out"></i>
+                  <li id="ux_li_support_forum">
+                     <a href="https://wordpress.org/support/plugin/captcha-bank" target="_blank">
+                        <i class="icon-custom-users"></i>
                         <span class="title">
-                           <?php echo $cpb_feature_requests; ?>
+                           <?php echo $cpb_support_forum; ?>
                         </span>
                      </a>
                   </li>
@@ -206,11 +206,11 @@ if (!is_user_logged_in()) {
                      </a>
                   </li>
                   <li id="ux_li_premium_editions">
-                     <a href="admin.php?page=captcha_bank_premium_editions">
+                     <a href="https://captcha-bank.tech-banker.com/pricing/" target="_blank">
                         <i class="icon-custom-briefcase"></i>
-                        <span class="title">
-                           <?php echo $cpb_upgrade; ?>
-                        </span>
+                        <strong><span class="title" style="color:yellow;">
+                              <?php echo $cpb_upgrade; ?>
+                           </span></strong>
                      </a>
                   </li>
                </ul>
@@ -219,44 +219,6 @@ if (!is_user_logged_in()) {
       </div>
       <div class="page-content-wrapper">
          <div class="page-content">
-            <div style="margin-bottom:10px;">
-               <a href="http://beta.tech-banker.com/products/captcha-bank/" target="_blank">
-                  <img src="<?php echo plugins_url("assets/global/img/captcha-bank-banner.png", dirname(__FILE__)); ?>" title="Captcha Bank" style="width: 100%;">
-               </a>
-            </div>
-            <div class="container-fluid page-header-container">
-               <div class="row">
-                  <div class="col-md-3 page-header-column">
-                     <h4>Get Started</h4>
-                     <a class="btn" href="#" target="_blank">Watch Captcha Bank Video!</a>
-                     <p>or <a href="http://beta.tech-banker.com/products/captcha-bank/user-guide/" target="_blank">read documentation here</a></p>
-                  </div>
-                  <div class="col-md-3 page-header-column">
-                     <h4>Go Premium</h4>
-                     <ul>
-                        <li><a href="http://beta.tech-banker.com/products/captcha-bank/" target="_blank">Features</a></li>
-                        <li><a href="http://beta.tech-banker.com/products/captcha-bank/demos/" target="_blank">Online Demos</a></li>
-                        <li><a href="http://beta.tech-banker.com/products/captcha-bank/pricing/" target="_blank">Pricing Plans</a></li>
-                     </ul>
-                  </div>
-                  <div class="col-md-3 page-header-column">
-                     <h4>User Guide</h4>
-                     <ul>
-                        <li><a href="http://beta.tech-banker.com/products/captcha-bank/user-guide/" target="_blank">Documentation</a></li>
-                        <li><a href="https://wordpress.org/support/plugin/captcha-bank" target="_blank">Support Question!</a></li>
-                        <li><a href="http://beta.tech-banker.com/contact-us/" target="_blank">Contact Us</a></li>
-                     </ul>
-                  </div>
-                  <div class="col-md-3 page-header-column">
-                     <h4>More Actions</h4>
-                     <ul>
-                        <li><a href="https://wordpress.org/support/plugin/captcha-bank/reviews/?filter=5" target="_blank">Rate Us!</a></li>
-                        <li><a href="http://beta.tech-banker.com/products/" target="_blank">Our Other Products</a></li>
-                        <li><a href="http://beta.tech-banker.com/services/" target="_blank">Our Other Services</a></li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
             <?php
          }
       }

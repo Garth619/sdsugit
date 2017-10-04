@@ -111,9 +111,10 @@ if (!is_user_logged_in()) {
          $wp_admin_bar->add_menu(array
              (
              "parent" => "captcha_bank",
-             "id" => "captcha_bank_feature_requests",
-             "title" => $cpb_feature_requests,
-             "href" => admin_url("admin.php?page=captcha_bank_feature_requests")
+             "id" => "captcha_bank_support_forum",
+             "title" => $cpb_support_forum,
+             "href" => "https://wordpress.org/support/plugin/captcha-bank",
+             "meta" => array('target' => '_blank')
          ));
          $wp_admin_bar->add_menu(array
              (
@@ -127,7 +128,8 @@ if (!is_user_logged_in()) {
              "parent" => "captcha_bank",
              "id" => "captcha_bank_premium_editions",
              "title" => $cpb_upgrade,
-             "href" => admin_url("admin.php?page=captcha_bank_premium_editions")
+             "href" => "https://captcha-bank.tech-banker.com/pricing/",
+             "meta" => array('target' => '_blank')
          ));
       }
    }

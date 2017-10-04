@@ -2,7 +2,7 @@
 Contributors: Gallery-Bank, contact-banker, wordpress-empire
 Tags: captcha, recaptcha, login, register, anti spam security, best captcha plugin, captcha protection, logical captcha, contact form with captcha, login protection, lost password, math captcha, text captcha
 Requires at least: 3.0
-Tested up to: 4.8
+Tested up to: 4.8.2
 Stable Tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,7 +11,7 @@ Captcha Bank is a anti-spam captcha plugin for WordPress forms that adds secure 
 
 == Description ==
 
-[**Captcha Bank**](http://beta.tech-banker.com/products/captcha-bank/) is a powerful WordPress shield which allows you to protect your WordPress website from SPAM.
+[**Captcha Bank**](https://captcha-bank.tech-banker.com/) is a powerful WordPress shield which allows you to protect your WordPress website from SPAM.
 
 Captcha Bank is a bullet proof captcha validator. It allows you to add an extra layer of security on top of you in built protection. This will keep spammers and bots away from submission unnecessary data in your web forms.
 
@@ -44,56 +44,56 @@ Captcha Bank is a bullet proof captcha validator. It allows you to add an extra 
 
 It is an advance protection with the help of which you can increase intensity of captcha logic's. It will make it tricky for spam bots and automated software's.
 
-There are lot of features also available in Premium Editions, you can check before downloading & purchasing. Click [here](http://beta.tech-banker.com/products/captcha-bank/) for Captcha Bank Premium Editions.
+There are lot of features also available in Premium Editions, you can check before downloading & purchasing. Click [here](https://captcha-bank.tech-banker.com/) for Captcha Bank Premium Editions.
 
 > #### **Live Demos - Captcha Bank**
 
-> * [Captcha Bank](http://beta.tech-banker.com/products/captcha-bank/)
-> * [Captcha Bank Demos](http://beta.tech-banker.com/products/captcha-bank/demos/)
-> * [Installation Screen](http://beta.tech-banker.com/products/captcha-bank/demos/installation/)
-> * [Captcha Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/captcha-settings/)
-> * [Captcha Setup Screen](http://beta.tech-banker.com/products/captcha-bank/demos/captcha-settings/captcha-setup/)
-> * [Display Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/captcha-settings/display-settings/)
-> * [General Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/general-settings/)
-> * [Notifications Setup Screen](http://beta.tech-banker.com/products/captcha-bank/demos/general-settings/notifications-setup/)
-> * [Message Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/general-settings/message-settings/)
-> * [Email Templates Screen](http://beta.tech-banker.com/products/captcha-bank/demos/general-settings/email-templates/)
-> * [Roles & Capabilities Screen](http://beta.tech-banker.com/products/captcha-bank/demos/general-settings/roles-capabilities/)
-> * [Logs Screen](http://beta.tech-banker.com/products/captcha-bank/demos/logs/)
-> * [Login Logs Screen](http://beta.tech-banker.com/products/captcha-bank/demos/logs/login-logs/)
-> * [Visitor Logs Screen](http://beta.tech-banker.com/products/captcha-bank/demos/logs/visitor-logs/)
-> * [Live Traffic Screen](http://beta.tech-banker.com/products/captcha-bank/demos/logs/live-traffic/)
-> * [Other Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/other-settings/)
-> * [Security Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/security-settings/)
-> * [Blockage Settings Screen](http://beta.tech-banker.com/products/captcha-bank/demos/security-settings/blockage-settings/)
-> * [Block/Unblock IP Addresses Screen](http://beta.tech-banker.com/products/captcha-bank/demos/security-settings/block-unblock-ip-addresses/)
-> * [Block/Unblock IP Ranges Screen](http://beta.tech-banker.com/products/captcha-bank/demos/security-settings/block-unblock-ip-ranges/)
-> * [Block/Unblock Countries Screen](http://beta.tech-banker.com/products/captcha-bank/demos/security-settings/block-unblock-countries/)
-> * [Feature Requests Screen](http://beta.tech-banker.com/products/captcha-bank/demos/feature-requests/)
-> * [System Information Screen](http://beta.tech-banker.com/products/captcha-bank/demos/system-information/)
+> * [Captcha Bank](https://captcha-bank.tech-banker.com/)
+> * [Captcha Bank Demos](https://captcha-bank.tech-banker.com/backend-demos/)
+> * [Installation Screen](https://captcha-bank.tech-banker.com/backend-demos/installation/)
+> * [Captcha Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/captcha-settings/)
+> * [Captcha Setup Screen](https://captcha-bank.tech-banker.com/backend-demos/captcha-settings/captcha-setup/)
+> * [Display Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/captcha-settings/display-settings/)
+> * [General Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/general-settings/)
+> * [Notifications Setup Screen](https://captcha-bank.tech-banker.com/backend-demos/general-settings/notifications-setup/)
+> * [Message Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/general-settings/message-settings/)
+> * [Email Templates Screen](https://captcha-bank.tech-banker.com/backend-demos/general-settings/email-templates/)
+> * [Roles & Capabilities Screen](https://captcha-bank.tech-banker.com/backend-demos/general-settings/roles-capabilities/)
+> * [Logs Screen](https://captcha-bank.tech-banker.com/backend-demos/logs/)
+> * [Login Logs Screen](https://captcha-bank.tech-banker.com/backend-demos/logs/login-logs/)
+> * [Visitor Logs Screen](https://captcha-bank.tech-banker.com/backend-demos/logs/visitor-logs/)
+> * [Live Traffic Screen](https://captcha-bank.tech-banker.com/backend-demos/logs/live-traffic/)
+> * [Other Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/other-settings/)
+> * [Security Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/security-settings/)
+> * [Blockage Settings Screen](https://captcha-bank.tech-banker.com/backend-demos/security-settings/blockage-settings/)
+> * [Block/Unblock IP Addresses Screen](https://captcha-bank.tech-banker.com/backend-demos/security-settings/block-unblock-ip-addresses/)
+> * [Block/Unblock IP Ranges Screen](https://captcha-bank.tech-banker.com/backend-demos/security-settings/block-unblock-ip-ranges/)
+> * [Block/Unblock Countries Screen](https://captcha-bank.tech-banker.com/backend-demos/security-settings/block-unblock-countries/)
+> * [Feature Requests Screen](https://captcha-bank.tech-banker.com/backend-demos/feature-requests/)
+> * [System Information Screen](https://captcha-bank.tech-banker.com/backend-demos/system-information/)
 
 > #### **User Guide - Captcha Bank**
-> * [Installation Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/installation/)
-> * [Captcha Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/captcha-settings/)
-> * [Captcha Setup Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/captcha-settings/captcha-setup/)
-> * [Display Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/captcha-settings/display-settings/)
-> * [General Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/general-settings/)
-> * [Notifications Setup Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/general-settings/notifications-setup/)
-> * [Message Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/general-settings/message-settings/)
-> * [Email Templates Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/general-settings/email-templates/)
-> * [Roles & Capabilities Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/general-settings/roles-capabilities/)
-> * [Logs Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/logs/)
-> * [Login Logs Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/logs/login-logs/)
-> * [Visitor Logs Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/logs/visitor-logs/)
-> * [Live Traffic Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/logs/live-traffic/)
-> * [Other Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/other-settings/)
-> * [Security Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/)
-> * [Blockage Settings Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/blockage-settings/)
-> * [Block/Unblock IP Addresses Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/block-unblock-ip-addresses/)
-> * [Block/Unblock IP Ranges Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/block-unblock-ip-ranges/)
-> * [Block/Unblock Countries Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/security-settings/block-unblock-countries/)
-> * [Feature Requests Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/feature-requests/)
-> * [System Information Screen](http://beta.tech-banker.com/products/captcha-bank/user-guide/system-information/)
+> * [Installation Screen](https://captcha-bank.tech-banker.com/documentation/installation/)
+> * [Captcha Settings Screen](https://captcha-bank.tech-banker.com/documentation/captcha-settings/)
+> * [Captcha Setup Screen](https://captcha-bank.tech-banker.com/documentation/captcha-settings/captcha-setup/)
+> * [Display Settings Screen](https://captcha-bank.tech-banker.com/documentation/captcha-settings/display-settings/)
+> * [General Settings Screen](https://captcha-bank.tech-banker.com/documentation/general-settings/)
+> * [Notifications Setup Screen](https://captcha-bank.tech-banker.com/documentation/general-settings/notifications-setup/)
+> * [Message Settings Screen](https://captcha-bank.tech-banker.com/documentation/general-settings/message-settings/)
+> * [Email Templates Screen](https://captcha-bank.tech-banker.com/documentation/general-settings/email-templates/)
+> * [Roles & Capabilities Screen](https://captcha-bank.tech-banker.com/documentation/general-settings/roles-capabilities/)
+> * [Logs Screen](https://captcha-bank.tech-banker.com/documentation/logs/)
+> * [Login Logs Screen](https://captcha-bank.tech-banker.com/documentation/logs/login-logs/)
+> * [Visitor Logs Screen](https://captcha-bank.tech-banker.com/documentation/logs/visitor-logs/)
+> * [Live Traffic Screen](https://captcha-bank.tech-banker.com/documentation/logs/live-traffic/)
+> * [Other Settings Screen](https://captcha-bank.tech-banker.com/documentation/other-settings/)
+> * [Security Settings Screen](https://captcha-bank.tech-banker.com/documentation/security-settings/)
+> * [Blockage Settings Screen](https://captcha-bank.tech-banker.com/documentation/security-settings/blockage-settings/)
+> * [Block/Unblock IP Addresses Screen](https://captcha-bank.tech-banker.com/documentation/security-settings/block-unblock-ip-addresses/)
+> * [Block/Unblock IP Ranges Screen](https://captcha-bank.tech-banker.com/documentation/security-settings/block-unblock-ip-ranges/)
+> * [Block/Unblock Countries Screen](https://captcha-bank.tech-banker.com/documentation/security-settings/block-unblock-countries/)
+> * [Feature Requests Screen](https://captcha-bank.tech-banker.com/documentation/feature-requests/)
+> * [System Information Screen](https://captcha-bank.tech-banker.com/documentation/system-information/)
 
 **Captcha Bank uses our own Tech Banker API based on Maxmind Database to fetch location and other details based on IP Address for its feature Login Logs, Visitor Logs. For this reason, we are sending back IP Address whenever a user tries to login to your site back to our server to fetch the details.**
 
@@ -329,7 +329,7 @@ For the Premium Edition there is a separate support package available. Please do
 
 = Contact Us =
 
-* [http://beta.tech-banker.com/contact-us/](http://beta.tech-banker.com/contact-us/)
+* [https://captcha-bank.tech-banker.com/contact-us/](https://captcha-bank.tech-banker.com/contact-us/)
 
 == Installation ==
 
@@ -387,591 +387,607 @@ If any problem occurs, please contact us at [support@tech-banker.com](mailto:sup
 
 == Changelog ==
 
+= 4.0.14 =
+
+* FIX: Security Vulnerabilities
+
+= 4.0.13 =
+
+* TWEAK: Pricing Tables Changed
+* TWEAK: Feedback Removed
+* TWEAK: WordPress.org Support Forum Link Added
+
+= 4.0.12 =
+
+* TWEAK: New & Easy Gallery UI
+* TWEAK: CSS Conflictions Fixed
+* TWEAK: Banners Removed
+* TWEAK: Unwanted JS/CSS Files Removed
+
 = 4.0.11 =
 
-* FIX: Code Optimized
-* FIX: Major Bugs Fixed
-* TRANSLATIONS: Chinese Language Updated
+* FIX: Major Issues.
+* TRANSLATION: Chinese Language Updated.
+* TWEAK: Code Optimized.
 
 = 4.0.10 =
 
-* FIX: Code Optimized
-* FIX: Translation File Updated with Correct Strings
-* FIX: Obsolete Code Removed
-* TRANSLATIONS: Chinese Language Added
-* TRANSLATIONS: Spanish Language Added
+* TRANSLATION: Translation File Updated with Correct Strings.
+* TRANSLATION: Chinese Language Added.
+* TRANSLATION: Spanish Language Added.
+* TWEAK: Code Optimized.
+* TWEAK: Obsolete Code Removed.
 
 = 4.0.9 =
 
-* FIX: Code Optimized
-* FIX: Minor Bugs Fixed
+* FIX: Minor Issues.
+* TWEAK: Code Optimized.
 
 = 4.0.8 =
 
-* FIX: Code Optimized
-* FIX: Translation File Updated with Correct Strings
-* FIX: Error Reporting in file Removed
+* TRANSLATION: Translation File Updated with Correct Strings.
+* TWEAK: Code Optimized.
+* TWEAK: Error Reporting in file Removed.
 
 = 4.0.7 =
 
-* FIX: Proper Sanitization, Escaping, Validation of all Post Calls
-* FIX: Removal of all function_exists, class_exists, typeof from all the files.
-* FIX: Uninstall File moved to root folder and changes done as per wordpress guidelines.
-* FIX: Error Reporting in file Removed
-* FIX: Auto Updates Removed
-* FIX: Curl Calls Removed
+* TWEAK: Proper Sanitization, Escaping, Validation of all Post Calls.
+* TWEAK: Removal of all function_exists, class_exists, typeof from all the files.
+* TWEAK: Uninstall File moved to root folder and changes done as per wordpress guidelines.
+* TWEAK: Error Reporting in file Removed.
+* TWEAK: Auto Updates Removed.
+* TWEAK: Curl Calls Removed.
 
 = 4.0.6 =
 
-* FIX: Code Removed from Skip Action Hook on Wizard Page
-* FIX: Code Removed from De-activation Hook in case of Skipped Wizard Page
-* FIX: Code Removed from Uninstall Hook in case of Skipped Wizard Page
-* FIX: Obsolete Code Removed
-* FIX: Major Bugs Fixed
+* FIX: Major Issues.
+* TWEAK: Code Removed from Skip Action Hook on Wizard Page.
+* TWEAK: Code Removed from De-activation Hook in case of Skipped Wizard Page.
+* TWEAK: Code Removed from Uninstall Hook in case of Skipped Wizard Page.
+* TWEAK: Obsolete Code Removed.
 
 = 3.0.11 =
 
-* Text Captcha Bug Fixed
-* Unexpected Output Bug Fixed
+* FIX: Text Captcha Issue.
+* TWEAK: Unexpected Output Issue.
 
 = 3.0.10 =
 
-* Few Bugs Fixed
-* Compatibility with 4.7.3
-* Google Maps API Key Changed
-* New Language Added - French
+* FIX: Few Issues.
+* TRANSLATION: New Language Added - French.
+* TWEAK: Compatibility with 4.7.3
+* TWEAK: Google Maps API Key Changed.
 
 = 3.0.9 =
 
-* Language Translation Bugs Fixed
-* Translation File Updated
+* FIX: Language Translation Issue.
+* TRANSLATION: Translation File Updated.
 
 = 3.0.8 =
 
-* New Other Settings Added
-* Error Logs Added
-* Unused Files removed
-* Code Optimized
-* Translation File Updated
+* NEW FEATURE: Other Settings Added.
+* TRANSLATION: Translation File Updated.
+* TWEAK: Error Logs Added.
+* TWEAK: Unused Files removed.
+* TWEAK: Code Optimized.
 
 = 3.0.7 =
 
-* Obsolete Code removed
-* Unused Files removed
-* Code Optimized
-* Translation File Updated
+* TRANSLATION: Translation File Updated
+* TWEAK: Obsolete Code removed
+* TWEAK: Unused Files removed
+* TWEAK: Code Optimized
 
 = 3.0.6 =
 
-* Unblock Blocked IP Addresses
-* Few Bugs Fixed
-* Code Optimized
+* FIX: Few Issues.
+* TWEAK: Unblock Blocked IP Addresses.
+* TWEAK: Code Optimized.
 
 = 3.0.5 =
 
-* Ip Address 0.0.0.0 Bug Fixed
-* Ip Address Validation Added
-* Code Optimized
+* FIX: Ip Address 0.0.0.0 Issue.
+* TWEAK: Ip Address Validation Added.
+* TWEAK: Code Optimized.
 
 = 3.0.4 =
 
-* Wrong Ip Address Bug Fixed
-* Ip Address Block/Unblock Bug Fixed
-* Code Optimized
+* FIX: Wrong Ip Address Issue.
+* FIX: Ip Address Block/Unblock Issue.
+* TWEAK: Code Optimized.
 
 = 3.0.3 =
 
-* Install Script Bugs Fixed
-* Visitor Logs and Real Time Logs set to Disabled by default due to Performance Issues
+* FIX: Install Script Issues.
+* TWEAK: Visitor Logs and Real Time Logs set to Disabled by default due to Performance Issues.
 
 = 3.0.2 =
 
-* Obsolete Code Deleted
-* Fixed Error Displaying on Front Page
+* FIX: Error Displaying on Front Page.
+* TWEAK: Obsolete Code Deleted.
 
 = 3.0.1 =
 
-* Major Bug Fixed for Multisite Installations
-* Major Bug Fixed for Uninstall Script
-* Minor Bugs Related to DB Version
+* FIX: Major Issues Related to Multisite Installations.
+* FIX: Major Issues Related to Uninstall Script.
+* FIX: Minor Issues Related to DB Version.
 
 = 3.0.0 =
 
-* Major Version Release
-* Logical Captcha Added
-* Install Script Modified
-* Database Optimized
-* Security Patch Added
-* Modified JS & CSS Functions to only call on own Plugin Page
-* Layouts Changed
-* Obsolete Code Deleted
-* CSS Improved
-* Screenshots Changed
+* TWEAK: Major Version Release.
+* TWEAK: Logical Captcha Added.
+* TWEAK: Install Script Modified.
+* TWEAK: Database Optimized.
+* TWEAK: Security Patch Added.
+* TWEAK: Modified JS & CSS Functions to only call on own Plugin Page.
+* TWEAK: Layouts Changed.
+* TWEAK: Obsolete Code Deleted.
+* TWEAK: CSS Improved.
+* TWEAK: Screenshots Changed.
 
 = 2.1.83 =
 
-* Code Optimized
-* Few Bugs Fixed
+* FIX: Few Issues.
+* TWEAK: Code Optimized.
 
 = 2.1.82 =
 
-* Security Patch
-* Few Bugs Fixed
+* FIX: Few Issues.
+* TWEAK: Security Patch.
 
 = 2.1.81 =
 
-* Compatibility with 4.6
-* Login Logs API Updated
-* Few Bugs Fixed
+* FIX: Few Issues.
+* TWEAK: Compatibility with 4.6
+* TWEAK: Login Logs API Updated.
 
 = 2.1.80 =
 
-* Code Optimized
-* Few Bugs Fixed
+* FIX: Few Issues.
+* TWEAK: Code Optimized.
 
 = 2.1.79 =
 
-* Major Cross Site Scripting Security Issue Fix
-* Code Optimized
-* Few Bugs Fixed
+* FIX: Major Cross Site Scripting Security Issue.
+* FIX: Few Issues.
+* TWEAK: Code Optimized.
 
 = 2.1.78 =
 
-* Login Logs API Updated
-* Few Bugs Fixed
+* FIX: Few Issues.
+* TWEAK: Login Logs API Updated.
 
 = 2.1.77 =
 
-* Login Logs API Updated
-* Few Strings Updated
-* Other Services Page Fixed
-* Code Optimized
+* FIX: Other Services Page.
+* TWEAK: Login Logs API Updated.
+* TWEAK: Few Strings Updated.
+* TWEAK: Code Optimized.
 
 = 2.1.76 =
 
-* Header Bugs Fixed
-* Other Services Page Fixed
-* Code Optimized
+* FIX: Header Issues.
+* FIX; Other Services Page.
+* TWEAK: Code Optimized.
 
 = 2.1.75 =
 
-* Google Maps API Updated
+* TWEAK: Google Maps API Updated.
 
 = 2.1.74 =
 
-* Login Logs API Updated
+* TWEAK: Login Logs API Updated.
 
 = 2.1.73 =
 
-* Other Services Section Updated
+* TWEAK: Other Services Section Updated.
 
 = 2.1.71 =
 
-* Compatibility with 4.5.3 WordPress
+* TWEAK: Compatibility with 4.5.3 WordPress
 
 = 2.1.70 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.69 =
 
-* Login Logs API Updated
+* TWEAK: Login Logs API Updated.
 
 = 2.1.68 =
 
-* Login Logs API Updated
+* TWEAK: Login Logs API Updated.
 
 = 2.1.67 =
 
-* Few Bugs Fixed
+* FIX: Few Issues.
 
 = 2.1.66 =
 
-* Compatibility with 4.5.2 WordPress
+* TWEAK: Compatibility with 4.5.2 WordPress
 
 = 2.1.65 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.64 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.63 =
 
-* Compatibility with 4.5 WordPress
+* TWEAK: Compatibility with 4.5 WordPress
 
 = 2.1.62 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.61 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.60 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.59 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.58 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.57 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.56 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.55 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.54 =
 
-* Compatibility with 4.4.2
+* TWEAK: Compatibility with 4.4.2
 
 = 2.1.53 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.52 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.51 =
 
-* Compatibility with 4.4.1
+* TWEAK: Compatibility with 4.4.1
 
 = 2.1.50 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.49 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.48 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.47 =
 
-* Compatibility with 4.4
-* Few Urgent Bugs Fixed
+* TWEAK: Compatibility with 4.4
+* FIX: Few Urgent Issues.
 
 = 2.1.46 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.45 =
 
-* Few Minor Bugs Fixed
+* FIX: Few Minor Issues.
 
 = 2.1.44 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.43 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.42 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.41 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.40 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.39 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues
 
 = 2.1.38 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues
 
 = 2.1.37 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.36 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.35 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.34 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.33 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.32 =
 
-* Compatibility with 4.3
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
+* TWEAK: Compatibility with 4.3
 
 = 2.1.31 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.30 =
 
-* Compatibility with 4.2.4
+* TWEAK: Compatibility with 4.2.4
 
 = 2.1.29 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.28 =
 
-* Compatibility with 4.2.3
+* TWEAK: Compatibility with 4.2.3
 
 = 2.1.27 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.26 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.25 =
 
-* Logins Logs Api Updated to provide accurant details.
+* TWEAK: Logins Logs Api Updated to provide accurant details.
 
 = 2.1.24 =
 
-* Few Urgent Bugs Fixed
+* FIX: Few Urgent Issues.
 
 = 2.1.23 =
 
-* Few Bugs Fixed
+* FIX: Few Issues.
 
 = 2.1.22 =
 
-* Few Bugs Fixed
-* Removed Unwanted Js Files
+* FIX: Few Issues.
+* TWEAK: Removed Unwanted Js Files.
 
 = 2.1.21 =
 
-* Few Bugs Fixed
+* FIX: Few Issues.
 
 = 2.1.20 =
 
-* Compatiblility Tested with WordPress 4.2.2
+* TWEAK: Compatiblility Tested with WordPress 4.2.2
 
 = 2.1.19 =
 
-* Compatible with WordPress 4.2.1
+* TWEAK: Compatible with WordPress 4.2.1
 
 = 2.1.18 =
 
-* Compatible with WordPress 4.2
+* TWEAK: Compatible with WordPress 4.2
 
 = 2.1.17 =
 
-* Compatible with WordPress 4.1.2
+* TWEAK: Compatible with WordPress 4.1.2
 
 = 2.1.16 =
 
-* Minor Bugs Fixed.
+* FIX: Minor Issues.
 
 = 2.1.15 =
 
-* Formatting Issue Fixed.
+* FIX: Formatting Issue.
 
 = 2.1.14 =
 
-* Minor Bugs Fixed.
+* FIX: Minor Issues.
 
 = 2.1.13 =
 
-* Minor Bugs Fixed.
-* Premium Editions Section Updated.
+* FIX: Minor Issues.
+* TWEAK: Premium Editions Section Updated.
 
 = 2.1.12 =
 
-* Minor Bugs Fixed related to user roles.
+* FIX: Minor Issues related to user roles.
 
 = 2.1.11 =
 
-* Minor Bugs Fixed.
-* Other Services Section Updated.
-* Premium Editions Section Updated.
+* FIX: Minor Issues.
+* TWEAK: Other Services Section Updated.
+* TWEAK: Premium Editions Section Updated.
 
 = 2.1.10 =
 
-* Fixed few Bugs and Errors for Install Script
-* Added New Feature - Feature Request
+* FIX: Few Issues and Errors for Install Script.
+* TWEAK: Added Feature Request.
 
 = 2.1.9 =
 
-* Fixed few Bugs and Errors for Plugin Auto Updation
-* Unset Plugin Auto Updates on plugin uninstallation
-* Updated languages for Captcha Bank Plugin
+* FIX: few Issues and Errors for Plugin Auto Updation.
+* TRANSLATION: Updated languages for Captcha Bank Plugin.
+* TWEAK: Unset Plugin Auto Updates on plugin uninstallation.
 
 = 2.1.8 =
 
-* Implemented New Feature - Automatic Captcha Bank Plugin Update Enable/Disable.
+* NEW FEATURE: Automatic Captcha Bank Plugin Update Enable/Disable.
 
 = 2.1.7 =
 
-* Fixed few Bugs and Errors
+* FIX: Few Issues and Errors.
 
 = 2.1.6 =
 
-* Added google-maps-bank in recommended-plugins file
+* TWEAK: Added google-maps-bank in recommended-plugins file.
 
 = 2.1.5 =
 
-* Updated Captcha Bank in German Language
+* TRANSLATION: Updated Captcha Bank in German Language.
 
 = 2.1.4 =
 
-* Pricing changed
+* TWEAK: Pricing changed.
 
 = 2.1.3 =
 
-* Updated Captcha Bank in Portuguese Language
+* TRANSLATION: Updated Captcha Bank in Portuguese Language.
 
 = 2.1.2 =
 
-* Changed marker effect in Login Logs file.
+* TWEAK: Changed marker effect in Login Logs file.
 
 = 2.1.1 =
 
-* Few Bugs Fixed
+* FIX: Few Issues.
 
 = 2.1.0 =
 
-* Compatible with WordPress 4.1
+* TWEAK: Compatible with WordPress 4.1
 
 = 2.0.9 =
 
-* Changed variable for roles and capabilities to avoid conflictions with other plugins
+* TWEAK: Changed variable for roles and capabilities to avoid conflictions with other plugins.
 
 = 2.0.8 =
 
-* Fixed bug related to Free GeoIP API to Tech Banker API for Login Logs
+* FIX: Issue related to Free GeoIP API to Tech Banker API for Login Logs.
 
 = 2.0.7 =
 
-* Changed Free GeoIP API to Tech Banker API
+* TWEAK: Changed Free GeoIP API to Tech Banker API.
 
 = 2.0.6 =
 
-* Fixed major issue with Registration Form for Multisite.
-* Optimized Code
-* Added Update Message for latest versions
+* FIX: Major issue with Registration Form for Multisite.
+* TWEAK: Optimized Code.
+* TWEAK: Added Update Message for latest versions.
+
 = 2.0.5 =
 
-* Added Compatibility with Multisite WordPress
-* Added Compatible with WordPress 4.0.1
-* Updated Pricing Table
-* Optimized Code
-* Fixed other Bugs and Errors
+* FIX: Other Issues and Errors.
+* TWEAK: Added Compatibility with Multisite WordPress.
+* TWEAK: Added Compatible with WordPress 4.0.1
+* TWEAK: Updated Pricing Table.
+* TWEAK: Optimized Code.
 
 = 2.0.4 =
 
-* Bug Fixed for Updation from Version previous to 2.0
-* Fixed Black Image Bug
-* Optimized Code
-* Fixed other Bugs & Errors
+* FIX: Issue For Updation from Version previous to 2.0
+* FIX: Black Image Issue.
+* FIX: Other Issues & Errors.
+* TWEAK: Optimized Code.
 
 = 2.0.3 =
 
-* Optimized Code
-* Updated Roles & Capabilities
-* Changed Install Script with version number 2.0
-* Updated links to open it in new window for Pricing Table
-* Updated Plugin Customization link in Plugin header
+* TWEAK: Optimized Code.
+* TWEAK: Updated Roles & Capabilities.
+* TWEAK: Changed Install Script with version number 2.0
+* TWEAK: Updated links to open it in new window for Pricing Table.
+* TWEAK: Updated Plugin Customization link in Plugin header.
 
 = 2.0.2 =
 
-* Added Tooltips
-* Fixed Captcha Black Background Bug
-* Optimized Code
-* Removed unwanted Files & Fonts
+* FIX: Captcha Black Background Issue.
+* TWEAK: Added Tooltips.
+* TWEAK: Optimized Code.
+* TWEAK: Removed unwanted Files & Fonts.
 
 = 2.0.1 =
 
-* Udpated  Po & Mo Files
-* Updated Css Fixes
-* Updated Our Services Section
-* Optimized Code
-* Removed unwanted Files & Fonts
+* TRANSLATION: Udpated  Po & Mo Files.
+* TWEAK: Updated Css Fixes.
+* TWEAK: Updated Our Services Section.
+* TWEAK: Optimized Code.
+* TWEAK: Removed unwanted Files & Fonts.
 
 = 2.0.0 =
 
 * Major Version Release
-* New Feature : Introduced Layout Settings in Captcha Bank which allows you to set various Layout Settings such as Background, Lines, Dots, Text Transparency, and Signature for Captcha.
-* New Feature : Introduced Font Settings such as Font Family, Font Size and Font Color for Captcha in Captcha Bank.
-* New Feature : Introduced Security Settings including Auto IP Block, Maxiumum Login Attempts and Block IP Ranges in Captcha Bank.
-* New Feature : Introduced Message Settings which allows you to set different settings for error messages such as Captcha Empty Error, Captcha Invalid Error, IP Block Message, Max Login Attempts and
-
-Maximum Login Exceeded Error..
-* New Feature : Introduced Hide captcha for registered users in Display Settings of Captcha Bank.
-* New Feature : Introduced Plugin Settings (Roles and Capabilities) in Captcha Bank.
-* New Feature : Introduced Login Logs in Captcha Bank which allows you to track the current users who are logged in into you website and show there Geo Location on the map. It shows various details such
-
-as Username, IP Address, Location, Login Date & Time, Login Status, Action to Block or White list IP Address.
-* New Feature : Highly Optimized Code.
+* NEW FEATURE: Introduced Layout Settings in Captcha Bank which allows you to set various Layout Settings such as Background, Lines, Dots, Text Transparency, and Signature for Captcha.
+* NEW FEATURE: Introduced Font Settings such as Font Family, Font Size and Font Color for Captcha in Captcha Bank.
+* NEW FEATURE: Introduced Security Settings including Auto IP Block, Maxiumum Login Attempts and Block IP Ranges in Captcha Bank.
+* NEW FEATURE: Introduced Message Settings which allows you to set different settings for error messages such as Captcha Empty Error, Captcha Invalid Error,
+               IP Block Message, Max Login Attempts and Maximum Login Exceeded Error.
+* NEW FEATURE: Introduced Hide captcha for registered users in Display Settings of Captcha Bank.
+* NEW FEATURE: Introduced Plugin Settings (Roles and Capabilities) in Captcha Bank.
+* NEW FEATURE: Introduced Login Logs in Captcha Bank which allows you to track the current users who are logged in into you website and show there Geo Location on the map.
+               It shows various details such as Username, IP Address, Location, Login Date & Time, Login Status, Action to Block or White list IP Address.
+* TWEAK:       Highly Optimized Code.
 
 = 1.9 =
 
-* Captcha Bank Compatibility to 3.9.1
+* TWEAK: Captcha Bank Compatibility to 3.9.1
 
 = 1.8 =
 
-* Captcha Bank Layout Changed
+* TWEAK: Captcha Bank Layout Changed.
 
 = 1.7 =
 
-* Captcha Bank Compatibility to 3.9
+* TWEAK: Captcha Bank Compatibility to 3.9
 
 = 1.6 =
 
-* Captcha Bank Compatibility to 3.8.2
+* TWEAK: Captcha Bank Compatibility to 3.8.2
 
 = 1.5 =
 
-* Captcha Bank Compatibility to 3.8
+* TWEAK: Captcha Bank Compatibility to 3.8
 
 = 1.4 =
 
-* Captcha Bank Documentation Added
+* TWEAK: Captcha Bank Documentation Added.
 
 = 1.3 =
 
-* Bugs Fixed with Comments Section Captcha
-* Captcha Bank Database Changes
-* Captcha Bank Improved CSS
+* FIX: Issue with Comments Section Captcha.
+* TWEAK: Captcha Bank Database Changes.
+* TWEAK: Captcha Bank Improved CSS.
 
 = 1.2 =
 
-* Bugs Fixed with Session Errors
-* Captcha Bank Improved CSS
+* FIX: Issue with Session Errors.
+* TWEAK: Captcha Bank Improved CSS.
 
 = 1.1 =
 
-* Bugs Fixed with functionality related to Browsers
-* Captcha Bank Improved CSS
+* FIX: Issue with functionality related to Browsers.
+* TWEAK: Captcha Bank Improved CSS.
 
 = 1.0 =
 

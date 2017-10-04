@@ -1,11 +1,11 @@
 <?php
 /*
   Plugin Name: Captcha Bank
-  Plugin URI: http://beta.tech-banker.com
+  Plugin URI: http://captcha-bank.tech-banker.com
   Description: This plugin allows you to implement security captcha form into web forms to prevent spam.
   Author: Tech Banker
-  Author URI: http://beta.tech-banker.com
-  Version: 4.0.11
+  Author URI: http://captcha-bank.tech-banker.com
+  Version: 4.0.14
   License: GPLv3
   Text Domain: captcha-bank
   Domain Path: /languages
@@ -33,7 +33,7 @@ if (is_ssl()) {
       define("tech_banker_url", "https://tech-banker.com");
    }
    if (!defined("tech_banker_beta_url")) {
-      define("tech_banker_beta_url", "https://beta.tech-banker.com");
+      define("tech_banker_beta_url", "https://captcha-bank.tech-banker.com/");
    }
    if (!defined("tech_banker_services_url")) {
       define("tech_banker_services_url", "https://tech-banker-services.org");
@@ -43,7 +43,7 @@ if (is_ssl()) {
       define("tech_banker_url", "http://tech-banker.com");
    }
    if (!defined("tech_banker_beta_url")) {
-      define("tech_banker_beta_url", "http://beta.tech-banker.com");
+      define("tech_banker_beta_url", "https://captcha-bank.tech-banker.com/");
    }
    if (!defined("tech_banker_services_url")) {
       define("tech_banker_services_url", "http://tech-banker-services.org");
@@ -53,7 +53,7 @@ if (!defined("tech_banker_stats_url")) {
    define("tech_banker_stats_url", "http://stats.tech-banker-services.org");
 }
 if (!defined("captcha_bank_version_number")) {
-   define("captcha_bank_version_number", "4.0.11");
+   define("captcha_bank_version_number", "4.0.14");
 }
 
 $memory_limit_captcha_bank = intval(ini_get("memory_limit"));
@@ -166,7 +166,7 @@ function get_others_capabilities_captcha_bank() {
   Created By: Tech Banker Team
  */
 function captcha_bank_action_links($plugin_link) {
-   $plugin_link[] = "<a href=\"http://beta.tech-banker.com/products/captcha-bank/\" style=\"color: red; font-weight: bold;\" target=\"_blank\">Go Pro!</a>";
+   $plugin_link[] = "<a href=\"https://captcha-bank.tech-banker.com/\" style=\"color: red; font-weight: bold;\" target=\"_blank\">Go Pro!</a>";
    return $plugin_link;
 }
 /*
@@ -213,9 +213,7 @@ if ($version >= "4.0.1") {
              "captcha_bank_block_unblock_ip_addresses",
              "captcha_bank_block_unblock_ip_ranges",
              "captcha_bank_block_unblock_countries",
-             "captcha_bank_feature_requests",
-             "captcha_bank_system_information",
-             "captcha_bank_premium_editions"
+             "captcha_bank_system_information"
          );
          if (in_array(isset($_REQUEST["page"]) ? esc_attr($_REQUEST["page"]) : "", $pages_captcha_bank)) {
             wp_enqueue_script("jquery");
@@ -248,7 +246,6 @@ if ($version >= "4.0.1") {
             wp_enqueue_style("captcha-bank-jquery-ui.css", plugins_url("assets/global/plugins/datepicker/jquery-ui.css", __FILE__), false, "2.0", false);
             wp_enqueue_style("captcha-bank-datatables.foundation.css", plugins_url("assets/global/plugins/datatables/media/css/datatables.foundation.css", __FILE__));
             wp_enqueue_style("captcha-bank-colpick.css", plugins_url("assets/global/plugins/colorpicker/colpick.css", __FILE__));
-            wp_enqueue_style("captcha-bank-premium-editions.css", plugins_url("assets/admin/layout/css/premium-edition.css", __FILE__));
          }
       }
       add_action("admin_enqueue_scripts", "backend_js_css_for_captcha_bank");
@@ -956,6 +953,7 @@ if ($version >= "4.0.1") {
             $response["body"] != "" ? update_option("cpb_tech_banker_site_id", $response["body"]) : "";
          }
       }
+      delete_option("captcha-bank-wizard-set-up");
    }
    /* Hooks */
    /*
@@ -1109,3 +1107,202 @@ register_activation_hook(__FILE__, "plugin_activate_captcha_bank");
  */
 
 add_action("admin_init", "captcha_bank_redirect");
+
+/*
+  Function Name:captcha_bank_admin_notice_class
+  Parameter: No
+  Description: This function is used to create the object of admin notices.
+  Created On: 08-22-2017 16:16
+  Created By: Tech Banker Team
+ */
+function captcha_bank_admin_notice_class() {
+   global $wpdb;
+   class captcha_bank_admin_notices {
+      protected $promo_link = '';
+      public $config;
+      public $notice_spam = 0;
+      public $notice_spam_max = 2;
+      // Basic actions to run
+      public function __construct($config = array()) {
+         // Runs the admin notice ignore function incase a dismiss button has been clicked
+         add_action('admin_init', array($this, 'cpb_admin_notice_ignore'));
+         // Runs the admin notice temp ignore function incase a temp dismiss link has been clicked
+         add_action('admin_init', array($this, 'cpb_admin_notice_temp_ignore'));
+         add_action('admin_notices', array($this, 'cpb_display_admin_notices'));
+      }
+      // Checks to ensure notices aren't disabled and the user has the correct permissions.
+      public function cpb_admin_notices() {
+         $settings = get_option('cpb_admin_notice');
+         if (!isset($settings['disable_admin_notices']) || ( isset($settings['disable_admin_notices']) && $settings['disable_admin_notices'] == 0 )) {
+            if (current_user_can('manage_options')) {
+               return true;
+            }
+         }
+         return false;
+      }
+      // Primary notice function that can be called from an outside function sending necessary variables
+      public function change_admin_notice_captcha_bank($admin_notices) {
+         // Check options
+         if (!$this->cpb_admin_notices()) {
+            return false;
+         }
+         foreach ($admin_notices as $slug => $admin_notice) {
+            // Call for spam protection
+            if ($this->cpb_anti_notice_spam()) {
+               return false;
+            }
+
+            // Check for proper page to display on
+            if (isset($admin_notices[$slug]['pages']) && is_array($admin_notices[$slug]['pages'])) {
+               if (!$this->cpb_admin_notice_pages($admin_notices[$slug]['pages'])) {
+                  return false;
+               }
+            }
+
+            // Check for required fields
+            if (!$this->cpb_required_fields($admin_notices[$slug])) {
+
+               // Get the current date then set start date to either passed value or current date value and add interval
+               $current_date = current_time("m/d/Y");
+               $start = ( isset($admin_notices[$slug]['start']) ? $admin_notices[$slug]['start'] : $current_date );
+               $start = date("m/d/Y");
+               $date_array = explode('/', $start);
+               $interval = ( isset($admin_notices[$slug]['int']) ? $admin_notices[$slug]['int'] : 0 );
+
+               $date_array[1] += $interval;
+               $start = date("m/d/Y", mktime(0, 0, 0, $date_array[0], $date_array[1], $date_array[2]));
+
+               // This is the main notices storage option
+               $admin_notices_option = get_option('cpb_admin_notice', array());
+               // Check if the message is already stored and if so just grab the key otherwise store the message and its associated date information
+               if (!array_key_exists($slug, $admin_notices_option)) {
+                  $admin_notices_option[$slug]['start'] = date("m/d/Y");
+                  $admin_notices_option[$slug]['int'] = $interval;
+                  update_option('cpb_admin_notice', $admin_notices_option);
+               }
+
+               // Sanity check to ensure we have accurate information
+               // New date information will not overwrite old date information
+               $admin_display_check = ( isset($admin_notices_option[$slug]['dismissed']) ? $admin_notices_option[$slug]['dismissed'] : 0 );
+               $admin_display_start = ( isset($admin_notices_option[$slug]['start']) ? $admin_notices_option[$slug]['start'] : $start );
+               $admin_display_interval = ( isset($admin_notices_option[$slug]['int']) ? $admin_notices_option[$slug]['int'] : $interval );
+               $admin_display_msg = ( isset($admin_notices[$slug]['msg']) ? $admin_notices[$slug]['msg'] : '' );
+               $admin_display_title = ( isset($admin_notices[$slug]['title']) ? $admin_notices[$slug]['title'] : '' );
+               $admin_display_link = ( isset($admin_notices[$slug]['link']) ? $admin_notices[$slug]['link'] : '' );
+               $output_css = false;
+
+               // Ensure the notice hasn't been hidden and that the current date is after the start date
+               if ($admin_display_check == 0 && strtotime($admin_display_start) <= strtotime($current_date)) {
+
+                  // Get remaining query string
+                  $query_str = ( isset($admin_notices[$slug]['later_link']) ? $admin_notices[$slug]['later_link'] : esc_url(add_query_arg('cpb_admin_notice_ignore', $slug)) );
+                  if (strpos($slug, 'promo') === FALSE) {
+                     // Admin notice display output
+                     echo '<div class="update-nag cpb-admin-notice" style="width:95%!important;">
+                               <div></div>
+                                <strong><p>' . $admin_display_title . '</p></strong>
+                                <strong><p style="font-size:14px !important">' . $admin_display_msg . '</p></strong>
+                                <strong><ul>' . $admin_display_link . '</ul></strong>
+                              </div>';
+                  } else {
+                     echo '<div class="admin-notice-promo">';
+                     echo $admin_display_msg;
+                     echo '<ul class="notice-body-promo blue">
+                                    ' . $admin_display_link . '
+                                  </ul>';
+                     echo '</div>';
+                  }
+                  $this->notice_spam += 1;
+                  $output_css = true;
+               }
+            }
+         }
+      }
+      // Spam protection check
+      public function cpb_anti_notice_spam() {
+         if ($this->notice_spam >= $this->notice_spam_max) {
+            return true;
+         }
+         return false;
+      }
+      // Ignore function that gets ran at admin init to ensure any messages that were dismissed get marked
+      public function cpb_admin_notice_ignore() {
+         // If user clicks to ignore the notice, update the option to not show it again
+         if (isset($_GET['cpb_admin_notice_ignore'])) {
+            $admin_notices_option = get_option('cpb_admin_notice', array());
+            $admin_notices_option[$_GET['cpb_admin_notice_ignore']]['dismissed'] = 1;
+            update_option('cpb_admin_notice', $admin_notices_option);
+            $query_str = remove_query_arg('cpb_admin_notice_ignore');
+            wp_redirect($query_str);
+            exit;
+         }
+      }
+      // Temp Ignore function that gets ran at admin init to ensure any messages that were temp dismissed get their start date changed
+      public function cpb_admin_notice_temp_ignore() {
+         // If user clicks to temp ignore the notice, update the option to change the start date - default interval of 14 days
+         if (isset($_GET['cpb_admin_notice_temp_ignore'])) {
+            $admin_notices_option = get_option('cpb_admin_notice', array());
+            $current_date = current_time("m/d/Y");
+            $date_array = explode('/', $current_date);
+            $interval = (isset($_GET['cpb_int']) ? $_GET['cpb_int'] : 7);
+            $date_array[1] += $interval;
+            $new_start = date("m/d/Y", mktime(0, 0, 0, $date_array[0], $date_array[1], $date_array[2]));
+
+            $admin_notices_option[$_GET['cpb_admin_notice_temp_ignore']]['start'] = $new_start;
+            $admin_notices_option[$_GET['cpb_admin_notice_temp_ignore']]['dismissed'] = 0;
+            update_option('cpb_admin_notice', $admin_notices_option);
+            $query_str = remove_query_arg(array('cpb_admin_notice_temp_ignore', 'cpb_int'));
+            wp_redirect($query_str);
+            exit;
+         }
+      }
+      public function cpb_admin_notice_pages($pages) {
+         foreach ($pages as $key => $page) {
+            if (is_array($page)) {
+               if (isset($_GET['page']) && $_GET['page'] == $page[0] && isset($_GET['tab']) && $_GET['tab'] == $page[1]) {
+                  return true;
+               }
+            } else {
+               if ($page == 'all') {
+                  return true;
+               }
+               if (get_current_screen()->id === $page) {
+                  return true;
+               }
+               if (isset($_GET['page']) && $_GET['page'] == $page) {
+                  return true;
+               }
+            }
+            return false;
+         }
+      }
+      // Required fields check
+      public function cpb_required_fields($fields) {
+         if (!isset($fields['msg']) || ( isset($fields['msg']) && empty($fields['msg']) )) {
+            return true;
+         }
+         if (!isset($fields['title']) || ( isset($fields['title']) && empty($fields['title']) )) {
+            return true;
+         }
+         return false;
+      }
+      public function cpb_display_admin_notices() {
+         $two_week_review_ignore = add_query_arg(array('cpb_admin_notice_ignore' => 'two_week_review'));
+         $two_week_review_temp = add_query_arg(array('cpb_admin_notice_temp_ignore' => 'two_week_review', 'int' => 7));
+
+         $notices['two_week_review'] = array(
+             'title' => __('Leave A Captcha Bank Review?'),
+             'msg' => 'We love and care about you. Captcha Bank Team is putting our maximum efforts to provide you the best functionalities.<br> We would really appreciate if you could spend a couple of seconds to give a Nice Review to the plugin for motivating us!',
+             'link' => '<span class="dashicons dashicons-external captcha-bank-admin-notice"></span><span class="captcha-bank-admin-notice"><a href="https://wordpress.org/support/plugin/captcha-bank/reviews/?filter=5" target="_blank" class="captcha-bank-admin-notice-link">' . __('Sure! I\'d love to!', 'cpb') . '</a></span>
+                        <span class="dashicons dashicons-smiley captcha-bank-admin-notice"></span><span class="captcha-bank-admin-notice"><a href="' . $two_week_review_ignore . '" class="captcha-bank-admin-notice-link"> ' . __('I\'ve already left a review', 'cpb') . '</a></span>
+                        <span class="dashicons dashicons-calendar-alt captcha-bank-admin-notice"></span><span class="captcha-bank-admin-notice"><a href="' . $two_week_review_temp . '" class="captcha-bank-admin-notice-link">' . __('Maybe Later', 'cpb') . '</a></span>',
+             'later_link' => $two_week_review_temp,
+             'int' => 7
+         );
+
+         $this->change_admin_notice_captcha_bank($notices);
+      }
+   }
+   $plugin_info_captcha_bank = new captcha_bank_admin_notices();
+}
+add_action("init", "captcha_bank_admin_notice_class");

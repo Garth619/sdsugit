@@ -66,31 +66,6 @@
 {
    margin: 0 !important;
 }
-.tabbable-tabdrop .nav-tabs,
-.tabbable-tabdrop .nav-pills
-{
-   position: relative;
-}
-.tabbable-tabdrop .nav-tabs .caret,
-.tabbable-tabdrop .nav-pills .caret
-{
-   display: none;
-}
-.tabbable-tabdrop .nav-tabs .tabdrop .dropdown-toggle i,
-.tabbable-tabdrop .nav-pills .tabdrop .dropdown-toggle i
-{
-   font-size: 14px;
-}
-.tabbable-tabdrop .dropdown-menu:after
-{
-   right: 10px;
-   left: auto;
-}
-.tabbable-tabdrop .dropdown-menu:before
-{
-   right: 9px;
-   left: auto;
-}
 .dataTable
 {
    width: 100%;

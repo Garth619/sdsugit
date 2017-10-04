@@ -4,11 +4,11 @@ Author URI: http://www.usestrict.net/
 Plugin URI: http://usestrict.net/2013/02/bbpress-notify-nospam/
 Tags: bbpress, email notification, no spam
 Requires at least: 3.1
-Tested up to: 4.7.2
+Tested up to: 4.8.2
 Text Domain: bbpress_notify
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.15.4
+Stable tag: 1.15.9.1
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VLQU2MMXKB6S2
 
 == Description ==
@@ -70,6 +70,24 @@ the [Opt-out Add-on](http://usestrict.net/product/bbpress-notify-no-spam-opt-out
 
 
 == Changelog ==
+= 1.15.9.1 =
+* Fix: Removed debugging left behind in 1.15.9
+
+= 1.15.9 =
+* Decode quotes in topics and body.
+
+= 1.15.8 =
+* Refactor topic-url code in reply notifications to improve performance.
+
+= 1.15.7 =
+* Added support for topic-title, topic-author, and topic-author-email tags in the reply subject.
+
+= 1.15.6 =
+* Remove surety message.
+
+= 1.15.5 =
+* Fix: apply bbpnns_topic_url filter when processing topic_url inside a reply as well.
+
 = 1.15.4 =
 * Added: bbpnns_core_subscribers filter.
 

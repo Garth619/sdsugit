@@ -104,6 +104,14 @@
       width: 95.7% !important;
    }
 }
+.captcha-bank-admin-notice
+{
+   margin-left:11px!important;
+}
+.captcha-bank-admin-notice-link
+{
+   text-decoration:none!important;
+}
 .premium-editions
 {
    float:right; 
@@ -115,7 +123,7 @@
    text-decoration: none !important;
 
 }
-.premium-editions:hover
+.premium-editions-documentation
 {
-   text-decoration: underline !important;
+   color:white !important;
 }
