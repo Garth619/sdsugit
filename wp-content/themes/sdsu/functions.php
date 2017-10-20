@@ -121,6 +121,7 @@ add_filter('the_title', 'remove_private_prefix');
 
 
 
+/*
 function custom_loginlogo() {
 echo '<style type="text/css">
 h1 a {background-image: url('.get_bloginfo('template_directory').'/images/login-logo.png) !important;background-size: 120px auto !important;
@@ -129,6 +130,7 @@ width: 120px !important;
 </style>';
 }
 add_action('login_head', 'custom_loginlogo');
+*/
 
 
 
@@ -262,6 +264,7 @@ add_action( 'admin_menu', 'remove_menus' );
  
  
  // Switch Order of Forum Posts 
+/*
 function custom_bbp_has_replies() {
   $args['order'] = 'DESC'; // 'ASC' (Ascending, Default), 'DESC' (Descending)
   
@@ -269,6 +272,7 @@ function custom_bbp_has_replies() {
 }
  
 add_filter('bbp_before_has_replies_parse_args', 'custom_bbp_has_replies' );
+*/
 
 
 // Lead Post on top of topic
@@ -313,6 +317,8 @@ add_action('init', 'sdigec_recipients');
 
 // Photo Wall in Staff Intranet
 
+
+/*
 	add_action('init', 'photo_wall');    
    	 
 	function photo_wall() {    
@@ -330,17 +336,21 @@ add_action('init', 'sdigec_recipients');
    	 
     	register_post_type( 'photo_wall' , $args );    
 	} 
+*/
+
 	
 	
 	// This forces Photo Wall Posts to be priavte but it doesnt allow you to trash the posts
 	
+/*
 	function force_type_private($post)
 {
     if ($post['post_type'] == 'photo_wall')
     $post['post_status'] = 'private';
     return $post;
 }
-add_filter('wp_insert_post_data', 'force_type_private');   
+add_filter('wp_insert_post_data', 'force_type_private');  
+*/ 
  
 
 

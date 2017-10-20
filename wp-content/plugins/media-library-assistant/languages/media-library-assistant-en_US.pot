@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Media Library Assistant\n"
-"POT-Creation-Date: 2017-07-11 20:39-0700\n"
+"POT-Creation-Date: 2017-10-15 21:54-0700\n"
 "PO-Revision-Date: 2015-08-21 21:38-0800\n"
 "Last-Translator: David Lingren <david@fairtradejudaica.org>\n"
 "Language-Team: David Lingren <david@fairtradejudaica.org>\n"
@@ -294,6 +294,14 @@ msgstr ""
 
 msgid ""
 "Check/uncheck this option to show/omit the file name from the primary column."
+msgstr ""
+
+msgid "QuickTags editor for bulk description"
+msgstr ""
+
+msgid ""
+"Check this option to use the QuickTags editor for the Description field in "
+"the Bulk Edit area."
 msgstr ""
 
 msgid "Bulk Chunk Size"
@@ -1953,6 +1961,9 @@ msgid "MLA Text"
 msgstr ""
 
 msgid "Automatically add paragraphs"
+msgstr ""
+
+msgid "Add .textwidget div tags"
 msgstr ""
 
 msgid "error loading tpls/mla-option-templates.tpl"

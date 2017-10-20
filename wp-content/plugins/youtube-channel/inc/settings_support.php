@@ -1,3 +1,0 @@
-<p>For all questions, feature request and communication with author and users of this plugin, use our <a href="http://wordpress.org/support/plugin/youtube-channel">support forum</a>.</p>
-
-<p>If you like <a href="http://wordpress.org/plugins/youtube-channel/">YouTube Channel</a> and my other <a href="http://urosevic.net/wordpress/plugins/">WordPress extensions</a>, feel free to support my work with <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6Q762MQ97XJ6">donation</a>.</p>

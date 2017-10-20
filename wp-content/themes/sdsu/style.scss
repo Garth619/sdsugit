@@ -246,6 +246,19 @@ $gold:#d2c183;
 	}
 }
 
+.new_cal {
+	clear:both;
+	padding:30px 0;
+}
+
+	.intranet_wrapper {
+		width:90%;
+		max-width:1100px;
+		margin:20px auto 50px;
+		padding:0px;
+		
+	}
+
 .program_row, .program_row_inner {
 	overflow:hidden;
 }
@@ -6106,13 +6119,20 @@ body.staffintranet {
 	}
 	.photo_box {
 		width:47%;
-		float:left;
+// 		float:left;
 	}
 	.photo_box:last-of-type {
 		float:right;
 	}
 }
 	
+	.photo_box_one {
+		float:left;	
+	}
+	
+	.photo_box_two {
+		float:right;
+	}
 
 
 .col_wrapper:last-of-type {
@@ -6193,19 +6213,13 @@ body.staffintranet {
 
 	
 	
+
 	
 	
 	
 	
 	
-	
-	.intranet_wrapper {
-		width:90%;
-		max-width:1100px;
-		margin:20px auto 0;
-		padding:0px;
-		
-	}
+
 	
 	
 

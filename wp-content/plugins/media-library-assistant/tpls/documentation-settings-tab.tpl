@@ -1,6 +1,6 @@
 ﻿<!-- template="documentation-tab" -->
+<h2>Plugin and Shortcode Documentation. In this tab, jump to:</h2>
 <div class="mla-display-settings-page" id="mla-display-settings-documentation-tab" style="width:700px">
-<h3>Plugin and Shortcode Documentation. In this tab, jump to:</h3>
 <p class="submit mla-settings-submit">
 Browse and install: 
 <a href="[+example_url+]" class="button button-primary">Example Plugins</a><br>
@@ -24,7 +24,7 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 <li><a href="#author_author_name">Author, Author Name</a></li>
 <li><a href="#category_parameters">Category Parameters</a></li>
 <li><a href="#tag_parameters">Tag Parameters</a></li>
-<li><a href="#taxonomy_parameters_tax_operator">Simple Taxonomy Parameters</a></li>
+<li><a href="#simple_taxonomy_parameters">Simple Taxonomy Parameters</a></li>
 <li><a href="#taxonomy_parameters_tax_input">Compound Taxonomy Parameters, "tax_input"</a></li>
 <li><a href="#taxonomy_queries">Taxonomy Queries, the "tax_query"</a></li>
 <li><a href="#taxonomy_keyword_search">Taxonomy term keyword(s) search</a></li>
@@ -130,6 +130,9 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 </li>
 <li>
 <a href="#admin_columns"><strong>Support for the &#8220;Admin Columns&#8221; Plugin</strong></a>
+</li>
+<li>
+<a href="#mla_taxonomy_hooks"><strong>Custom Taxonomy Actions and Filters (Hooks)</strong></a>
 </li>
 <li>
 <a href="#mla_list_table_hooks"><strong>Media/Assistant Submenu Actions and Filters (Hooks)</strong></a>
@@ -750,7 +753,7 @@ The Tag parameters search in the WordPress core &quot;Tags&quot; taxonomy. Remem
 <p>
 More information and examples can be found on the <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Tag_Parameters" title="WordPress Codex page" target="_blank">WordPress Codex WP_Query Class Reference</a> page.
 Note that the "tag_id" parameter requires exactly one tag ID; multiple IDs are not allowed. You can use the "tag__in" parameter to query for multiple values.
-<a name="taxonomy_parameters_tax_operator"></a>
+<a name="simple_taxonomy_parameters"></a>
 </p>
 <h4>Simple Taxonomy Parameters</h4>
 <p>
@@ -766,13 +769,19 @@ For simple queries, enter the custom taxonomy name and the term(s) that must be 
 Note that you should use the name/slug strings for taxonomy and terms, not the "title" strings. You can often use the "title" strings if they can be "sanitized" to the slug, but this is not always reliable. If you are using the "Att. Tag" taxonomy built in to MLA then your shortcode should be something like:
 </p>
 <ul class="mla_settings">
-<li><code>[mla_gallery attachment_tag=artisan post_parent=all]</code></li>
+<li><code>[mla_gallery attachment_tag=artisan]</code></li>
 </ul>
 <p>
 In this example, "attachment_tag" is the WordPress taxonomy name/slug for the taxonomy. If you're using "Att. Category", the slug would be "attachment_category".
 </p>
 <p>
-The default behavior of the simple taxonomy query will match any of the terms in the list. If you have two or more simple taxonomy queries, they will be joined by "AND". MLA enhances the simple taxonomy query form by providing three additional parameters:
+The default behavior of the simple taxonomy query will match any of the terms in the list. A special value lets you find items that have no assigned terms in the taxonomy. For example, to find items that have no Att. Tags you can code:
+</p>
+<ul class="mla_settings">
+<li><code>[mla_gallery attachment_tag=no.assigned.terms]</code></li>
+</ul>
+<p>
+If you have two or more simple taxonomy queries, they will be joined by "AND". MLA enhances the simple taxonomy query form by providing three additional parameters:
 </p>
 <table>
 <tr>
@@ -828,15 +837,49 @@ In the example, <code>animal.invalid-slug</code> is a taxonomy.term combination 
 <p>
 More complex queries can be specified by using <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Taxonomy_Parameters" title="WordPress Codex Documentation for tax_query" target="_blank">WP_Query's "tax_query"</a>, e.g.:
 </p>
-<ul class="mla_settings">
-<li><code>[mla_gallery tax_query="array(array('taxonomy' => 'attachment_tag','field' => 'slug','terms' => 'artisan'))"]</code></li>
-<li><code>[mla_gallery tax_query="array(array('taxonomy' => 'attachment_category','field' => 'id','terms' => array(11, 12)))" post_parent=current post_mime_type='']</code></li>
-</ul>
+<p><code>[mla_gallery]<br />
+tax_query="array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'taxonomy' =&gt; 'attachment_tag',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'field' =&gt; 'slug',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'terms' =&gt; 'artisan'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+)"<br />
+[/mla_gallery]
+</code></p>
+<p><code>[mla_gallery]<br />
+tax_query="array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'taxonomy' =&gt; 'attachment_category',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'field' =&gt; 'id',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'terms' =&gt; array(11, 12)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+)"<br />
+post_parent=current<br />
+post_mime_type=all<br />
+[/mla_gallery]
+</code></p>
 <p>
-The first example is equivalent to the simple query <code>attachment_tag=artisan</code>. The second example matches items of all MIME types, attached to the current post, having an attachment_category ID of 11 or 12.
+The first example is equivalent to the simple query <code>attachment_tag=artisan</code>. The second example matches items of all MIME types, attached to the current post, having an attachment_category ID of 11 or 12. Both examples use the <strong>"enclosing shortcode"</strong> format to avoid problems WordPress has in parsing parameters with special characters such as <code>=&gt;</code>.
 </p>
 <p>
 When embedding the shortcode in the body of a post, be very careful when coding the tax_query; it must be a valid PHP array specification. Read and follow the rules and guidelines in the "<a href="#complex_shortcodes">Entering Long/Complex Shortcodes</a>" Documentation section to get the results you want.
+</p>
+<p>
+A special "terms" value, "no.terms.assigned" lets you find items that have no assigned terms in the taxonomy. For example, to find items that have no Att. Tags you can code:</p>
+<p><code>[mla_gallery]<br />
+tax_query="array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'taxonomy' =&gt; 'attachment_tag',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'field' =&gt; 'id',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'terms' =&gt; 'no.terms.assigned'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'operator' =&gt; 'NOT IN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+)"<br />
+[/mla_gallery]
+</code></p>
+<p>
+In addition to <code>'terms' =&gt; 'no.terms.assigned'</code> you must code <code>'field' =&gt; 'id'</code> and <code>'operator' =&gt; 'NOT IN'</code> to get the proper results. The example uses use the <strong>"enclosing shortcode"</strong> format to avoid problems WordPress has in parsing parameters with special characters such as <code>=&gt;</code>.
 </p>
 <p>
 Remember to use <code>post_parent=current</code> if you want to restrict your query to items attached to the current post.
@@ -1167,6 +1210,10 @@ The example code documents each hook with comments in the filter/action function
 <td class="mla-doc-hook-definition">for manipulating the Style template.</td>
 </tr>
 <tr>
+<td class="mla-doc-hook-label">mla_gallery_pagination_values</td>
+<td class="mla-doc-hook-definition">for manipulating the markup values used in pagination controls.</td>
+</tr>
+<tr>
 <td class="mla-doc-hook-label">mla_gallery_open_values,<br />mla_gallery_open_template,<br />mla_gallery_open_parse</td>
 <td class="mla-doc-hook-definition">for manipulating the "Open" part of the Markup template.</td>
 </tr>
@@ -1175,7 +1222,7 @@ The example code documents each hook with comments in the filter/action function
 <td class="mla-doc-hook-definition">for manipulating the "Row Open" part of the Markup template.</td>
 </tr>
 <tr>
-<td class="mla-doc-hook-label">mla_gallery_item_values,<br />mla_gallery_item_template,<br />mla_gallery_item_parse</td>
+<td class="mla-doc-hook-label">mla_gallery_initial_item_values,<br />mla_gallery_item_values,<br />mla_gallery_item_template,<br />mla_gallery_item_parse</td>
 <td class="mla-doc-hook-definition">for manipulating the "Item" part of the Markup template.</td>
 </tr>
 <tr>
@@ -1501,7 +1548,7 @@ You can code "true" to omit the attachment-counting process. If you do that, the
 </tr>
 <tr>
 <td class="mla-doc-table-label">orderby</td>
-<td>The sort order of the retrieved terms. Can be one or more of "count", "id" (term_id), "name" (the default), "none", "random", or "slug".</td>
+<td>The final sort order of the retrieved terms. Can be one or more of "count", "id" (term_id), "name" (the default), "none", "random", or "slug". Coding "none" is equivalent to "orderby=count order=DESC" (the initial sort to qualify the most popular terms for the cloud).</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">order</td>
@@ -1509,7 +1556,7 @@ You can code "true" to omit the attachment-counting process. If you do that, the
 </tr>
 <tr>
 <td class="mla-doc-table-label">no_orderby</td>
-<td>The default, "false", applies the orderby and order parameters to the final term list. If you have a large number of terms and/or attachments, this can take a long time. You can code "true" to omit the final sorting process. If you do that, the cloud will be sorted by "count" in descending order.</td>
+<td>The default, "false", applies the orderby and order parameters to the final term list. If you have a large number of terms and/or attachments, this can take a long time. You can code "true" to omit both the initial sort (most popular terms) and the final sorting process. If you do that, the sort order of the cloud will be indeterminite.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">preserve_case</td>
@@ -2223,6 +2270,10 @@ Each item in the list comprises a term name, a hyperlink surrounding the term na
 <td>The name of the parameter containing the current item value; <strong>default "current_item"</strong>. You can change the name if you need multiple lists on one post/page.</td>
 </tr>
 <tr>
+<td class="mla-doc-table-label">active_item_class</td>
+<td>The class attribute for the "active" item(s) in the list as determined by the "current_item" parameter (if specified); <strong>default "mla_active_item"</strong>. An item is "active" if it or any of its child items are the current item.</td>
+</tr>
+<tr>
 <td class="mla-doc-table-label">current_item_class</td>
 <td>The class attribute for the current item in the list as determined by the "current_item" parameter (if specified); <strong>default "mla_current_item"</strong>.</td>
 </tr>
@@ -2911,8 +2962,12 @@ Term list <strong>item-specific substitution parameters</strong> for the Markup 
 <td>link attributes, if any, drawn from the mla_target, mla_link_attributes and mla_link_class parameters</td>
 </tr>
 <tr>
+<td class="mla-doc-table-label">active_item_class</td>
+<td>set to the value of the <code>active_item_class</code> parameter (default "mla_active_item") for the active item(s) in the list as determined by the "current_item" parameter, and to an empty string for all other items in the list. An item is "active" if it or any of its child items are the current item.</td>
+</tr>
+<tr>
 <td class="mla-doc-table-label">current_item_class</td>
-<td>set to "mla_current_item" for the current item in the list as determined by the "current_item" parameter, and to an empty string for all other items in the list.</td>
+<td>set to the value of the <code>current_item_class</code> parameter (default "mla_current_item") for the current item in the list as determined by the "current_item" parameter, and to an empty string for all other items in the list.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">rollover_text</td>
@@ -5102,7 +5157,10 @@ In the Media/Assistant submenu table  Bulk Edit area and the IPTC/EXIF Standard 
 </p>
 <h4>Special characters inside templates</h4>
 <p>
-The conditional and choice elements require delimiters, "(", ")" and "|". If you want to put any of these three characters in your template, preface them with two backslash characters, e.g., "\\(". If you need a backslash in your template, code it as four backslash characters, i.e., "\\\\". The doubling of backslash characters is required because of the way WordPress processes shortcode parameters.
+The conditional and choice elements require delimiters, "(", ")" and "|". If you want to put any of these three characters in your template, preface them with a backslash character, e.g., "\(". If you need a backslash in your template, code it as two backslash characters, i.e., "\\".
+</p>
+<p>
+<strong>In a shortcode parameter:</strong> If your template is coded in a shortcode parameter, preface the template delimiters with two backslash characters, e.g., "\\(". If you need a backslash in your template, code it as four backslash characters, i.e., "\\\\". The doubling of backslash characters is required because of the way WordPress processes shortcode parameters.
 </p>
 <a name="mla_text_widget"></a>
 &nbsp;
@@ -5270,6 +5328,47 @@ You can find detailed configuration instructions at the <a href="http://admincol
 </p>
 <p>
 When you have completed your configuration changes, click "Update Media Library Assistant" in the Store Settings metabox at the top-right of the screen. You can also click "Restore Media Library Assistant columns" to remove your changes and go back to the MLA default settings. Click the "View" button at the right of the Media Library Assistant heading to return to the Media/Assistant submenu screen and see your changes.
+<a name="mla_taxonomy_hooks"></a>
+</p>
+<p>
+<a href="#backtotop">Go to Top</a>
+</p>
+<h3>Custom Taxonomy Actions and Filters (Hooks)</h3>
+<p>
+The Custom Taxonomy filters and actions give you control over the registration of the Att. Categories and Att. Tags taxonomies from PHP code in your theme or in another plugin. An example of using the hooks from a simple, stand-alone plugin can be found in the Documentation/Example Plugins submenu. You can find the example plugin here: <a title="Find the Taxonomy Hooks Example" href="[+example_url+]&mla-example-search=Search+Plugins&s=%22MLA+Taxonomy+Hooks+Example%22" class="mla-doc-bold-link">MLA Taxonomy Hooks Example</a>. To run the example:
+<ol>
+<li>Click on the link above or go to top of the Documentation tab and click on the "Example Plugins" button.</li>
+<li>Hover over "MLA Taxonomy Hooks Example" in the Name column, then click the "Install" rollover action.</li>
+<li>Go to the Plugins/Installed Plugins screen and activate the "MLA Taxonomy Hooks Example" plugin.</li>
+<li>Go to, for example, the Media/Assistant submenu to exercise the filters and write filter/action information to the site's Error Log.</li>
+<li>Examine the Error Log to see the filter/action information.</li>
+</ol>
+</p>
+<p>
+You can find more information about the types, labels and arguments in the <a href="https://codex.wordpress.org/Function_Reference/register_taxonomy" title="register_taxonomy() Documentation" target="_blank">Function Reference/register taxonomy</a> repository page. 
+</p>
+<p>
+The example code documents each hook with comments in the filter/action function that intercepts each hook.
+</p>
+<p>
+The following hooks are defined in <code>/wp-admin/includes/class-mla-objects.php</code>:
+</p>
+<table>
+<tr>
+<td class="mla-doc-hook-label">mla_attachment_category_types,<br />mla_attachment_tag_types</td>
+<td class="mla-doc-hook-definition">Modify the array of post types for which the taxonomy is registered. The default is "attachment".</td>
+</tr>
+<tr>
+<td class="mla-doc-hook-label">mla_attachment_category_labels,<br />mla_attachment_tag_labels</td>
+<td class="mla-doc-hook-definition">Modify the array of labels used in the User Interface for submenu and metabox names, etc.</td>
+</tr>
+<tr>
+<td class="mla-doc-hook-label">mla_attachment_category_arguments,<br />mla_attachment_tag_arguments</td>
+<td class="mla-doc-hook-definition">Modify the array of arguments with which the taxonomy is registered. For example, you can change the URL rewrite slug from the default <code>attachment_category/attachment_tag</code> values for SEO purposes. <strong>Note</strong>: You may need to flush the rewrite rules after changing the slug. You can do it manually by going to the Permalink Settings page and re-saving the rules -- you don't need to change them.</td>
+</tr>
+</table>
+<p>
+&nbsp;
 <a name="mla_list_table_hooks"></a>
 </p>
 <p>
@@ -5327,7 +5426,11 @@ The following hooks are defined in <code>/media-library-assistant/includes/class
 </tr>
 <tr>
 <td class="mla-doc-hook-label">mla_taxonomy_column</td>
-<td class="mla-doc-hook-definition">Gives you an opportunity to change column content in the Edit Taxonomy submenu table(s).</td>
+<td class="mla-doc-hook-definition">Gives you an opportunity to replace column content in the Edit Taxonomy submenu table(s) before MLA computes the count.</td>
+</tr>
+<tr>
+<td class="mla-doc-hook-label">mla_taxonomy_column_final</td>
+<td class="mla-doc-hook-definition">Gives you an opportunity to replace column content in the Edit Taxonomy submenu table(s) after MLA computes the count.</td>
 </tr>
 </table>
 <p>

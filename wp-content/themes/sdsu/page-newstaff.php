@@ -12,31 +12,56 @@
  * @since Twenty Ten 1.0
  */
 
-get_header('intranet'); ?>
+get_header(); ?>
 
-		<div class="intranet_wrapper">
+
+		
+
+		<div class="intranet_wrapper" style="min-height:300px;">
 			
-			
+			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+				
+					<div style="padding:30px 0">
+					
+					<?php the_content();?>
+					
+					</div>
+				
+				<?php endwhile; // end of loop ?> 
+
+				<?php endif; ?>
+				
+				
+				<?php if ( ! post_password_required() ) { ?>
 			
 			<div class="photo_box_wrapper">
 				
-				<h1 class="intranet_header">Welcome <?php global $current_user; get_current_user(); echo $current_user->user_firstname;?>!</h1>
+				<h1 class="intranet_header">Welcome</h1>
 			
-			
-				<div class="photo_box">
+				 			
+				<div class="photo_box photo_box_one">
+					
+					
 				
 					<img src="<?php the_field('team_image');?>"/>
 				
 				</div><!-- photo_box -->
 			
 			
-				<div class="photo_box">
+				<div class="photo_box photo_box_two">
 				
 					<a href="<?php the_field('video_link');?>" target="_blank">
 						<img src="<?php the_field('video_image');?>"/>
 					</a>
 				
 				</div><!-- photo_box -->
+				
+				<div class="new_cal">
+				
+					<iframe id="myagenda_iframe" src="https://www.google.com/calendar/embed?mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mail.sdsu.edu_2d34313638373536302d393636%40resource.calendar.google.com&amp;color=%23125A12&amp;ctz=America%2FLos_Angeles" style="border-width:0" frameborder="0" scrolling="no"></iframe>
+				
+				</div><!-- new_cal -->
+
 			
 			
 			</div><!-- photo_box_wrapper -->
@@ -834,6 +859,9 @@ get_header('intranet'); ?>
 				
 				
 			</div><!-- col_wrapper -->
+			
+			
+			<?php } ?>
 		
 		
 		</div><!-- intranet_wrapper -->
@@ -844,4 +872,4 @@ get_header('intranet'); ?>
 						
 
 
-<?php get_footer('intranet'); ?>
+<?php get_footer(); ?>

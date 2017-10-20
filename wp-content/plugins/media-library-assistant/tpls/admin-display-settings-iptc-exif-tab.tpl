@@ -69,7 +69,7 @@ href="#mla-new-iptc-exif"> [+Cancel Name Change+] </a>
 					<p class="description">&nbsp;[+Enter EXIF/Template+]</p></td>
 			</tr>
 			<tr class="form-field iptc-exif-iptc-first-wrap">
-				<th scope="row"> <label for="mla-iptc-exif-mla-column">[+Priority+]</label>
+				<th scope="row"> <label for="mla-iptc-exif-iptc-first">[+Priority+]</label>
 				</th>
 				<td><select name="mla_iptc_exif_rule[iptc_first]" id="mla-iptc-exif-iptc-first">
                 <option [+iptc_selected+] value="1">[+IPTC+]</option>
@@ -133,7 +133,7 @@ href="#mla-new-iptc-exif"> [+Cancel Name Change+] </a>
 	<p class="submit mla-settings-submit">
 		<input name="[+cancel+]" class="button-primary" type="submit" value="[+Cancel+]" />
 		&nbsp;
-		<input name="[+submit+]" class="button-primary" [+submit_style+] type="submit" value="[+Update+]" />
+		<input name="[+submit+]" class="button-primary" type="submit" value="[+Update+]" />
 		&nbsp; </p>
 </form>
 

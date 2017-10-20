@@ -175,6 +175,16 @@ var jQuery,
 			});
 
 			$('html, body').animate( { scrollTop: 0 }, 'fast' );
+
+			if ( ( typeof quicktags !== 'undefined' ) && ( typeof  mla.settings.quickTagsInit !== 'undefined' ) ) {
+				for ( id in mla.settings.quickTagsInit ) {
+					quicktags( mla.settings.quickTagsInit[id] );
+
+					if ( mla.settings.quickTagsInit[id]['active'] ) {
+						window.wpActiveEditor = id;
+					}
+				}
+			}
 		},
 
 		bulkSave : function(e) {
@@ -672,6 +682,16 @@ var jQuery,
 					$('.inline-edit-categories', bulkRow ).html( blankCategories ),
 					$('.inline-edit-tags', bulkRow ).html( blankTags ),
 					$('.inline-edit-fields', bulkRow ).html( blankFields );
+
+					if ( ( typeof quicktags !== 'undefined' ) && ( typeof  mla.settings.quickTagsInit !== 'undefined' ) ) {
+						for ( id in mla.settings.quickTagsInit ) {
+							quicktags( mla.settings.quickTagsInit[id] );
+		
+							if ( mla.settings.quickTagsInit[id]['active'] ) {
+								window.wpActiveEditor = id;
+							}
+						}
+					}
 
 					$('#bulk-edit-set-parent', bulkRow).on( 'click', function(){
 						return mla.inlineEditAttachment.bulkParentOpen();

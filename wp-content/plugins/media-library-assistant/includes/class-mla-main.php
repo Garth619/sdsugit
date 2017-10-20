@@ -351,9 +351,7 @@ class MLA {
 			return;
 		}
 
-		/*
-		 * Add the styles for variable-size icon and WP 4.3 primary column display 
-		 */
+		// Add the styles for variable-size icon and WP 4.3 primary column display 
 		add_action( 'admin_print_styles', 'MLA::mla_admin_print_styles_action' );
 
 		if ( $wp_locale->is_rtl() ) {
@@ -407,6 +405,10 @@ class MLA {
 
 		if ( version_compare( get_bloginfo( 'version' ), '4.2', '>=' ) ) {
 			$script_variables['useSpinnerClass'] = true;
+		}
+
+		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_BULK_EDITOR ) ) {
+			$script_variables['quickTagsInit'] = array( 'post_content' => array( 'id' => 'post_content', 'buttons' => 'strong,em,link,block,del,ins,img,ul,ol,li,code,close', 'active' => true, ) );
 		}
 
 		wp_localize_script( MLACore::JAVASCRIPT_INLINE_EDIT_SLUG, self::JAVASCRIPT_INLINE_EDIT_OBJECT, $script_variables );
@@ -468,7 +470,7 @@ class MLA {
 			$menu_position = (integer) MLACore::mla_get_option( MLACoreOptions::MLA_SCREEN_ORDER );
 		}
 
-		if ( $menu_position && is_array( $submenu['upload.php'] ) ) {
+		if ( $menu_position && !empty( $submenu['upload.php'] ) ) {
 			foreach ( $submenu['upload.php'] as $menu_order => $menu_item ) {
 				if ( MLACore::ADMIN_PAGE_SLUG == $menu_item[2] ) {
 					$menu_item[2] = 'upload.php?page=' . MLACore::ADMIN_PAGE_SLUG;
@@ -700,11 +702,17 @@ class MLA {
 	public static function mla_parent_file_filter( $parent_file ) {
 		global $submenu_file, $submenu, $hook_suffix;
 
-		/*
-		 * Make sure the "Assistant" submenu line is bolded if it's the default
-		 */
+		// Make sure the "Assistant" submenu line is bolded if it's been moved
 		if ( 'media_page_' . MLACore::ADMIN_PAGE_SLUG == $hook_suffix ) {
-			$submenu_file = 'upload.php?page=' . MLACore::ADMIN_PAGE_SLUG;
+			if ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_SCREEN_DISPLAY_LIBRARY ) ) {
+				$menu_position = 4;
+			} else {
+				$menu_position = (integer) MLACore::mla_get_option( MLACoreOptions::MLA_SCREEN_ORDER );
+			}
+			
+			if ( $menu_position ) {
+				$submenu_file = 'upload.php?page=' . MLACore::ADMIN_PAGE_SLUG;
+			}
 		}
 
 		/*
@@ -789,7 +797,7 @@ class MLA {
 	 * @return	string	Empty, or new value for the field
 	 */
 	private static function _process_bulk_value( $post_id, $bulk_value ) {
-		$new_value = trim( $bulk_value );
+		$new_value = stripslashes( trim( $bulk_value ) );
 
 		if ( 'template:[+empty+]' == $new_value ) {
 			return NULL;
@@ -2008,6 +2016,16 @@ class MLA {
 
 		$set_parent_form = MLA::mla_set_parent_form();
 
+		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_BULK_EDITOR ) ) {
+			$quicktags_settings = array( 'buttons' => 'strong,em,link,block,del,ins,img,ul,ol,li,code,close' );
+			ob_start();
+			wp_editor( '', 'post_content', array( 'media_buttons' => false, 'tinymce' => false, 'textarea_rows' => 5, 'quicktags' => $quicktags_settings ) );
+			$description_field = ob_get_contents();
+			ob_end_clean();
+		} else {
+			$description_field = '<textarea class="widefat" name="post_content"></textarea>';
+		}
+
 		$page_values = array(
 			'colspan' => $MLAListTable->get_column_count(),
 			'Quick Edit' => __( 'Quick Edit', 'media-library-assistant' ),
@@ -2015,6 +2033,7 @@ class MLA {
 			'Name/Slug' => __( 'Name/Slug', 'media-library-assistant' ),
 			'Caption' => __( 'Caption', 'media-library-assistant' ),
 			'Description' => __( 'Description', 'media-library-assistant' ),
+			'description_field' => $description_field,
 			'ALT Text' => __( 'ALT Text', 'media-library-assistant' ),
 			'Parent ID' => __( 'Parent ID', 'media-library-assistant' ),
 			'Select' => __( 'Select', 'media-library-assistant' ),

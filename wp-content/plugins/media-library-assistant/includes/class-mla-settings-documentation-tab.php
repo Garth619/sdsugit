@@ -304,7 +304,8 @@ class MLASettings_Documentation {
 		$page_values = array(
 			'example_url' => wp_nonce_url( '?page=mla-settings-menu-documentation&mla_tab=documentation&mla-example-search=Search', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ),
 			'translate_url' => MLA_PLUGIN_URL . 'languages/MLA Internationalization Guide.pdf',
-			'phpDocs_url' => MLA_PLUGIN_URL . 'phpDocs/index.html',
+//			'phpDocs_url' => MLA_PLUGIN_URL . 'phpDocs/index.html',
+			'phpDocs_url' => 'http://fairtradejudaica.org/wp-content/uploads/' . 'phpDocs/index.html',
 		);
 
 		$page_content['body'] = MLAData::mla_parse_template( $page_template['documentation-tab'], $page_values );
@@ -434,35 +435,14 @@ class MLA_Example_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * Return the names and display values of the sortable columns
+	 * Return the names and orderby values of the sortable columns
 	 *
 	 * @since 2.32
 	 *
-	 * @return	array	name => array( orderby value, heading ) for sortable columns
+	 * @return	array	column_slug => array( orderby value, initial_descending_sort ) for sortable columns
 	 */
 	public static function mla_get_sortable_columns( ) {
-		self::_localize_default_columns_array();
-		$columns = self::$default_sortable_columns;
-
-		if ( isset( $_REQUEST['orderby'] ) ) {
-			$needle = array( $_REQUEST['orderby'], false );
-			$key = array_search( $needle, $columns );
-			if ( $key ) {
-				$columns[ $key ][ 1 ] = true;
-			}
-		} else {
-			$columns['name'][ 1 ] = true;
-		}
-
-		return $columns;
-		$results = array() ;
-
-		foreach ( self::$default_sortable_columns as $key => $value ) {
-			$value[1] = self::$default_columns[ $key ];
-			$results[ $key ] = $value;
-		}
-
-		return $results;
+		return self::$default_sortable_columns;
 	}
 
 	/**
@@ -784,8 +764,7 @@ class MLA_Example_List_Table extends WP_List_Table {
 
 	/**
 	 * Returns an array where the  key is the column that needs to be sortable
-	 * and the value is db column to sort by. Also notes the current sort column,
-	 * if set.
+	 * and the value is db column to sort by.
 	 *
 	 * @since 2.32
 	 * 
@@ -793,19 +772,7 @@ class MLA_Example_List_Table extends WP_List_Table {
 	 * 					'slugs'=>array('data_values',boolean)
 	 */
 	function get_sortable_columns( ) {
-		$columns = self::$default_sortable_columns;
-
-		if ( isset( $_REQUEST['orderby'] ) ) {
-			$needle = array( $_REQUEST['orderby'], false );
-			$key = array_search( $needle, $columns );
-			if ( $key ) {
-				$columns[ $key ][ 1 ] = true;
-			}
-		} else {
-			$columns['name'][ 1 ] = true;
-		}
-
-		return $columns;
+		return self::$default_sortable_columns;
 	}
 
 	/**
@@ -1319,13 +1286,9 @@ class MLA_Example_List_Table extends WP_List_Table {
 					if ( 'none' == $value ) {
 						$clean_request[ $key ] = $value;
 					} else {
-						$sortable_columns = MLA_Example_List_Table::mla_get_sortable_columns();
-						foreach ($sortable_columns as $sort_key => $sort_value ) {
-							if ( $value == $sort_value[0] ) {
-								$clean_request[ $key ] = $value;
-								break;
-							}
-						} // foreach
+						if ( array_key_exists( $value, MLA_Example_List_Table::mla_get_sortable_columns() ) ) {
+							$clean_request[ $key ] = $value;
+						}
 					}
 					break;
 				case 'order':

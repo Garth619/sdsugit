@@ -66,6 +66,19 @@ From your WordPress dashboard
 
 == Changelog ==
 
+= 5.6.3 =
+* Button Group field: Added new field type
+* Range field: Added missing 'step' attribute to number input
+* Range field: Added width to number input based on max setting
+* Basic fields: Added missing 'required' attribute to inputs
+* Basic fields: Removed empty attributes from inputs
+* API: Fixed `get_fields()` bug ignoring fields starting with an underscore
+* Core: Minor fixes and improvements
+* Language: Updated Portuguese translation - thanks to Pedro Mendonça
+* Language: Updated French translation - thanks to Maxime Bernard-Jacquet
+* Language: Updated Finnish translation - thanks to Sauli Rajala
+* Language: Updated German translation - thanks to Ralf Koller
+
 = 5.6.2 =
 * Range field: Added new field type
 * Clone field: Fixed bug causing value update issues for 'seamless' + widgets / nave menu items

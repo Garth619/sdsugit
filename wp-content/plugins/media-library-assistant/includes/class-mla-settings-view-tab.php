@@ -897,8 +897,7 @@ class MLA_View_List_Table extends WP_List_Table {
 
 	/**
 	 * Returns an array where the  key is the column that needs to be sortable
-	 * and the value is db column to sort by. Also notes the current sort column,
-	 * if set.
+	 * and the value is db column to sort by.
 	 *
 	 * @since 1.40
 	 * 
@@ -906,19 +905,7 @@ class MLA_View_List_Table extends WP_List_Table {
 	 * 					'slugs'=>array('data_values',boolean)
 	 */
 	function get_sortable_columns( ) {
-		$columns = MLAMime::$default_sortable_view_columns;
-
-		if ( isset( $_REQUEST['orderby'] ) ) {
-			$needle = array( $_REQUEST['orderby'], false );
-			$key = array_search( $needle, $columns );
-			if ( $key ) {
-				$columns[ $key ][ 1 ] = true;
-			}
-		} else {
-			$columns['menu_order'][ 1 ] = true;
-		}
-
-		return $columns;
+		return MLAMime::$default_sortable_view_columns;
 	}
 
 	/**

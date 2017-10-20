@@ -21,19 +21,23 @@ class MLAObjects {
 	 * @return	void
 	 */
 	public static function initialize() {
-		self::_build_taxonomies();
+		self::_add_taxonomy_support();
 	}
 
 	/**
-	 * Registers Attachment Categories and Attachment Tags custom taxonomies, adds taxonomy-related filters
+	 * Registers Attachment Categories and Attachment Tags custom taxonomies
 	 *
-	 * @since 0.1
+	 * @since 2.61
 	 *
 	 * @return	void
 	 */
-	private static function _build_taxonomies( ) {
+	public static function mla_build_taxonomies( ) {
 		if ( MLACore::mla_taxonomy_support('attachment_category') ) {
-			$labels = array(
+			$object_type = apply_filters( 'mla_attachment_category_types', array(
+				'attachment'
+			) );
+
+			$labels = apply_filters( 'mla_attachment_category_labels', array(
 				'name' => _x( 'Att. Categories', 'taxonomy_name_plural', 'media-library-assistant' ),
 				'singular_name' => _x( 'Att. Category', 'taxonomy_name_singular', 'media-library-assistant' ),
 				'search_items' => __( 'Search Att. Categories', 'media-library-assistant' ),
@@ -46,24 +50,26 @@ class MLAObjects {
 				'add_new_item' => sprintf( __( 'Add New %1$s', 'media-library-assistant' ), __( 'Att. Category', 'media-library-assistant' ) ),
 				'new_item_name' => __( 'New Att. Category Name', 'media-library-assistant' ),
 				'menu_name' => __( 'Att. Category', 'media-library-assistant' ) 
-			);
+			) );
 
-			register_taxonomy(
-				'attachment_category',
-				array( 'attachment' ),
-				array(
-				  'hierarchical' => true,
-				  'labels' => $labels,
-				  'show_ui' => true,
-				  'query_var' => true,
-				  'rewrite' => true,
-				  'update_count_callback' => '_update_generic_term_count'
-				)
-			);
+			$args = apply_filters( 'mla_attachment_category_arguments', array(
+				'hierarchical' => true,
+				'labels' => $labels,
+				'show_ui' => true,
+				'query_var' => true,
+				'rewrite' => true,
+				'update_count_callback' => '_update_generic_term_count'
+			) );
+
+			register_taxonomy( 'attachment_category', $object_type, $args );
 		}
 
 		if ( MLACore::mla_taxonomy_support('attachment_tag') ) {
-			$labels = array(
+			$object_type = apply_filters( 'mla_attachment_tag_types', array(
+				'attachment'
+			) );
+
+			$labels = apply_filters( 'mla_attachment_tag_labels', array(
 				'name' => _x( 'Att. Tags', 'taxonomy_name_plural', 'media-library-assistant' ),
 				'singular_name' => _x( 'Att. Tag', 'taxonomy_name_singular', 'media-library-assistant' ),
 				'search_items' => __( 'Search Att. Tags', 'media-library-assistant' ),
@@ -76,22 +82,29 @@ class MLAObjects {
 				'add_new_item' => sprintf( __( 'Add New %1$s', 'media-library-assistant' ), __( 'Att. Tag', 'media-library-assistant' ) ),
 				'new_item_name' => __( 'New Att. Tag Name', 'media-library-assistant' ),
 				'menu_name' => __( 'Att. Tag', 'media-library-assistant' ) 
-			);
+			) );
 
-			register_taxonomy(
-				'attachment_tag',
-				array( 'attachment' ),
-				array(
+			$args = apply_filters( 'mla_attachment_tag_arguments', array(
 				  'hierarchical' => false,
 				  'labels' => $labels,
 				  'show_ui' => true,
 				  'query_var' => true,
 				  'rewrite' => true,
 				  'update_count_callback' => '_update_generic_term_count'
-				)
-			);
-		}
+			) );
 
+			register_taxonomy( 'attachment_tag', $object_type, $args );
+		}
+	} // mla_build_taxonomies
+
+	/**
+	 * Adds taxonomy-related filters for MLA-supported taxonomies
+	 *
+	 * @since 2.61
+	 *
+	 * @return	void
+	 */
+	private static function _add_taxonomy_support( ) {
 		MLACore::mla_initialize_tax_checked_on_top();
 		$taxonomies = get_taxonomies( array ( 'show_ui' => true ), 'names' );
 		foreach ( $taxonomies as $tax_name ) {
@@ -101,7 +114,7 @@ class MLAObjects {
 				add_filter( "manage_{$tax_name}_custom_column", 'MLAObjects::mla_taxonomy_column_filter', 0x7FFFFFFF, 3 ); // $place_holder, $column_name, $tag->term_id
 			} // taxonomy support
 		} // foreach
-	} // _build_taxonomies
+	} // _add_taxonomy_support
 
 	/**
 	 * WordPress Filter for edit taxonomy "Attachments" column,
@@ -206,16 +219,14 @@ class MLAObjects {
 				$terms = get_transient( MLA_OPTION_PREFIX . 't_term_counts_' . $taxonomy );
 
 				if ( ! is_array( $terms ) ) {
-					/* 
-					 * The MLAShortcodes class is only loaded when needed.
-					 */
+					// The MLAShortcodes class is only loaded when needed.
 					if ( !class_exists( 'MLAShortcodes' ) ) {
 						require_once( MLA_PLUGIN_PATH . 'includes/class-mla-shortcodes.php' );
 					}
 		
 					$cloud = MLAShortcodes::mla_get_terms( array(
 						'taxonomy' => $taxonomy,
-						'fields' => 't.term_id, t.name, t.slug, COUNT(p.ID) AS `count`',
+						'fields' => 't.term_id, tt.term_taxonomy_id, t.name, t.slug, COUNT(p.ID) AS `count`',
 						'number' => 0,
 						'no_orderby' => true
 					) );
@@ -234,17 +245,42 @@ class MLAObjects {
 			$term = $terms[ $term_id ];
 			$column_text = number_format_i18n( $term->count );
 		} else {
+			// Cache miss, e.g., WPML/Polylang language has changed
 			$term = get_term( $term_id, $taxonomy );
 
 			if ( is_wp_error( $term ) ) {
 				/* translators: 1: ERROR tag 2: taxonomy 3: error message */
 				MLACore::mla_debug_add( sprintf( _x( '%1$s: mla_taxonomy_column_filter( "%2$s" ) - get_term failed: "%3$s"', 'error_log', 'media-library-assistant' ), __( 'ERROR', 'media-library-assistant' ), $taxonomy, $term->get_error_message() ), MLACore::MLA_DEBUG_CATEGORY_ANY );
 				return 0;
-			} elseif ($count_terms ) {
+			} elseif ( $count_terms ) {
+				// Default to zero, then try to find a real count
 				$column_text = number_format_i18n( 0 );
+
+				// The MLAShortcodes class is only loaded when needed.
+				if ( !class_exists( 'MLAShortcodes' ) ) {
+					require_once( MLA_PLUGIN_PATH . 'includes/class-mla-shortcodes.php' );
+				}
+	
+				$cloud = MLAShortcodes::mla_get_terms( array(
+					'taxonomy' => $taxonomy,
+					'include' => $term->term_id,
+					'fields' => 't.term_id, tt.term_taxonomy_id, t.name, t.slug, COUNT(p.ID) AS `count`',
+					'number' => 0,
+					'no_orderby' => true
+				) );
+
+				unset( $cloud['found_rows'] );
+				foreach( $cloud as $term ) {
+					$column_text = number_format_i18n( $term->count );
+				}
 			} else {
 				$column_text = __( 'click to search', 'media-library-assistant' );
 			}
+		}
+
+		$filter_content = apply_filters( 'mla_taxonomy_column_final', NULL, $tax_object, $term, $column_text, $count_terms );
+		if ( ! empty( $filter_content ) ) {
+			return $filter_content;
 		}
 
 		return sprintf( '<a href="%1$s">%2$s</a>', esc_url( add_query_arg(
@@ -296,7 +332,9 @@ class MLATextWidget extends WP_Widget {
 		$text = do_shortcode( apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance ) );
 		echo $args['before_widget'];
 		if ( !empty( $title ) ) { echo $args['before_title'] . $title . $args['after_title']; } ?>
-			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+			<?php if ( !empty( $instance['textwidget_div'] ) ) echo '<div class="textwidget">';
+			      echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text;
+			      if ( !empty( $instance['textwidget_div'] ) ) echo '</div>'; ?>
 		<?php
 		echo $args['after_widget'];
 	}
@@ -321,6 +359,7 @@ class MLATextWidget extends WP_Widget {
 		<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id( 'text' ); ?>" name="<?php echo $this->get_field_name( 'text' ); ?>"><?php echo $text; ?></textarea>
 
 		<p><input id="<?php echo $this->get_field_id( 'filter' ); ?>" name="<?php echo $this->get_field_name( 'filter' ); ?>" type="checkbox" <?php checked( isset( $instance['filter'] ) ? $instance['filter'] : 0 ); ?> />&nbsp;<label for="<?php echo $this->get_field_id( 'filter' ); ?>"><?php _e( 'Automatically add paragraphs', 'media-library-assistant' ); ?></label></p>
+		<p><input id="<?php echo $this->get_field_id( 'textwidget_div' ); ?>" name="<?php echo $this->get_field_name( 'textwidget_div' ); ?>" type="checkbox" <?php checked( isset( $instance['textwidget_div'] ) ? $instance['textwidget_div'] : 1 ); ?> />&nbsp;<label for="<?php echo $this->get_field_id( 'textwidget_div' ); ?>"><?php _e( 'Add .textwidget div tags', 'media-library-assistant' ); ?></label></p>
 <?php
 	}
 
@@ -344,6 +383,7 @@ class MLATextWidget extends WP_Widget {
 		}
 
 		$instance['filter'] = isset( $new_instance['filter'] );
+		$instance['textwidget_div'] = isset( $new_instance['textwidget_div'] );
 		return $instance;
 	}
 

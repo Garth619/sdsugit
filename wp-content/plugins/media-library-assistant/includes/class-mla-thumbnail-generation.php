@@ -566,7 +566,10 @@ class MLA_Thumbnail {
 	 * @return	array	updated array of actions.
 	 */
 	public static function mla_list_table_get_bulk_actions( $actions ) {
-		$actions[self::MLA_GFI_ACTION] = __( 'Thumbnail', 'media-library-assistant' );
+		if ( !( isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'trash' ) ) {
+			$actions[self::MLA_GFI_ACTION] = __( 'Thumbnail', 'media-library-assistant' );
+		}
+		
 		return $actions;
 	} // mla_list_table_get_bulk_actions
 

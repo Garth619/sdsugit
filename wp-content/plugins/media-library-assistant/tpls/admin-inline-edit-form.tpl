@@ -102,8 +102,8 @@
               <label> <span class="title">[+Caption+]</span> <span class="input-text-wrap">
                 <input type="text" name="post_excerpt" value="" />
                 </span> </label>
-              <label> <span class="title">[+Description+]</span> <span class="input-text-wrap">
-                <textarea class="widefat" name="post_content"></textarea>
+              <label class="inline-edit-post-content"> <span class="title">[+Description+]</span> <span class="input-text-wrap">
+                [+description_field+]
                 </span> </label>
               <label class="inline-edit-image-alt"> <span class="title">[+ALT Text+]</span> <span class="input-text-wrap">
                 <input type="text" name="image_alt" value="" />
@@ -158,8 +158,8 @@
               <label> <span class="title">[+Caption+]</span> <span class="input-text-wrap">
                 <input type="text" name="post_excerpt" value="" />
                 </span> </label>
-              <label> <span class="title">[+Description+]</span> <span class="input-text-wrap">
-                <textarea class="widefat" name="post_content"></textarea>
+              <label class="inline-edit-post-content"> <span class="title">[+Description+]</span> <span class="input-text-wrap">
+                [+description_field+]
                 </span> </label>
               <label class="inline-edit-image-alt"> <span class="title">[+ALT Text+]</span> <span class="input-text-wrap">
                 <input type="text" name="image_alt" value="" />

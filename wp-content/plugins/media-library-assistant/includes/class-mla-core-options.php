@@ -129,9 +129,14 @@ class MLACoreOptions {
 	const MLA_TABLE_ICON_SIZE = 'table_icon_size';
 
 	/**
-	 * Provides a unique name for the Media/Assistant submenu table thumbnail/icon size option
+	 * Provides a unique name for the Media/Assistant submenu table file name in the primary column
 	 */
 	const MLA_SHOW_FILE_NAME = 'show_file_name';
+
+	/**
+	 * Provides a unique name for the Media/Assistant submenu table bulk description wp_editor
+	 */
+	const MLA_BULK_EDITOR = 'bulk_wp_editor';
 
 	/**
 	 * Provides a unique name for the Bulk Update and Map All chunk size option
@@ -623,6 +628,14 @@ class MLACoreOptions {
 					'autoload' => true,
 					'std' => '',
 					'help' => __( 'Check/uncheck this option to show/omit the file name from the primary column.', 'media-library-assistant' )),
+
+			self::MLA_BULK_EDITOR =>
+				array('tab' => 'general',
+					'name' => __( 'QuickTags editor for bulk description', 'media-library-assistant' ),
+					'type' => 'checkbox',
+					'autoload' => true,
+					'std' => '',
+					'help' => __( 'Check this option to use the QuickTags editor for the Description field in the Bulk Edit area.', 'media-library-assistant' )),
 
 			self::MLA_BULK_CHUNK_SIZE =>
 				array('tab' => 'general',

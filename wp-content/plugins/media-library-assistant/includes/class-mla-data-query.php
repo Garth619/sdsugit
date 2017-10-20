@@ -410,7 +410,7 @@ class MLAQuery {
 			 */
 			$parent_data = self::mla_fetch_attachment_parent_data( $attachment->post_parent );
 			foreach ( $parent_data as $parent_key => $parent_value ) {
-				$attachments[ $index ]->$parent_key = $parent_value;
+				$attachments[ $index ]->{$parent_key} = $parent_value;
 			}
 
 			/*
@@ -418,7 +418,7 @@ class MLAQuery {
 			 */
 			$meta_data = self::mla_fetch_attachment_metadata( $attachment->ID );
 			foreach ( $meta_data as $meta_key => $meta_value ) {
-				$attachments[ $index ]->$meta_key = $meta_value;
+				$attachments[ $index ]->{$meta_key} = $meta_value;
 			}
 		}
 
@@ -873,7 +873,7 @@ class MLAQuery {
 						if ( is_array( $value ) ) {
 							$clean_request[ $key ] = $value;
 						} else {
-							$clean_request[ $key ] = unserialize( stripslashes( $value ) );
+							$clean_request[ $key ] = json_decode( stripslashes( $value ), true );
 							unset( $clean_request[ $key ]['slug'] );
 						} // not array
 					}
@@ -1335,6 +1335,153 @@ class MLAQuery {
 	 *
 	 * @since 0.60
 	 *
+	 * @param	array	Terms search phrases and delimiters
+	 * @param	string	SQL clause for tax query, by reference
+	 *
+	 * @return	integer	Taxonomy JOIN clauses required. Updates $tax_clause as well
+	 */
+	private static function _generate_tax_clause( $terms_search_parameters, &$tax_clause ) {
+		$term_delimiter = isset( $terms_search_parameters['term_delimiter'] ) ? $terms_search_parameters['term_delimiter'] : ',';
+		$phrase_delimiter = isset( $terms_search_parameters['phrase_delimiter'] ) ? $terms_search_parameters['phrase_delimiter'] : ' ';
+		$tax_clause = '';
+		$tax_index = 0;
+		
+		$terms = self::_parse_terms_search( $terms_search_parameters['phrases'], $term_delimiter );
+		if ( 1 < count( $terms ) ) {
+			$terms_connector = '(';			
+		} else {
+			$terms_connector = '';			
+		}
+
+		$matched_terms = 0;
+		foreach ( $terms as $term ) {
+
+			// Find the quoted phrases for a word-boundary check
+			$phrases = self::_parse_terms_search( $term, $phrase_delimiter, false );
+			$quoted = array();
+			foreach ( $phrases as $index => $phrase ) {
+				$delimiter = substr( $phrase, 0, 1 );
+				$quoted[ $index ] = ( '"' == $delimiter ) || ( "'" == $delimiter );
+			}
+
+			// Strip delimiters and escape backslashes
+			$phrases = self::_parse_terms_search( $term, $phrase_delimiter, true );
+
+			$tax_terms = array();
+			$tax_counts = array();
+			foreach ( $phrases as $index => $phrase ) {
+				if ( isset( $terms_search_parameters['exact'] ) ) {
+					$the_terms = array();
+					foreach( $terms_search_parameters['taxonomies'] as $taxonomy ) {
+						// WordPress encodes special characters, e.g., "&" as HTML entities in term names
+						$the_term = get_term_by( 'name', _wp_specialchars( $phrase ), $taxonomy );
+						if ( false !== $the_term ) {
+							$the_terms[] = $the_term;
+						}
+					}
+				} else {
+					$is_wildcard_search = ( ! $quoted[ $index ] ) && self::_wildcard_search_string( $phrase );
+
+					if ( $is_wildcard_search ) {
+						add_filter( 'terms_clauses', 'MLAQuery::mla_query_terms_clauses_filter', 0x7FFFFFFF, 3 );
+					}
+
+					// WordPress encodes special characters, e.g., "&" as HTML entities in term names
+					$the_terms = get_terms( $terms_search_parameters['taxonomies'], array( 'name__like' => _wp_specialchars( $phrase ), 'fields' => 'all', 'hide_empty' => false ) );
+
+					if ( $is_wildcard_search ) {
+						remove_filter( 'terms_clauses', 'MLAQuery::mla_query_terms_clauses_filter', 0x7FFFFFFF );
+					}
+
+					// Invalid taxonomy will return WP_Error object
+					if ( ! is_array( $the_terms ) ) {
+						$the_terms = array();
+					}
+
+					if ( $quoted[ $index ] ) {
+						foreach ( $the_terms as $term_index => $the_term ) {
+							if ( ! self::_match_quoted_phrase( $phrase, $the_term->name ) ) {
+								unset( $the_terms[ $term_index ]);
+							}
+						}
+					} // quoted phrase
+				} // not exact
+
+				foreach( $the_terms as $the_term ) {
+					$tax_terms[ $the_term->taxonomy ][ $the_term->term_id ] = (integer) $the_term->term_taxonomy_id;
+
+					if ( isset( $tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] ) ) {
+						$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ]++;
+					} else {
+						$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] = 1;
+					}
+				}
+			} // foreach phrase
+
+			/*
+			 * For the AND connector, a taxonomy term must have all of the search terms within it
+			 */
+			if ( 'AND' == $terms_search_parameters['radio_phrases'] ) {
+				$search_term_count = count( $phrases );
+				foreach ($tax_terms as $taxonomy => $term_ids ) {
+					foreach ( $term_ids as $term_id => $term_taxonomy_id ) {
+						if ( $search_term_count != $tax_counts[ $taxonomy ][ $term_id ] ) {
+							unset( $term_ids[ $term_id ] );
+						}
+					}
+
+					if ( empty( $term_ids ) ) {
+						unset( $tax_terms[ $taxonomy ] );
+					} else {
+						$tax_terms[ $taxonomy ] = $term_ids;
+					}
+				} // foreach taxonomy
+			} // AND (i.e., All phrases)
+
+			if ( empty( $tax_terms ) ) {
+				if ( 'AND' == $terms_search_parameters['radio_terms'] ) {
+					$tax_clause = '';
+					break;
+				}
+			} else {
+				$inner_connector = '';
+
+				$tax_clause .= $terms_connector;
+				foreach( $tax_terms as $tax_term ) {
+					if ( 'AND' == $terms_search_parameters['radio_terms'] ) {
+						$prefix = 'mlatt' . $tax_index++;
+					} else {
+						$prefix = 'mlatt0';
+						$tax_index = 1; // only one JOIN needed for the "Any Term" case
+					}
+
+					$tax_clause .= sprintf( '%1$s %2$s.term_taxonomy_id IN (%3$s)', $inner_connector, $prefix, implode( ',', $tax_term ) );
+					$inner_connector = ' OR';
+				} // foreach tax_term
+
+				$terms_connector = ' ) ' . $terms_search_parameters['radio_terms'] . ' (';
+			} // tax_terms present
+		} // foreach term
+
+		if ( 1 < count( $terms ) && ! empty( $tax_clause ) ) {
+			$tax_clause .= ')';
+		}
+
+		if ( empty( $tax_clause ) ) {
+			$tax_clause = '1=0';
+			$tax_index = 0;
+		};
+
+		return $tax_index;
+	}
+
+	/**
+	 * Adds a keyword search to the WHERE clause, if required
+	 * 
+	 * Defined as public because it's a filter.
+	 *
+	 * @since 0.60
+	 *
 	 * @param	string	query clause before modification
 	 *
 	 * @return	string	query clause after keyword search addition
@@ -1348,135 +1495,10 @@ class MLAQuery {
 		$tax_connector = 'AND';
 		$tax_index = 0;
 
-		/*
-		 * Process the Terms Search arguments, if present.
-		 */
+		// Process the Terms Search arguments, if present.
 		if ( isset( self::$search_parameters['mla_terms_search']['phrases'] ) ) {
-			$terms_search_parameters = self::$search_parameters['mla_terms_search'];
-			$term_delimiter = isset( $terms_search_parameters['term_delimiter'] ) ? $terms_search_parameters['term_delimiter'] : ',';
-			$phrase_delimiter = isset( $terms_search_parameters['phrase_delimiter'] ) ? $terms_search_parameters['phrase_delimiter'] : ' ';
-
-			$terms = self::_parse_terms_search( $terms_search_parameters['phrases'], $term_delimiter );
-			if ( 1 < count( $terms ) ) {
-				$terms_connector = '(';			
-			} else {
-				$terms_connector = '';			
-			}
-
-			foreach ( $terms as $term ) {
-
-				// Find the quoted phrases for a word-boundary check
-				$phrases = self::_parse_terms_search( $term, $phrase_delimiter, false );
-				$quoted = array();
-				foreach ( $phrases as $index => $phrase ) {
-					$delimiter = substr( $phrase, 0, 1 );
-					$quoted[ $index ] = ( '"' == $delimiter ) || ( "'" == $delimiter );
-				}
-
-				// Strip delimiters and escape backslashes
-				$phrases = self::_parse_terms_search( $term, $phrase_delimiter, true );
-
-				$tax_terms = array();
-				$tax_counts = array();
-				foreach ( $phrases as $index => $phrase ) {
-					if ( isset( $terms_search_parameters['exact'] ) ) {
-						$the_terms = array();
-						foreach( $terms_search_parameters['taxonomies'] as $taxonomy ) {
-							// WordPress encodes special characters, e.g., "&" as HTML entities in term names
-							$the_term = get_term_by( 'name', _wp_specialchars( $phrase ), $taxonomy );
-							if ( false !== $the_term ) {
-								$the_terms[] = $the_term;
-							}
-						}
-					} else {
-						$is_wildcard_search = ( ! $quoted[ $index ] ) && self::_wildcard_search_string( $phrase );
-
-						if ( $is_wildcard_search ) {
-							add_filter( 'terms_clauses', 'MLAQuery::mla_query_terms_clauses_filter', 0x7FFFFFFF, 3 );
-						}
-
-						// WordPress encodes special characters, e.g., "&" as HTML entities in term names
-						$the_terms = get_terms( $terms_search_parameters['taxonomies'], array( 'name__like' => _wp_specialchars( $phrase ), 'fields' => 'all', 'hide_empty' => false ) );
-
-						if ( $is_wildcard_search ) {
-							remove_filter( 'terms_clauses', 'MLAQuery::mla_query_terms_clauses_filter', 0x7FFFFFFF );
-						}
-
-						// Invalid taxonomy will return WP_Error object
-						if ( ! is_array( $the_terms ) ) {
-							$the_terms = array();
-						}
-
-						if ( $quoted[ $index ] ) {
-							foreach ( $the_terms as $term_index => $the_term ) {
-								if ( ! self::_match_quoted_phrase( $phrase, $the_term->name ) ) {
-									unset( $the_terms[ $term_index ]);
-								}
-							}
-						} // quoted phrase
-					} // not exact
-
-					foreach( $the_terms as $the_term ) {
-						$tax_terms[ $the_term->taxonomy ][ $the_term->term_id ] = (integer) $the_term->term_taxonomy_id;
-
-						if ( isset( $tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] ) ) {
-							$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ]++;
-						} else {
-							$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] = 1;
-						}
-					}
-				} // foreach phrase
-
-				/*
-				 * For the AND connector, a taxonomy term must have all of the search terms within it
-				 */
-				if ( 'AND' == $terms_search_parameters['radio_phrases'] ) {
-					$search_term_count = count( $phrases );
-					foreach ($tax_terms as $taxonomy => $term_ids ) {
-						foreach ( $term_ids as $term_id => $term_taxonomy_id ) {
-							if ( $search_term_count != $tax_counts[ $taxonomy ][ $term_id ] ) {
-								unset( $term_ids[ $term_id ] );
-							}
-						}
-
-						if ( empty( $term_ids ) ) {
-							unset( $tax_terms[ $taxonomy ] );
-						} else {
-							$tax_terms[ $taxonomy ] = $term_ids;
-						}
-					} // foreach taxonomy
-				} // AND (i.e., All phrases)
-
-				if ( ! empty( $tax_terms ) ) {
-					$inner_connector = '';
-
-					$tax_clause .= $terms_connector;
-					foreach( $tax_terms as $tax_term ) {
-						if ( 'AND' == $terms_search_parameters['radio_terms'] ) {
-							$prefix = 'mlatt' . $tax_index++;
-						} else {
-							$prefix = 'mlatt0';
-							$tax_index = 1; // only one JOIN needed for the "Any Term" case
-						}
-
-						$tax_clause .= sprintf( '%1$s %2$s.term_taxonomy_id IN (%3$s)', $inner_connector, $prefix, implode( ',', $tax_term ) );
-						$inner_connector = ' OR';
-					} // foreach tax_term
-
-					$terms_connector = ' ) ' . $terms_search_parameters['radio_terms'] . ' (';
-				} // tax_terms present
-			} // foreach term
-
-			if ( 1 < count( $terms ) && ! empty( $tax_clause ) ) {
-				$tax_clause .= ')';
-			}
-
-			if ( empty( $tax_clause ) ) {
-				$tax_clause = '1=0';
-			} else {
-				self::$search_parameters['tax_terms_count'] = $tax_index;
-			};
-		} // isset mla_terms_search
+			self::$search_parameters['tax_terms_count'] = self::_generate_tax_clause( self::$search_parameters['mla_terms_search'], $tax_clause );
+		}
 
 		/*
 		 * Process the keyword search argument, if present.
@@ -1513,30 +1535,24 @@ class MLAQuery {
 			if ( empty( $fields ) ) {
 				$search_clause = '1=0';
 			} else {
-				$tax_terms = array();
-				$tax_counts = array();
-				foreach ( $keyword_array as $term ) {
+				foreach ( $keyword_array as $phrase ) {
 					if ( $is_wildcard_search ) {
-						/*
-						 * Escape any % in the source string
-						 */
+						// Escape any % in the source string
 						if ( self::$wp_4dot0_plus ) {
-							$sql_term = $wpdb->esc_like( $term );
-							$sql_term = $wpdb->prepare( '%s', $sql_term );
+							$sql_phrase = $wpdb->esc_like( $phrase );
+							$sql_phrase = $wpdb->prepare( '%s', $sql_phrase );
 						} else {
-							$sql_term = "'" . esc_sql( like_escape( $term ) ) . "'";
+							$sql_phrase = "'" . esc_sql( like_escape( $phrase ) ) . "'";
 						}
 
-						/*
-						 * Convert wildcard * to SQL %
-						 */
-						$sql_term = str_replace( '*', '%', $sql_term );
+						// Convert wildcard * to SQL %
+						$sql_phrase = str_replace( '*', '%', $sql_phrase );
 					} else {
 						if ( self::$wp_4dot0_plus ) {
-							$sql_term = $percent . $wpdb->esc_like( $term ) . $percent;
-							$sql_term = $wpdb->prepare( '%s', $sql_term );
+							$sql_phrase = $percent . $wpdb->esc_like( $phrase ) . $percent;
+							$sql_phrase = $wpdb->prepare( '%s', $sql_phrase );
 						} else {
-							$sql_term = "'" . $percent . esc_sql( like_escape( $term ) ) . $percent . "'";
+							$sql_phrase = "'" . $percent . esc_sql( like_escape( $phrase ) ) . $percent . "'";
 						}
 					}
 
@@ -1544,107 +1560,53 @@ class MLAQuery {
 					$inner_clause = '';
 
 					if ( in_array( 'content', $fields ) ) {
-						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_content LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_content LIKE {$sql_phrase})";
 						$inner_connector = ' OR ';
 					}
 
 					if ( in_array( 'title', $fields ) ) {
-						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_title LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_title LIKE {$sql_phrase})";
 						$inner_connector = ' OR ';
 					}
 
 					if ( in_array( 'excerpt', $fields ) ) {
-						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_excerpt LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_excerpt LIKE {$sql_phrase})";
 						$inner_connector = ' OR ';
 					}
 
 					if ( in_array( 'alt-text', $fields ) ) {
 						$view_name = self::MLA_ALT_TEXT_SUBQUERY;
-						$inner_clause .= "{$inner_connector}({$view_name}.meta_value LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$view_name}.meta_value LIKE {$sql_phrase})";
 						$inner_connector = ' OR ';
 					}
 
 					if ( in_array( 'file', $fields ) ) {
 						$view_name = self::MLA_FILE_SUBQUERY;
-						$inner_clause .= "{$inner_connector}({$view_name}.meta_value LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$view_name}.meta_value LIKE {$sql_phrase})";
 						$inner_connector = ' OR ';
 					}
 
 					if ( in_array( 'name', $fields ) ) {
-						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_name LIKE {$sql_term})";
+						$inner_clause .= "{$inner_connector}({$wpdb->posts}.post_name LIKE {$sql_phrase})";
 					}
 
-					$inner_clause = apply_filters( 'mla_list_table_search_filter_inner_clause', $inner_clause, $inner_connector, $wpdb->posts, $sql_term );
+					$inner_clause = apply_filters( 'mla_list_table_search_filter_inner_clause', $inner_clause, $inner_connector, $wpdb->posts, $sql_phrase );
 
 					if ( ! empty($inner_clause) ) {
 						$search_clause .= "{$connector}({$inner_clause})";
 						$connector = ' ' . self::$search_parameters['mla_search_connector'] . ' ';
 					}
-
-					/*
-					 * Convert search term text to term_taxonomy_id value(s),
-					 * separated by taxonomy.
-					 */
-					if ( $allow_terms_search ) {
-						// WordPress encodes special characters, e.g., "&" as HTML entities in term names
-						$the_terms = get_terms( self::$search_parameters['mla_search_taxonomies'], array( 'name__like' => _wp_specialchars( $term ), 'fields' => 'all', 'hide_empty' => false ) );
-						// Invalid taxonomy will return WP_Error object
-						if ( ! is_array( $the_terms ) ) {
-							$the_terms = array();
-						}
-
-						foreach( $the_terms as $the_term ) {
-							$tax_terms[ $the_term->taxonomy ][ $the_term->term_id ] = (integer) $the_term->term_taxonomy_id;
-
-							if ( isset( $tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] ) ) {
-								$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ]++;
-							} else {
-								$tax_counts[ $the_term->taxonomy ][ $the_term->term_id ] = 1;
-							}
-						}
-					} // in_array terms
-				} // foreach term
+				} // foreach phrase
 
 				if ( $allow_terms_search ) {
-					/*
-					 * For the AND connector, a taxonomy term must have all of the search terms within it
-					 */
-					if ( 'AND' == self::$search_parameters['mla_search_connector'] ) {
-						$search_term_count = count( $keyword_array );
-						foreach ($tax_terms as $taxonomy => $term_ids ) {
-							foreach ( $term_ids as $term_id => $term_taxonomy_id ) {
-								if ( $search_term_count != $tax_counts[ $taxonomy ][ $term_id ] ) {
-									unset( $term_ids[ $term_id ] );
-								}
-							}
+					self::$search_parameters['tax_terms_count'] = self::_generate_tax_clause( array( 'phrases' => $keyword_string, 'radio_phrases' => self::$search_parameters['mla_search_connector'], 'radio_terms' => self::$search_parameters['mla_search_connector'], 'taxonomies' => self::$search_parameters['mla_search_taxonomies'] ), $tax_clause );
 
-							if ( empty( $term_ids ) ) {
-								unset( $tax_terms[ $taxonomy ] );
-							} else {
-								$tax_terms[ $taxonomy ] = $term_ids;
-							}
-						} // foreach taxonomy
-					} // AND connector
-
-					if ( empty( $tax_terms ) ) {
-						/*
-						 * If "Terms" is the only field and no terms are present,
-						 * the search must fail.
-						 */
-						if ( ( 1 == count( $fields ) ) && ( 'terms' == array_shift( $fields ) ) ) {
-							$tax_clause = '1=0';
+					if ( '1=0' === $tax_clause ) {
+						// If "Terms" is the only field and no terms are present, the search must fail.
+						if ( ( 1 < count( $fields ) ) || ( 'terms' !== array_shift( $fields ) ) ) {
+							$tax_clause = '';
 						}
 					} else {
-						$tax_index = 0;
-						$inner_connector = '';
-
-						foreach( $tax_terms as $tax_term ) {
-							$prefix = 'mlatt' . $tax_index++;
-							$tax_clause .= sprintf( '%1$s %2$s.term_taxonomy_id IN (%3$s)', $inner_connector, $prefix, implode( ',', $tax_term ) );
-							$inner_connector = ' OR';
-						} // foreach tax_term
-
-						self::$search_parameters['tax_terms_count'] = $tax_index;
 						$tax_connector = 'OR';
 					} // tax_terms present
 				} // terms in fields
@@ -1800,7 +1762,7 @@ class MLAQuery {
 			}
 		}
 
-		if ( isset( self::$search_parameters['tax_terms_count'] ) ) {
+		if ( isset( self::$search_parameters['tax_terms_count'] ) && ( 0 < self::$search_parameters['tax_terms_count'] ) ) {
 			$tax_index = 0;
 			$tax_clause = '';
 

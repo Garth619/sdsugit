@@ -1,12 +1,15 @@
 <?php
 /**
- * Provides an [mla_gallery] parameter to restrict items to logged-in users based on an Att. Categories term
+ * Provides an [mla_gallery] parameter and a custom shortcode to restrict items and content to logged-in users
  *
- * In this example, a custom "members-only" parameter names an Att. Category term.
- * If the current user is not logged in any items assigned to the term are excluded from the gallery results.
+ * In this example:
+ *     * A custom "members-only" parameter names a taxonomy and one or more terms
+ *     * A custom shortcode [mla_login_filter login_status=true/false][/mla_login_filter] returns shortcode content based on login status
+ *
+ * If the current user is not logged in any items assigned to the term(s) are excluded from the gallery results.
  * This can be combined with a "simple" attachment_category query. For example:
  *
- * [mla_gallery members_only=client attachment_category=cityscape tax_include_children=false]
+ * [mla_gallery members_only="attachment_category:client" attachment_category=cityscape tax_include_children=false]
  *
  * This example plugin uses one of the many filters available in the [mla_gallery] shortcode
  * and illustrates a technique you can use to customize the gallery display.
@@ -16,7 +19,7 @@
  * https://wordpress.org/support/topic/multiple-calls-to-a-smaller-amount
  *
  * @package MLA Login-filtered Gallery Example
- * @version 1.00
+ * @version 1.01
  */
 
 /*
@@ -24,7 +27,7 @@ Plugin Name: MLA Login-filtered Gallery Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Restricts items to logged-in users based on an Att. Categories term
 Author: David Lingren
-Version: 1.00
+Version: 1.01
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2017 David Lingren
@@ -61,7 +64,8 @@ class MLALoginFilteredGalleryExample {
 			return;
 		}
 
-		add_filter( 'mla_gallery_attributes', 'MLALoginFilteredGalleryExample::mla_gallery_attributes_filter', 10, 1 );
+		add_filter( 'mla_gallery_attributes', 'MLALoginFilteredGalleryExample::mla_gallery_attributes', 10, 1 );
+		add_shortcode( 'mla_login_filter', 'MLALoginFilteredGalleryExample::mla_login_filter' );
 	}
 
 	/**
@@ -74,11 +78,10 @@ class MLALoginFilteredGalleryExample {
 	 *
 	 * @param	array	the shortcode parameters passed in to the shortcode
 	 */
-	public static function mla_gallery_attributes_filter( $shortcode_attributes ) {
+	public static function mla_gallery_attributes( $shortcode_attributes ) {
 		global $wpdb;
-//error_log( __LINE__ . ' MLALoginFilteredGalleryExample::mla_gallery_attributes_filter shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
 
-		// ignore shortcodes without the random_category parameter
+		// ignore shortcodes without the random_category parameter TODO - any taxonomy, multiple terms
 		if ( empty( $shortcode_attributes['members_only'] ) ) {
 			return $shortcode_attributes;
 		}
@@ -122,14 +125,50 @@ class MLALoginFilteredGalleryExample {
 		$tax_query[] =	array( 'taxonomy' => 'attachment_category', 'field' => 'slug', 'terms' => explode( ',', $shortcode_attributes['members_only'] ), 'operator' => 'NOT IN', 'include_children' => $tax_include_children );
 
 		$shortcode_attributes['tax_query'] = $tax_query;
-//error_log( __LINE__ . ' MLALoginFilteredGalleryExample::mla_gallery_attributes_filter shortcode_attributes = ' . var_export( $shortcode_attributes, true ), 0 );
 		
 		return $shortcode_attributes;
-	} // mla_gallery_attributes_filter
+	} // mla_gallery_attributes
+
+	/**
+	 * MLA Login Filter Shortcode
+	 *
+	 * This enclosing shortcode returns its content when the user login status matches the 'login_status' argument.
+	 * For example [mla_login_filter login_status=true]The content for logged in users.[/mla_login_filter]
+	 *
+	 * @since 1.01
+	 *
+	 * @param	array	$shortcode_attributes the parameters passed in to the shortcode
+	 * @param	string	$shortcode_content Optional content for enclosing shortcodes
+	 */
+	public static function mla_login_filter( $shortcode_attributes, $shortcode_content = NULL ) {
+		
+		if ( is_null( $shortcode_content ) ) {
+			return '';
+		}
+		
+		$default_arguments = array(
+			'login_status' => 'true',
+		);
+
+		// Make sure $shortcode_attributes is an array, even if it's empty
+		if ( empty( $shortcode_attributes ) ) {
+			$shortcode_attributes = array();
+		} elseif ( is_string( $shortcode_attributes ) ) {
+			$shortcode_attributes = shortcode_parse_atts( $shortcode_attributes );
+		}
+
+		// Accept only the attributes we need and supply defaults
+		$arguments = shortcode_atts( $default_arguments, $shortcode_attributes );
+		$login_status = 'true' === strtolower( $arguments['login_status'] );
+
+		if ( $login_status === is_user_logged_in() ) {
+			return $shortcode_content;
+		}
+		
+		return '';
+	} // mla_login_filter
 } // Class MLALoginFilteredGalleryExample
 
-/*
- * Install the filters at an early opportunity
- */
+// Install the filters at an early opportunity
 add_action('init', 'MLALoginFilteredGalleryExample::initialize');
 ?>

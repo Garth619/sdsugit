@@ -12,7 +12,7 @@
  * @since Twenty Ten 1.0
  */
 
-get_header('intranet'); ?>
+get_header(); ?>
 		
 		<div id="container">
 			<?php if ( function_exists('yoast_breadcrumb') ) {
@@ -23,13 +23,6 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 				<div id="content">
 					
 					<h1><?php the_title();?></h1>
-					
-					<p>Below are some basic topics that I cover on how to update basic pages within our Wordpress site. These videos apply to people who get extra permissions added to their staff intranet profiles. Please look through these videos. If you have any additional questions please fill out the form on this page and I will help you out further. Also, if there are any other video topics you would like me to cover, please let me know. In the future, I would like to make to some pdf instructions to go along with these videos that you can download for your reference.</p>
-					
-					<p>Thank You,<br/>
-						<img class="garrett_basics" width="100" src="<?php bloginfo('template_directory');?>/images/garrett.jpg"/><br/>
-						Garrett Cullen<br/>
-						Webmaster</p>
 					
 					
 					<div class="wp_vid_wrapper">
@@ -150,13 +143,7 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 						<li>Find the same document on another website (e.g. CalSWEC or .gov site)</li>
 					</ul>
 					
-					<div class="basic_form">
-						
-						<h2>Questions or Comments?</h2>
 					
-						<?php gravity_form(1, false, false, false, '', true, 12); ?>
-					
-					</div><!-- basic_form -->
 					
 				</div><!-- content -->
 				<a href="#top" class="back_to_top" title="Back to Top">Back To Top</a>
@@ -165,4 +152,4 @@ yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 		</div><!-- #container -->
 
 
-<?php get_footer('intranet'); ?>
+<?php get_footer(); ?>

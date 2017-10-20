@@ -44,9 +44,10 @@ class MLA_Ajax {
 	public static function mla_admin_init_action( ) {
 		$ajax_only = var_export( self::$ajax_only, true );
 		
-		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) $_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_POST = " . var_export( $_POST, true ), 0 );
 		if ( $_REQUEST['action'] !== 'heartbeat' ) {
-			//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) $_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+			//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
 			MLACore::mla_debug_add( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 		}
 
@@ -260,6 +261,19 @@ class MLA_Ajax {
 		if ( ! class_exists( 'MLA_List_Table' ) ) {
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-list-table.php' );
 			MLA_List_Table::mla_admin_init_action();
+
+			// Check for multi-language table column support
+			global $sitepress, $polylang;
+			
+			if ( is_object( $sitepress ) ) {
+				require_once( MLA_PLUGIN_PATH . 'includes/class-mla-wpml-support.php' );
+				MLA_WPML::initialize();
+				MLA_WPML::admin_init(); // This action has already passed.
+			} elseif ( is_object( $polylang ) ) {
+				require_once( MLA_PLUGIN_PATH . 'includes/class-mla-polylang-support.php' );
+				MLA_Polylang::initialize();
+				MLA_Polylang::admin_init();
+			}
 		}
 
 		//	Create an instance of our package class and echo the new HTML

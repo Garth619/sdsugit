@@ -656,13 +656,13 @@ class MLA_Polylang {
 	 */
 	private static function _create_relevant_term( $name, $taxonomy, $language ) {
 		global $polylang;
-//error_log( __LINE__ . " _create_relevant_term( {$name}, {$taxonomy}, {$language} )", 0 );
+
 		// save_language() does a check_admin_referer() security test
 		$_REQUEST['_pll_nonce'] = wp_create_nonce( 'pll_language' );
 		$_POST['term_lang_choice'] = $language;
 		$_POST['action'] = 'mla';
 		$res = wp_insert_term( $name, $taxonomy, array( 'parent' => 0 ) );
-//error_log( __LINE__ . " _create_relevant_term( {$name}, {$taxonomy}, {$language} ) res = " . var_export( $res, true ), 0 );
+
 		if ( ( ! is_wp_error( $res ) ) && isset( $res['term_id'] ) ) {
 			if ( self::$polylang_1dot8_plus ) {
 				PLL()->model->term->set_language( $res['term_id'], $language );
@@ -670,6 +670,7 @@ class MLA_Polylang {
 				$polylang->model->set_term_language( $res['term_id'], $language );
 			}
 		}
+
 		unset( $_POST['term_lang_choice'] );
 		unset( $_POST['action'] );
 
@@ -691,41 +692,39 @@ class MLA_Polylang {
 		$source_term = $relevant_term['term']->term_id;
 		$name = $relevant_term['term']->name;
 		$taxonomy = $relevant_term['term']->taxonomy;
-//error_log( __LINE__ . " _create_relevant_translation( {$name}, {$taxonomy}, {$language} )", 0 );
 
 		// save_language() does a check_admin_referer() security test
 		$_REQUEST['_pll_nonce'] = wp_create_nonce( 'pll_language' );
 		$_POST['term_lang_choice'] = $language;
 		$_POST['action'] = 'mla';
 		$res = wp_insert_term( $name, $taxonomy, array( 'parent' => 0 ) );
-//error_log( __LINE__ . " _create_relevant_translation( {$name}, {$taxonomy}, {$language} ) res = " . var_export( $res, true ), 0 );
+
 		if ( ( ! is_wp_error( $res ) ) && isset( $res['term_id'] ) ) {
 			if ( self::$polylang_1dot8_plus ) {
 				PLL()->model->term->set_language( $res['term_id'], $language );
 			} else {
 				$polylang->model->set_term_language( $res['term_id'], $language );
 			}
+
+			$translations = array( $language => $res['term_id'] );
+			if (isset( $relevant_term['translations'] ) ) {
+				foreach( $relevant_term['translations'] as $slug => $translation ) {
+					$translations[ $slug ] = $translation->element_id;
+				}
+			}
+			
+			if ( self::$polylang_1dot8_plus ) {
+				PLL()->model->term->save_translations( $source_term, $translations );
+			} else {
+				$polylang->model->save_translations( 'term', $source_term, $translations );
+			}
 		}
+
 		unset( $_POST['term_lang_choice'] );
 		unset( $_POST['action'] );
 
-		$translations = array( $language => $res['term_id'] );
-		if (isset( $relevant_term['translations'] ) ) {
-			foreach( $relevant_term['translations'] as $slug => $translation ) {
-				$translations[ $slug ] = $translation->element_id;
-			}
-		}
-		
-		if ( self::$polylang_1dot8_plus ) {
-			PLL()->model->term->save_translations( $source_term, $translations );
-		} else {
-			$polylang->model->save_translations( 'term', $source_term, $translations );
-		}
-
 		// Reload the term with its new translation
-		$term = self::_get_relevant_term( 'id', $res['term_id'], $taxonomy );
-//error_log( __LINE__ . " _create_relevant_translation( {$name}, {$taxonomy}, {$language} ) term = " . var_export( $term, true ), 0 );
-		return $term;
+		return self::_get_relevant_term( 'id', $res['term_id'], $taxonomy );
 	} // _create_relevant_translation
 
 	/**
@@ -786,9 +785,8 @@ class MLA_Polylang {
 	 * @param	boolean	$test_only false (default) to add missing term, true to leave term out
 	 */
 	private static function _get_relevant_term( $field, $value, $taxonomy, $language = NULL, $test_only = false ) {
-		/*
-		 * WordPress encodes special characters, e.g., "&" as HTML entities in term names
-		 */
+
+		// WordPress encodes special characters, e.g., "&" as HTML entities in term names
 		if ( 'name' == $field ) {
 			$value = _wp_specialchars( $value );
 		}
@@ -825,26 +823,18 @@ class MLA_Polylang {
  		if ( ( false === $relevant_term ) && $test_only ) {
 			return false;
 		}
-//error_log( __LINE__ . " _get_relevant_term( {$field}, {$taxonomy}, {$value} ) relevant_term = " . var_export( $relevant_term, true ), 0 );
 
-		/*
-		 * If no match, try to add it and its translations
-		 */
+		// If no match, try to add it and its translations
  		if ( ( false === $relevant_term ) && $candidate = get_term_by( $field, $value, $taxonomy ) ) {
-//error_log( __LINE__ . " _get_relevant_term( {$field}, {$taxonomy}, {$value} ) candidate = " . var_export( $candidate, true ), 0 );
 			$relevant_term =  self::_add_relevant_term( $candidate );
-//error_log( __LINE__ . " _get_relevant_term( {$field}, {$taxonomy}, {$value} ) relevant_term = " . var_export( $relevant_term, true ), 0 );
 
 			foreach ( $relevant_term['translations'] as $translation ) {
 				$term_object = get_term_by( 'id', $translation->element_id, $taxonomy );
 				self::_add_relevant_term( $term_object, $relevant_term['translations'] );
 			} // translation
 		} // new term
-//error_log( __LINE__ . " _get_relevant_term( {$field}, {$taxonomy}, {$value} ) candidate = " . var_export( $candidate, true ), 0 );
 
-		/*
-		 * Find the language-specific value, if requested
-		 */
+		// Find the language-specific value, if requested
 		if ( $relevant_term && ! empty( $language ) ) {
 			if ( $relevant_term && array_key_exists( $language, $relevant_term['translations'] ) ) {
 				$relevant_term = self::$relevant_terms[ $relevant_term['translations'][ $language ]->element_id ];
@@ -1128,9 +1118,6 @@ class MLA_Polylang {
 								$relevant_term = self::_create_relevant_term( $term_name, $taxonomy, self::$existing_terms['slug'] );
 								$new_names[ $term_name ][ self::$existing_terms['slug'] ] = $relevant_term['term']->term_id;
 							} else {
-								$language = self::$existing_terms['slug'];
-//error_log( __LINE__ . " _build_tax_input( {$post_id}, {$term_name}, {$language} ) relevant_term = " . var_export( $relevant_term, true ), 0 );
-//error_log( __LINE__ . " _build_tax_input( {$post_id}, {$term_name}, {$language} ) new_names = " . var_export( $new_names, true ), 0 );
 								if ( !array_key_exists( self::$existing_terms['slug'], $relevant_term['translations'] ) && isset( $new_names[ $term_name ] ) ) {
 									$relevant_term = self::_create_relevant_translation( $relevant_term, self::$existing_terms['slug'] );
 									$new_names[ $term_name ][ self::$existing_terms['slug'] ] = $relevant_term['term']->term_id;
@@ -1150,10 +1137,8 @@ class MLA_Polylang {
 			} // flat taxonomy
 
 			foreach( $active_languages as $language => $language_details ) {
+				// Apply the tax_action to the terms_before to find the terms_after
 				$language = $language_details->slug;
-				/*
-				 * Apply the tax_action to the terms_before to find the terms_after
-				 */
 				$term_changes = isset( $input_terms[ $language ] ) ? $input_terms[ $language ] : array();
 				if ( 'replace' == $tax_action ) {
 					$terms_after = $term_changes;
@@ -1169,9 +1154,7 @@ class MLA_Polylang {
 					} // input_term
 				}
 
-				/*
-				 * Convert terms_after to tax_input format
-				 */
+				// Convert terms_after to tax_input format
 				$term_changes = array();
 				foreach( $terms_after as $input_term ) {
 					$term_changes[] = $input_term->term_id;
@@ -1570,7 +1553,6 @@ class MLA_Polylang {
 			} else {
 				$tax_inputs = array( $key => implode( ',', $terms ) );
 			}
-//error_log( __LINE__ . " MLA_Polylang::mla_media_modal_update_compat_fields_terms = " . var_export( $tax_inputs, true ), 0 );
 
 			self::_build_tax_input( $post_id, $tax_inputs, NULL, true );
 			$tax_inputs = self::_apply_tax_input( $post_id );
@@ -2580,7 +2562,7 @@ class MLA_Polylang {
 		foreach ( MLA_Polylang::$mla_language_option_definitions as $key => $value ) {
 			if ( 'language' == $value['tab'] ) {
 				if ( 'custom' == $value['type'] && isset( $value['reset'] ) ) {
-					$message = MLA_Polylang::$value['reset']( 'reset', $key, $value, $_REQUEST );
+					$message = call_user_func( array( 'MLA_Polylang', $value['reset'] ), 'reset', $key, $value, $_REQUEST );
 				} elseif ( ('header' == $value['type']) || ('hidden' == $value['type']) ) {
 					$message = '';
 				} else {

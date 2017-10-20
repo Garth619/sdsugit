@@ -561,20 +561,18 @@ class MLAMime {
 	}
 
 	/**
-	 * Return the names and display values of the sortable columns
+	 * Return the orderby values of the sortable columns
 	 *
 	 * @since 1.40
 	 *
-	 * @return	array	name => array( orderby value, heading ) for sortable columns
+	 * @return	array	orderby_valuecolumn_slug => array( , initial_descending_sort ) for sortable columns
 	 */
 	private static function _get_sortable_upload_columns( ) {
-		$results = array() ;
-
+		$results = array();
 		foreach ( self::$default_sortable_upload_columns as $key => $value ) {
-			$value[1] = self::$default_upload_columns[ $key ];
-			$results[ $key ] = $value;
+			$results[ $value[0] ] = $value[0];
 		}
-
+		
 		return $results;
 	}
 
@@ -636,20 +634,18 @@ class MLAMime {
 	}
 
 	/**
-	 * Return the names and display values of the sortable columns
+	 * Return the names and orderby values of the sortable columns
 	 *
 	 * @since 1.40
 	 *
-	 * @return	array	name => array( orderby value, heading ) for sortable columns
+	 * @return	array	column_slug => array( orderby value, initial_descending_sort ) for sortable columns
 	 */
 	private static function _get_sortable_upload_optional_columns( ) {
-		$results = array() ;
-
+		$results = array();
 		foreach ( self::$default_upload_optional_sortable_columns as $key => $value ) {
-			$value[1] = self::$default_upload_optional_columns[ $key ];
-			$results[ $key ] = $value;
+			$results[ $value[0] ] = $value[0];
 		}
-
+		
 		return $results;
 	}
 
@@ -717,20 +713,18 @@ class MLAMime {
 	}
 
 	/**
-	 * Return the names and display values of the sortable columns
+	 * Return the names and orderby values of the sortable columns
 	 *
 	 * @since 1.40
 	 *
-	 * @return	array	name => array( orderby value, heading ) for sortable columns
+	 * @return	array	column_slug => array( orderby value, initial_descending_sort ) for sortable columns
 	 */
 	private static function _get_sortable_view_columns( ) {
-		$results = array() ;
-
+		$results = array();
 		foreach ( self::$default_sortable_view_columns as $key => $value ) {
-			$value[1] = self::$default_view_columns[ $key ];
-			$results[ $key ] = $value;
+			$results[ $value[0] ] = $value[0];
 		}
-
+		
 		return $results;
 	}
 
@@ -768,13 +762,9 @@ class MLAMime {
 					if ( 'none' == $value ) {
 						$clean_request[ $key ] = $value;
 					} else {
-						$sortable_columns = self::_get_sortable_view_columns();
-						foreach ($sortable_columns as $sort_key => $sort_value ) {
-							if ( $value == $sort_value[0] ) {
-								$clean_request[ $key ] = $value;
-								break;
-							}
-						} // foreach
+						if ( array_key_exists( $value, self::_get_sortable_view_columns() ) ) {
+							$clean_request[ $key ] = $value;
+						}
 					}
 					break;
 				case 'order':
@@ -1425,13 +1415,9 @@ class MLAMime {
 					if ( 'none' == $value ) {
 						$clean_request[ $key ] = $value;
 					} else {
-						$sortable_columns = self::_get_sortable_upload_columns();
-						foreach ($sortable_columns as $sort_key => $sort_value ) {
-							if ( $value == $sort_value[0] ) {
-								$clean_request[ $key ] = $value;
-								break;
-							}
-						} // foreach
+						if ( array_key_exists( $value, self::_get_sortable_upload_columns() ) ) {
+							$clean_request[ $key ] = $value;
+						}
 					}
 					break;
 				case 'order':
@@ -2613,13 +2599,9 @@ class MLAMime {
 					if ( 'none' == $value ) {
 						$clean_request[ $key ] = $value;
 					} else {
-						$sortable_columns = self::_get_sortable_upload_optional_columns();
-						foreach ($sortable_columns as $sort_key => $sort_value ) {
-							if ( $value == $sort_value[0] ) {
-								$clean_request[ $key ] = $value;
-								break;
-							}
-						} // foreach
+						if ( array_key_exists( $value, self::_get_sortable_upload_optional_columns() ) ) {
+							$clean_request[ $key ] = $value;
+						}
 					}
 					break;
 				case 'order':

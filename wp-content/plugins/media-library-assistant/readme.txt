@@ -3,8 +3,9 @@ Contributors: dglingren
 Donate link: http://fairtradejudaica.org/make-a-difference/donate/
 Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.8
-Stable tag: 2.60
+Tested up to: 4.8.2
+Requires PHP: 5.3
+Stable tag: 2.62
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,13 +151,23 @@ Hover over the item you want to modify and click the "Edit" or "Quick Edit" acti
 
 Some of the MLA features such as where-used reporting and ALT Text sorting/searching require a lot of database processing. If this is an issue for you, go to the Settings page and adjust the **"Where-used database access tuning"** settings. For any where-used category you can enable or disable processing. For the "Gallery in" and "MLA Gallery in" you can also choose to update the results on every page load or to cache the results for fifteen minutes between updates. The cache is also flushed automatically when posts, pages or attachments are inserted or updated.
 
+= Do custom templates and option settings survive version upgrades? =
+
+Rest assured, custom templates and all of your option settings persist unchanged whenever you update to a new MLA version.
+
+You can also back a backup of your templates and settings from the Settings/Media Library Assistant General tab. Scroll to the bottom of the page and click “Export ALL Settings” to create a backup file. You can create as many files as you like; they are date and time stamped so you can restore the one you want later.
+
+In addition, you can deactivate and even delete the plugin without losing the settings. They will be there when you reinstall and activate in the future.
+
+You can permanently delete the settings and (optionally) the backup files if you are removing MLA for good. The “Uninstall (Delete)” Plugin Settings section of the General tab enables these options.
+
 = Are other language versions available? =
 
-Not yet, but all of the internationalization work in the plugin source code has been completed and there is a Portable Object Template (.POT) available in the "/languages" directory. I don't have working knowledge of anything but English, but if you'd like to volunteer to produce a translation, I would be delighted to work with you to make it happen. Have a look at the "MLA Internationalization Guide.pdf" file in the languages directory and get in touch.
+Not many, but all of the internationalization work in the plugin source code has been completed and there is a Portable Object Template (.POT) available in the "/languages" directory. I don't have working knowledge of anything but English, but if you'd like to volunteer to produce a translation, I would be delighted to work with you to make it happen. Have a look at the "MLA Internationalization Guide.pdf" file in the languages directory and get in touch.
 
 = What's in the "phpDocs" directory and do I need it? =
 
-All of the MLA source code has been annotated with "DocBlocks", a special type of comment used by phpDocumentor to generate API documentation. If you'd like a deeper understanding of the code, click on "index.html" in the phpDocs directory and have a look. Note that these pages require JavaScript for much of their functionality.
+All of the MLA source code has been annotated with "DocBlocks", a special type of comment used by phpDocumentor to generate API documentation. If you'd like a deeper understanding of the code, navigate to the [MLA phpDocs web page](http://fairtradejudaica.org/wp-content/uploads/phpDocs/index.html "Read the API documentation") and have a look. Note that these pages require JavaScript for much of their functionality.
 
 == Screenshots ==
 
@@ -172,12 +183,44 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
+= 2.62 =
+* Fix: A PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use has been corrected.
+
+= 2.61 =
+* New: For the Media/Assistant submenu table, the QuickTags editor can be added to the Description field of the Bulk Edit area. Check the "QuickTags editor for bulk description" box in the "Table Defaults" section on the Settings/Media Library Assistant General tab to activate this feature.
+* New: A new "MLA Custom Feed Example" plugin has been added. It allows you to configure and process custom RSS feeds for Media Library items.
+* New: A new "MLA Subscriber Media Access Example" plugin has been added. It allows "owner only" access to the Media Library for the Subscriber role.
+* New: A new "Smart Media Categories" example plugin has been added. It allows you to automatically assign taxonomy terms to Media Library items based on the terms of their parent post/page or custom post type.
+* New: A new "MLA Multisite Extensions" example plugin has been added. It provides an [mla_gallery] parameter to query multiple blogs/sites in a multisite installation.
+* New: For `[mla_gallery]`, a new `no.terms.assigned` taxonomy query option lets you <strong>find items that have no terms assigned</strong> in one or more taxonomies. Details are in the "Simple Taxonomy Parameters" and "Taxonomy Queries, the tax_query" sections of the Documentation tab.
+* New: For `[mla_term_list]`, a new `active_item_class` parameter and item-specific substitution parameter have been added. An item is "active" if it or any of its child items are the current item.
+* New: For the MLA Text Widget a new option, "Add .textwidget div tags", has been provided to control the addition of `<div class="textwidget"></div>` tags to the body of the widget. The default value is true/checked, to preserve compatibility with existing widgets.
+* New: Six new hooks have been added to the "MLA Taxonomy Filters and Actions (Hooks)". Details have been added to `/examples/plugins/mla-taxonomy-hooks-example.php`. The hooks let you modify the registration details for the Att. Categories and/or Att. Tags custom taxonomies.
+* New: New hooks, `mla_gallery_initial_item_values` and `mla_gallery_pagination_values`, have been added to the "MLA Gallery Filters and Actions (Hooks)". Details have been added to `/examples/plugins/mla-hooks-example.php`.
+* New: A new hook, `mla_taxonomy_column_final`, has been added to the "Media/Assistant Submenu Actions and Filters (Hooks)". Details have been added to `/examples/plugins/mla-list-table-hooks-example.php`.
+* New: The pdpDocs API documentation has been removed from the plugin files and moved to the plugin's web site. This reduces the plugin's space requirements while preserving access to the documentation.
+* New: A statement about custom templates and option settings being preserved over version upgrades has been added to the FAQ section.
+* Fix: For Visual Composer, a PHP Fatal Error that occurred when "Template Preview" was invoked has been eliminated.
+* Fix: For `[mla_tag_cloud]`, the `order=none` parameter is now handled correctly.
+* Fix: For `[mla_tag_cloud]`, the "no_count=true" parameter no longer generates WordPress deprecation messages.
+* Fix: Registration of the Att. Categories and Att. Tags taxonomies is now done earlier ("init" action, priority 5) so they are available for use in other theme/plugin code during the "init" action.
+* Fix: When the Media/Assistant submenu screen is displayed, the menu label is bolded when it appears in the default location, e.g., as the last submenu entry.
+* Fix: When WPML is active, **new flat taxonomy (e.g. Att, Tags) values can be created** in the Quick Edit and Bulk Edit areas as well as the ATTACHMENT DETAILS pane of the Media Manager Modal (popup) Window.
+* Fix: When WPML 3.8 or later is active, "All Languages" display is restored to the Media/Assistant admin submenu.
+* Fix: When WPML or Polylang is active, Media/Assistant submenu table columns are properly populated after a "Set Parent" table row refresh.
+* Fix: When WPML or Polylang is active, a PHP 7.X Notice regarding indirect variable evaluation has been eliminated.
+* Fix: When WPML is active, the term-specific language code has been added to the links in the "Attachments" column.
+* Fix: For the Media/Taxonomy Edit screens, the "Attachments" column gives accurate results when the WPML or Polylang current language is changed.
+* Fix: For Media/Assistant custom field table views, JSON encoding has replaced PHP serialization to avoid a security vulnerability.
+* Fix: On the Settings/Media Library Assistant Debug tab, the "OLD PHP error_log" value has been corrected.
+
 = 2.60 =
 * New: The Settings/Media Library Assistant <strong>IPTC/EXIF tab has been completely re-written</strong>, with a more WordPress-like user interface and new capabilities.
 * New: A new "MLA Login-filtered Gallery Example" plugin has been added. It provides an [mla_gallery] parameter to restrict items to logged-in users based on an Att. Categories term.
 * New: The "MLA Tax Query Example" plugin has been enhanced to filter the gallery by `author`.
 * New: The "MLA Term Links Example" plugin has been enhanced with an `[mla_tag_cloud]` compatible hyperlink format.
 * New: For the Media/Assistant submenu screen, a new "Show Primary Column File Name" settings option lets you add the file name below the item thumbnail. It is in the "Table Defaults" section of the General tab.
+* Fix: A defect in the handling of backslash characters entered in Bulk Edit Area text boxes has been corrected. A single backslash can now be used to, for example, escape the handling of content template conditional and choice elements.
 * Fix: For `[mla_term-list]`, empty lists no longer generate PHP Notice messages.
 * Fix: Media/Assistant submenu screen markup and styles updated to reflect current WordPress standards.
 * Fix: For the "Upload New Media" Bulk Edit Area, field values containing plus ('+') characters are now properly handled. 
@@ -267,8 +310,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.60 =
-Completely new Settings/IPTC/EXIF tab and example plugin enhancements. Five enhancements in all, five fixes.
+= 2.62 =
+Corrects a PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use.
 
 == Other Notes ==
 

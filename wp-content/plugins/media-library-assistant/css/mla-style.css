@@ -106,6 +106,10 @@ div.mla_errors {
 	margin-left: 6em
 }
 
+.bulk-edit-row-attachment fieldset.inline-edit-col-right label.inline-edit-post-content textarea.wp-editor-area {
+	height: auto
+}
+
 .quick-edit-row-attachment fieldset.inline-edit-col-left label.inline-edit-post-parent span.input-text-wrap,
 .bulk-edit-row-attachment fieldset.inline-edit-col-right label.inline-edit-post-parent span.input-text-wrap {
 	width: 5em

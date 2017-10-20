@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.60';
+	const CURRENT_MLA_VERSION = '2.62';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -415,9 +415,7 @@ class MLACore {
 			}
 		} // MLA_MEDIA_MODAL_APPLY_DISPLAY_SETTINGS
 		
-		/*
-		 * Hook wp_enqueue_media() so we can add MLA enhancements, if requested
-		 */
+		// Hook wp_enqueue_media() so we can add MLA enhancements, if requested
 		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_MODAL_TOOLBAR ) ) {
 			add_filter( 'media_view_settings', 'MLACore::mla_media_view_settings_filter', 10, 2 );
 		}
@@ -437,9 +435,22 @@ class MLACore {
 			return $settings;
 		}
 
-		/*
-		 * Media Manager (Modal window) additions
-		 */
+		// Visual Composer template preview doesn't need MLA enhancements
+		if ( defined( 'VC_IS_TEMPLATE_PREVIEW' ) ) {
+			return $settings;
+		}
+
+		// Media Manager (Modal window) additions
+		if ( !class_exists( 'MLAQuery' ) ) {
+			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-query.php' );
+			MLAQuery::initialize();
+		}
+
+		if ( !class_exists( 'MLAData' ) ) {
+			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data.php' );
+			MLAData::initialize();
+		}
+
 		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-list-table.php' );
 
 		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-media-modal.php' );
@@ -529,9 +540,10 @@ class MLACore {
 		 */
 		MLACoreOptions::mla_localize_option_definitions_array();
 
-		/*
-		 * Do not process debug options unless MLA_DEBUG_LEVEL is set in wp-config.php
-		 */
+		MLACore::$original_php_log = ini_get( 'error_log' );
+		MLACore::$original_php_reporting = sprintf( '0x%1$04X', error_reporting() );
+
+		// Do not process debug options unless MLA_DEBUG_LEVEL is set in wp-config.php
 		if ( MLA_DEBUG_LEVEL & 1 ) {
 			/*
 			 * Set up alternate MLA debug log file
@@ -1721,6 +1733,7 @@ class MLA_Checklist_Walker extends Walker_Category {
  * Custom Taxonomies and WordPress objects.
  */
 require_once( MLA_PLUGIN_PATH . 'includes/class-mla-objects.php' );
+add_action( 'init', 'MLAObjects::mla_build_taxonomies', 5 );
 add_action( 'init', 'MLAObjects::initialize', 0x7FFFFFFF );
 
 /*
