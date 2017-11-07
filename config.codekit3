@@ -21,6 +21,12 @@
 		"oAP": "\/.htaccess",
 		"oF": 0
 		},
+	"\/.maintenance": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.maintenance",
+		"oF": 0
+		},
 	"\/bbpress\/bbpress.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -45141,6 +45147,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/01\/tribal-star-nov-dec-2014-newsletter.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/01\/tribal-star-NOV-DEC-newsletter.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/01\/tribal-star-NOV-DEC-newsletter.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/01\/tribal-star-NOVEMBER-DECEMBER-newsletter.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -47778,6 +47790,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/explanation-cft-standards-072314.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/Explanation-Eligibility-for-PWB-and-Enhanced-Services-Form-10-25-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/Explanation-Eligibility-for-PWB-and-Enhanced-Services-Form-10-25-17.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/Explanation-for-Eligibility-for-Pathways-to-Well-Being-Enhanced-Services-06-14-17-1.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -47930,6 +47948,12 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2015\/05\/ICC-82-Definition-10-19-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/ICC-82-Definition-10-19-17.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/ICC-82-Definition-6-27-16-FINAL.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -47982,6 +48006,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/05\/icc-progress-notes-8-6-15.doc",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/IHBS-83-Definition-10-19-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/IHBS-83-Definition-10-19-17.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/05\/IHBS-83-Definition-6-27-16-FINAL.pdf": {
@@ -49482,6 +49512,12 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/Medi-cal_manual_9-22-16.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/MHSUDS_Information_Notice_17-055_ICC_and_IHBS_Lockout_Removal.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/MHSUDS_Information_Notice_17-055_ICC_and_IHBS_Lockout_Removal.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/michelle-h-125x123.jpg": {
 		"ft": 16384,
 		"iS": 8750,
@@ -50394,6 +50430,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-10-13-17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-10-19-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-10-19-17.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/05\/PWB-BHS-CWS-Roster-5-8-17-2.pdf": {
@@ -54113,6 +54155,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/06\/elder-sexual-abuse-trainer-manual.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/06\/family-compassion-lgbtqia-community.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/06\/family-compassion-lgbtqia-community.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/06\/fatherhood-literature-review-2011.pdf": {
@@ -79089,6 +79137,12 @@
 		"oAP": "\/wp-content\/uploads\/2016\/08\/3.0-Training-Development-Requirements.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2016\/08\/Accessing-an-Elearning.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/Accessing-an-Elearning.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2016\/08\/advanced-geriatric-2017.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -80230,6 +80284,12 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2016\/08\/thorp-cbt-training-outline.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2016\/08\/thorp-cbt-training-outline.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2016\/08\/Trauma-informed-parenting-Flyer-6.8.17-USE-THIS-ONE.pdf": {
 		"ft": 8192,
@@ -85364,6 +85424,18 @@
 		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-1-Care-Coordination-of-Out-of-County-Katie-A.-Subclass-Youth-2-10-17.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2017\/02\/2017-10-Revised-SC-Definitions-ICC-and-IHBS.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-10-Revised-SC-Definitions-ICC-and-IHBS.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-11-CWS-Phone-Number-Change-For-Identifying-PSW-10-25-17.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-11-CWS-Phone-Number-Change-For-Identifying-PSW-10-25-17.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/02\/2017-2-CCR-and-CFT-Meetings-1.pdf": {
 		"ft": 8192,
 		"oA": 2,
@@ -85422,6 +85494,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-8-Tracking-of-All-CFT-Mtgs-in-CCBH-Bulletin-7-5-17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/02\/2017-9-MHSUDS-17-055-ICC-and-IHBS-Lockout-Removal.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/02\/2017-9-MHSUDS-17-055-ICC-and-IHBS-Lockout-Removal.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/02\/Eligibility-for-PWB-and-Enhanced-Services-Form-Fill-6.9.17.docx": {
@@ -90718,6 +90796,736 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7980,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8654,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x169.jpg": {
+		"ft": 16384,
+		"iS": 11479,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x198.jpg": {
+		"ft": 16384,
+		"iS": 13202,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna.jpg": {
+		"ft": 16384,
+		"iS": 43295,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-1-Dayna.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7348,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7767,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x169.jpg": {
+		"ft": 16384,
+		"iS": 10684,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x198.jpg": {
+		"ft": 16384,
+		"iS": 12596,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica.jpg": {
+		"ft": 16384,
+		"iS": 43595,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-2-Jassica.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6420,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7817,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x169.jpg": {
+		"ft": 16384,
+		"iS": 9596,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x198.jpg": {
+		"ft": 16384,
+		"iS": 10738,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly.jpg": {
+		"ft": 16384,
+		"iS": 36572,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-4-Carly.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6414,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7952,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x169.jpg": {
+		"ft": 16384,
+		"iS": 10028,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x198.jpg": {
+		"ft": 16384,
+		"iS": 11190,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny.jpg": {
+		"ft": 16384,
+		"iS": 37759,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-5-Penny.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6452,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7442,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x169.jpg": {
+		"ft": 16384,
+		"iS": 9680,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x198.jpg": {
+		"ft": 16384,
+		"iS": 11117,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha.jpg": {
+		"ft": 16384,
+		"iS": 40074,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-7-Nha.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6870,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7706,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x169.jpg": {
+		"ft": 16384,
+		"iS": 10166,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x198.jpg": {
+		"ft": 16384,
+		"iS": 11693,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis.jpg": {
+		"ft": 16384,
+		"iS": 41852,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/2017-GWEP-Stipend-8-Alexis.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-1024x458.jpg": {
+		"ft": 16384,
+		"iS": 89945,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-1024x458.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8406,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-200x123.jpg": {
+		"ft": 16384,
+		"iS": 9325,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-300x134.jpg": {
+		"ft": 16384,
+		"iS": 13471,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-300x134.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-344x169.jpg": {
+		"ft": 16384,
+		"iS": 18036,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-768x344.jpg": {
+		"ft": 16384,
+		"iS": 57619,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-768x344.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334-940x198.jpg": {
+		"ft": 16384,
+		"iS": 49102,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02334.jpg": {
+		"ft": 16384,
+		"iS": 47404,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02334.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-1024x400.jpg": {
+		"ft": 16384,
+		"iS": 67619,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-1024x400.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-150x150.jpg": {
+		"ft": 16384,
+		"iS": 6427,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-200x123.jpg": {
+		"ft": 16384,
+		"iS": 6841,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-300x117.jpg": {
+		"ft": 16384,
+		"iS": 9637,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-300x117.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-344x169.jpg": {
+		"ft": 16384,
+		"iS": 13479,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-768x300.jpg": {
+		"ft": 16384,
+		"iS": 43287,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-768x300.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345-940x198.jpg": {
+		"ft": 16384,
+		"iS": 38984,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/DSC02345.jpg": {
+		"ft": 16384,
+		"iS": 43942,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/DSC02345.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-1024x647.jpg": {
+		"ft": 16384,
+		"iS": 42078,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-1024x647.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-150x150.jpg": {
+		"ft": 16384,
+		"iS": 5850,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-200x123.jpg": {
+		"ft": 16384,
+		"iS": 4956,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-300x190.jpg": {
+		"ft": 16384,
+		"iS": 8237,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-300x190.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-344x169.jpg": {
+		"ft": 16384,
+		"iS": 8805,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-768x485.jpg": {
+		"ft": 16384,
+		"iS": 27984,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-768x485.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA-940x198.jpg": {
+		"ft": 16384,
+		"iS": 15326,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/ICWA.jpg": {
+		"ft": 16384,
+		"iS": 24617,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/ICWA.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/Kelley-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7839,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/Kelley-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/Kelley-200x123.jpg": {
+		"ft": 16384,
+		"iS": 9045,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/Kelley-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/Kelley-200x169.jpg": {
+		"ft": 16384,
+		"iS": 12046,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/Kelley-200x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/Kelley-200x198.jpg": {
+		"ft": 16384,
+		"iS": 14025,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/Kelley-200x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/Kelley.jpg": {
+		"ft": 16384,
+		"iS": 44980,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/Kelley.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8279,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-200x123.jpg": {
+		"ft": 16384,
+		"iS": 9029,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-300x225.jpg": {
+		"ft": 16384,
+		"iS": 18609,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-300x225.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-344x169.jpg": {
+		"ft": 16384,
+		"iS": 18686,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-768x576.jpg": {
+		"ft": 16384,
+		"iS": 76215,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-768x576.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-940x198.jpg": {
+		"ft": 16384,
+		"iS": 35992,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR.jpg": {
+		"ft": 16384,
+		"iS": 153918,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTAR.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-150x150.jpg": {
+		"ft": 16384,
+		"iS": 8621,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-200x123.jpg": {
+		"ft": 16384,
+		"iS": 8888,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-300x225.jpg": {
+		"ft": 16384,
+		"iS": 19279,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-300x225.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-344x169.jpg": {
+		"ft": 16384,
+		"iS": 17091,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-344x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-768x576.jpg": {
+		"ft": 16384,
+		"iS": 78630,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-768x576.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-940x198.jpg": {
+		"ft": 16384,
+		"iS": 31446,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM-940x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM.jpg": {
+		"ft": 16384,
+		"iS": 168524,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/NCWIITribalSTARM.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/wp-content\/uploads\/2017\/10\/pcwta-aug-2017-newsletter-thumbnail-2-150x123.jpg": {
 		"ft": 16384,
 		"iS": 6914,
@@ -90756,6 +91564,61 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/POPS-150x150.png": {
+		"ft": 32768,
+		"iS": 26027,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/POPS-150x150.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/POPS-200x123.png": {
+		"ft": 32768,
+		"iS": 24465,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/POPS-200x123.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/POPS-200x169.png": {
+		"ft": 32768,
+		"iS": 31888,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/POPS-200x169.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/POPS-200x198.png": {
+		"ft": 32768,
+		"iS": 34561,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/POPS-200x198.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/POPS.png": {
+		"ft": 32768,
+		"iS": 34587,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/POPS.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/wp-content\/uploads\/2017\/10\/pwcta-may-2017-newsletter-thumbnail-2-150x123.jpg": {
@@ -90808,10 +91671,88 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7946,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad-200x123.jpg": {
+		"ft": 16384,
+		"iS": 6636,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad-211x300.jpg": {
+		"ft": 16384,
+		"iS": 17144,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad-211x300.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad-276x169.jpg": {
+		"ft": 16384,
+		"iS": 9463,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad-276x169.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad-276x198.jpg": {
+		"ft": 16384,
+		"iS": 11151,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad-276x198.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SDSUgrad.jpg": {
+		"ft": 16384,
+		"iS": 10973,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SDSUgrad.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/10\/SERVE-FACT-SHEET.pdf-edited-1.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SERVE-FACT-SHEET.pdf-edited-1.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/10\/SERVE-FACT-SHEET.pdf-edited.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/10\/SERVE-FACT-SHEET.pdf-edited.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/10\/Therapeutic-Homework-Flyer-11.17.pdf": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2017\/10\/Therapeutic-Homework-Flyer-11.17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/11\/moving-beyond-bias-handout.pdf": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/11\/moving-beyond-bias-handout.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {
