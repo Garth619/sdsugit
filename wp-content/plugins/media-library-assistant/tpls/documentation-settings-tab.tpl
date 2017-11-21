@@ -19,6 +19,7 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 <li><a href="#order_orderby">Order, Orderby</a></li>
 <li><a href="#size">Size</a></li>
 <li><a href="#link">Link</a></li>
+<li><a href="#named_transfer">Transfer by Item Name</a></li>
 <li><a href="#include_exclude">Include, Exclude</a></li>
 <li><a href="#post_id_ids_post_parent">Post ID, "ids", Post Parent</a></li>
 <li><a href="#author_author_name">Author, Author Name</a></li>
@@ -631,11 +632,11 @@ The Link parameter specifies the target and type of link from the gallery item t
 </tr>
 <tr>
 <td class="mla-doc-table-label">file, full</td>
-<td>Link directly to the attachment file.</td>
+<td>Link directly to the attachment file. See also the "Transfer by Item Name" section just below.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">download</td>
-<td>Link to the MLA file downloader for this attachment. Forces a file download instead of opening the file in the browser.</td>
+<td>Link to the MLA file downloader for this attachment. Forces a file download instead of opening the file in the browser.  See also the "Transfer by Item Name" section just below.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">thumbnail,&nbsp;medium,<br />large</td>
@@ -655,7 +656,40 @@ The Link parameter specifies the target and type of link from the gallery item t
 </tr>
 </table>
 <p>
-&nbsp;
+Note that the handling of `link=file` and `link=download` values can be altered by specifying <code>mla_named_transfer=true</code> as described in the next section.
+<a name="named_transfer"></a>
+</p>
+<h4>Transfer by Item Name</h4>
+<p>
+The "mla_named_transfer" parameter activates a different approach to handling the <code>link=file</code> and <code>link=download</code> values. If you code <code>mla_named_transfer=true</code> each item will be identified by its <code>post_name</code> value instead of its directory and file name. When the gallery item link is clicked the post_name will be used to locate the file and send it to the browser. When used with <code>link=download</code> a file download is performed, otherwise the file will be opened in the browser.
+</p>
+<p>
+The links generated for mla_named_transfer items are of the form:<br />
+&nbsp;<br /> 
+<code>http://mysite.com/wp-admin/admin-ajax.php?action=mla_named_transfer&mla_item=item-name&mla_disposition=inline</code><br />
+&nbsp;<br />
+Where the query arguments are:
+</p>
+<table>
+<tr>
+<td class="mla-doc-table-label">action</td>
+<td>must be "mla_named_transfer".</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">mla_item</td>
+<td>is the post_name/slug value for the item. This is the last, editable part of the item&rsquo;s permalink.</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">mla_disposition</td>
+<td>selects a "forced download" ( use "download" or "attachment" ) or "open in the bowser" ( use "file", "view" or "inline" ).</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">mla_debug</td>
+<td>add <code>mla_debug=log</code> to send diagnostic information to the error log. If you add <code>mla_debug=log</code> as a shortcode parameter it will be added to these links as well.</td>
+</tr>
+</table>
+<p>
+This alternate approach provides a small measure of security by obscuring the directory structure used to locate the file. It also makes it possible to generate SEO-friendly "pretty links" and use the <a href="https://codex.wordpress.org/Rewrite_API" title="Codex article: Rewrite API" target="_blank">WordPress Rewrite API</a> to translate the pretty links to the Transfer by Item Name syntax. The <a title="Find the Pretty Links Example" href="[+example_url+]&mla-example-search=Search+Plugins&s=%22MLA+Item+Transfer+Pretty+Links%22" class="mla-doc-bold-link">MLA Item Transfer Pretty Links</a> example plugin shows how this can be done.
 <a name="include_exclude"></a>
 </p>
 <h4>Include, Exclude</h4>
@@ -3945,6 +3979,10 @@ The item-level substitution parameter names are:
 <td>always contains a hyperlink to the MLA file downloader for this attachment</td>
 </tr>
 <tr>
+<td class="mla-doc-table-label">transferlink</td>
+<td>always contains a hyperlink to the <a href="#named_transfer">Transfer by Item Name</a> handler for this attachment</td>
+</tr>
+<tr>
 <td class="mla-doc-table-label">link_url</td>
 <td>the URL portion of <em>link</em></td>
 </tr>
@@ -3959,6 +3997,10 @@ The item-level substitution parameter names are:
 <tr>
 <td class="mla-doc-table-label">downloadlink_url</td>
 <td>the URL portion of <em>downloadlink</em></td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">transferlink_url</td>
+<td>the URL portion of <em>transferlink</em></td>
 </tr>
 <tr>
 <td class="mla-doc-table-label">thumbnail_content</td>
@@ -4285,6 +4327,10 @@ Eight "format" values help you reformat fields or encode them for use in HTML at
 <tr>
 <td class="mla-doc-table-label" style="white-space:nowrap">,substr(s,l)</td>
 <td>If you need to limit the length of a value or extract a portion of it the ",substr" option will return part of the value. This option accepts one or two parameters, "start" (s) and "length" (l). The first character in the value is at position zero (0) so, for example, ",substr(2,3)" would return "cde" from a value of "abcdef". You can find complete information on "start" and "length", including the effect of negative values, at: <a href="http://php.net/manual/en/function.substr.php" title="PHP substr parameters" target="_blank">http://php.net/manual/en/function.substr.php</a>.</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label" style="white-space:nowrap">,str_replace(s,r)</td>
+<td>Replace all occurrences of the "search" string (s) with the "replacement" string (r). If search and replacement are arrays, then str_replace() takes a value from each array and uses them to search and replace on subject. If replace has fewer values than search, then an empty string is used for the rest of replacement values. If search is an array and replace is a string, then this replacement string is used for every value of search. You can find complete information on "search" and "replacement", including examples, at: <a href="http://php.net/manual/en/function.str-replace.php" title="PHP str_replace parameters" target="_blank">http://php.net/manual/en/function.str-replace.php</a>.<br />&nbsp;<br />To specify an array argument enclose the argument in braces ( "{" and "}" ) and separate elements with <strong>spaces</strong>. For example, <code>,str_replace( {',' '-'}, {' ' '_'} )</code> will change commas to spaces and dashes to underscores, while <code>,str_replace( {',' '-'}, ' ' )</code> will change both commas <strong>and</strong> dashes to spaces.</td>
 </tr>
 <tr>
 <td class="mla-doc-table-label" style="white-space:nowrap">,kbmb(t,k,m,p)</td>
@@ -5914,13 +5960,23 @@ Put on your boots and have a paddle handy - it's a swamp! Good luck.
 </p>
 <h3>Custom Field and Attachment Metadata Processing Options</h3>
 <p>
-In the Custom Fields tab of the Settings screen you can define the rules for mapping several types of file and image metadata to WordPress custom fields. Custom field mapping can be applied automatically when an attachment is added to the Media Library. You can refresh the mapping for <strong><em>ALL</em></strong> attachments using the command buttons on the screen. You can selectively apply the mapping in the bulk edit area of the Media/Assistant submenu table and/or on the Edit Media screen for a single attachment.
+In the Custom Fields tab of the Settings screen you can define the rules for mapping several types of file and image metadata to WordPress custom fields. You can also use this screen to define rules for adding or updating elements within the WordPress-supplied "Attachment Metadata", stored in the "_wp_attachment_metadata" custom field. See the <a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a> section below for details.
+</p>
+<p>In this tab there are three ways to execute one or more custom field mapping rules for <strong>ALL</strong> of your Media Library items:
+<ul class="mla_settings">
+<li><strong>Execute All Rules button</strong> - just below the "Enable" checkbox controls in the upper-left portion of the tab. Click this button to immediately run <strong>ALL</strong> of the active rules. Rules marked as inactive will not be executed.</li>
+<li><strong>Bulk Actions "Execute"</strong> - Runs the rules you select by checking the box to the left of one or more rule names. Pull down the "Bulk Actions" control and select "Execute", then click the "Apply" button. <strong>Inactive rules will be executed</strong>; do not select them unless you want to execute them!</li>
+<li><strong>"Execute" rollover action</strong> - Runs the single rule you select by clicking the rule's "Execute" rollover action. <strong>Inactive rules will be executed</strong>.</li>
+</ul>
+These commands process your items in "chunks" to prevent timeout errors. You can pause/resume or cancel the operation between chunks. Note that rules with a Data Source of "none" are ignored because they can't change the custom field value.</p>
+<p>There are two other ways you can perform custom field mapping for one or more existing attachments: 
+<ul class="mla_settings">
+<li><strong>Edit Media screen</strong> - You can click the "Map Custom Field metadata" link in the "Image Metadata" postbox to apply the existing mapping rules to a single attachment.</li>
+<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen.</li>
+</ul>
 </p>
 <p>
-You can also use this screen to define rules for adding or updating elements within the WordPress-supplied "Attachment Metadata", stored in the "_wp_attachment_metadata" custom field. See the <a href="#attachment_metadata_mapping">Adding or changing Attachment Metadata</a> section below for details.
-</p>
-<p>
-This is a powerful tool, but it comes at the price of additional database storage space and processing time to maintain and retrieve the data. <strong><em>Think carefully about your needs before you use this tool.</em></strong> You can disable or delete any rules you create, so you might want to set up some rules for a special project or analysis of your library and then discard them when you're done. That said, the advantages of mapping metadata to custom fields are:
+Custom field mapping is a powerful tool, but it comes at the price of additional database storage space and processing time to maintain and retrieve the data. <strong><em>Think carefully about your needs before you use this tool.</em></strong> You can disable or delete any rules you create, so you might want to set up some rules for a special project or analysis of your library and then discard them when you're done. That said, the advantages of mapping metadata to custom fields are:
 </p>
 <ul class="mla_settings">
 <li>You can add the data to an <code>[mla_gallery]</code> with a field-level markup substitution parameter. For example, add the image dimensions or a list of all the intermediate sizes available for the image.</li>
@@ -5929,8 +5985,17 @@ This is a powerful tool, but it comes at the price of additional database storag
 <p>
 If you just want to add a custom field to the Media/Assistant submenu, the quick edit area and/or the bulk edit area you can bypass the mapping logic by leaving the Data Source value as "-- None (select a value) --".
 </p>
+<p>Three checkbox options control the custom field mapping when new items are added to the Media Library:
+<ul class="mla_settings">
+<li><strong>Enable custom field mapping</strong> - Check this option to enable the mapping rules and display the "Map" buttons on the Media/Edit Media and Media/Assistant Bulk Edit screens.</li>
+<li><strong>Enable custom field mapping when adding new media</strong> - Check this option to enable mapping when uploading new items (attachments) to the Media Library.</li>
+<li><strong>Enable custom field mapping when updating media metadata</strong> - Check this option to enable mapping when item (attachment) metadata is regenerated,
+ e.g., when the Media/Edit Media "Edit Image" functions are used.</li>
+</ul>
+The "when adding" and "when updating" options do <strong>NOT</strong> affect the operation of the "Map" buttons on the bulk edit or single edit screens, nor do they affect any of the "Execute" mapping functions On this Settings screen.</p>
+<p>Check one or more options to enable these features, then click the "Save Changes" button to record your new setting(s).</p>
 <p>
-Two options control the custom field mapping when new items are added to the Media Library ("Enable custom field mapping when adding new media") or when attachment metadata is updated ("Enable custom field mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
+Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
 </p>
 <ul class="mla_settings">
 <li><code>define( 'MLA_AJAX_EXCEPTIONS', 'wfu_ajax_action,upload_ugc' );</code></li>
@@ -6214,7 +6279,7 @@ There are two other ways you can perform custom field mapping for one or more ex
 </p>
 <h3>IPTC &amp; EXIF Processing Options</h3>
 <p>
-Some image file formats such as JPEG DCT or TIFF Rev 6.0 support the addition of data about the image, or <em>metadata</em>, in the image file. In addition, many JPEG, TIFF and PDF files use the Extensible Metadata Platform (XMP)</a> framework. XMP metadata varies from image to image but is often extensive. Many popular image processing programs such as Adobe PhotoShop allow you to populate metadata fields with information such as a copyright notice, caption, the image author and keywords that categorize the image in a larger collection. WordPress uses some of this information to populate the Title, Slug and Description fields when you add an image to the Media Library.
+Some image file formats such as JPEG DCT or TIFF Rev 6.0 support the addition of data about the image, or <em>metadata</em>, in the image file. In addition, many JPEG, TIFF and PDF files use the Extensible Metadata Platform (XMP)</a> framework. XMP metadata varies from file to file but is often extensive. Many popular image processing programs such as Adobe PhotoShop allow you to populate metadata fields with information such as a copyright notice, caption, the image author and keywords that categorize the image in a larger collection. WordPress uses some of this information to populate the Title, Slug and Description fields when you add an image to the Media Library.
 </p>
 <p>
 The Media Library Assistant has powerful tools for copying metadata to:
@@ -6223,14 +6288,36 @@ The Media Library Assistant has powerful tools for copying metadata to:
 <li>taxonomy terms, e.g., in categories, tags or custom taxonomies like Att. Categories and Att. Tags</li>
 <li>WordPress Custom Fields</li>
 </ul>
-You can define the rules for mapping metadata on the "IPTC/EXIF" tab of the Settings page. You can choose to automatically apply the rules when new media are added to the Library (or not). You can click the "Map IPTC/EXIF metadata" button on the Edit Media/Edit Single Item screen or in the bulk edit area to selectively apply the rules to one or more images. You can use the "Execute" functions in the tab to apply the rules to one, some or <strong><em>ALL</em></strong> of the images in your library at one time.
+You can define the rules for mapping metadata on the "IPTC/EXIF" tab of the Settings page. You can choose to automatically apply the rules when new media are added to the Library (or not). You can click the "Map IPTC/EXIF metadata" button on the Edit Media/Edit Single Item screen or in the bulk edit area to selectively apply the rules to one or more items. You can use the "Execute" functions in the tab to apply the rules to one, some or <strong><em>ALL</em></strong> of the items in your library at one time.
 </p>
 <p>If you use any of the "Execute" functions, the selected rule(s) will be immediately applied to <strong>all</strong> of the attachments in your Media Library. THERE<strong> IS NO UNDO FOR THESE ACTIONS!</strong></p>
 <p>
 If you just want to add a custom field to the Media/Assistant submenu, the quick edit area and/or the bulk edit area go to the "Custom Fields" tab and follow the instructions there.
 </p>
+<p>In this tab there are three ways to execute one or more IPTC/EXIF mapping rules for <strong>ALL</strong> of your Media Library items:
+<ul class="mla_settings">
+<li><strong>Execute All Rules button</strong> - just below the "Enable" checkbox controls in the upper-left portion of the tab. Click this button to immediately run <strong>ALL</strong> of the active rules. Rules marked as inactive will not be executed.</li>
+<li><strong>Bulk Actions "Execute"</strong> - Runs the rules you select by checking the box to the left of one or more rule names. Pull down the "Bulk Actions" control and select "Execute", then click the "Apply" button. <strong>Inactive rules will be executed</strong>; do not select them unless you want to execute them!</li>
+<li><strong>"Execute" rollover action</strong> - Runs the single rule you select by clicking the rule's "Execute" rollover action. <strong>Inactive rules will be executed</strong>.</li>
+</ul>
+These commands process your items in "chunks" to prevent timeout errors. You can pause/resume or cancel the operation between chunks.</p>
+<p>There are two other ways you can perform IPTC/EXIF mapping for one or more existing attachments: 
+<ul class="mla_settings">
+<li><strong>Edit Media screen</strong> - You can click the "Map IPTC/EXIF metadata" link in the "Image Metadata" postbox to apply the existing mapping rules to a single attachment.</li>
+<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen.</li>
+</ul>
+</p>
+<p>Three checkbox options control the IPTC/EXIF mapping when new items are added to the Media Library:
+<ul class="mla_settings">
+<li><strong>Enable IPTC/EXIF Mapping</strong> - Check this option to enable the mapping rules and display the "Map" buttons on the Media/Edit Media and Media/Assistant Bulk Edit screens.</li>
+<li><strong>Enable IPTC/EXIF Mapping when adding new media</strong> - Check this option to enable mapping when uploading new items (attachments) to the Media Library.</li>
+<li><strong>Enable IPTC/EXIF Mapping when updating media metadata</strong> - Check this option to enable mapping when item (attachment) metadata is regenerated,
+ e.g., when the Media/Edit Media "Edit Image" functions are used.</li>
+</ul>
+The "when adding" and "when updating" options do <strong>NOT</strong> affect the operation of the "Map" buttons on the bulk edit or single edit screens, nor do they affect any of the "Execute" mapping functions On this Settings screen.</p>
+<p>Check one or more options to enable these features, then click the "Save Changes" button to record your new setting(s).</p>
 <p>
-Two options control the metadata mapping when new items are added to the Media Library ("Enable IPTC/EXIF Mapping when adding new media") or when attachment metadata is updated ("Enable IPTC/EXIF Mapping when updating media metadata"). Check one or both options to enable these features. Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
+Some plugins support file uploads from the WordPress "front end", usually by using the WordPress "AJAX" support. To enable mapping when these plugins are used you must add an entry to your <code>wp-config.php</code> file so MLA will load the mapping code:
 </p>
 <ul class="mla_settings">
 <li><code>define( 'MLA_AJAX_EXCEPTIONS', 'wfu_ajax_action,upload_ugc' );</code></li>
@@ -6661,13 +6748,13 @@ When WP_DEBUG_DISPLAY is true, WordPress will force errors to be displayed. WP_D
 The full path and file name of the error log is displayed just above the text area that contains the log content. If the content doesn't display and/or you can't download the log file, you can try finding the log file at the location shown. If you can't access the PHP error log for any reason, you can write the MLA-specific messages to a separate file in your <code>/wp-content/</code> directory using the "Debug File" option explained below.
 </p>
 <p>
-To add the Debug tab to your Settings/Media Library Assistant submenu you must add an entry to your <code>wp-config.php</code> file:
+The MLA Debug Tab appears at the right of the tab list in the Settings/Media Library Assistant submenu. If you want to restrict access to the logging options and error log file you can suppress the tab by adding an entry to your <code>wp-config.php</code> file:
 </p>
 <ul class="mla_settings">
-<li><code>define( 'MLA_DEBUG_LEVEL', 1 );</code></li>
+<li><code>define( 'MLA_DEBUG_LEVEL', 0 );</code></li>
 </ul>
 <p>
-Once that line is added to the <code>wp-config.php</code> file the "Debug" tab will appear at the right of the tab list in the Settings/Media Library Assistant submenu. The MLA_DEBUG_LEVEL is also used to turn categories of debug messages on and off. Each bit of the value has a separate meaning; the current definitions are:
+The MLA_DEBUG_LEVEL is also used to turn categories of debug messages on and off. Each bit of the value has a separate meaning; the current definitions are:
 </p>
 <table>
 <tr>
@@ -6689,6 +6776,10 @@ Once that line is added to the <code>wp-config.php</code> file the "Debug" tab w
 <tr>
 <td class="mla-doc-table-label">16, or 0x0010</td>
 <td>writes MLA-specific messages to the log for IPTC, EXIF, XMP and PDF metadata generation.</td>
+</tr>
+<tr>
+<td class="mla-doc-table-label">32, or 0x0020</td>
+<td>writes MLA-specific messages to the log for WP REST API calls identified by <code>/wp-json/</code> in the SERVER_URI.</td>
 </tr>
 </table>
 <p>

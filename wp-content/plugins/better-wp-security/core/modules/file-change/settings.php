@@ -18,7 +18,6 @@ final class ITSEC_File_Change_Settings extends ITSEC_Settings {
 				'.mo',
 				'.po'
 			),
-			'email'          => true,
 			'notify_admin'   => true,
 			'last_run'       => 0,
 			'last_chunk'     => false,

@@ -6,18 +6,13 @@ final class ITSEC_Global_Settings_New extends ITSEC_Settings {
 	}
 
 	public function get_defaults() {
-		$email = get_option( 'admin_email' );
-
 		return array(
-			'notification_email'        => array( $email ),
-			'backup_email'              => array( $email ),
 			'lockout_message'           => __( 'error', 'better-wp-security' ),
 			'user_lockout_message'      => __( 'You have been locked out due to too many invalid login attempts.', 'better-wp-security' ),
 			'community_lockout_message' => __( 'Your IP address has been flagged as a threat by the iThemes Security network.', 'better-wp-security' ),
 			'blacklist'                 => true,
 			'blacklist_count'           => 3,
 			'blacklist_period'          => 7,
-			'email_notifications'       => true,
 			'lockout_period'            => 15,
 			'lockout_white_list'        => array(),
 			'log_rotation'              => 14,
@@ -30,14 +25,11 @@ final class ITSEC_Global_Settings_New extends ITSEC_Settings {
 			'infinitewp_compatibility'  => false,
 		'did_upgrade'               => false,
 			'lock_file'                 => false,
-			'digest_email'              => false,
 			'proxy_override'            => false,
 			'hide_admin_bar'            => false,
 			'show_error_codes'          => false,
 			'show_new_dashboard_notice' => true,
 			'show_security_check'       => true,
-			'digest_last_sent'          => 0,
-			'digest_messages'           => array(),
 			'build'                     => 0,
 			'activation_timestamp'      => 0,
 		);

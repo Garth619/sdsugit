@@ -120,6 +120,12 @@ class MLASettings_CustomFields {
 		$option_messages = '';
 		$changed = false;
 
+		// See if the entire tab is disabled
+		if ( ! isset( $_REQUEST[ MLA_OPTION_PREFIX . MLACoreOptions::MLA_ALLOW_CUSTOM_FIELD_MAPPING ] ) ) {
+			unset( $_REQUEST[ MLA_OPTION_PREFIX . 'enable_custom_field_mapping' ] );
+			unset( $_REQUEST[ MLA_OPTION_PREFIX . 'enable_custom_field_update' ] );
+		}
+
 		// Process any page-level options
 		foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
 			if ( 'custom_field' == $value['tab'] ) {
@@ -606,9 +612,7 @@ class MLASettings_CustomFields {
 			}
 		} // $bulk_action
 
-		/*
-		 * Process row-level actions that affect a single item
-		 */
+		// Process row-level actions that affect a single item
 		if ( !empty( $_REQUEST['mla_admin_action'] ) ) {
 			check_admin_referer( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
 
@@ -636,9 +640,29 @@ class MLASettings_CustomFields {
 			return $page_content;
 		}
 
-		/*
-		 * Display the Custom Fields tab and the custom fields rule table
-		 */
+		// Check for disabled status
+		if ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_ALLOW_CUSTOM_FIELD_MAPPING ) ) {
+			// Fill in the page-level option
+			$options_list = '';
+			foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
+				if ( MLACoreOptions::MLA_ALLOW_CUSTOM_FIELD_MAPPING == $key ) {
+					$options_list .= MLASettings::mla_compose_option_row( $key, $value );
+				}
+			}
+
+			$page_values = array(
+				'Support is disabled' => __( 'Custom Field Mapping Support is disabled', 'media-library-assistant' ),
+				'form_url' => admin_url( 'options-general.php' ) . '?page=mla-settings-menu-custom_field&mla_tab=custom_field',
+				'options_list' => $options_list,
+				'Save Changes' => __( 'Save Changes', 'media-library-assistant' ),
+				'_wpnonce' => wp_nonce_field( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME, true, false ),
+			);
+
+			$page_content['body'] .= MLAData::mla_parse_template( $page_template_array['custom-field-disabled'], $page_values );
+			return $page_content;
+		}
+
+		// Display the Custom Fields tab and the custom fields rule table
 		$_SERVER['REQUEST_URI'] = remove_query_arg( array(
 			'mla_admin_action',
 			'mla_custom_field_item',

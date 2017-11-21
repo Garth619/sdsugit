@@ -467,7 +467,7 @@ class MLASettings_Upload {
 			 */
 			$options_list = '';
 			foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
-				if ( 'upload' == $value['tab'] ) {
+				if ( MLACoreOptions::MLA_ENABLE_UPLOAD_MIMES == $key ) {
 					$options_list .= MLASettings::mla_compose_option_row( $key, $value );
 				}
 			}

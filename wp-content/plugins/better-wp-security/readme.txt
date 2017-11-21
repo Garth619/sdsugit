@@ -2,8 +2,8 @@
 Contributors: ithemes, chrisjean, gerroald, mattdanner, timothyblynjacobs
 Tags: security, security plugin, malware, hack, secure, block, SSL, admin, htaccess, lockdown, login, protect, protection, anti virus, attack, injection, login security, maintenance, permissions, prevention, authentication, administration, password, brute force, ban, permissions, bots, user agents, xml rpc, security log
 Requires at least: 4.6
-Tested up to: 4.8.2
-Stable tag: 6.6.1
+Tested up to: 4.9
+Stable tag: 6.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -187,6 +187,11 @@ Free support may be available with the help of the community in the <a href="htt
 5. Free malware scan powered by Sucuri SiteCheck.
 
 == Changelog ==
+
+= 6.7.0 =
+* New Feature: Introduces the Notification Center, a centralized place to manage and customize email notifications sent by iThemes Security.
+* Enhancement: Updated queries and prepare statements to account for changes to the esc_sql() function in WordPress 4.8.3.
+* Bug Fix: Corrected some Javascript and CSS links not generating correctly on Windows servers.
 
 = 6.6.1 =
  * Bug Fix: Fixed SQL query bug that resulted in the "Minutes to Remember Bad Login (check period)" setting being ignored.
@@ -372,5 +377,5 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Upgrade Notice ==
 
-= 6.6.1 =
-Version 6.6.1 contains important bug fixes. It is recommended for all users.
+= 6.7.0 =
+Version 6.7.0 contains important bug fixes. It is recommended for all users.

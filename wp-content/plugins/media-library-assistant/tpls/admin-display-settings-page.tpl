@@ -24,11 +24,11 @@
             <a href="#backtotop">[+Go to Top+]</a> | <a href="#gotobottom">[+Go to Bottom+]</a>
         </td></tr>
         <tr><td colspan="2">
-            <h2 id="[+key+]">[+value+]</h2>
+            <h3 id="[+key+]">[+value+]</h3>
         </td></tr>
 <!-- template="subheader" -->
         <tr><td colspan="2">
-            <h3 id="[+key+]">[+value+]</h3>
+            <h4 id="[+key+]">[+value+]</h4>
         </td></tr>
 <!-- template="radio" -->
         <tr valign="top"><th scope="row" class="textright">

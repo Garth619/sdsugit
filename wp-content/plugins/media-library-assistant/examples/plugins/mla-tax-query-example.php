@@ -14,7 +14,8 @@
  * A custom shortcode parameter, "my_custom_sql", activates the logic in this plugin.
  *
  * The "my_custom_sql" parameter accepts these query arguments:
- *  - one or more taxonomy=slug(,slug)... arguments, which will be joined by OR
+ *  - ONE taxonomy=(/)slug(,(/)slug)... argument, to INCLUDE or /EXCLUDE terms
+ *    i.e. put a slash in front of a term to EXCLUDE items assigned to it
  *  - include_children=true
  *  - author=ID(,ID...)
  *  - order and/or orderby
@@ -39,8 +40,12 @@
  * opened on 6/27/2017 by "davidjhk".
  * https://wordpress.org/support/topic/gallery-page-with-many-images-takes-too-long-to-load/
  *
+ * Enhanced for support topic "504 Time-Out issue"
+ * opened on 10/19/2017 by "ratterizzo".
+ * https://wordpress.org/support/topic/504-time-out-issue/
+ *
  * @package MLA tax query Example
- * @version 1.05
+ * @version 1.06
  */
 
 /*
@@ -48,7 +53,7 @@ Plugin Name: MLA tax query Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Replaces the WP_Query tax_query with a more efficient, direct SQL query
 Author: David Lingren
-Version: 1.05
+Version: 1.06
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2013 - 2017 David Lingren
@@ -85,19 +90,10 @@ class MLATaxQueryExample {
 	 * @return	void
 	 */
 	public static function initialize() {
-		/*
-		 * The filters are only useful for front-end posts/pages; exit if in the admin section
-		 */
+		// The filters are only useful for front-end posts/pages; exit if in the admin section
 		if ( is_admin() )
 			return;
 
-		/*
-		 * add_filter parameters:
-		 * $tag - name of the hook you're filtering; defined by [mla_gallery]
-		 * $function_to_add - function to be called when [mla_gallery] applies the filter
-		 * $priority - default 10; lower runs earlier, higher runs later
-		 * $accepted_args - number of arguments your function accepts
-		 */
 		add_filter( 'mla_gallery_attributes', 'MLATaxQueryExample::mla_gallery_attributes', 10, 1 );
 		add_filter( 'mla_gallery_arguments', 'MLATaxQueryExample::mla_gallery_arguments', 10, 1 );
 		add_filter( 'mla_gallery_query_arguments', 'MLATaxQueryExample::mla_gallery_query_arguments', 10, 1 );
@@ -137,14 +133,10 @@ class MLATaxQueryExample {
 	 * @return	array	updated shortcode attributes
 	 */
 	public static function mla_gallery_attributes( $shortcode_attributes ) {
-		/*
-		 * Save the attributes for use in the later filters
-		 */
+		// Save the attributes for use in the later filters
 		self::$shortcode_attributes = $shortcode_attributes;
 
-		/*
-		 * See if we are involved in processing this shortcode
-		 */
+		// See if we are involved in processing this shortcode
 		if ( isset( self::$shortcode_attributes['my_custom_sql'] ) ) {
 			unset( $shortcode_attributes['my_custom_sql'] );
 
@@ -349,6 +341,7 @@ class MLATaxQueryExample {
 
 		// Start with empty parameter values
 		$ttids = array();
+		$exclude_ttids = array();
 
 		// Find taxonomy argument, if present, and collect terms
 		$taxonomies = get_object_taxonomies( 'attachment', 'names' );
@@ -360,12 +353,18 @@ class MLATaxQueryExample {
 			// Found the taxonomy; collect the terms
 			$include_children =  isset( $my_query_vars['include_children'] ) && 'true' == strtolower( trim( $my_query_vars['include_children'] ) );
 
-			// Allow for multiple term slug values
+			// Allow for multiple term slug values, separate includes from excludes
 			$terms = array();
+			$excludes = array();
 			$slugs = explode( ',', $my_query_vars[ $taxonomy ] );
 			foreach ( $slugs as $slug ) {
-				$args = array( 'slug' => $slug, 'hide_empty' => false );
-				$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+				if ( 0 === strpos( $slug, '/' ) ) {
+					$args = array( 'slug' => substr( $slug, 1 ), 'hide_empty' => false );
+					$excludes = array_merge( $excludes, get_terms( $taxonomy, $args ) );
+				} else {
+					$args = array( 'slug' => $slug, 'hide_empty' => false );
+					$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+				}
 			}
 
 			foreach( $terms as $term ) {
@@ -380,6 +379,19 @@ class MLATaxQueryExample {
 					}
 				} // include_children
 			} // $term
+
+			foreach( $excludes as $exclude ) {
+				// Index by ttid to remove duplicates
+				$exclude_ttids[ $exclude->term_taxonomy_id ] = $exclude->term_taxonomy_id;
+
+				if ( $include_children ) {
+					$args = array( 'child_of' => $exclude->term_id, 'hide_empty' => false );
+					$children = get_terms( 'attachment_category', $args );
+					foreach( $children as $child ) {
+						$exclude_ttids[] = $child->term_taxonomy_id;
+					}
+				} // include_children
+			} // $exclude
 
 			break;
 		}
@@ -401,14 +413,34 @@ class MLATaxQueryExample {
 				$query_parameters[] = $ttid;
 			}
 		} else {
+			if ( empty( $exclude_ttids ) ) {
 				$placeholders[] = '%s';
 				$query_parameters[] = '0';
+			}
 		}
 
-		$query[] = 'WHERE ( tr.term_taxonomy_id IN (' . join( ',', $placeholders ) . ') )';
+		if ( empty( $placeholders ) ) {
+			// No includes, only excludes
+			$query[] = 'WHERE ( 1=1';
+		} else {
+			$query[] = 'WHERE ( tr.term_taxonomy_id IN (' . join( ',', $placeholders ) . ')';
+		}
 
-		// ORDER BY clause would go here, if needed
+		if ( !empty( $exclude_ttids ) ) {
+			$placeholders = array();
+			foreach ( $exclude_ttids as $ttid ) {
+				$placeholders[] = '%s';
+				$query_parameters[] = $ttid;
+			}
 
+			// Build the excludes as a sub query			
+			$query[] = 'AND tr.object_id NOT IN (';
+			$query[] = "SELECT DISTINCT object_id FROM {$wpdb->term_relationships}";
+			$query[] = 'WHERE ( term_taxonomy_id IN (' . join( ',', $placeholders ) . ') ) )';
+		}
+
+		$query[] = ')';
+		
 		if ( ! $is_pagination ) {
 			/*
 			 * Add pagination to our query, then remove it from the query
@@ -535,6 +567,7 @@ class MLATaxQueryExample {
 
 		// Start with empty parameter values
 		$ttids = array();
+		$exclude_ttids = array();
 
 		// Find taxonomy argument, if present, and collect terms
 		$taxonomies = get_object_taxonomies( 'attachment', 'names' );
@@ -546,12 +579,18 @@ class MLATaxQueryExample {
 			// Found the taxonomy; collect the terms
 			$include_children =  isset( $my_query_vars['include_children'] ) && 'true' == strtolower( trim( $my_query_vars['include_children'] ) );
 
-			// Allow for multiple term slug values
+			// Allow for multiple term slug values, separate includes from excludes
 			$terms = array();
+			$excludes = array();
 			$slugs = explode( ',', $my_query_vars[ $taxonomy ] );
 			foreach ( $slugs as $slug ) {
-				$args = array( 'slug' => $slug, 'hide_empty' => false );
-				$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+				if ( 0 === strpos( $slug, '/' ) ) {
+					$args = array( 'slug' => substr( $slug, 1 ), 'hide_empty' => false );
+					$excludes = array_merge( $excludes, get_terms( $taxonomy, $args ) );
+				} else {
+					$args = array( 'slug' => $slug, 'hide_empty' => false );
+					$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+				}
 			}
 
 			foreach( $terms as $term ) {
@@ -566,6 +605,19 @@ class MLATaxQueryExample {
 					}
 				} // include_children
 			} // $term
+
+			foreach( $excludes as $exclude ) {
+				// Index by ttid to remove duplicates
+				$exclude_ttids[ $exclude->term_taxonomy_id ] = $exclude->term_taxonomy_id;
+
+				if ( $include_children ) {
+					$args = array( 'child_of' => $exclude->term_id, 'hide_empty' => false );
+					$children = get_terms( 'attachment_category', $args );
+					foreach( $children as $child ) {
+						$exclude_ttids[] = $child->term_taxonomy_id;
+					}
+				} // include_children
+			} // $exclude
 
 			break;
 		}
@@ -583,11 +635,34 @@ class MLATaxQueryExample {
 				$subquery_parameters[] = $ttid;
 			}
 		} else {
+			if ( empty( $exclude_ttids ) ) {
 				$placeholders[] = '%s';
 				$subquery_parameters[] = '0';
+			}
 		}
 
-		$subquery[] = 'WHERE ( tr.term_taxonomy_id IN (' . join( ',', $placeholders ) . ') )';
+		if ( empty( $placeholders ) ) {
+			// No includes, only excludes
+			$subquery[] = 'WHERE ( 1=1';
+		} else {
+			$subquery[] = 'WHERE ( tr.term_taxonomy_id IN (' . join( ',', $placeholders ) . ')';
+		}
+
+		if ( !empty( $exclude_ttids ) ) {
+			$placeholders = array();
+			foreach ( $exclude_ttids as $ttid ) {
+				$placeholders[] = '%s';
+				$subquery_parameters[] = $ttid;
+			}
+
+			// Build the excludes as a sub query			
+			$subquery[] = 'AND tr.object_id NOT IN (';
+			$subquery[] = "SELECT DISTINCT object_id FROM {$wpdb->term_relationships}";
+			$subquery[] = 'WHERE ( term_taxonomy_id IN (' . join( ',', $placeholders ) . ') ) )';
+		}
+
+		$subquery[] = ')';
+		
 		$subquery =  join(' ', $subquery);
 
 		// Build an array of SQL clauses for the posts query
@@ -631,9 +706,7 @@ class MLATaxQueryExample {
 		// Close the WHERE clause
 		$query[] = ')';
 
-		/*
-		 * ORDER BY clause
-		 */
+		// ORDER BY clause
 		if ( ! empty( $my_query_vars['orderby'] ) ) {
 			$orderby = strtolower( $my_query_vars['orderby'] );
 		} else {
@@ -783,8 +856,6 @@ class MLATaxQueryExample {
 	} // double_query
 } // Class MLATaxQueryExample
 
-/*
- * Install the filters at an early opportunity
- */
+// Install the filters at an early opportunity
 add_action('init', 'MLATaxQueryExample::initialize');
 ?>

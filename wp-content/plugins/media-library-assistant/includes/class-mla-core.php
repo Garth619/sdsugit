@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.62';
+	const CURRENT_MLA_VERSION = '2.64';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -94,6 +94,15 @@ class MLACore {
 	 * @var	integer
 	 */
 	const MLA_DEBUG_CATEGORY_METADATA = 0x00000010;
+
+	/**
+	 * Constant to log WP REST activity
+	 *
+	 * @since 2.41
+	 *
+	 * @var	integer
+	 */
+	const MLA_DEBUG_CATEGORY_REST = 0x00000020;
 
 	/**
 	 * Slug for adding plugin submenu
@@ -352,7 +361,7 @@ class MLACore {
 		if ( 'disabled' == MLACore::mla_get_option( MLACoreOptions::MLA_MLA_GALLERY_IN_TUNING ) ) {
 			MLACore::$process_mla_gallery_in = false;
 		}
-		
+
 		/*
 		 * Look for redirects from the Media/Edit Media screen when it was picked from the
 		 * "Edit" rollover action on the Media/Assistant submenu
@@ -369,11 +378,11 @@ class MLACore {
 			$image_default_align = get_option( 'image_default_align' );
 			$image_default_link_type = get_option( 'image_default_link_type' );
 			$image_default_size = get_option( 'image_default_size' );
-			
+
 			if ( ! ( empty( $image_default_align ) && empty( $image_default_link_type ) && empty( $image_default_size ) ) ) {
 				$user_id = get_current_user_id();
 				$not_super_admin = ! (is_super_admin() && ! is_user_member_of_blog() );
-	
+
 				if ( $user_id && $not_super_admin ) {
 					if ( isset( $_COOKIE['wp-settings-' . $user_id] ) ) {
 						$cookie = preg_replace( '/[^A-Za-z0-9=&_]/', '', $_COOKIE['wp-settings-' . $user_id] );
@@ -414,7 +423,7 @@ class MLACore {
 				}
 			}
 		} // MLA_MEDIA_MODAL_APPLY_DISPLAY_SETTINGS
-		
+
 		// Hook wp_enqueue_media() so we can add MLA enhancements, if requested
 		if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_MODAL_TOOLBAR ) ) {
 			add_filter( 'media_view_settings', 'MLACore::mla_media_view_settings_filter', 10, 2 );
@@ -507,11 +516,11 @@ class MLACore {
 	 */
 	public static function wpml_unset_lang_admin_bar( $suppress_all_languages ) {
 		global $pagenow, $mode;
-		
+
 //error_log( __LINE__ . " wpml_unset_lang_admin_bar( {$pagenow}, {$mode}, {$suppress_all_languages}  ) returning " . var_export( $pagenow === 'upload.php' && $mode === 'grid', true ), 0 );
 		return $pagenow === 'upload.php' && $mode === 'grid';
 	}
-	
+
 	/**
 	 * Load a plugin text domain and alternate debug file
 	 * 
@@ -535,9 +544,7 @@ class MLACore {
 		load_textdomain( $text_domain, trailingslashit( WP_LANG_DIR ) . $text_domain . '/' . $text_domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $text_domain, false, MLA_PLUGIN_BASENAME . '/languages/' );
 
-		/*
-		 * This must/will be repeated in class-mla-tests.php to reflect translations
-		 */
+		// This must/will be repeated in class-mla-tests.php to reflect translations
 		MLACoreOptions::mla_localize_option_definitions_array();
 
 		MLACore::$original_php_log = ini_get( 'error_log' );
@@ -545,16 +552,12 @@ class MLACore {
 
 		// Do not process debug options unless MLA_DEBUG_LEVEL is set in wp-config.php
 		if ( MLA_DEBUG_LEVEL & 1 ) {
-			/*
-			 * Set up alternate MLA debug log file
-			 */
+			// Set up alternate MLA debug log file
 			$error_log_name = MLACore::mla_get_option( MLACoreOptions::MLA_DEBUG_FILE ); 
 			if ( ! empty( $error_log_name ) ) {
 				MLACore::mla_debug_file( $error_log_name );
 
-				/*
-				 * Override PHP error_log file
-				 */
+				// Override PHP error_log file
 				if ( 'checked' === MLACore::mla_get_option( MLACoreOptions::MLA_DEBUG_REPLACE_PHP_LOG ) ) {
 					$result = ini_set('error_log', WP_CONTENT_DIR . self::$mla_debug_file );
 				}
@@ -564,7 +567,7 @@ class MLACore {
 			 * PHP error_reporting must be done later in class-mla-tests.php
 			 * Override MLA debug levels
 			 */
-			MLACore::$mla_debug_level = MLA_DEBUG_LEVEL;
+			MLACore::$mla_debug_level = 0; // MLA_DEBUG_LEVEL;
 			$mla_reporting = trim( MLACore::mla_get_option( MLACoreOptions::MLA_DEBUG_REPLACE_LEVEL ) );
 			if ( strlen( $mla_reporting ) ) {
 				if ( ctype_digit( $mla_reporting ) ) {
@@ -575,10 +578,34 @@ class MLACore {
 
 				if ( $mla_reporting )  {
 					MLACore::$mla_debug_level = $mla_reporting | 1;
+					if ( class_exists( 'MLA' ) ) {
+						MLACore::mla_debug_add( __LINE__ . sprintf( ' MLACore::mla_plugins_loaded_action() MLA %s (%s) mla_debug_level 0x%X', MLACore::CURRENT_MLA_VERSION, MLA::MLA_DEVELOPMENT_VERSION, MLACore::$mla_debug_level, true ), MLACore::MLA_DEBUG_CATEGORY_ANY );
+					}
 				} else {
 					MLACore::$mla_debug_level = 0;
 				}
 			}
+
+			// Check for XMLPRC, WP REST API and front end requests
+			if( !( defined('WP_ADMIN') && WP_ADMIN ) ) {
+				// XMLRPC requests need everything loaded to process uploads
+				if ( defined('XMLRPC_REQUEST') && XMLRPC_REQUEST ) {
+					MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() XMLRPC_REQUEST \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_ANY );
+				}
+
+				// WP REST API calls need everything loaded to process uploads
+				if ( isset( $_SERVER['REQUEST_URI'] ) && 0 === strpos( $_SERVER['REQUEST_URI'], '/wp-json/' ) ) {
+					MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json REQUEST_URI = " . var_export( $_SERVER['REQUEST_URI'], true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					//MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json _GET = " . var_export( $_GET, true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					//MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json _POST = " . var_export( $_POST, true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json _REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json _COOKIE = " . var_export( $_COOKIE, true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					if ( function_exists( 'apache_request_headers' ) ) {
+						MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json MLAOptions apache_request_headers = " . var_export( apache_request_headers(), true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+					}
+					MLACore::mla_debug_add( __LINE__ . " MLACore::mla_plugins_loaded_action() wp-json MLAOptions exists = " . var_export( class_exists( 'MLAOptions' ), true ), MLACore::MLA_DEBUG_CATEGORY_REST );
+				}
+			} // not admin
 		} // MLA_DEBUG_LEVEL & 1
 	}
 
@@ -644,7 +671,7 @@ class MLACore {
 			if ( empty( MLACoreOptions::$mla_option_definitions ) ) {
 				MLACoreOptions::mla_localize_option_definitions_array();
 			}
-		
+
 			$option_table =& MLACoreOptions::$mla_option_definitions;
 		}
 
@@ -683,7 +710,7 @@ class MLACore {
 			if ( empty( MLACoreOptions::$mla_option_definitions ) ) {
 				MLACoreOptions::mla_localize_option_definitions_array();
 			}
-		
+
 			$option_table =& MLACoreOptions::$mla_option_definitions;
 		}
 
@@ -693,7 +720,7 @@ class MLACore {
 			} else {
 				$autoload = true;
 			}
-			
+
 			return update_option( MLA_OPTION_PREFIX . $option, $newvalue, $autoload );
 		}
 
@@ -715,7 +742,7 @@ class MLACore {
 			if ( empty( MLACoreOptions::$mla_option_definitions ) ) {
 				MLACoreOptions::mla_localize_option_definitions_array();
 			}
-		
+
 			$option_table =& MLACoreOptions::$mla_option_definitions;
 		}
 
@@ -1583,7 +1610,7 @@ class MLACore {
 				break;
 		}
 	}
-	
+
 	/**
 	 * Admin Columns support storage model object for the Media/Assistant submenu
 	 *
@@ -1622,7 +1649,7 @@ class MLACore {
 				$new_models[ $key ] = $model;
 			}
 		}
-		
+
 		/*
 		 * If we didn't find wp-media, add our entry to the end
 		 */
@@ -1632,7 +1659,7 @@ class MLACore {
 
 		return $new_models;
 	}
-	
+
 	/**
 	 * Set MLA-specific inline editing strategy
 	 *

@@ -269,17 +269,20 @@ class MLASettings {
 			 * Add format, option and no_null to IPTC/EXIF custom mapping rules
 			 */
 			$option_value = MLACore::mla_get_option( 'iptc_exif_mapping' );
-			$new_values = array();
-
-			foreach ( $option_value['custom'] as $key => $value ) {
-				$value['format'] = isset( $value['format'] ) ? $value['format'] : 'native';
-				$value['option'] = isset( $value['option'] ) ? $value['option'] : 'text';
-				$value['no_null'] = isset( $value['no_null'] ) ? $value['no_null'] : false;
-				$new_values[ $key ] = $value;
+			
+			if ( !empty( $option_value['custom'] ) ) {
+				$new_values = array();
+	
+				foreach ( $option_value['custom'] as $key => $value ) {
+					$value['format'] = isset( $value['format'] ) ? $value['format'] : 'native';
+					$value['option'] = isset( $value['option'] ) ? $value['option'] : 'text';
+					$value['no_null'] = isset( $value['no_null'] ) ? $value['no_null'] : false;
+					$new_values[ $key ] = $value;
+				}
+	
+				$option_value['custom'] = $new_values;
+				MLACore::mla_update_option( 'iptc_exif_mapping', $option_value );
 			}
-
-			$option_value['custom'] = $new_values;
-			MLACore::mla_update_option( 'iptc_exif_mapping', $option_value );
 		} // version is less than 2.13
 
 		MLACore::mla_update_option( MLACoreOptions::MLA_VERSION_OPTION, MLACore::CURRENT_MLA_VERSION );

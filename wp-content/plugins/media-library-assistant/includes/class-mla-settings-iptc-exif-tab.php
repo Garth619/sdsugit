@@ -122,6 +122,12 @@ class MLASettings_IPTCEXIF {
 		$option_messages = '';
 		$changed = false;
 
+		// See if the entire tab is disabled
+		if ( ! isset( $_REQUEST[ MLA_OPTION_PREFIX . MLACoreOptions::MLA_ALLOW_IPTC_EXIF_MAPPING ] ) ) {
+			unset( $_REQUEST[ MLA_OPTION_PREFIX . 'enable_iptc_exif_mapping' ] );
+			unset( $_REQUEST[ MLA_OPTION_PREFIX . 'enable_iptc_exif_update' ] );
+		}
+
 		// Process any page-level options
 		foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
 			if ( 'iptc_exif' == $value['tab'] ) {
@@ -716,9 +722,29 @@ class MLASettings_IPTCEXIF {
 			return $page_content;
 		}
 
-		/*
-		 * Display the IPTC EXIF tab and the IPTC EXIF rule table
-		 */
+		// Check for disabled status
+		if ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_ALLOW_IPTC_EXIF_MAPPING ) ) {
+			// Fill in the page-level option
+			$options_list = '';
+			foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
+				if ( MLACoreOptions::MLA_ALLOW_IPTC_EXIF_MAPPING == $key ) {
+					$options_list .= MLASettings::mla_compose_option_row( $key, $value );
+				}
+			}
+
+			$page_values = array(
+				'Support is disabled' => __( 'IPTC/EXIF Mapping Support is disabled', 'media-library-assistant' ),
+				'form_url' => admin_url( 'options-general.php' ) . '?page=mla-settings-menu-iptc_exif&mla_tab=iptc_exif',
+				'options_list' => $options_list,
+				'Save Changes' => __( 'Save Changes', 'media-library-assistant' ),
+				'_wpnonce' => wp_nonce_field( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME, true, false ),
+			);
+
+			$page_content['body'] .= MLAData::mla_parse_template( $page_template_array['iptc-exif-disabled'], $page_values );
+			return $page_content;
+		}
+
+		// Display the IPTC EXIF tab and the IPTC EXIF rule table
 		$_SERVER['REQUEST_URI'] = remove_query_arg( array(
 			'mla_admin_action',
 			'mla_iptc_exif_item',
@@ -2031,7 +2057,7 @@ class MLA_IPTC_EXIF_Query {
 		// One rule for each registered and supported taxonomy
 		$taxonomies = get_taxonomies( array ( 'show_ui' => true ), 'objects' );
 		foreach ( $taxonomies as $key => $value ) {
-			if ( ! MLACore::mla_taxonomy_support($key, 'support') ) {
+			if ( ! MLACore::mla_taxonomy_support( $key, 'support' ) ) {
 				continue;
 			}
 
@@ -2051,15 +2077,17 @@ class MLA_IPTC_EXIF_Query {
 			);
 
 			if ( isset( $current_values['taxonomy'][ $key ] ) ) {
-				$default_values = $current_values['taxonomy'][ $key ];
+				$existing_values = $current_values['taxonomy'][ $key ];
+				unset( $current_values['taxonomy'][ $key ] );
+
 				$current_value = array_merge( $current_value, array(
-					'iptc_value' => $default_values['iptc_value'],
-					'exif_value' => $default_values['exif_value'],
-					'iptc_first' => $default_values['iptc_first'],
-					'keep_existing' => $default_values['keep_existing'],
-					'delimiters' => $default_values['delimiters'],
-					'parent' => $default_values['parent'],
-					'active' => isset( $default_values['active'] ) ? $default_values['active'] : true,
+					'iptc_value' => $existing_values['iptc_value'],
+					'exif_value' => $existing_values['exif_value'],
+					'iptc_first' => $existing_values['iptc_first'],
+					'keep_existing' => $existing_values['keep_existing'],
+					'delimiters' => $existing_values['delimiters'],
+					'parent' => $existing_values['parent'],
+					'active' => isset( $existing_values['active'] ) ? $existing_values['active'] : true,
 				) );
 			} else {
 				$current_value = array_merge( $current_value, array(
@@ -2076,54 +2104,85 @@ class MLA_IPTC_EXIF_Query {
 			self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ] = $current_value;
 		}
 
+		// Preserve existing rules for non-supported taxonomies as "inactive"
+		$taxonomy_rules_changed = false;
+		foreach ( $current_values['taxonomy'] as $key => $value ) {
+			$value['post_ID'] = ++self::$_iptc_exif_rule_highest_ID;
+			$value['type'] = 'taxonomy';
+			$value['key'] = $key;
+			$value['rule_name'] = $value['name'];
+			$value['format'] = 'native';
+			$value['option'] = 'text';
+			$value['no_null'] = false;
+			$value['read_only'] = false;
+			$value['deleted'] = false;
+
+			if ( isset( $value['active'] ) && $value['active'] ) {
+				$value['active'] = false;
+				$value['changed'] = true;
+				$taxonomy_rules_changed = true;
+			} else {
+				$value['active'] = false;
+			}
+
+			self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ] = $value;
+		}
+
 		// One rule for each existing custom field rule, case insensitive "natural order"
-		$sorted_keys = array();
-		foreach ( $current_values['custom'] as $rule_name => $current_value ) {
-			$sorted_keys[ $current_value['name'] ] = $current_value['name'];
-		}
-		natcasesort( $sorted_keys );
-
-		$sorted_names = array();
-		foreach ( $sorted_keys as $rule_name ) {
-			$sorted_names[ $rule_name ] = array();
-		}
-
-		// Allow for multiple rules mapping the same name (an old bug)
-		foreach ( $current_values['custom'] as $rule_name => $current_value ) {
-			$sorted_names[ $current_value['name'] ][] = $rule_name;
-		}
-
-		foreach ( $sorted_names as $sorted_keys ) {
+		if ( !empty( $current_values['custom'] ) ) {
+			$sorted_keys = array();
+			foreach ( $current_values['custom'] as $rule_name => $current_value ) {
+				$sorted_keys[ $current_value['name'] ] = $current_value['name'];
+			}
+			natcasesort( $sorted_keys );
+	
+			$sorted_names = array();
 			foreach ( $sorted_keys as $rule_name ) {
-				$current_value = $current_values['custom'][ $rule_name ];
-				self::$_iptc_exif_rules[ ++self::$_iptc_exif_rule_highest_ID ] = array(
-					'post_ID' => self::$_iptc_exif_rule_highest_ID,
-					'type' => 'custom',
-					'key' => $rule_name,
-					'rule_name' => $rule_name,
-					'name' => $current_value['name'],
-					'hierarchical' => false,
-					'iptc_value' => $current_value['iptc_value'],
-					'exif_value' => $current_value['exif_value'],
-					'iptc_first' => $current_value['iptc_first'],
-					'keep_existing' => $current_value['keep_existing'],
-					'format' => $current_value['format'],
-					'option' => $current_value['option'],
-					'no_null' => $current_value['no_null'],
-					'delimiters' => '',
-					'parent' => 0,
-					'active' => isset( $current_value['active'] ) ? $current_value['active'] : true,
-					'read_only' => $rule_name !== $current_value['name'],
-					'changed' => false,
-					'deleted' => false,
-				);
+				$sorted_names[ $rule_name ] = array();
+			}
+	
+			// Allow for multiple rules mapping the same name (an old bug)
+			foreach ( $current_values['custom'] as $rule_name => $current_value ) {
+				$sorted_names[ $current_value['name'] ][] = $rule_name;
+			}
+	
+			foreach ( $sorted_names as $sorted_keys ) {
+				foreach ( $sorted_keys as $rule_name ) {
+					$current_value = $current_values['custom'][ $rule_name ];
+					self::$_iptc_exif_rules[ ++self::$_iptc_exif_rule_highest_ID ] = array(
+						'post_ID' => self::$_iptc_exif_rule_highest_ID,
+						'type' => 'custom',
+						'key' => $rule_name,
+						'rule_name' => $rule_name,
+						'name' => $current_value['name'],
+						'hierarchical' => false,
+						'iptc_value' => $current_value['iptc_value'],
+						'exif_value' => $current_value['exif_value'],
+						'iptc_first' => $current_value['iptc_first'],
+						'keep_existing' => $current_value['keep_existing'],
+						'format' => $current_value['format'],
+						'option' => $current_value['option'],
+						'no_null' => $current_value['no_null'],
+						'delimiters' => '',
+						'parent' => 0,
+						'active' => isset( $current_value['active'] ) ? $current_value['active'] : true,
+						'read_only' => $rule_name !== $current_value['name'],
+						'changed' => false,
+						'deleted' => false,
+					);
+	
+					if ( self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ]['read_only'] ) {
+						self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ]['active'] = false;
+					}
+				} // foreach rule
+			} // foreach name
+		} // custom rules exist
 
-				if ( self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ]['read_only'] ) {
-					self::$_iptc_exif_rules[ self::$_iptc_exif_rule_highest_ID ]['active'] = false;
-				}
-			} // foreach rule
-		} // foreach name
-
+		// Flush the rules if we have inactivated any non-supported taxonomy rules
+		if ( $taxonomy_rules_changed ) {
+			MLA_IPTC_EXIF_Query::mla_put_iptc_exif_rules();
+		}
+		
 		return true;
 	}
 

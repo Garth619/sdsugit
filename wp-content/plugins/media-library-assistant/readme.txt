@@ -3,9 +3,9 @@ Contributors: dglingren
 Donate link: http://fairtradejudaica.org/make-a-difference/donate/
 Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.8.2
+Tested up to: 4.9
 Requires PHP: 5.3
-Stable tag: 2.62
+Stable tag: 2.64
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,6 +183,29 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
+= 2.64 =
+* Fix: For `[mla_gallery]`, correct problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
+* Fix: For `[mla_gallery]`, correct problem with `mla_named_transfer` in Firefox and IE11 browsers when user is not logged in.
+
+= 2.63 =
+* New: A **new "MLA Item Transfer Pretty Links" plugin** has been added. It allows you to generate SEO-friendly pretty links in place of MLA's default "Transfer by Item Name" links.
+* New: For `[mla_gallery]`, a new **`mla_named_transfer` parameter activates an alternate AJAX-based method** to download files or stream them to the browser. See the "Transfer by Item Name" section of the Settings/Media LIbrary Assistant Document tab for details.
+* New: For mapping rules and `[mla_gallery]`, the **"str_replace" format option** can be used to replace substrings of IPTC/EXIF metadata values, custom fields and other Data Sources with replacement strings. 
+* New: The Custom Field and IPTC/EXIF **Mapping features can be completely disabled** by unchecking the new "Enable ..." option setting on the respective Settings/Media Library Assistant tab.
+* New: The default value of the MLA_DEBUG_LEVEL constant has been changed from zero ( '0' ) to one ( '1' ), so **the Debug tab is added to the Settings/Media Library Assistant tablist by default**. You can suppress the Debug tab by adding `define( 'MLA_DEBUG_LEVEL', 0 );` to your `wp-config.php` file.
+* New: If you define an IPTC/EXIF mapping rule for a taxonomy and later remove MLA support for that taxonomy, the rule will be retained in "inactive" status. You can delete the rule if you no longer need it or set it back to "active" status if you restore MLA support for that taxonomy in the future.
+* New: The "MLA Tax Query Example" plugin has been enhanced to allow "NOT IN" terms in its taxonomy queries.
+* New: A new debug logging category has been added to support logging of WP REST API calls.
+* Fix: For `[mla_gallery]`, links to intermediate sizes are only generated for "image" MIME types, e.g., links for PDF documents go to the document file itself.
+* Fix: For the Settings/Media Library Assistant General tab, heading and subheading levels have been adjusted to make the distinction between major sections and minor subsections more distinct.
+* Fix: The "Custom Field and Attachment Metadata Processing Options" and "IPTC & EXIF Processing Options" sections of the Settings/Media Library Assistant Documentation tab have been updated to reflect the new layout and content of their respective Settings tabs.
+* Fix: In the "MLA Multisite Extensions" example plugin, a defect in handling taxonomy query arguments has been corrected.
+* Fix: When Polylang or WPML is active, a defect in mapping hierarchical taxonomy terms from metadata values has been corrected.
+* Fix: When Polylang is active, a PHP Warning message "expects parameter 2 to be array" has been corrected.
+* Fix: PHP Warning messages issued during mapping operations when no IPTC/EXIF custom field mapping rules exist have been eliminated.
+* Fix: A PHP Notice message when loading MLA Media Manager enhancements for some "front-end" use has been corrected.
+* Fix: Obsolete code for handling Settings/Media Library Assistant Custom Field and IPTC/EXIF option rendering and updating has been removed.
+
 = 2.62 =
 * Fix: A PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use has been corrected.
 
@@ -310,8 +333,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.62 =
-Corrects a PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use.
+= 2.64 =
+For `[mla_gallery]`, corrects v2.63 problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
 
 == Other Notes ==
 

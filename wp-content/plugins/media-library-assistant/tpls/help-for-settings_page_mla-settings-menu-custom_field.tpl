@@ -9,19 +9,20 @@
 <p>You can also narrow the list by entering a keyword or phrase in the text box in the upper-right corner and clicking "Search Rules". <strong>NOTE:</strong> The "Search Rules" filter is &#8220;sticky&#8221;, i.e., it will persist as you resort the display, edit rules, etc. To clear it, delete the text and click "Search Rules" or simply click on the "Custom Fields" tab.</p>
 <!-- template="mla-enable-custom-mapping" -->
 <!-- title="Enable custom field mapping" order="20" -->
-<p>Two checkbox options control the custom field mapping when new items are added to the Media Library:
+<p>Three checkbox options control the custom field mapping when new items are added to the Media Library:
 <ul>
-<li><strong>Enable custom field mapping when adding new media</strong> - Check this option to enable mapping when uploading new media (attachments).</li>
-<li><strong>Enable custom field mapping when updating media metadata</strong> - Check this option to enable mapping when media (attachments) metadata is regenerated,
+<li><strong>Enable custom field mapping</strong> - Check this option to enable the mapping rules and display the "Map" buttons on the Media/Edit Media and Media/Assistant Bulk Edit screens.</li>
+<li><strong>Enable custom field mapping when adding new media</strong> - Check this option to enable mapping when uploading new items (attachments) to the Media Library.</li>
+<li><strong>Enable custom field mapping when updating media metadata</strong> - Check this option to enable mapping when item (attachment) metadata is regenerated,
  e.g., when the Media/Edit Media "Edit Image" functions are used.</li>
 </ul>
-These options do <strong>NOT</strong> affect the operation of the "Map" buttons on the bulk edit or single edit screens, nor do they affect any of the "Execute" mapping functions On this Settings screen.</p>
-<p>Check one or both options to enable these features, then click the "Save Changes" button to record your new setting(s).</p>
+The "when adding" and "when updating" options do <strong>NOT</strong> affect the operation of the "Map" buttons on the bulk edit or single edit screens, nor do they affect any of the "Execute" mapping functions On this Settings screen.</p>
+<p>Check one or more options to enable these features, then click the "Save Changes" button to record your new setting(s).</p>
 <!-- template="mla-execute-rules" -->
 <!-- title="Execute Rule(s)" order="30" -->
 <p>In this tab there are three ways to execute one or more custom field mapping rules for <strong>ALL</strong> of your Media Library items:
 <ul>
-<li><strong>Execute All Rules button</strong> - just below the two "Enable" checkbox controls in the upper-left portion of the tab. Click this button to immediately run <strong>ALL</strong> of the active rules. Rules marked as inactive will not be executed.</li>
+<li><strong>Execute All Rules button</strong> - just below the "Enable" checkbox controls in the upper-left portion of the tab. Click this button to immediately run <strong>ALL</strong> of the active rules. Rules marked as inactive will not be executed.</li>
 <li><strong>Bulk Actions "Execute"</strong> - Runs the rules you select by checking the box to the left of one or more rule names. Pull down the "Bulk Actions" control and select "Execute", then click the "Apply" button. <strong>Inactive rules will be executed</strong>; do not select them unless you want to execute them!</li>
 <li><strong>"Execute" rollover action</strong> - Runs the single rule you select by clicking the rule's "Execute" rollover action. <strong>Inactive rules will be executed</strong>.</li>
 </ul>

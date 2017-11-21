@@ -137,6 +137,20 @@ href="#mla-new-iptc-exif"> [+Cancel Name Change+] </a>
 		&nbsp; </p>
 </form>
 
+<!-- template="iptc-exif-disabled" -->
+<h2>[+Support is disabled+]</h2>
+<form action="[+form_url+]" method="post" class="mla-display-settings-page" id="mla-display-settings-iptc-exif-tab">
+    <table class="optiontable">
+[+options_list+]
+	</table>
+    <p class="submit mla-settings-submit">
+        <input name="mla-iptc-exif-options-save" type="submit" class="button-primary" value="[+Save Changes+]" />
+    </p>
+	<input type="hidden" name="page" value="mla-settings-menu-iptc_exif" />
+	<input type="hidden" name="mla_tab" value="iptc_exif" />
+	[+_wpnonce+]
+</form>
+
 <!-- template="before-table" --> 
 [+mla-progress-div+]
 <h2>[+IPTC EXIF Options+]</h2>

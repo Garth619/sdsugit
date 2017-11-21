@@ -57,10 +57,7 @@ final class ITSEC_Setup {
 
 			if ( is_array( $plugin_data ) && ! empty( $plugin_data['build'] ) ) {
 				$build = $plugin_data['build'];
-
-				if ( ! empty( $plugin_data['activation_timestamp'] ) ) {
-					ITSEC_Modules::set_setting( 'global', 'activation_timestamp', $plugin_data['activation_timestamp'] );
-				}
+				ITSEC_Modules::set_setting( 'global', 'activation_timestamp', $plugin_data['activation_timestamp'] );
 			}
 
 			delete_site_option( 'itsec_data' );
@@ -82,6 +79,9 @@ final class ITSEC_Setup {
 			}
 		}
 
+		if ( ! ITSEC_Modules::get_setting( 'global', 'activation_timestamp' ) ) {
+			ITSEC_Modules::set_setting( 'global', 'activation_timestamp', ITSEC_Core::get_current_time_gmt() );
+		}
 
 		// Ensure that the database tables are present and updated to the current schema.
 		ITSEC_Lib::create_database_tables();

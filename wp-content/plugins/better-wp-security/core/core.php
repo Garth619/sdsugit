@@ -25,7 +25,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @access private
 		 */
-		private $plugin_build = 4075;
+		private $plugin_build = 4078;
 
 		/**
 		 * Used to distinguish between a user modifying settings and the API modifying settings (such as from Sync
@@ -41,6 +41,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		private
 			$itsec_files,
 			$itsec_notify,
+			$notifications,
 			$sync_api,
 			$plugin_file,
 			$plugin_dir,
@@ -191,6 +192,24 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Set the notification center instance.
+		 *
+		 * @param ITSEC_Notification_Center $center
+		 */
+		public static function set_notification_center( ITSEC_Notification_Center $center ) {
+			self::get_instance()->notifications = $center;
+		}
+
+		/**
+		 * Get the notification center instance.
+		 *
+		 * @return ITSEC_Notification_Center
+		 */
+		public static function get_notification_center() {
+			return self::get_instance()->notifications;
+		}
+
+		/**
 		 * Retrieve the global instance of the Sync API.
 		 *
 		 * The API is not available until iThemes Sync verbs have been registered ( init#11 ).
@@ -222,6 +241,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			ITSEC_Modules::register_module( 'security-check', "$path/modules/security-check", 'always-active' );
 			ITSEC_Modules::register_module( 'global', "$path/modules/global", 'always-active' );
+			ITSEC_Modules::register_module( 'notification-center', "$path/modules/notification-center", 'always-active' );
 			ITSEC_Modules::register_module( '404-detection', "$path/modules/404-detection" );
 			ITSEC_Modules::register_module( 'admin-user', "$path/modules/admin-user", 'always-active' );
 			ITSEC_Modules::register_module( 'away-mode', "$path/modules/away-mode" );

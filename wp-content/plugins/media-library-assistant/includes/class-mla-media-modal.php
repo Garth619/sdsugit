@@ -427,12 +427,14 @@ class MLAModal {
 		if ( function_exists( 'get_current_screen' ) ) {
 			$screen = get_current_screen();
 
-			if ( 'upload' == $screen->base ) {
-				if ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_GRID_TOOLBAR ) ) {
+			if ( is_object( $screen ) ) {
+				if ( 'upload' == $screen->base ) {
+					if ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_GRID_TOOLBAR ) ) {
+						return;
+					}
+				} elseif ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_MODAL_TOOLBAR ) ) {
 					return;
 				}
-			} elseif ( 'checked' != MLACore::mla_get_option( MLACoreOptions::MLA_MEDIA_MODAL_TOOLBAR ) ) {
-				return;
 			}
 		} else {
 			$screen = NULL;

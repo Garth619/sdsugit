@@ -692,3 +692,7 @@
 	Bug Fix: Fixed SQL query bug that resulted in the "Minutes to Remember Bad Login (check period)" setting being ignored.
 	Bug Fix: Fixed bug that prevents wp-admin/install.php blocking from working properly on nginx servers.
 	Bug Fix: Don't attempt to do an SSL redirect when WP CLI is running.
+6.7.0 - 2017-11-07 - Chris Jean & Timothy Jacobs
+	New Feature: Introduces the Notification Center, a centralized place to manage and customize email notifications sent by iThemes Security.
+	Enhancement: Updated queries and prepare statements to account for changes to the esc_sql() function in WordPress 4.8.3.
+	Bug Fix: Corrected some Javascript and CSS links not generating correctly on Windows servers.

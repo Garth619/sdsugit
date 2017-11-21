@@ -13,7 +13,7 @@
  * https://wordpress.org/support/topic/using-shortcodes-to-retrieve-media-from-another-sites-media-library/
  *
  * @package MLA Multisite Extensions
- * @version 1.02
+ * @version 1.03
  */
 
 /*
@@ -21,7 +21,7 @@ Plugin Name: MLA Multisite Extensions
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Adds Multisite filters to MLA shortcodes
 Author: David Lingren
-Version: 1.02
+Version: 1.03
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2017 David Lingren
@@ -128,8 +128,45 @@ class MLAMultisiteExtensions {
 		if ( !isset( self::$all_query_parameters['multi_site_query'] ) ) {
 			//error_log( __LINE__ . ' MLAMultisiteExtensions::mla_gallery_query_arguments self::$shortcode_attributes = ' . var_export( self::$shortcode_attributes, true ), 0 );
 
+			// Taxonomy parameters are handled separately
+			// {tax_slug} => 'term' | array ( 'term', 'term', ... )
+			// 'tax_query' => ''
+			// 'tax_input' => ''
+			// 'tax_relation' => 'OR', 'AND' (default),
+			// 'tax_operator' => 'OR' (default), 'IN', 'NOT IN', 'AND',
+			// 'tax_include_children' => true (default), false
+			$shortcode_attributes = self::$shortcode_attributes;
+
+			$all_taxonomies = get_taxonomies( array ( 'show_ui' => true ), 'names' );
+			foreach( $shortcode_attributes as $key => $value ) {
+				if ( array_key_exists( $key, $all_taxonomies ) ) {
+					$all_query_parameters[ $key ] = $shortcode_attributes[ $key ];
+				}
+			}
+
+			if ( !empty( $shortcode_attributes['tax_query'] ) ) {
+				$all_query_parameters['tax_query'] = $shortcode_attributes['tax_query'];
+			}
+
+			if ( !empty( $shortcode_attributes['tax_input'] ) ) {
+				$all_query_parameters['tax_input'] = $shortcode_attributes['tax_input'];
+			}
+
+			if ( !empty( $shortcode_attributes['tax_relation'] ) ) {
+				$all_query_parameters['tax_relation'] = $shortcode_attributes['tax_relation'];
+			}
+
+			if ( !empty( $shortcode_attributes['tax_operator'] ) ) {
+				$all_query_parameters['tax_operator'] = $shortcode_attributes['v'];
+			}
+
+			if ( !empty( $shortcode_attributes['tax_include_children'] ) ) {
+				$all_query_parameters['tax_include_children'] = $shortcode_attributes['tax_include_children'];
+			}
+
 			self::$all_query_parameters = $all_query_parameters;
 		}
+		//error_log( __LINE__ . ' MLAMultisiteExtensions::mla_gallery_query_arguments $all_query_parameters = ' . var_export( $all_query_parameters, true ), 0 );
 		
 		if ( isset( self::$shortcode_attributes['site_id'] ) ) {
 			if ( 'all' === trim( strtolower( self::$shortcode_attributes['site_id'] ) ) ) {

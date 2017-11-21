@@ -308,7 +308,7 @@ class MLASettings_View {
 			 */
 			$options_list = '';
 			foreach ( MLACoreOptions::$mla_option_definitions as $key => $value ) {
-				if ( 'view' == $value['tab'] ) {
+				if ( MLACoreOptions::MLA_ENABLE_POST_MIME_TYPES == $key ) {
 					$options_list .= MLASettings::mla_compose_option_row( $key, $value );
 				}
 			}

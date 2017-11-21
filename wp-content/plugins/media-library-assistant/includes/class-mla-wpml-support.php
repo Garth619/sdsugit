@@ -526,7 +526,10 @@ class MLA_WPML {
 
 				if ( $relevant_term ) {
 					if ( isset( $relevant_term['translations'][ $item_language ] ) ) {
-						$new_terms[] = absint( $relevant_term['translations'][ $item_language ]->term_id );
+//						$new_terms[] = absint( $relevant_term['translations'][ $item_language ]->term_id );
+						$new_term_id = absint( $relevant_term['translations'][ $item_language ]->term_id );
+						$new_term = self::_get_relevant_term( 'id', $new_term_id, $setting_key );
+						$new_terms[] = $new_term['term']->name;
 					}
 				} else {
 					// Always create the new term in the current language
@@ -573,7 +576,10 @@ class MLA_WPML {
 					// Reload the term with all of its new translations
 					$relevant_term = self::_get_relevant_term( 'name', $new_name, $setting_key, NULL, false, true );
 					if ( isset( $relevant_term['translations'][ $item_language ] ) ) {
-						$new_terms[] = absint( $relevant_term['translations'][ $item_language ]->term_id );
+//						$new_terms[] = absint( $relevant_term['translations'][ $item_language ]->term_id );
+						$new_term_id = absint( $relevant_term['translations'][ $item_language ]->term_id );
+						$new_term = self::_get_relevant_term( 'id', $new_term_id, $setting_key );
+						$new_terms[] = $new_term['term']->name;
 					}
 				} // new term
 			} // foreach new_name

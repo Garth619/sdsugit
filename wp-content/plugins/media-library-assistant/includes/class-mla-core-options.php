@@ -313,6 +313,16 @@ class MLACoreOptions {
 	const MLA_ENABLE_MLA_ICONS = 'enable_mla_icons';
 
 	/**
+	 * Provides a unique name for the Enable Custom Field Mapping option
+	 */
+	const MLA_ALLOW_CUSTOM_FIELD_MAPPING = 'allow_custom_field_mapping';
+
+	/**
+	 * Provides a unique name for the Enable IPTC/EXIF Mapping option
+	 */
+	const MLA_ALLOW_IPTC_EXIF_MAPPING = 'allow_iptc_exif_mapping';
+
+	/**
 	 * Provides a unique name for the Debug display limit option
 	 */
 	const MLA_DEBUG_DISPLAY_LIMIT = 'debug_display_limit';
@@ -900,10 +910,10 @@ class MLACoreOptions {
 					'delete' => 'mla_attachment_display_settings_option_handler',
 					'reset' => 'mla_attachment_display_settings_option_handler'),
 
-			'uninstall_plugin_subheader' =>
+			'uninstall_plugin_header' =>
 				array('tab' => 'general',
 					'name' => __( 'Uninstall (Delete) Plugin Settings', 'media-library-assistant' ),
-					'type' => 'subheader'),
+					'type' => 'header'),
 
 			self::MLA_DELETE_OPTION_SETTINGS =>
 				array('tab' => 'general',
@@ -1069,6 +1079,13 @@ class MLACoreOptions {
 					'type' => 'hidden',
 					'std' => array()),
 
+			self::MLA_ALLOW_CUSTOM_FIELD_MAPPING =>
+				array('tab' => 'custom_field',
+					'name' => __( 'Enable custom field mapping', 'media-library-assistant' ),
+					'type' => 'checkbox',
+					'std' => 'checked',
+					'help' => __( 'See Help menu.', 'media-library-assistant' )),
+
 			'enable_custom_field_mapping' =>
 				array('tab' => 'custom_field',
 					'name' => __( 'Enable custom field mapping when adding new media', 'media-library-assistant' ),
@@ -1092,6 +1109,13 @@ class MLACoreOptions {
 					'update' => 'mla_custom_field_option_handler',
 					'delete' => 'mla_custom_field_option_handler',
 					'reset' => 'mla_custom_field_option_handler'),
+
+			self::MLA_ALLOW_IPTC_EXIF_MAPPING =>
+				array('tab' => 'iptc_exif',
+					'name' => __( 'Enable IPTC/EXIF Mapping', 'media-library-assistant' ),
+					'type' => 'checkbox',
+					'std' => 'checked',
+					'help' => __( 'See Help menu.', 'media-library-assistant' )),
 
 			'enable_iptc_exif_mapping' =>
 				array('tab' => 'iptc_exif',

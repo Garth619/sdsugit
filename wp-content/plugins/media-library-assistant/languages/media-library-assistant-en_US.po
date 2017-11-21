@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Media Library Assistant\n"
-"POT-Creation-Date: 2017-10-15 21:54-0700\n"
-"PO-Revision-Date: 2017-10-15 21:55-0700\n"
+"POT-Creation-Date: 2017-11-19 10:23-0800\n"
+"PO-Revision-Date: 2017-11-19 10:24-0800\n"
 "Language-Team: David Lingren <david@fairtradejudaica.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -669,10 +669,13 @@ msgid ""
 "override the search for Ghostscript in other places."
 msgstr ""
 
-msgid "Enable custom field mapping when adding new media"
+msgid "Enable custom field mapping"
 msgstr ""
 
 msgid "See Help menu."
+msgstr ""
+
+msgid "Enable custom field mapping when adding new media"
 msgstr ""
 
 msgid "Enable custom field mapping when updating media metadata"
@@ -683,6 +686,9 @@ msgid ""
 "make the updates permanent.<br>You can also make temporary updates and click "
 "a Map All Attachments button to apply the rule(s) to all attachments without "
 "saving any rule changes."
+msgstr ""
+
+msgid "Enable IPTC/EXIF Mapping"
 msgstr ""
 
 msgid "Enable IPTC/EXIF Mapping when adding new media"
@@ -1135,7 +1141,7 @@ msgstr ""
 
 #, php-format
 msgctxt "error_log"
-msgid "%1$s: _find_test_substring no end delimiter, tail = \"%2$s\"."
+msgid "%1$s: _find_delimited_substring no end delimiter, tail = \"%2$s\"."
 msgstr ""
 
 msgid "Test; no closing parenthesis "
@@ -1349,6 +1355,12 @@ msgid "Custom field mapping updated."
 msgstr ""
 
 msgid "IPTC/EXIF mapping updated."
+msgstr ""
+
+msgid "Custom field mapping is disabled."
+msgstr ""
+
+msgid "IPTC/EXIF mapping is disabled."
 msgstr ""
 
 msgid "M j, Y @ G:i"
@@ -2108,86 +2120,11 @@ msgstr ""
 msgid "Delete NULL values"
 msgstr ""
 
-msgid "No Custom Field Mapping Rules Defined"
-msgstr ""
-
-msgid "Keep"
-msgstr ""
-
-msgid "Native"
-msgstr ""
-
-msgid "Commas"
-msgstr ""
-
-msgid "Raw"
-msgstr ""
-
-msgid "Text"
-msgstr ""
-
-msgid "Single"
-msgstr ""
-
-msgid "Export"
-msgstr ""
-
-msgid "Array"
-msgstr ""
-
-msgid "Multi"
-msgstr ""
-
-msgid "Delete Rule"
-msgstr ""
-
-msgid "Delete Rule AND Field"
-msgstr ""
-
-msgid "Update Rule"
-msgstr ""
-
-msgid "Map All Attachments"
-msgstr ""
-
-msgid "Add a new Mapping Rule"
-msgstr ""
-
-msgid "Add Rule"
-msgstr ""
-
-msgid "Add Rule and Map All Attachments"
-msgstr ""
-
-msgid "Add a new Field and Mapping Rule"
-msgstr ""
-
-msgid "Add Field"
-msgstr ""
-
-msgid "Add Field and Map All Attachments"
+#, php-format
+msgid "%1$s: No old values for %2$s."
 msgstr ""
 
 msgid "Field Title"
-msgstr ""
-
-msgid "Custom field mapping rules updated."
-msgstr ""
-
-msgid "Custom field mapping rules update failed."
-msgstr ""
-
-msgid "Custom field no mapping rule changes detected."
-msgstr ""
-
-msgid "Custom field mapping settings saved."
-msgstr ""
-
-msgid "Custom field mapping settings reset failed."
-msgstr ""
-
-#, php-format
-msgid "%1$s: No old values for %2$s."
 msgstr ""
 
 msgid "IPTC Value"
@@ -2206,53 +2143,6 @@ msgid "Priority"
 msgstr ""
 
 msgid "Delimiter(s)"
-msgstr ""
-
-msgid "IPTC"
-msgstr ""
-
-msgid "EXIF"
-msgstr ""
-
-msgid "EXIF/Template Value"
-msgstr ""
-
-#, php-format
-msgid "%1$s: Render unknown custom %2$s."
-msgstr ""
-
-#, php-format
-msgid "%1$s: Update/delete unknown custom %2$s."
-msgstr ""
-
-msgid "IPTC/EXIF mapping settings updated."
-msgstr ""
-
-msgid "IPTC/EXIF settings update failed."
-msgstr ""
-
-msgid "IPTC/EXIF no mapping changes detected."
-msgstr ""
-
-#, php-format
-msgid "%1$s settings saved."
-msgstr ""
-
-msgid "Standard field"
-msgstr ""
-
-#, php-format
-msgid "%1$s: IPTC/EXIF %2$s settings update failed."
-msgstr ""
-
-msgid "Taxonomy term"
-msgstr ""
-
-msgid "Custom field"
-msgstr ""
-
-#, php-format
-msgid "%1$s: Reset unknown custom %2$s"
 msgstr ""
 
 msgid "ERROR: No post ID found"
@@ -2428,6 +2318,9 @@ msgstr ""
 msgid "%1$s mapping completed; %2$d attachment(s) examined, %3$d updated."
 msgstr ""
 
+msgid "Custom field"
+msgstr ""
+
 #, php-format
 msgid ""
 "%1$s mapping completed; %2$d attachment(s) examined, no changes detected."
@@ -2493,6 +2386,33 @@ msgstr ""
 msgid "Add to Media/Assistant Bulk Edit area"
 msgstr ""
 
+msgid "Keep"
+msgstr ""
+
+msgid "Native"
+msgstr ""
+
+msgid "Commas"
+msgstr ""
+
+msgid "Raw"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Single"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Array"
+msgstr ""
+
+msgid "Multi"
+msgstr ""
+
 msgid "Delete NULL Values"
 msgstr ""
 
@@ -2514,6 +2434,9 @@ msgstr ""
 
 #, php-format
 msgid "Unknown bulk action %1$s"
+msgstr ""
+
+msgid "Custom Field Mapping Support is disabled"
 msgstr ""
 
 msgid "Custom Field Mapping Progress"
@@ -2575,6 +2498,9 @@ msgstr ""
 msgid "Add New Custom Field Rule"
 msgstr ""
 
+msgid "Add Rule"
+msgstr ""
+
 msgid "Nothing to execute"
 msgstr ""
 
@@ -2610,6 +2536,9 @@ msgstr ""
 
 msgctxt "list_table_column"
 msgid "Option"
+msgstr ""
+
+msgid "Map All Attachments"
 msgstr ""
 
 msgid "Execute"
@@ -2797,10 +2726,25 @@ msgctxt "table_view_plural"
 msgid "Uninstalled"
 msgstr ""
 
+msgid "IPTC/EXIF mapping settings updated."
+msgstr ""
+
+msgid "IPTC/EXIF no mapping changes detected."
+msgstr ""
+
 msgid "updated."
 msgstr ""
 
+msgid "EXIF/Template Value"
+msgstr ""
+
 msgid "EXIF element name or Content Template"
+msgstr ""
+
+msgid "IPTC"
+msgstr ""
+
+msgid "EXIF"
 msgstr ""
 
 msgid "Delimiters"
@@ -2816,6 +2760,9 @@ msgid "Custom field mapping"
 msgstr ""
 
 msgid "Edit IPTC EXIF Rule cancelled."
+msgstr ""
+
+msgid "IPTC/EXIF Mapping Support is disabled"
 msgstr ""
 
 msgid "IPTC &amp; EXIF Mapping Progress"
@@ -2936,6 +2883,10 @@ msgstr ""
 
 #, php-format
 msgid "%1$s \"%2$s\" deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$s settings saved."
 msgstr ""
 
 msgid "Shortcodes"

@@ -147,6 +147,20 @@ href="#mla-new-custom-field">
 		&nbsp; </p>
 </form>
 
+<!-- template="custom-field-disabled" -->
+<h2>[+Support is disabled+]</h2>
+<form action="[+form_url+]" method="post" class="mla-display-settings-page" id="mla-display-settings-custom-field-tab">
+    <table class="optiontable">
+[+options_list+]
+	</table>
+    <p class="submit mla-settings-submit">
+        <input name="mla-custom-field-options-save" type="submit" class="button-primary" value="[+Save Changes+]" />
+    </p>
+	<input type="hidden" name="page" value="mla-settings-menu-custom_field" />
+	<input type="hidden" name="mla_tab" value="custom_field" />
+	[+_wpnonce+]
+</form>
+
 <!-- template="before-table" -->
 [+mla-progress-div+]
 <h2>[+Custom Field Options+]</h2>

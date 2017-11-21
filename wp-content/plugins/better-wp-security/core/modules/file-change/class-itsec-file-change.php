@@ -37,6 +37,8 @@ class ITSEC_File_Change {
 		add_filter( 'itsec_logger_displays', array( $this, 'itsec_logger_displays' ) ); //adds logs metaboxes
 		add_filter( 'itsec_logger_modules', array( $this, 'itsec_logger_modules' ) );
 		add_action( 'ithemes_sync_register_verbs', array( $this, 'register_sync_verbs' ) );
+		add_filter( 'itsec_notifications', array( $this, 'register_notification' ) );
+		add_filter( 'itsec_file-change_notification_strings', array( $this, 'register_notification_strings' ) );
 
 
 		if (
@@ -168,5 +170,37 @@ class ITSEC_File_Change {
 	 */
 	public function register_sync_verbs( $api ) {
 		$api->register( 'itsec-perform-file-scan', 'Ithemes_Sync_Verb_ITSEC_Perform_File_Scan', dirname( __FILE__ ) . '/sync-verbs/itsec-perform-file-scan.php' );
+	}
+
+	/**
+	 * Register the file change notification.
+	 *
+	 * @param array $notifications
+	 *
+	 * @return array
+	 */
+	public function register_notification( $notifications ) {
+		$notifications['file-change'] = array(
+			'recipient'        => ITSEC_Notification_Center::R_USER_LIST_ADMIN_UPGRADE,
+			'schedule'         => ITSEC_Notification_Center::S_NONE,
+			'subject_editable' => true,
+			'optional'         => true,
+			'module'           => 'file-change',
+		);
+
+		return $notifications;
+	}
+
+	/**
+	 * Register the file change notification strings.
+	 *
+	 * @return array
+	 */
+	public function register_notification_strings() {
+		return array(
+			'label'       => esc_html__( 'File Change', 'better-wp-security' ),
+			'description' => sprintf( esc_html__( 'The %1$sFile Change Detection%2$s module will email a file scan report after changes have been detected.', 'better-wp-security' ), '<a href="#" data-module-link="file-change">', '</a>' ),
+			'subject'     => esc_html__( 'File Change Warning', 'better-wp-security' ),
+		);
 	}
 }

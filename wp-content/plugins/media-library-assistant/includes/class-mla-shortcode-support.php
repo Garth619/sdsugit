@@ -412,6 +412,7 @@ class MLAShortcode_Support {
 			'mla_target' => '',
 			'mla_debug' => false,
 
+			'mla_named_transfer' => false,
 			'mla_viewer' => false,
 			'mla_single_thread' => false,
 			'mla_viewer_extensions' => 'ai,eps,pdf,ps',
@@ -467,9 +468,10 @@ class MLAShortcode_Support {
 			$mla_arguments
 		);
 
-		/*
-		 * Apply default arguments set in the markup template
-		 */
+		// Convert to boolean
+		$arguments['mla_named_transfer'] = 'true' === ( ( ! empty( $arguments['mla_named_transfer'] ) ) ? trim( strtolower( $arguments['mla_named_transfer'] ) ) : 'false' );
+
+		// Apply default arguments set in the markup template
 		$template = $mla_arguments['mla_markup'];
 		if ( isset( $attr['mla_markup'] ) && MLATemplate_Support::mla_fetch_custom_template( $attr['mla_markup'], 'gallery', 'markup', '[exists]' ) ) {
 			$template = $attr['mla_markup'];
@@ -1309,9 +1311,7 @@ class MLAShortcode_Support {
 					$item_values['filelink'] = str_replace( '<img ', '<img ' . $image_attributes, $item_values['filelink'] );
 				}
 
-				/*
-				 * Extract existing class values and add to them
-				 */
+				// Extract existing class values and add to them
 				if ( ! empty( $image_class ) ) {
 					$match_count = preg_match_all( '# class=\"([^\"]+)\" #', $item_values['pagelink'], $matches, PREG_OFFSET_CAPTURE );
 					if ( ! ( $class_replace || ( $match_count == false ) || ( $match_count == 0 ) ) ) {
@@ -1330,21 +1330,41 @@ class MLAShortcode_Support {
 				}
 			} // process <img> tag
 
-			/*
-			 * Create download link with all Content Parameters
-			 */
+			// Create download and named transfer links with all Content Parameters
 			$match_count = preg_match( '#href=\'([^\']+)\'#', $item_values['filelink'], $matches, PREG_OFFSET_CAPTURE );
 			if ( ! ( ( $match_count == false ) || ( $match_count == 0 ) ) ) {
-				$args = array( 'mla_download_file' => urlencode( $item_values['base_dir'] . '/' . $item_values['base_file'] ), 'mla_download_type' => $item_values['mime_type'] );
+				// Forced download link
+				$args = array(
+					'mla_download_file' => urlencode( $item_values['base_dir'] . '/' . $item_values['base_file'] ),
+					'mla_download_type' => $item_values['mime_type']
+				);
+				
 				if ( 'log' == $arguments['mla_debug'] ) {
 					$args['mla_debug'] = 'log';
 				}
 
 				$item_values['downloadlink_url'] = add_query_arg( $args, MLA_PLUGIN_URL . 'includes/mla-file-downloader.php' );
 				$item_values['downloadlink'] = preg_replace( '#' . $matches[0][0] . '#', sprintf( 'href=\'%1$s\'', $item_values['downloadlink_url'] ), $item_values['filelink'] );
+				
+				// AJAX-based Named Transfer link
+				$args = array(
+					'action' => 'mla_named_transfer',
+					'mla_item' => $attachment->post_name,
+					'mla_disposition' => ( 'download' === $arguments['link'] ) ? 'attachment' : 'inline',
+				);
+
+				if ( 'log' == $arguments['mla_debug'] ) {
+					$args['mla_debug'] = 'log';
+				}
+
+				$item_values['transferlink_url'] = add_query_arg( $args, admin_url( 'admin-ajax.php' ) );
+				$item_values['transferlink'] = preg_replace( '#' . $matches[0][0] . '#', sprintf( 'href=\'%1$s\'', $item_values['transferlink_url'] ), $item_values['filelink'] );
 			} else {
 				$item_values['downloadlink_url'] = $item_values['filelink_url'];
 				$item_values['downloadlink'] = $item_values['filelink'];
+				
+				$item_values['transferlink_url'] = $item_values['filelink_url'];
+				$item_values['transferlink'] = $item_values['filelink'];
 			}
 
 			switch ( $arguments['link'] ) {
@@ -1362,18 +1382,21 @@ class MLAShortcode_Support {
 				default:
 					$item_values['link'] = $item_values['filelink'];
 
-					/*
-					 * Check for link to specific (registered) file size
-					 */
+					// Check for link to specific (registered) file size, image types only
 					if ( array_key_exists( $arguments['link'], $sizes ) ) {
-						$target_file = $sizes[ $arguments['link'] ]['file'];
-						$item_values['link'] = str_replace( $file_name, $target_file, $item_values['filelink'] );
+						if ( 0 === strpos( $attachment->post_mime_type, 'image/' ) ) {
+							$target_file = $sizes[ $arguments['link'] ]['file'];
+							$item_values['link'] = str_replace( $file_name, $target_file, $item_values['filelink'] );
+						}
 					}
 			} // switch 'link'
 
-			/*
-			 * Extract target and thumbnail fields
-			 */
+			// Replace link with AJAX-based item transfer using post slug
+			if ( $arguments['mla_named_transfer'] ) {
+				$item_values['link'] = $item_values['transferlink'];
+			}
+
+			// Extract target and thumbnail fields
 			$match_count = preg_match_all( '#href=\'([^\']+)\'#', $item_values['pagelink'], $matches, PREG_OFFSET_CAPTURE );
  			if ( ! ( ( $match_count == false ) || ( $match_count == 0 ) ) ) {
 				$item_values['pagelink_url'] = $matches[1][0][0];
@@ -1386,13 +1409,6 @@ class MLAShortcode_Support {
 				$item_values['filelink_url'] = $matches[1][0][0];
 			} else {
 				$item_values['filelink_url'] = '';
-			}
-
-			$match_count = preg_match_all( '#href=\'([^\']+)\'#', $item_values['downloadlink'], $matches, PREG_OFFSET_CAPTURE );
-			if ( ! ( ( $match_count == false ) || ( $match_count == 0 ) ) ) {
-				$item_values['downloadlink_url'] = $matches[1][0][0];
-			} else {
-				$item_values['downloadlink_url'] = '';
 			}
 
 			$match_count = preg_match_all( '#href=\'([^\']+)\'#', $item_values['link'], $matches, PREG_OFFSET_CAPTURE );
@@ -1409,9 +1425,7 @@ class MLAShortcode_Support {
 			if ( ! empty( $arguments['mla_link_href'] ) ) {
 				$link_href = self::_process_shortcode_parameter( $arguments['mla_link_href'], $item_values );
 
-				/*
-				 * Replace single- and double-quote delimited values
-				 */
+				// Replace single- and double-quote delimited values
 				$item_values['link'] = preg_replace('# href=\'([^\']*)\'#', " href='{$link_href}'", $item_values['link'] );
 				$item_values['link'] = preg_replace('# href=\"([^\"]*)\"#', " href=\"{$link_href}\"", $item_values['link'] );
 			} else {
@@ -4369,6 +4383,7 @@ class MLAShortcode_Support {
 			// Taxonomy parameters are handled separately
 			// {tax_slug} => 'term' | array ( 'term', 'term', ... )
 			// 'tax_query' => ''
+			// 'tax_input' => ''
 			// 'tax_relation' => 'OR', 'AND' (default),
 			// 'tax_operator' => 'OR' (default), 'IN', 'NOT IN', 'AND',
 			// 'tax_include_children' => true (default), false
