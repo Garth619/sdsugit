@@ -653,7 +653,7 @@ echo '</ul>'; ?>
 						$sidebar = wp_get_attachment_image_src(get_field('tribal_star_sidebar_image','option'),'full');
 						echo '<img class="sidebar_program_banner" alt="' . $alt_text . '" src="' . $sidebar[0] . '"/>';
 					}
-					echo	'<a href="' . get_bloginfo('url') . '/20th-anniversary"><img style="max-width:264px"  alt="Academy For Professional Excellence Health and Human Services" class="main_page_logos afpe" src="' . get_bloginfo( 'template_directory' ) . '/images/newlogo.jpg"/></a>';
+					echo	'<a href="' . get_bloginfo('url') . '/20th-anniversary"><img style="max-width:264px"  alt="Academy For Professional Excellence Health and Human Services" class="main_page_logos afpe" src="' . get_bloginfo( 'template_directory' ) . '/images/theacademy-logo.jpg"/></a>';
 					 ?>
  
  

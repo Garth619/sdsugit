@@ -1520,6 +1520,13 @@
 		"oAP": "\/license.txt",
 		"oF": 0
 		},
+	"\/pclzip-5a28d90306ae1.gz": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/pclzip-5a28d90306ae1.gz",
+		"oF": 0
+		},
 	"\/readme.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -43510,6 +43517,16 @@
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
+		"q": 100
+		},
+	"\/wp-content\/themes\/sdsu\/images\/theacademy-logo.jpg": {
+		"ft": 16384,
+		"iS": 85889,
+		"oA": 0,
+		"oAP": "\/wp-content\/themes\/sdsu\/images\/theacademy-logo.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"q": 100
 		},
 	"\/wp-content\/themes\/sdsu\/images\/tribal-star-sidebar.png": {
@@ -98091,6 +98108,20 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215501-iK65HIY2DpPzgnAaKqbzNJR5hPI0rk.sql",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215501-iK65HIY2DpPzgnAaKqbzNJR5hPI0rk.zip": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215501-iK65HIY2DpPzgnAaKqbzNJR5hPI0rk.zip",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.sql": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.sql",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/backups\/index.php": {
