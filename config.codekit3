@@ -1527,6 +1527,13 @@
 		"oAP": "\/pclzip-5a28d90306ae1.gz",
 		"oF": 0
 		},
+	"\/pclzip-5a28da128961c.gz": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/pclzip-5a28da128961c.gz",
+		"oF": 0
+		},
 	"\/readme.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -98122,6 +98129,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.sql",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.zip": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.zip",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/backups\/index.php": {

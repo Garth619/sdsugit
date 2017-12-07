@@ -35,7 +35,7 @@ get_header(); ?>
 <?php endif; ?>
 <div class="main_inner">
 	<div class="main_col main_col_1">
-		<a href="<?php bloginfo( 'url' ); ?>/20th-anniversary"><img class="main_page_logos afpe" alt="Academy For Professional Excellence" style="max-width:264px" src="<?php bloginfo( 'template_directory' ); ?>/images/theacademy-logo.jpg"/></a>
+		<img class="main_page_logos afpe" alt="Academy For Professional Excellence" style="max-width:264px" src="<?php bloginfo( 'template_directory' ); ?>/images/theacademy-logo.jpg"/>
 <!-- 		<img class="main_page_logos" alt="San Diego State University School Social Work" src="<?php bloginfo( 'template_directory' ); ?>/images/sdsu.svg"/> -->
 		<div class="testimonial">
 			
