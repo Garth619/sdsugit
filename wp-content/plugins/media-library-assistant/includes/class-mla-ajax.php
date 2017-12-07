@@ -32,6 +32,8 @@ class MLA_Ajax {
 	 * @return	void
 	 */
 	public static function initialize() {
+		add_action( 'admin_init', 'MLA_Ajax::mla_admin_init_action' );
+
 		// Defined here because the "admin_init" action is not called for item transfers
 		if ( ( defined('DOING_AJAX') && DOING_AJAX ) && ( 'mla_named_transfer' ==  $_REQUEST['action'] ) ) {
 			add_action( 'wp_ajax_' . 'mla_named_transfer', 'MLA_Ajax::mla_named_transfer_ajax_action' );
@@ -48,11 +50,11 @@ class MLA_Ajax {
 	public static function mla_admin_init_action( ) {
 		$ajax_only = var_export( self::$ajax_only, true );
 		
-		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
-		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_POST = " . var_export( $_POST, true ), 0 );
-		//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_GET = " . var_export( $_GET, true ), 0 );
+		//error_log( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+		//error_log( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_POST = " . var_export( $_POST, true ), 0 );
+		//error_log( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_GET = " . var_export( $_GET, true ), 0 );
 		if ( $_REQUEST['action'] !== 'heartbeat' ) {
-			//error_log( __LINE__ . " DEBUG: MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+			//error_log( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
 			MLACore::mla_debug_add( __LINE__ . " MLA_Ajax::mla_admin_init_action( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 		}
 

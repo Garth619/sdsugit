@@ -3,9 +3,9 @@ Contributors: dglingren
 Donate link: http://fairtradejudaica.org/make-a-difference/donate/
 Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.9
+Tested up to: 4.9.1
 Requires PHP: 5.3
-Stable tag: 2.64
+Stable tag: 2.65
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,72 +183,18 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
-= 2.64 =
-* Fix: For `[mla_gallery]`, correct problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
-* Fix: For `[mla_gallery]`, correct problem with `mla_named_transfer` in Firefox and IE11 browsers when user is not logged in.
+= 2.65 =
+* New: The "MLA Tax Query Example" plugin has been enhanced to handle multi-column orderby parameters.
+* Fix: **Corrected an "ajax.fail error"** in the Media/Assistant "Set Parent" function and the Media/Edit Media screen.
+* Fix: For the Media/Assistant admin submenu, some taxonomy term queries have been eliminated to improve performance.
+* Fix: In the "Smart Medis Categories" example plugin, WordPress "deprecated" messages have been removed when loading the Settings screen.
 
-= 2.63 =
-* New: A **new "MLA Item Transfer Pretty Links" plugin** has been added. It allows you to generate SEO-friendly pretty links in place of MLA's default "Transfer by Item Name" links.
-* New: For `[mla_gallery]`, a new **`mla_named_transfer` parameter activates an alternate AJAX-based method** to download files or stream them to the browser. See the "Transfer by Item Name" section of the Settings/Media LIbrary Assistant Document tab for details.
-* New: For mapping rules and `[mla_gallery]`, the **"str_replace" format option** can be used to replace substrings of IPTC/EXIF metadata values, custom fields and other Data Sources with replacement strings. 
-* New: The Custom Field and IPTC/EXIF **Mapping features can be completely disabled** by unchecking the new "Enable ..." option setting on the respective Settings/Media Library Assistant tab.
-* New: The default value of the MLA_DEBUG_LEVEL constant has been changed from zero ( '0' ) to one ( '1' ), so **the Debug tab is added to the Settings/Media Library Assistant tablist by default**. You can suppress the Debug tab by adding `define( 'MLA_DEBUG_LEVEL', 0 );` to your `wp-config.php` file.
-* New: If you define an IPTC/EXIF mapping rule for a taxonomy and later remove MLA support for that taxonomy, the rule will be retained in "inactive" status. You can delete the rule if you no longer need it or set it back to "active" status if you restore MLA support for that taxonomy in the future.
-* New: The "MLA Tax Query Example" plugin has been enhanced to allow "NOT IN" terms in its taxonomy queries.
-* New: A new debug logging category has been added to support logging of WP REST API calls.
-* Fix: For `[mla_gallery]`, links to intermediate sizes are only generated for "image" MIME types, e.g., links for PDF documents go to the document file itself.
-* Fix: For the Settings/Media Library Assistant General tab, heading and subheading levels have been adjusted to make the distinction between major sections and minor subsections more distinct.
-* Fix: The "Custom Field and Attachment Metadata Processing Options" and "IPTC & EXIF Processing Options" sections of the Settings/Media Library Assistant Documentation tab have been updated to reflect the new layout and content of their respective Settings tabs.
-* Fix: In the "MLA Multisite Extensions" example plugin, a defect in handling taxonomy query arguments has been corrected.
-* Fix: When Polylang or WPML is active, a defect in mapping hierarchical taxonomy terms from metadata values has been corrected.
-* Fix: When Polylang is active, a PHP Warning message "expects parameter 2 to be array" has been corrected.
-* Fix: PHP Warning messages issued during mapping operations when no IPTC/EXIF custom field mapping rules exist have been eliminated.
-* Fix: A PHP Notice message when loading MLA Media Manager enhancements for some "front-end" use has been corrected.
-* Fix: Obsolete code for handling Settings/Media Library Assistant Custom Field and IPTC/EXIF option rendering and updating has been removed.
-
-= 2.62 =
-* Fix: A PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use has been corrected.
-
-= 2.61 =
-* New: For the Media/Assistant submenu table, the QuickTags editor can be added to the Description field of the Bulk Edit area. Check the "QuickTags editor for bulk description" box in the "Table Defaults" section on the Settings/Media Library Assistant General tab to activate this feature.
-* New: A new "MLA Custom Feed Example" plugin has been added. It allows you to configure and process custom RSS feeds for Media Library items.
-* New: A new "MLA Subscriber Media Access Example" plugin has been added. It allows "owner only" access to the Media Library for the Subscriber role.
-* New: A new "Smart Media Categories" example plugin has been added. It allows you to automatically assign taxonomy terms to Media Library items based on the terms of their parent post/page or custom post type.
-* New: A new "MLA Multisite Extensions" example plugin has been added. It provides an [mla_gallery] parameter to query multiple blogs/sites in a multisite installation.
-* New: For `[mla_gallery]`, a new `no.terms.assigned` taxonomy query option lets you <strong>find items that have no terms assigned</strong> in one or more taxonomies. Details are in the "Simple Taxonomy Parameters" and "Taxonomy Queries, the tax_query" sections of the Documentation tab.
-* New: For `[mla_term_list]`, a new `active_item_class` parameter and item-specific substitution parameter have been added. An item is "active" if it or any of its child items are the current item.
-* New: For the MLA Text Widget a new option, "Add .textwidget div tags", has been provided to control the addition of `<div class="textwidget"></div>` tags to the body of the widget. The default value is true/checked, to preserve compatibility with existing widgets.
-* New: Six new hooks have been added to the "MLA Taxonomy Filters and Actions (Hooks)". Details have been added to `/examples/plugins/mla-taxonomy-hooks-example.php`. The hooks let you modify the registration details for the Att. Categories and/or Att. Tags custom taxonomies.
-* New: New hooks, `mla_gallery_initial_item_values` and `mla_gallery_pagination_values`, have been added to the "MLA Gallery Filters and Actions (Hooks)". Details have been added to `/examples/plugins/mla-hooks-example.php`.
-* New: A new hook, `mla_taxonomy_column_final`, has been added to the "Media/Assistant Submenu Actions and Filters (Hooks)". Details have been added to `/examples/plugins/mla-list-table-hooks-example.php`.
-* New: The pdpDocs API documentation has been removed from the plugin files and moved to the plugin's web site. This reduces the plugin's space requirements while preserving access to the documentation.
-* New: A statement about custom templates and option settings being preserved over version upgrades has been added to the FAQ section.
-* Fix: For Visual Composer, a PHP Fatal Error that occurred when "Template Preview" was invoked has been eliminated.
-* Fix: For `[mla_tag_cloud]`, the `order=none` parameter is now handled correctly.
-* Fix: For `[mla_tag_cloud]`, the "no_count=true" parameter no longer generates WordPress deprecation messages.
-* Fix: Registration of the Att. Categories and Att. Tags taxonomies is now done earlier ("init" action, priority 5) so they are available for use in other theme/plugin code during the "init" action.
-* Fix: When the Media/Assistant submenu screen is displayed, the menu label is bolded when it appears in the default location, e.g., as the last submenu entry.
-* Fix: When WPML is active, **new flat taxonomy (e.g. Att, Tags) values can be created** in the Quick Edit and Bulk Edit areas as well as the ATTACHMENT DETAILS pane of the Media Manager Modal (popup) Window.
-* Fix: When WPML 3.8 or later is active, "All Languages" display is restored to the Media/Assistant admin submenu.
-* Fix: When WPML or Polylang is active, Media/Assistant submenu table columns are properly populated after a "Set Parent" table row refresh.
-* Fix: When WPML or Polylang is active, a PHP 7.X Notice regarding indirect variable evaluation has been eliminated.
-* Fix: When WPML is active, the term-specific language code has been added to the links in the "Attachments" column.
-* Fix: For the Media/Taxonomy Edit screens, the "Attachments" column gives accurate results when the WPML or Polylang current language is changed.
-* Fix: For Media/Assistant custom field table views, JSON encoding has replaced PHP serialization to avoid a security vulnerability.
-* Fix: On the Settings/Media Library Assistant Debug tab, the "OLD PHP error_log" value has been corrected.
-
-= 2.60 =
-* New: The Settings/Media Library Assistant <strong>IPTC/EXIF tab has been completely re-written</strong>, with a more WordPress-like user interface and new capabilities.
-* New: A new "MLA Login-filtered Gallery Example" plugin has been added. It provides an [mla_gallery] parameter to restrict items to logged-in users based on an Att. Categories term.
-* New: The "MLA Tax Query Example" plugin has been enhanced to filter the gallery by `author`.
-* New: The "MLA Term Links Example" plugin has been enhanced with an `[mla_tag_cloud]` compatible hyperlink format.
-* New: For the Media/Assistant submenu screen, a new "Show Primary Column File Name" settings option lets you add the file name below the item thumbnail. It is in the "Table Defaults" section of the General tab.
-* Fix: A defect in the handling of backslash characters entered in Bulk Edit Area text boxes has been corrected. A single backslash can now be used to, for example, escape the handling of content template conditional and choice elements.
-* Fix: For `[mla_term-list]`, empty lists no longer generate PHP Notice messages.
-* Fix: Media/Assistant submenu screen markup and styles updated to reflect current WordPress standards.
-* Fix: For the "Upload New Media" Bulk Edit Area, field values containing plus ('+') characters are now properly handled. 
-* Fix: Attachment metadata fields used in custom field rules, i.e., with the `meta:` field name prefix are now properly displayed in the Media/Assistant submenu table and in the Quick Edit area.
-* Fix: WordPress "Attachment Metadata", including `image_meta`, is now populated during the initial item upload process and is available for IPTC/EXIF and Custom Field mapping rules.
+= 2.60 - 2.64 =
+* 2.64 - For `[mla_gallery]`, corrects v2.63 problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
+* 2.63 - Download by name and pretty links, str_replace format option, disable mapping rules, debug tab. Eight enhancements in all, nine fixes.
+* 2.62 - Corrects a PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use.
+* 2.61 - Several new example plugins and hooks, new shortcode parameters. Thirteen enhancements in all, thirteen fixes.
+* 2.60 - Completely new Settings/IPTC/EXIF tab and example plugin enhancements. Five enhancements in all, five 
 
 = 2.50 - 2.54 =
 * 2.54 - Admin Columns/PHP 7.1.x Fix, thumbnail generation enhancements, [mla_term_list] fix and Settings/Shortcodes tab updates. Six fixes in all.
@@ -333,8 +279,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.64 =
-For `[mla_gallery]`, corrects v2.63 problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
+= 2.65 =
+Corrects an "ajax.fail error" in the Media/Assistant "Set Parent" function and the Media/Edit Media screen. One other enhancement, two other fixes.
 
 == Other Notes ==
 

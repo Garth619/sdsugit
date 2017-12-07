@@ -344,34 +344,34 @@ if ( 'heartbeat' != $_REQUEST['action'] ) {
 		$screen = get_current_screen();
 //error_log( __LINE__ . ' Smart_Media_Categories_Admin::action_load_edit_php $screen = ' . var_export( $screen, true ), 0 );
 
-		$is_smc_type = false;
-		$this->current_edit_type = 'post';
-		if ( 0 === strpos( $screen->id, 'edit-' ) ) {
-			$this->current_edit_type = substr( $screen->id, 5 );
-			$is_smc_type = SMC_Settings_Support::is_smc_post_type( $this->current_edit_type );
-		}
-		
-		if ( $is_smc_type ) {}
+		$this->current_edit_type = isset( $screen->post_type ) ? $screen->post_type : 'post';
+
 		/*
-		 * Add the "Smart Media" action to the Posts/All Posts submenu rollover actions
-		 * Add the "Children" column to the Posts/All Posts and Pages/All Pages submenus
 		 * filters/actions are in /wp-admin/includes/class-wp-posts-list-table.php
 		 * filter "views_{$this->screen->id}" is in /wp-admin/includes/class-wp-list-table.php
 		 */
-		add_filter( "views_edit-{$this->current_edit_type}", array( $this, 'filter_views_edit_post' ), 10, 1 );
+		if ( 'page' === $this->current_edit_type ) {
+			// Add the "Children" column to the Pages/All Pages submenus
+			add_filter( "manage_pages_columns", array( $this, 'filter_manage_pages_columns' ), 10, 1 );
+			add_action( "manage_pages_custom_column", array( $this, 'action_manage_pages_custom_column' ), 10, 2 );
+		} elseif ( SMC_Settings_Support::is_smc_post_type( $this->current_edit_type ) ) {
+			// Add the Sync and Unsync views to the Posts/All Posts submenu
+			add_filter( "views_edit-{$this->current_edit_type}", array( $this, 'filter_views_edit_post' ), 10, 1 );
 
-		add_filter( "post_row_actions", array( $this, 'filter_post_row_actions' ), 10, 2 );
-		add_filter( "manage_posts_columns", array( $this, 'filter_manage_posts_columns' ), 10, 1 );
-		add_action( "manage_posts_custom_column", array( $this, 'action_manage_posts_custom_column' ), 10, 2 );
-		
-		add_filter( "manage_pages_columns", array( $this, 'filter_manage_pages_columns' ), 10, 1 );
-		add_action( "manage_pages_custom_column", array( $this, 'action_manage_pages_custom_column' ), 10, 2 );
-		
-		if ( isset( $_REQUEST['smc_message'] ) ) {
-			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_bulk_post_updated_messages' ), 10, 2 );
-		}
-
-		add_filter( 'posts_clauses', array( $this, 'filter_posts_clauses' ), 10, 2 );
+			// Add the Smart Media rollover action to the Posts/All Posts items
+			add_filter( "post_row_actions", array( $this, 'filter_post_row_actions' ), 10, 2 );
+			
+			// Add the "Children" column to the Posts/All Posts and Pages/All Pages submenus
+			add_filter( "manage_posts_columns", array( $this, 'filter_manage_posts_columns' ), 10, 1 );
+			add_action( "manage_posts_custom_column", array( $this, 'action_manage_posts_custom_column' ), 10, 2 );
+			
+			// Add support for filtering on Sync/Unsync status
+			add_filter( 'posts_clauses', array( $this, 'filter_posts_clauses' ), 10, 2 );
+			
+			if ( isset( $_REQUEST['smc_message'] ) ) {
+				add_filter( 'bulk_post_updated_messages', array( $this, 'filter_bulk_post_updated_messages' ), 10, 2 );
+			}
+		} // is_smc_post_type
 	}
 
 	/**

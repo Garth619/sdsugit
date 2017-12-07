@@ -1425,6 +1425,9 @@ class MLASettings {
 			'Debug Settings' => __( 'Debug Settings', 'media-library-assistant' ),
 			'settings_list' => $settings_list,
 			'Error Log' => __( 'Error Log', 'media-library-assistant' ),
+			/* translators: 1: Documentation hyperlink */
+			'You can find' => sprintf( __( 'You can find more information about the MLA Reporting/MLA_DEBUG_LEVEL values in the %1$s section of the Documentation tab.', 'media-library-assistant' ), '<a href="[+settingsURL+]?page=mla-settings-menu-documentation&amp;mla_tab=documentation#mla_debug_tab" title="' . __( 'MLA Debug Tab documentation', 'media-library-assistant' ) . '" target="_blank">' . __( 'MLA Debug Tab', 'media-library-assistant' ) . '</a>' ),
+			'settingsURL' => admin_url('options-general.php'),
 			'Error Log Name' => $error_log_name,
 			'Error Log Size' => number_format( (float) $error_log_size ),
 			'error_log_text' => $error_log_contents,

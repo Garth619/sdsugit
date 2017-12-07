@@ -725,7 +725,6 @@ class MLAQuery {
 				case 'exact':
 				case 'mla-tax':
 				case 'mla-term':
-//					$clean_request[ $key ] = sanitize_key( $value );
 					$clean_request[ $key ] = sanitize_title_for_query( $value );
 					break;
 				case 'orderby':
@@ -876,6 +875,15 @@ class MLAQuery {
 							$clean_request[ $key ] = json_decode( stripslashes( $value ), true );
 							unset( $clean_request[ $key ]['slug'] );
 						} // not array
+					}
+
+					break;
+				// boolean values, default true
+				case 'cache_results':
+				case 'update_post_meta_cache':
+				case 'update_post_term_cache':
+					if ( ! empty( $value ) && ( 'true' != strtolower( $value ) ) ) {
+						$clean_request[ $key ] = false;
 					}
 
 					break;

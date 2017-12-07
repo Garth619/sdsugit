@@ -135,6 +135,7 @@
     <table class="optiontable">
 [+options_list+]
 	</table>
+<p>[+You can find+]</p>
 <h3>[+Debug Settings+]</h3>
     <table class="optiontable">
 [+settings_list+]

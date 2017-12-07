@@ -14,7 +14,7 @@
  * Plugin Name: Smart Media Categories
  * Plugin URI:  http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
  * Description: Assigns taxonomy terms to Media Library items based on the terms of their parent post/page.
- * Version:     1.1.1
+ * Version:     1.1.2
  * Author:      David Lingren
  * Author URI:  http://fairtradejudaica.org/our-story/staff/
  * Text Domain: smart-media-categories

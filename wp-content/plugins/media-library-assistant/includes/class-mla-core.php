@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.64';
+	const CURRENT_MLA_VERSION = '2.65';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -1128,7 +1128,13 @@ class MLACore {
 	 * @return	array	post_mime_type specification or custom field query
 	 */
 	public static function mla_prepare_view_query( $slug, $specification ) {
-		$query = array ( );
+		// For this query we don't need to cache anything, since we won't access the items themselves
+		$query = array (
+			'cache_results' => 'false',
+			'update_post_meta_cache' => 'false',
+			'update_post_term_cache' => 'false',
+		);
+		
 		$specification = self::mla_parse_view_specification( $specification );
 		if ( 'mime' == $specification['prefix'] ) {
 			$query['post_mime_type'] = $specification['value'];
@@ -1140,9 +1146,7 @@ class MLACore {
 					foreach ( (array) $patterns as $pattern ) {
 						$pattern = preg_replace( '/\*+/', '%', $pattern );
 						if ( false !== strpos( $pattern, '%' ) ) {
-							/*
-							 * Preserve the pattern - it will be used in the "where" filter
-							 */
+							// Preserve the pattern - it will be used in the "where" filter
 							$meta_query['patterns'][] = $pattern;
 							$meta_query[] = array( 'key' => $specification['name'], 'value' => $pattern, 'compare' => 'LIKE' );
 						} else {

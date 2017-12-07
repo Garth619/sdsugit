@@ -161,7 +161,6 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 <li><a href="#custom_field_rule_elements">The custom field rule elements</a></li>
 <li><a href="#attachment_metadata_mapping">Adding or Changing Attachment Metadata</a></li>
 <li><a href="#custom_field_mapping_with_templates">Custom field mapping with Content Templates</a></li>
-<li><a href="#other_custom_field_mapping">Other mapping techniques</a></li>
 </ul>
 <li>
 <a href="#mla_iptc_exif_mapping"><strong>IPTC &amp; EXIF Processing Options</strong></a>
@@ -171,7 +170,6 @@ For more information about the example plugins, jump to <a href="#mla_example_pl
 <li><a href="#iptc_exif_mapping_tables">The IPTC/EXIF rule elements</a></li>
 <li><a href="#iptc_exif_mapping_with_templates">EXIF/Template mapping with Content Templates</a></li>
 <li><a href="#pdf_iptc_exif_mapping">IPTC/EXIF Mapping for PDF Documents</a></li>
-<li><a href="#other_iptc_exif_mapping">Other mapping techniques</a></li>
 <li><a href="#wordpress_default_mapping">WordPress default title, slug and description mapping</a></li>
 </li>
 </ul>
@@ -5972,7 +5970,7 @@ These commands process your items in "chunks" to prevent timeout errors. You can
 <p>There are two other ways you can perform custom field mapping for one or more existing attachments: 
 <ul class="mla_settings">
 <li><strong>Edit Media screen</strong> - You can click the "Map Custom Field metadata" link in the "Image Metadata" postbox to apply the existing mapping rules to a single attachment.</li>
-<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen.</li>
+<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen. Check the attachments you want to map, select "Edit" from the Bulk Actions dropdown list and click "Apply". The bulk edit area will open with a list of the checked attachments in the left-hand column. You can click the "Map Custom Field metadata" button in the lower left corner of the area to apply the existing mapping rules to the attachments in the list.</li>
 </ul>
 </p>
 <p>
@@ -6258,21 +6256,6 @@ Using a template with the Option Dropdown "Text" or "Single" values will yield a
 <p>
 <strong>CAUTION:</strong> If you use the <code>[+custom:ALL_CUSTOM+]</code> pseudo value in a mapping rule, and you apply the rule more than once, you will see copies of the field you are mapping to in the result. To "clear out" a field you are mapping ALL_CUSTOM into, clear out the text box containing the template, select "Replace" and check the "Delete NULL values" box. Then, click "Map All Attachments"; that will delete the old values and give you a clean start. You'll also see that the template you deleted will be restored after the mapping is complete.
 </p>
-<a name="other_custom_field_mapping"></a>&nbsp;
-<p>
-<a href="#backtotop">Go to Top</a>
-</p>
-<h4>Other mapping techniques</h4>
-<p>
-There are two other ways you can perform custom field mapping for one or more existing attachments:
-<dl>
-<dt>Edit Media screen</dt>
-<dd>You can click the "Map Custom Field metadata" link in the "Image Metadata" postbox to apply the existing mapping rules to a single attachment.
-</dd>
-<dt>Bulk Action edit area</dt>
-<dd>To perform mapping for a group of attachments you can use the Bulk Action facility on the main Assistant screen. Check the attachments you want to map, select "edit" from the Bulk Actions dropdown list and click "Apply". The bulk edit area will open with a list of the checked attachments in the left-hand column. You can click the "Map Custom Field metadata" button in the lower left corner of the area to apply the existing mapping rules to the attachments in the list.
-</dd>
-</dl>
 <a name="mla_iptc_exif_mapping"></a>&nbsp;
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -6304,7 +6287,7 @@ These commands process your items in "chunks" to prevent timeout errors. You can
 <p>There are two other ways you can perform IPTC/EXIF mapping for one or more existing attachments: 
 <ul class="mla_settings">
 <li><strong>Edit Media screen</strong> - You can click the "Map IPTC/EXIF metadata" link in the "Image Metadata" postbox to apply the existing mapping rules to a single attachment.</li>
-<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen.</li>
+<li><strong>Bulk Action edit area</strong> - To perform mapping for a group of attachments you can use the Bulk Action facility on the Media/Assistant screen. Check the attachments you want to map, select "Edit" from the Bulk Actions dropdown list and click "Apply". The bulk edit area will open with a list of the checked attachments in the left-hand column. You can click the "Map IPTC/EXIF metadata" button in the lower left corner of the area to apply the standing mapping rules to the attachments in the list.</li>
 </ul>
 </p>
 <p>Three checkbox options control the IPTC/EXIF mapping when new items are added to the Media Library:
@@ -6559,22 +6542,6 @@ The three rules have similar changes:
 </li>
 </ul>
 In fact, WordPress contains its own rules for composing a Title from IPTC/Exif metadata (see <a href="#wordpress_default_mapping">WordPress default title, slug and description mapping</a>), so you may not need or want to extend the Title rule. WordPress also fills the Description field, but does not fill the Caption. You may want to copy the Description into the Caption; if you do, replace <code>[+exif:ImageDescription+]</code> with <code>[+post_content+]</code> in the Caption rule.
-</p>
-<a name="other_iptc_exif_mapping"></a>&nbsp;
-<p>
-<a href="#backtotop">Go to Top</a>
-</p>
-<h4>Other mapping techniques</h4>
-<p>
-There are two other ways you can perform metadata mapping to one or more existing Media Library images:
-<dl>
-<dt>Edit Media screen</dt>
-<dd>You can click the "Map IPTC/EXIF metadata" link in the "Image Metadata" postbox to apply the standing mapping rules to a single attachment.
-</dd>
-<dt>Bulk Action edit area</dt>
-<dd>To perform mapping for a group of attachments you can use the Bulk Action facility on the main Assistant screen. Check the attachments you want to map, select "edit" from the Bulk Actions dropdown list and click "Apply". The bulk edit area will open with a list of the checked attachments in the left-hand column. You can click the "Map IPTC/EXIF metadata" button in the lower left corner of the area to apply the standing mapping rules to the attachments in the list.
-</dd>
-</dl>
 </p>
 <a name="wordpress_default_mapping"></a>&nbsp;
 <p>
