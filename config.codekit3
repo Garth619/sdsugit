@@ -5214,6 +5214,16 @@
 		"sC": 1,
 		"tS": 0
 		},
+	"\/wp-admin\/js\/theme-min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/wp-admin\/js\/theme-min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"\/wp-admin\/js\/theme-plugin-editor.js": {
 		"ft": 64,
 		"ma": 0,
@@ -5240,6 +5250,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/wp-admin\/js\/theme-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/wp-admin\/js\/theme.min-min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/wp-admin\/js\/theme.min-min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -6265,13 +6285,6 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/index.php",
-		"oF": 0
-		},
-	"\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/advanced-custom-fields-pro\/acf.php": {
@@ -98071,6 +98084,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20160824-202139-YsRDG3oZWTBa3sRM4OZAfcHe8Der1R.zip",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215501-iK65HIY2DpPzgnAaKqbzNJR5hPI0rk.sql": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215501-iK65HIY2DpPzgnAaKqbzNJR5hPI0rk.sql",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/backups\/index.php": {
