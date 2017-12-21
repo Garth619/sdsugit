@@ -37,7 +37,7 @@ get_header(); ?>
 	<div class="main_col main_col_1">
 		<img class="main_page_logos afpe" alt="Academy For Professional Excellence" style="max-width:264px" src="<?php bloginfo( 'template_directory' ); ?>/images/theacademy-logo.jpg"/>
 <!-- 		<img class="main_page_logos" alt="San Diego State University School Social Work" src="<?php bloginfo( 'template_directory' ); ?>/images/sdsu.svg"/> -->
-		<div class="testimonial">
+		<div class="testimonial" style="display: none">
 			
 			
 			
@@ -74,6 +74,9 @@ get_header(); ?>
 				
 			
 		</div><!-- testimonial -->
+		
+		<img class="conf_gif" src="<?php bloginfo('template_directory');?>/images/nswm-2018-conference-002.gif"/>
+		
 	</div><!-- main col -->
 	<div class="main_col main_col_2">
 		<h1>Areas of Service</h1>

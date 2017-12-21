@@ -1520,18 +1520,11 @@
 		"oAP": "\/license.txt",
 		"oF": 0
 		},
-	"\/pclzip-5a28d90306ae1.gz": {
+	"\/pclzip-5a3be0bde7682.gz": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/pclzip-5a28d90306ae1.gz",
-		"oF": 0
-		},
-	"\/pclzip-5a28da128961c.gz": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/pclzip-5a28da128961c.gz",
+		"oAP": "\/pclzip-5a3be0bde7682.gz",
 		"oF": 0
 		},
 	"\/readme.html": {
@@ -6299,6 +6292,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/index.php",
+		"oF": 0
+		},
+	"\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/advanced-custom-fields-pro\/acf.php": {
@@ -43122,6 +43122,14 @@
 		"opt": 0,
 		"oT": 1,
 		"q": 100
+		},
+	"\/wp-content\/themes\/sdsu\/images\/nswm-2018-conference-002.gif": {
+		"ft": 4194304,
+		"iS": 319298,
+		"oA": 0,
+		"oAP": "\/wp-content\/themes\/sdsu\/images\/nswm-2018-conference-002.gif",
+		"oF": 0,
+		"opt": 0
 		},
 	"\/wp-content\/themes\/sdsu\/images\/opac.png": {
 		"ft": 32768,
@@ -97509,6 +97517,13 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2017\/12\/BHETA-SFBT-FLYER-Fall-2017.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/BHETA-SFBT-FLYER-Fall-2017.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2017\/12\/CATCCSCOURTForum-150x150.jpg": {
 		"ft": 16384,
 		"iS": 8245,
@@ -97568,6 +97583,55 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/12\/cbtseries-2018-01-11.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/cbtseries-2018-01-11.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/complex-parent-child-interactions-flyer-2018-02-23.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/complex-parent-child-interactions-flyer-2018-02-23.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/complex-parent-child-interactions-outline-2018-02-23.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/complex-parent-child-interactions-outline-2018-02-23.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/core-practice-model-flyer-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/core-practice-model-flyer-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/dbt-training-outline-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/dbt-training-outline-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/gct-intro-flyer-spring-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/gct-intro-flyer-spring-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/gct-outline-for-introductory-revised-2017-12-13.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/gct-outline-for-introductory-revised-2017-12-13.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/12\/geriatric-flyer-booster-substance-use-2018-01-16.pdf": {
 		"cB": 0,
@@ -97815,6 +97879,20 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2017\/12\/Opioid-Epidemic-Webinar.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/Opioid-Epidemic-Webinar.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-6-8-17.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-6-8-17.pdf",
+		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {
 		"cB": 0,
@@ -98136,6 +98214,27 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171206-215905-6rIiKpf3f523x9Ey3TTUTAethc66bU.zip",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-081944-Ixc2I47VmxNqbleOkWmzShBILElrWP.sql": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-081944-Ixc2I47VmxNqbleOkWmzShBILElrWP.sql",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-081944-Ixc2I47VmxNqbleOkWmzShBILElrWP.zip": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-081944-Ixc2I47VmxNqbleOkWmzShBILElrWP.zip",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-082339-SAIgt4q4rp49We3iLZ8yqS27eHFhU1.sql": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/ithemes-security\/backups\/backup-academy-for-professi-20171221-082339-SAIgt4q4rp49We3iLZ8yqS27eHFhU1.sql",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/backups\/index.php": {
