@@ -35011,203 +35011,203 @@
 		"oAP": "\/wp-content\/plugins\/wordpress-seo\/admin\/watchers\/class-slug-change-watcher.php",
 		"oF": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/admin-global-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/adminbar-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/alerts-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/dashboard-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/edit-page-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/featured-image-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/filter-explanation-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/inside-editor-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/metabox-primary-category-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
@@ -35221,143 +35221,143 @@
 		"oF": 0,
 		"oS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/snippet-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/toggle-switch-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/wpseo-dismissible-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-components-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yoast-extensions-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_plugin_tools-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-591-rtl.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-600-rtl.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-591-rtl.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-600-rtl.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-591.min.css": {
+	"\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-600.min.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-591.min-min.css",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/css\/dist\/yst_seo_score-600.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
@@ -35410,6 +35410,13 @@
 		"oAP": "\/wp-content\/plugins\/wordpress-seo\/frontend\/class-breadcrumbs.php",
 		"oF": 0
 		},
+	"\/wp-content\/plugins\/wordpress-seo\/frontend\/class-frontend-page-type.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/frontend\/class-frontend-page-type.php",
+		"oF": 0
+		},
 	"\/wp-content\/plugins\/wordpress-seo\/frontend\/class-frontend.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -35450,6 +35457,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/plugins\/wordpress-seo\/frontend\/class-twitter.php",
+		"oF": 0
+		},
+	"\/wp-content\/plugins\/wordpress-seo\/frontend\/class-woocommerce-shop-page.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/frontend\/class-woocommerce-shop-page.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/wordpress-seo\/frontend\/index.php": {
@@ -36134,22 +36148,22 @@
 		"oAP": "\/wp-content\/plugins\/wordpress-seo\/index.php",
 		"oF": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/commons-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/commons-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/commons-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/commons-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/configuration-wizard-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/configuration-wizard-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/configuration-wizard-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/configuration-wizard-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -36714,222 +36728,222 @@
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-global-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-global-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-global-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-global-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-gsc-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-gsc-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-gsc-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-gsc-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-media-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-media-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-media-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-admin-media-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-api-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-api-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-api-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-api-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-babel-polyfill-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-babel-polyfill-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-babel-polyfill-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-babel-polyfill-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-bulk-editor-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-bulk-editor-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-bulk-editor-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-bulk-editor-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dashboard-widget-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dashboard-widget-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dashboard-widget-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dashboard-widget-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dismissible-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dismissible-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dismissible-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-dismissible-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-edit-page-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-edit-page-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-edit-page-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-edit-page-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-featured-image-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-featured-image-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-featured-image-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-featured-image-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-filter-explanation-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-filter-explanation-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-filter-explanation-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-filter-explanation-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-help-center-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-help-center-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-help-center-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-help-center-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-category-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-category-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-category-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-metabox-category-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-post-scraper-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-post-scraper-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-post-scraper-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-post-scraper-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-quick-edit-handler-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-quick-edit-handler-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-quick-edit-handler-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-quick-edit-handler-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-recalculate-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-recalculate-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-recalculate-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-recalculate-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-reindex-links-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-reindex-links-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-reindex-links-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-reindex-links-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-replacevar-plugin-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-replacevar-plugin-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-replacevar-plugin-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-replacevar-plugin-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-shortcode-plugin-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-shortcode-plugin-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-shortcode-plugin-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-shortcode-plugin-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-term-scraper-591.min.js": {
+	"\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-term-scraper-600.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-term-scraper-591.min-min.js",
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/js\/dist\/wp-seo-term-scraper-600.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -37625,6 +37639,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/wp-content\/plugins\/wordpress-seo\/languages\/yoast-components-tr_TR-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/wp-content\/plugins\/wordpress-seo\/languages\/yoast-components-zh_CN.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/wp-content\/plugins\/wordpress-seo\/languages\/yoast-components-zh_CN-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
@@ -97885,6 +97907,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2017\/12\/Opioid-Epidemic-Webinar.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2017\/12\/tribal-star-NOV-DEC-newsletterFINAL.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2017\/12\/tribal-star-NOV-DEC-newsletterFINAL.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2017\/12\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-6-8-17.pdf": {
