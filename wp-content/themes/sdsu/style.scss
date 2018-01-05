@@ -6645,7 +6645,12 @@ ul.tribe-events-sub-nav li a {
 }
 
 
-
+table.white_table {
+	border:none;
+	tr:nth-of-type(odd) {
+		background: #fff;
+	}
+}
   
   
   
