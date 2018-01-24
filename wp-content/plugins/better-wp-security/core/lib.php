@@ -1024,6 +1024,37 @@ final class ITSEC_Lib {
 		return date_i18n( $format, strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $timestamp ) ) ) );
 	}
 
+	/**
+	 * Get the value of an option directly from the database, bypassing any caching.
+	 *
+	 * @param string $option
+	 *
+	 * @return array|mixed
+	 */
+	public static function get_uncached_option( $option ) {
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$storage = array();
+
+		if ( is_multisite() ) {
+			$network_id = get_current_site()->id;
+			$row        = $wpdb->get_row( $wpdb->prepare( "SELECT meta_value FROM $wpdb->sitemeta WHERE meta_key = %s AND site_id = %d", $option, $network_id ) );
+
+			if ( is_object( $row ) ) {
+				$storage = maybe_unserialize( $row->meta_value );
+			}
+		} else {
+			$row = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option ) );
+
+			if ( is_object( $row ) ) {
+				$storage = maybe_unserialize( $row->option_value );
+			}
+		}
+
+		return $storage;
+	}
+
 	public static function array_get( $array, $key, $default = null ) {
 
 		if ( ! is_array( $array ) ) {
@@ -1051,5 +1082,48 @@ final class ITSEC_Lib {
 		}
 
 		return $array;
+	}
+
+	/**
+	 * Check if WP Cron appears to be running properly.
+	 *
+	 * @return bool
+	 */
+	public static function is_cron_working() {
+		$working = ITSEC_Modules::get_setting( 'global', 'cron_status' );
+
+		return $working === 1;
+	}
+
+	/**
+	 * Should we be using Cron.
+	 *
+	 * @return bool
+	 */
+	public static function use_cron() {
+		return ITSEC_Modules::get_setting( 'global', 'use_cron' );
+	}
+
+	/**
+	 * Schedule a test to see if a user should be suggested to enable the Cron scheduler.
+	 */
+	public static function schedule_cron_test() {
+
+		if ( defined( 'ITSEC_DISABLE_CRON_TEST' ) && ITSEC_DISABLE_CRON_TEST ) {
+			return;
+		}
+
+		$crons = _get_cron_array();
+
+		foreach ( $crons as $timestamp => $cron ) {
+			if ( isset( $cron['itsec_cron_test'] ) ) {
+				return;
+			}
+		}
+
+		// Get a random time in the next 6-18 hours on a random minute.
+		$time = ITSEC_Core::get_current_time_gmt() + mt_rand( 6, 18 ) * HOUR_IN_SECONDS + mt_rand( 1, 60 ) * MINUTE_IN_SECONDS;
+		wp_schedule_single_event( $time, 'itsec_cron_test', array( $time ) );
+		ITSEC_Modules::set_setting( 'global', 'cron_test_time', $time );
 	}
 }

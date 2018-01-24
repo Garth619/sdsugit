@@ -25,7 +25,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @access private
 		 */
-		private $plugin_build = 4078;
+		private $plugin_build = 4080;
 
 		/**
 		 * Used to distinguish between a user modifying settings and the API modifying settings (such as from Sync
@@ -42,6 +42,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$itsec_files,
 			$itsec_notify,
 			$notifications,
+			$scheduler,
 			$sync_api,
 			$plugin_file,
 			$plugin_dir,
@@ -119,10 +120,16 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			require( $this->plugin_dir . 'core/lib/class-itsec-lib-user-activity.php' );
 			require( $this->plugin_dir . 'core/lib/class-itsec-lib-password-requirements.php' );
 
+			require( $this->plugin_dir . 'core/lib/class-itsec-scheduler.php' );
+			require( $this->plugin_dir . 'core/lib/class-itsec-job.php' );
+
+			$this->setup_scheduler();
+
 			$this->itsec_files = ITSEC_Files::get_instance();
 			$this->itsec_notify = new ITSEC_Notify();
 			$itsec_logger = new ITSEC_Logger();
-			$itsec_lockout = new ITSEC_Lockout( $this );
+			$itsec_lockout = new ITSEC_Lockout();
+			$itsec_lockout->run();
 
 			// Handle upgrade if needed.
 			if ( ITSEC_Modules::get_setting( 'global', 'build' ) < $this->plugin_build ) {
@@ -143,11 +150,8 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			add_action( 'ithemes_sync_register_verbs', array( $this, 'register_sync_verbs' ) );
 
-			if ( ! wp_next_scheduled( 'itsec_clear_locks' ) ) {
-				wp_schedule_event( time(), 'daily', 'itsec_clear_locks' );
-			}
-
-			add_action( 'itsec_clear_locks', array( 'ITSEC_Lib', 'delete_expired_locks' ) );
+			add_action( 'itsec_scheduler_register_events', array( $this, 'register_events' ) );
+			add_action( 'itsec_scheduled_clear-locks', array( 'ITSEC_Lib', 'delete_expired_locks' ) );
 		}
 
 		/**
@@ -168,7 +172,30 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				$pass_requirements->run();
 			}
 
+			if ( defined( 'ITSEC_USE_CRON' ) && ITSEC_USE_CRON !== ITSEC_Lib::use_cron() ) {
+				ITSEC_Modules::set_setting( 'global', 'use_cron', ITSEC_USE_CRON );
+			}
+
 			do_action( 'itsec_initialized' );
+		}
+
+		private function setup_scheduler() {
+
+			$choices = array(
+				'ITSEC_Scheduler_Cron'      => $this->plugin_dir . 'core/lib/class-itsec-scheduler-cron.php',
+				'ITSEC_Scheduler_Page_Load' => $this->plugin_dir . 'core/lib/class-itsec-scheduler-page-load.php',
+			);
+
+			if ( ITSEC_Lib::use_cron() ) {
+				$class = 'ITSEC_Scheduler_Cron';
+			} else {
+				$class = 'ITSEC_Scheduler_Page_Load';
+			}
+
+			require_once( $choices[ $class ] );
+
+			$this->scheduler = new $class();
+			self::get_scheduler()->run();
 		}
 
 		/**
@@ -210,6 +237,24 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Set the scheduler to use.
+		 *
+		 * @param ITSEC_Scheduler $scheduler
+		 */
+		public static function set_scheduler( ITSEC_Scheduler $scheduler ) {
+			self::get_instance()->scheduler = $scheduler;
+		}
+
+		/**
+		 * Get the scheduler.
+		 *
+		 * @return ITSEC_Scheduler
+		 */
+		public static function get_scheduler() {
+			return self::get_instance()->scheduler;
+		}
+
+		/**
 		 * Retrieve the global instance of the Sync API.
 		 *
 		 * The API is not available until iThemes Sync verbs have been registered ( init#11 ).
@@ -231,6 +276,15 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$this->sync_api = $sync_api;
 
 			$sync_api->register( 'itsec-get-everything', 'Ithemes_Sync_Verb_ITSEC_Get_Everything', dirname( __FILE__ ) . '/sync-verbs/itsec-get-everything.php' );
+		}
+
+		/**
+		 * Register events.
+		 *
+		 * @param ITSEC_Scheduler $scheduler
+		 */
+		public function register_events( $scheduler ) {
+			$scheduler->schedule( ITSEC_Scheduler::S_DAILY, 'clear-locks' );
 		}
 
 		/**

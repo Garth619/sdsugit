@@ -4596,7 +4596,7 @@ class MLAShortcode_Support {
 								}
 
 								if ( isset( $tax_query_element['terms'] ) && is_array( $tax_query_element['terms'] ) && in_array( 'no.terms.assigned', $tax_query_element['terms'] ) ) {
-									$tax_query[ $tax_query_key ]['terms'] = get_terms( $tax_query_taxonomy, array(
+									$tax_query[ $tax_query_key ]['terms'] = MLAQuery::mla_wp_get_terms( $tax_query_taxonomy, array(
 										'fields' => 'ids',
 										'hide_empty' => false
 									) );
@@ -4681,7 +4681,7 @@ class MLAShortcode_Support {
 					}
 
 					if ( 'no.terms.assigned' === $value ) {
-						$term_list = get_terms( $key, array(
+						$term_list = MLAQuery::mla_wp_get_terms( $key, array(
 							'fields' => 'ids',
 							'hide_empty' => false
 						) );

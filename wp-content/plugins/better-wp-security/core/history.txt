@@ -598,3 +598,27 @@
 	Bug Fix: Fixed source of the following warning: "mysql_real_escape_string() expects parameter 1 to be string, object given".
 3.9.4 - 2017-11-06 - Chris Jean & Timothy Jacobs
 	Bug Fix: Don't display file change admin notifications if the Notify Admin setting is not enabled.
+3.9.5 - 2017-11-27 - Chris Jean & Timothy Jacobs
+	Enhancement: Preserve notification settings when the responsible module is deactivated.
+	Bug Fix: Process 404 lockouts on the 'wp' hook to prevent a headers have already been sent warning message.
+	Bug Fix: Ensure Hide Backend emails are properly sent when activating Hide Backend before saving the Notification Center for the first time.
+	Bug Fix: Prevent warning from being issued on new installs by allowing previous settings to be preserved if they exist.
+	Bug Fix: Better handle WP_Error objects in mail errors that occurred before updating to first patch release.
+	Bug Fix: A non static method was being called statically.
+4.0.0 - 2017-12-07 - Chris Jean & Timothy Jacobs
+	New Feature: Introduces a scheduling framework for handling events. Cron is now used by default, and will switch to using an alternate scheduling system if it detects an error. To disable this detection set ITSEC_DISABLE_CRON_TEST in your wp-config.php file.
+	Important: The ITSEC_FILE_CHECK_CRON and ITSEC_BACKUP_CRON constants have been deprecated. Use ITSEC_USE_CRON instead.
+	Bug Fix: Fix occasional duplicate backups and file scans.
+4.0.1 - 2017-12-11 - Chris Jean & Timothy Jacobs
+	Bug Fix: Fixed issue where scheduled events could repeat on sites that do not properly support WordPress's cron system.
+4.0.2 - 2017-12-28 - Chris Jean & Timothy Jacobs
+	Bug Fix: Make Cron scheduler available in more circumstances.
+	Bug Fix: Events with the Twice Daily schedule would not be carried over when switching scheduler strategies.
+	Bug Fix: Backup schedules respect the interval chosen.
+	Bug Fix: Prevent multiple cron tests from being scheduled at once.
+	Bug Fix: Cron test being stuck in a loop preventing a site from switching back to the cron scheduler.
+	Bug Fix: Prevent warnings when a single and recurring event were scheduled at the same time.
+4.0.3 - 2017-01-04 - Chris Jean & Timothy Jacobs
+	Bug Fix: Fix scheduling retries for Malware Scans on sites that don't fully support WordPress's cron system.
+	Bug Fix: Reactivating Away Mode now replaces the active file if you had previously removed it.
+	Bug Fix: Ensure lockouts take effect immediately, even on systems where changes to server configuration files do not take effect immediately.

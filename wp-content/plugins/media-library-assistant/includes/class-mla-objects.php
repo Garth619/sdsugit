@@ -56,6 +56,7 @@ class MLAObjects {
 				'hierarchical' => true,
 				'labels' => $labels,
 				'show_ui' => true,
+				'show_admin_column' => true,
 				'query_var' => true,
 				'rewrite' => true,
 				'update_count_callback' => '_update_generic_term_count'
@@ -85,12 +86,13 @@ class MLAObjects {
 			) );
 
 			$args = apply_filters( 'mla_attachment_tag_arguments', array(
-				  'hierarchical' => false,
-				  'labels' => $labels,
-				  'show_ui' => true,
-				  'query_var' => true,
-				  'rewrite' => true,
-				  'update_count_callback' => '_update_generic_term_count'
+				'hierarchical' => false,
+				'labels' => $labels,
+				'show_ui' => true,
+				'show_admin_column' => true,
+				'query_var' => true,
+				'rewrite' => true,
+				'update_count_callback' => '_update_generic_term_count'
 			) );
 
 			register_taxonomy( 'attachment_tag', $object_type, $args );

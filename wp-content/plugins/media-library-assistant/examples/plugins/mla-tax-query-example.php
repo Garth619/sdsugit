@@ -54,7 +54,7 @@
  * https://wordpress.org/support/topic/504-time-out-issue/
  *
  * @package MLA tax query Example
- * @version 1.07
+ * @version 1.08
  */
 
 /*
@@ -62,7 +62,7 @@ Plugin Name: MLA tax query Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Replaces the WP_Query tax_query with a more efficient, direct SQL query
 Author: David Lingren
-Version: 1.07
+Version: 1.08
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2013 - 2017 David Lingren
@@ -345,10 +345,10 @@ class MLATaxQueryExample {
 			foreach ( $slugs as $slug ) {
 				if ( 0 === strpos( $slug, '/' ) ) {
 					$args = array( 'slug' => substr( $slug, 1 ), 'hide_empty' => false );
-					$excludes = array_merge( $excludes, get_terms( $taxonomy, $args ) );
+					$excludes = array_merge( $excludes, MLAQuery::mla_wp_get_terms( $taxonomy, $args ) );
 				} else {
 					$args = array( 'slug' => $slug, 'hide_empty' => false );
-					$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+					$terms = array_merge( $terms, MLAQuery::mla_wp_get_terms( $taxonomy, $args ) );
 				}
 			}
 
@@ -358,7 +358,7 @@ class MLATaxQueryExample {
 
 				if ( $include_children ) {
 					$args = array( 'child_of' => $term->term_id, 'hide_empty' => false );
-					$children = get_terms( 'attachment_category', $args );
+					$children = MLAQuery::mla_wp_get_terms( 'attachment_category', $args );
 					foreach( $children as $child ) {
 						$include_ttids[] = $child->term_taxonomy_id;
 					}
@@ -371,7 +371,7 @@ class MLATaxQueryExample {
 
 				if ( $include_children ) {
 					$args = array( 'child_of' => $exclude->term_id, 'hide_empty' => false );
-					$children = get_terms( 'attachment_category', $args );
+					$children = MLAQuery::mla_wp_get_terms( 'attachment_category', $args );
 					foreach( $children as $child ) {
 						$exclude_ttids[] = $child->term_taxonomy_id;
 					}

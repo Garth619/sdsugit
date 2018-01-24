@@ -3961,7 +3961,7 @@ class MLAData {
 							continue;
 						}
 		
-						$_term = get_terms( $taxonomy, array(
+						$_term = MLAQuery::mla_wp_get_terms( $taxonomy, array(
 							'name' => $tag,
 							'fields' => 'ids',
 							'hide_empty' => false,

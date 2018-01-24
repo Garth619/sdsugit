@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.65';
+	const CURRENT_MLA_VERSION = '2.70';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -103,6 +103,15 @@ class MLACore {
 	 * @var	integer
 	 */
 	const MLA_DEBUG_CATEGORY_REST = 0x00000020;
+
+	/**
+	 * Constant to log where-used activity
+	 *
+	 * @since 2.41
+	 *
+	 * @var	integer
+	 */
+	const MLA_DEBUG_CATEGORY_WHERE_USED = 0x00000040;
 
 	/**
 	 * Slug for adding plugin submenu

@@ -1220,15 +1220,17 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 	 * @return	integer	term_id for the term name
 	 */
 	private static function _get_term_id( $term_name, $term_parent, $taxonomy, &$post_terms ) {
-		static $term_cache = array();
+		static $term_cache = array(); // [ $taxonomy ][ $term_parent ][ $term_name ]
 
 		// WordPress encodes special characters, e.g., "&" as HTML entities in term names
 		$term_name = _wp_specialchars( $term_name );
 
+		// Is this term alerady in the cache?
 		if ( isset( $term_cache[ $taxonomy ] ) && isset( $term_cache[ $taxonomy ][ $term_parent ] ) && isset( $term_cache[ $taxonomy ][ $term_parent ][ $term_name ] ) ) {
 			return $term_cache[ $taxonomy ][ $term_parent ][ $term_name ];
 		}
 
+		// Is this term already assigned to the item?
 		if ( is_array( $post_terms ) ) {
 			$term_id = 0;
 			foreach( $post_terms as $post_term ) {
@@ -1243,8 +1245,9 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 			}
 		}
 
+		// Consider get_terms() or (just term_exists() for both cases)
 		if ( 0 === $term_parent ) {
-			$post_term = get_term_by( 'name', $term_name, $taxonomy );
+			$post_term = get_term_by( 'name', $term_name, $taxonomy ); // Consider get_terms() for identical names
 			if ( false !== $post_term ) {
 				$term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = $post_term->term_id;
 				return $post_term->term_id;

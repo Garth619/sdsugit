@@ -40,36 +40,27 @@ class ITSEC_Backup {
 		add_filter( 'itsec_notifications', array( $this, 'register_notification' ) );
 		add_filter( 'itsec_backup_notification_strings', array( $this, 'notification_strings' ) );
 
-		if ( defined( 'ITSEC_BACKUP_CRON' ) && true === ITSEC_BACKUP_CRON ) {
-			if ( ! wp_next_scheduled( 'itsec_execute_backup_cron' ) ) {
-				wp_schedule_event( time(), 'daily', 'itsec_execute_backup_cron' );
-			}
-
-			// When ITSEC_BACKUP_CRON is enabled, skip the regular scheduling system.
+		if ( class_exists( 'pb_backupbuddy' ) ) {
+			// Don't run when BackupBuddy is active.
 			return;
 		}
+
+		ITSEC_Core::get_scheduler()->register_custom_schedule( 'backup', DAY_IN_SECONDS * $this->settings['interval'] );
+		add_action( 'itsec_scheduler_register_events', array( $this, 'register_events' ) );
 
 		if ( ! $this->settings['enabled'] || $this->settings['interval'] <= 0 ) {
 			// Don't run when scheduled backups aren't enabled or the interval is zero or less.
 			return;
 		}
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			// Don't run on AJAX requests.
-			return;
-		}
+		add_action( 'itsec_scheduled_backup', array( $this, 'scheduled_callback' ) );
+	}
 
-		if ( class_exists( 'pb_backupbuddy' ) ) {
-			// Don't run when BackupBuddy is active.
-			return;
-		}
-
-
-		$next_run = $this->settings['last_run'] + $this->settings['interval'] * DAY_IN_SECONDS;
-
-		if ( $next_run <= ITSEC_Core::get_current_time_gmt() ) {
-			add_action( 'init', array( $this, 'do_backup' ), 10, 0 );
-		}
+	/**
+	 * Called when it is time for the backup to run.
+	 */
+	public function scheduled_callback() {
+		$this->do_backup();
 	}
 
 	/**
@@ -330,6 +321,20 @@ class ITSEC_Backup {
 	}
 
 	/**
+	 * Register the events.
+	 *
+	 * @param ITSEC_Scheduler $scheduler
+	 */
+	public function register_events( $scheduler ) {
+
+		$settings = ITSEC_Modules::get_settings( 'backup' );
+
+		if ( $settings['enabled'] && $settings['interval'] > 0 ) {
+			$scheduler->schedule( 'backup', 'backup' );
+		}
+	}
+
+	/**
 	 * Register the Backup notification email.
 	 *
 	 * @param array $notifications
@@ -340,7 +345,7 @@ class ITSEC_Backup {
 
 		$method = ITSEC_Modules::get_setting( 'backup', 'method' );
 
-		if (  0 === $method || 1 === $method ) {
+		if ( 0 === $method || 1 === $method ) {
 			$notifications['backup'] = array(
 				'subject_editable' => true,
 				'recipient'        => ITSEC_Notification_Center::R_EMAIL_LIST,

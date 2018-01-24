@@ -6748,6 +6748,10 @@ The MLA_DEBUG_LEVEL is also used to turn categories of debug messages on and off
 <td class="mla-doc-table-label">32, or 0x0020</td>
 <td>writes MLA-specific messages to the log for WP REST API calls identified by <code>/wp-json/</code> in the SERVER_URI.</td>
 </tr>
+<tr>
+<td class="mla-doc-table-label">64, or 0x0040</td>
+<td>writes MLA-specific messages to the log for "where-used" reference collection.</td>
+</tr>
 </table>
 <p>
 You can pick the logging categories you want by adding the above values together. For example, to log only PHP messages you can use <code>define( 'MLA_DEBUG_LEVEL', 1 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0001 );</code>. To add the "AJAX" messages you can use <code>define( 'MLA_DEBUG_LEVEL', 3 );</code> or <code>define( 'MLA_DEBUG_LEVEL', 0x0003 );</code>. The hexadecimal notation ( 0x0003 ) can be easier to understand when several options are involved.

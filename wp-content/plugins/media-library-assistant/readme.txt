@@ -1,11 +1,11 @@
 === Media Library Assistant ===
 Contributors: dglingren
-Donate link: http://fairtradejudaica.org/make-a-difference/donate/
+Donate link: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
 Tested up to: 4.9.1
 Requires PHP: 5.3
-Stable tag: 2.65
+Stable tag: 2.70
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ The Media Library Assistant provides several enhancements for managing the Media
 
 The Assistant is designed to work like the standard Media Library pages, so the learning curve is short and gentle. Contextual help is provided on every new screen to highlight new features.
 
-This plugin was inspired by my work on the WordPress web site for our nonprofit, Fair Trade Judaica. If you find the Media Library Assistant plugin useful and would like to support a great cause, consider a [<strong>tax-deductible</strong> donation](http://fairtradejudaica.org/make-a-difference/donate/ "Support Our Work") to our work. Thank you!
+This plugin was inspired by my work on the WordPress web site for our nonprofit, Fair Trade Judaica. If you find the Media Library Assistant plugin useful and would like to support a great cause, consider a [<strong>tax-deductible</strong> donation](http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/ "Support Our Work") to our work. Thank you!
 
 == Installation ==
 
@@ -183,13 +183,19 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Changelog ==
 
-= 2.65 =
-* New: The "MLA Tax Query Example" plugin has been enhanced to handle multi-column orderby parameters.
-* Fix: **Corrected an "ajax.fail error"** in the Media/Assistant "Set Parent" function and the Media/Edit Media screen.
-* Fix: For the Media/Assistant admin submenu, some taxonomy term queries have been eliminated to improve performance.
-* Fix: In the "Smart Medis Categories" example plugin, WordPress "deprecated" messages have been removed when loading the Settings screen.
+= 2.70 =
+* New: A new Debug logging category has been created for "where-used" reporting.
+* New: The Att. Categories and Att. Tags taxonomies can now be displayed a columns on the Media/Library list mode admin submenu.
+* Fix: File downloads originating from a Bulk Action are now restricted to the site's uploads directory tree.
+* Fix: The "MLA Download ZIP Example" plugin has been updated to work with the current MLA version.
+* Fix: References to the FTJ Donate page now go to the plugin description page.
+* Fix: References to the WordPress `get_terms()` function have been updated to accomodate changes made in WP 4.5.0.
+* Fix: When Polylang is active, term assignment for "untranslated" taxonomies is no longer restricted to the default language.
+* Fix: On the Settings/Media Library Assistant Debug tab, the "Save Changes" button has been moved up for easier access when changing option settings.
+* Fix: For the Media/Edit Media admin submenu, duplicate database queries for the "Months" dropdown control have been eliminated.
 
-= 2.60 - 2.64 =
+= 2.60 - 2.65 =
+* 2.65 - Corrects an "ajax.fail error" in the Media/Assistant "Set Parent" function and the Media/Edit Media screen. One other enhancement, two other fixes.
 * 2.64 - For `[mla_gallery]`, corrects v2.63 problem that applied `mla_named_transfer` to all `link=file` and `link=download` galleries.
 * 2.63 - Download by name and pretty links, str_replace format option, disable mapping rules, debug tab. Eight enhancements in all, nine fixes.
 * 2.62 - Corrects a PHP Fatal Error when loading MLA Media Manager enhancements for "front-end" use.
@@ -279,8 +285,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.65 =
-Corrects an "ajax.fail error" in the Media/Assistant "Set Parent" function and the Media/Edit Media screen. One other enhancement, two other fixes.
+= 2.70 =
+Improved file download security, Polylang fixes. Two enhancements, seven fixes.
 
 == Other Notes ==
 

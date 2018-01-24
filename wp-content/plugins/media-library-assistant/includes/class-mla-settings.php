@@ -1069,7 +1069,7 @@ class MLASettings {
 			'Donate to FTJ' => __( 'Donate to FTJ', 'media-library-assistant' ),
 			'Donate' => __( 'Donate', 'media-library-assistant' ),
 			/* translators: 1: donation hyperlink */
-			'This plugin was' => sprintf( __( 'This plugin was inspired by my work on the WordPress web site for our nonprofit, Fair Trade Judaica. If you find the Media Library Assistant plugin useful and would like to support a great cause, consider a %1$s to our work. Thank you!', 'media-library-assistant' ), '<a href="http://fairtradejudaica.org/make-a-difference/donate/" title="' . __( 'Donate to FTJ', 'media-library-assistant' ) . '" target="_blank" style="font-weight:bold">' . __( 'tax-deductible donation', 'media-library-assistant' ) . '</a>' ),
+			'This plugin was' => sprintf( __( 'This plugin was inspired by my work on the WordPress web site for our nonprofit, Fair Trade Judaica. If you find the Media Library Assistant plugin useful and would like to support a great cause, consider a %1$s to our work. Thank you!', 'media-library-assistant' ), '<a href="http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/" title="' . __( 'Donate to FTJ', 'media-library-assistant' ) . '" target="_blank" style="font-weight:bold">' . __( 'tax-deductible donation', 'media-library-assistant' ) . '</a>' ),
 			'shortcode_list' => '',
 			'form_url' => admin_url( 'options-general.php' ) . '?page=mla-settings-menu-general&mla_tab=general',
 			'options_list' => '',

@@ -4,8 +4,9 @@ Donate link: http://apasionados.es/
 Author URI: http://apasionados.es/
 Tags: memory, memory-limit, ip, ips, admin, adress, php, server, info
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 2.0.3
+Tested up to: 4.9
+Requires PHP: 5.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +88,9 @@ Of course we do. That's why we created it. ;-)
 
 == Changelog ==
 
+= 2.1.0 (03/JAN/2018) =
+* Added compatibility with PHP 7.2.x: "function create_function() is deprecated in PHP 7.2". Thanks to @pputzer.
+
 = 2.0.3 =
 * Solved error with memory_get_peak_usage().
 
@@ -129,8 +133,8 @@ Of course we do. That's why we created it. ;-)
 
 == Upgrade Notice ==
 
-= 2.0.3 =
-* Solved error with memory_get_peak_usage().
+= 2.1.0 =
+* Added compatibility with PHP 7.2.x: "function create_function() is deprecated in PHP 7.2".
 
 == Contact ==
 

@@ -51717,6 +51717,13 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2015\/05\/ca-aps-consistency-determining-findings-matrix.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/ca-aps-consistency-determining-findings-matrix.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/ca-aps-standards-for-consistency-guiding-principles.pdf": {
 		"cB": 0,
 		"ft": 8192,
@@ -52401,6 +52408,13 @@
 		"oAP": "\/wp-content\/uploads\/2015\/05\/fy-15-16-program-report-template-8-17-15.xlsx",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2015\/05\/guiding-principles-consistency-determining-findings.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/guiding-principles-consistency-determining-findings.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2015\/05\/h-serrano-125x123.jpg": {
 		"ft": 16384,
 		"iS": 9056,
@@ -52661,6 +52675,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2015\/05\/intial-investigation-ce.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/intro-ca-aps-consistency-determining-findings.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/intro-ca-aps-consistency-determining-findings.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2015\/05\/j-ahsing-125x123.jpg": {
@@ -56292,6 +56313,38 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x123.gif": {
+		"ft": 4194304,
+		"iS": 14095,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x123.gif",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x150.gif": {
+		"ft": 4194304,
+		"iS": 16529,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x150.gif",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x169.gif": {
+		"ft": 4194304,
+		"iS": 18227,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail-125x169.gif",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail.gif": {
+		"ft": 4194304,
+		"iS": 18992,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2015\/05\/val-ryan-thumbnail.gif",
+		"oF": 0,
+		"opt": 0
 		},
 	"\/wp-content\/uploads\/2015\/05\/veterans-resources.pdf": {
 		"cB": 0,
@@ -97923,11 +97976,167 @@
 		"oAP": "\/wp-content\/uploads\/2017\/12\/Understanding-and-Diagnosing-Complex-Behavioral-Health-Conditions-6-8-17.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2018\/01\/2017-8-tracking-of-all-cft-mtgs-in-ccbh-bulletin-7-5-17-retired.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/2017-8-tracking-of-all-cft-mtgs-in-ccbh-bulletin-7-5-17-retired.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/2018-1-ebp-indicator-for-cft-mtgs-bulletin-revised-1-9-18.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/2018-1-ebp-indicator-for-cft-mtgs-bulletin-revised-1-9-18.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/2018-2-bulletin-medi-cal-manual-3rd-edition-1-19-18.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/2018-2-bulletin-medi-cal-manual-3rd-edition-1-19-18.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/BHETA_182x165-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7492,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/BHETA_182x165-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/BHETA_182x165-182x123.jpg": {
+		"ft": 16384,
+		"iS": 7744,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/BHETA_182x165-182x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/BHETA_182x165.jpg": {
+		"ft": 16384,
+		"iS": 38470,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/BHETA_182x165.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/BHETA_83x92.jpg": {
+		"ft": 16384,
+		"iS": 10938,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/BHETA_83x92.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/case-closure.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/case-closure.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/cqi-conf-march-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cqi-conf-march-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-150x150.jpg": {
+		"ft": 16384,
+		"iS": 7561,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-150x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-200x123.jpg": {
+		"ft": 16384,
+		"iS": 7856,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-200x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-300x51.jpg": {
+		"ft": 16384,
+		"iS": 6455,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-300x51.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-344x150.jpg": {
+		"ft": 16384,
+		"iS": 15274,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-344x150.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-768x130.jpg": {
+		"ft": 16384,
+		"iS": 23960,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner-768x130.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner.jpg": {
+		"ft": 16384,
+		"iS": 79499,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-banner.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-flyer-reg-form.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/cyfsoc-conference-2018-flyer-reg-form.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/01\/Education-Letter-Template-7-10-15.doc": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2018\/01\/Education-Letter-Template-7-10-15.doc",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/explanation-for-eligibility-form-10-25-17.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/explanation-for-eligibility-form-10-25-17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/gct-booster-sub-use-combined-2018-01-16.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/gct-booster-sub-use-combined-2018-01-16.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/2018\/01\/Glossary-of-Terms-FINAL-12.22.2017.pdf": {
@@ -97937,11 +98146,108 @@
 		"oAP": "\/wp-content\/uploads\/2018\/01\/Glossary-of-Terms-FINAL-12.22.2017.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2018\/01\/medi-cal-manual-third-edition.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/medi-cal-manual-third-edition.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/mi-intro-flyer-2018-02-13.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/mi-intro-flyer-2018-02-13.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/mi-intro-flyer-2018-05-22.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/mi-intro-flyer-2018-05-22.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/mi-intro-outline-2018-02-13.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/mi-intro-outline-2018-02-13.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/mi-outline-2018-05-22.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/mi-outline-2018-05-22.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/pcwta-year-in-review-2016-17.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/pcwta-year-in-review-2016-17.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/progress-report-to-child-welfare-services-1-9-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/progress-report-to-child-welfare-services-1-9-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/progress-report-to-child-welfare-services-explanation-1-9-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/progress-report-to-child-welfare-services-explanation-1-9-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/pwb-bhs-provider-q-and-a.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/pwb-bhs-provider-q-and-a.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/steven-walker-msw-100x123.jpg": {
+		"ft": 16384,
+		"iS": 3630,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/steven-walker-msw-100x123.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/steven-walker-msw.jpg": {
+		"ft": 16384,
+		"iS": 4747,
+		"oA": 0,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/steven-walker-msw.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/wp-content\/uploads\/2018\/01\/tf-cbt-flyer-2017-02-21.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/tf-cbt-flyer-2017-02-21.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/01\/tribal-star-JAN-newsletter2018.pdf.pdf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2018\/01\/tribal-star-JAN-newsletter2018.pdf.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/working-w-tay-series-outline-2018-03-06.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/working-w-tay-series-outline-2018-03-06.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {

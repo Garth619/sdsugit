@@ -16,7 +16,7 @@
  * and illustrates some of the techniques you can use to customize the gallery display.
  *
  * @package MLA Gallery Hooks Example
- * @version 1.13
+ * @version 1.14
  */
 
 /*
@@ -24,7 +24,7 @@ Plugin Name: MLA Gallery Hooks Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
 Description: Provides examples of hooking the filters provided by the [mla_gallery] shortcode
 Author: David Lingren
-Version: 1.13
+Version: 1.14
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2013 - 2017 David Lingren
@@ -492,7 +492,7 @@ class MLAGalleryHooksExample {
 				$slugs = explode( ',', $my_query_vars[ $taxonomy ] );
 				foreach ( $slugs as $slug ) {
 					$args = array( 'slug' => $slug, 'hide_empty' => false );
-					$terms = array_merge( $terms, get_terms( $taxonomy, $args ) );
+					$terms = array_merge( $terms, MLAQuery::mla_wp_get_terms( $taxonomy, $args ) );
 				}
 
 				$ttids = array();
@@ -502,7 +502,7 @@ class MLAGalleryHooksExample {
 
 					if ( $tax_include_children ) {
 						$args = array( 'child_of' => $term->term_id, 'hide_empty' => false );
-						$children = get_terms( $taxonomy, $args );
+						$children = MLAQuery::mla_wp_get_terms( $taxonomy, $args );
 						foreach( $children as $child ) {
 							$ttids[ $child->term_taxonomy_id ] = $child->term_taxonomy_id;
 						}

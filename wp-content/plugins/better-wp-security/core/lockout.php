@@ -56,30 +56,21 @@
  */
 final class ITSEC_Lockout {
 
-	/** @var ITSEC_Core */
-	private $core;
-
 	private $lockout_modules;
 
 	/**
 	 * ITSEC_Lockout constructor.
-	 *
-	 * @param ITSEC_Core $core
 	 */
-	public function __construct( $core ) {
-
-		$this->core            = $core;
+	public function __construct() {
 		$this->lockout_modules = array(); //array to hold information on modules using this feature
+	}
 
-		//Run database cleanup daily with cron
-		if ( ! wp_next_scheduled( 'itsec_purge_lockouts' ) ) {
-			wp_schedule_event( time(), 'daily', 'itsec_purge_lockouts' );
-		}
-
-		add_action( 'itsec_purge_lockouts', array( $this, 'purge_lockouts' ) );
+	public function run() {
+		add_action( 'itsec_scheduler_register_events', array( $this, 'register_events' ) );
+		add_action( 'itsec_scheduled_purge-lockouts', array( $this, 'purge_lockouts' ) );
 
 		//Check for host lockouts
-		add_action( 'init', array( $this, 'check_current_user_for_host_lockouts' ) );
+		add_action( 'init', array( $this, 'check_for_host_lockouts' ) );
 
 		// Ensure that locked out users are prevented from checking logins.
 		add_filter( 'authenticate', array( $this, 'check_authenticate_lockout' ), 30 );
@@ -132,23 +123,17 @@ final class ITSEC_Lockout {
 	}
 
 	/**
-	 * Lockout a user on every page load if there host becomes locked.
+	 * On every page load, check if the current host is locked out.
+	 *
+	 * When a host becomes locked out, iThemes Security performs a quick ban. This will cause an IP block to be
+	 * written to the site's server configuration file. This ip block might not immediately take effect, particularly
+	 * on Nginx systems. So on every page load we check that if the current host is locked out or not.
 	 */
-	public function check_current_user_for_host_lockouts() {
+	public function check_for_host_lockouts() {
 
-		if ( ! is_user_logged_in() ) {
-			return;
-		}
+		$host = ITSEC_Lib::get_ip();
 
-		global $wpdb;
-
-		$host       = ITSEC_Lib::get_ip();
-		$host_check = $wpdb->get_var( $wpdb->prepare( "SELECT `lockout_host` FROM `{$wpdb->base_prefix}itsec_lockouts` WHERE `lockout_active`=1 AND `lockout_expire_gmt` > %s AND `lockout_host` = %s;", array(
-			date( 'Y-m-d H:i:s', ITSEC_Core::get_current_time_gmt() ),
-			$host
-		) ) );
-
-		if ( $host_check ) {
+		if ( $this->is_host_locked_out( $host ) ) {
 			$this->execute_lock();
 		}
 	}
@@ -271,6 +256,24 @@ final class ITSEC_Lockout {
 		return (bool) $wpdb->get_var( $wpdb->prepare(
 			"SELECT `lockout_user` FROM `{$wpdb->base_prefix}itsec_lockouts` WHERE `lockout_active`=1 AND `lockout_expire_gmt` > %s AND `lockout_user` = %d;",
 			date( 'Y-m-d H:i:s', ITSEC_Core::get_current_time_gmt() ), $user_id
+		) );
+	}
+
+	/**
+	 * Check if a given host is locked out.
+	 *
+	 * @param string $host
+	 *
+	 * @return bool
+	 */
+	public function is_host_locked_out( $host ) {
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return (bool) $wpdb->get_var( $wpdb->prepare(
+			"SELECT `lockout_host` FROM `{$wpdb->base_prefix}itsec_lockouts` WHERE `lockout_active`=1 AND `lockout_expire_gmt` > %s AND `lockout_host` = %s;",
+			date( 'Y-m-d H:i:s', ITSEC_Core::get_current_time_gmt() ), $host
 		) );
 	}
 
@@ -503,8 +506,20 @@ final class ITSEC_Lockout {
 			@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
 			@header( 'Pragma: no-cache' );
 
-			die( $message );
+			add_filter( 'wp_die_handler', array( $this, 'apply_wp_die_handler' ) );
+			add_filter( 'wp_die_ajax_handler', array( $this, 'apply_wp_die_handler' ) );
+			add_filter( 'wp_die_xmlrpc_handler', array( $this, 'apply_wp_die_handler' ) );
+			wp_die( $message, '', array( 'response' => 403 ) );
 		}
+	}
+
+	/**
+	 * Apply the Scalar wp die handler to print a message to the screen.
+	 *
+	 * @return string
+	 */
+	public function apply_wp_die_handler() {
+		return '_scalar_wp_die_handler';
 	}
 
 	/**
@@ -983,6 +998,15 @@ final class ITSEC_Lockout {
 	}
 
 	/**
+	 * Register the purge lockout event.
+	 *
+	 * @param ITSEC_Scheduler $scheduler
+	 */
+	public function register_events( $scheduler ) {
+		$scheduler->schedule( ITSEC_Scheduler::S_DAILY, 'purge-lockouts' );
+	}
+
+	/**
 	 * Purges lockouts more than 7 days old from the database
 	 *
 	 * @return void
@@ -1137,8 +1161,7 @@ final class ITSEC_Lockout {
 
 				$error_handler->add( $type, $message );
 
-				$this->core->show_network_admin_notice( $error_handler );
-
+				ITSEC_Lib::show_error_message( $error_handler );
 			} else {
 
 				add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );

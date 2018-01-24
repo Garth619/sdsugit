@@ -803,7 +803,8 @@ class MLA_Polylang {
 	 */
 	private static function _add_relevant_term( $term, $translations = NULL ) {
 		global $polylang;
-
+		static $languages = NULL;
+		
 		if ( ! is_object( $term ) ) {
 			return false;
 		}
@@ -822,8 +823,19 @@ class MLA_Polylang {
 				}
 
 				if ( empty( $translations ) ) {
-					$language_code = pll_default_language();
-					$translations[ $language_code ] = (object) array( 'element_id' => $term->term_id );
+					if ( $polylang->model->is_translated_taxonomy( $term->taxonomy ) ) {
+						$language_code = pll_default_language();
+						$translations[ $language_code ] = (object) array( 'element_id' => $term->term_id );
+					} else {
+						// Handle untranslated taxonomies
+						if ( empty( $languages ) ) {
+							$languages = $polylang->model->get_languages_list( array( 'fields' => 'slug' ) );
+						}
+						
+						foreach( $languages as $language_code ) {
+							$translations[ $language_code ] = (object) array( 'element_id' => $term->term_id );
+						}
+					}
 				}
 			}
 
@@ -1227,7 +1239,6 @@ class MLA_Polylang {
 
 				self::$tax_input[ $language ][ $taxonomy ] = $term_changes;
 			} // language
-
 		} // foreach taxonomy
 
 		MLACore::mla_debug_add( __LINE__ . " MLA_Polylang::_build_tax_input( {$post_id} ) self::\$tax_input = " . var_export( self::$tax_input, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );

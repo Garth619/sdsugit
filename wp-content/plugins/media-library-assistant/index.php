@@ -6,7 +6,7 @@
  * will the rest of the plugin be loaded and run.
  *
  * @package Media Library Assistant
- * @version 2.65
+ * @version 2.70
  */
 
 /*
@@ -16,7 +16,7 @@ Description: Enhances the Media Library; powerful [mla_gallery] [mla_tag_cloud] 
 Author: David Lingren, Fair Trade Judaica
 Text Domain: media-library-assistant
 Domain Path: /languages
-Version: 2.65
+Version: 2.70
 Author URI: http://fairtradejudaica.org/our-story/staff/
 
 Copyright 2011-2017 David Lingren

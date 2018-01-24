@@ -20,8 +20,9 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 
 
 		$this->vars_to_skip_validate_matching_fields = array( 'digest_last_sent', 'digest_messages', 'digest_email', 'email_notifications', 'notification_email', 'backup_email' );
-		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check', 'digest_last_sent', 'digest_messages', 'build', 'activation_timestamp', 'lock_file', 'digest_email', 'email_notifications', 'notification_email', 'backup_email' ) );
+		$this->set_previous_if_empty( array( 'did_upgrade', 'log_info', 'show_new_dashboard_notice', 'show_security_check', 'build', 'activation_timestamp', 'lock_file', 'cron_status', 'use_cron', 'cron_test_time' ) );
 		$this->set_default_if_empty( array( 'log_location', 'nginx_file' ) );
+		$this->preserve_setting_if_exists( array(  'digest_email', 'email_notifications', 'notification_email', 'backup_email' ) );
 
 
 		$this->sanitize_setting( 'bool', 'write_files', __( 'Write to Files', 'better-wp-security' ) );
