@@ -7,7 +7,7 @@
 		"uuidString": "BA53CF80-4E8A-4561-8F42-747F6FD5F70A"
 		}
 	],
-"creatorBuild": "26148",
+"creatorBuild": "26261",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -6432,6 +6432,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/index.php",
+		"oF": 0
+		},
+	"\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/mu-plugins\/wp-migrate-db-pro-compatibility.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/advanced-custom-fields-pro\/acf.php": {
@@ -98240,6 +98247,20 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2018\/01\/case-closure-la-march-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/case-closure-la-march-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/case-closure-sd-riv-feb-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/case-closure-sd-riv-feb-2018.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/01\/case-closure.pdf": {
 		"cB": 0,
 		"ft": 8192,
@@ -98432,6 +98453,13 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/wp-content\/uploads\/2018\/01\/supervisor-as-trainer-la-feb-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/supervisor-as-trainer-la-feb-2018.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/01\/tf-cbt-flyer-2017-02-21.pdf": {
 		"cB": 0,
 		"ft": 8192,
@@ -98446,11 +98474,53 @@
 		"oAP": "\/wp-content\/uploads\/2018\/01\/tribal-star-JAN-newsletter2018.pdf.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2018\/01\/understanding-and-diagnosing-complex-behavioral-health-conditions-2017-3-30.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/understanding-and-diagnosing-complex-behavioral-health-conditions-2017-3-30.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/working-w-tay-series-flyer-2018-03-06.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/working-w-tay-series-flyer-2018-03-06.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/01\/working-w-tay-series-outline-2018-03-06.pdf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2018\/01\/working-w-tay-series-outline-2018-03-06.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/working-with-criminal-justice-la-april-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/working-with-criminal-justice-la-april-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/01\/working-with-criminal-justice-oc-rc-mar-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/01\/working-with-criminal-justice-oc-rc-mar-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/02\/cyf-soc-sponsorship-form-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/02\/cyf-soc-sponsorship-form-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/02\/registering-for-trainings-2017-09-14.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/02\/registering-for-trainings-2017-09-14.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {
@@ -106811,6 +106881,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
