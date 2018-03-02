@@ -15,7 +15,7 @@ final class ITSEC_Global_Settings_New extends ITSEC_Settings {
 			'blacklist_period'          => 7,
 			'lockout_period'            => 15,
 			'lockout_white_list'        => array(),
-			'log_rotation'              => 14,
+			'log_rotation'              => 60,
 			'log_type'                  => 'database',
 			'log_location'              => ITSEC_Core::get_storage_dir( 'logs' ),
 			'log_info'                  => '',

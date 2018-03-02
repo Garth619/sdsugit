@@ -10,7 +10,6 @@
  * @since   4.0
  *
  * @global array  $itsec_globals Global variables for use throughout iThemes Security.
- * @global object $itsec_logger  iThemes Security logging class.
  * @global object $itsec_lockout Class for handling lockouts.
  *
  */
@@ -25,7 +24,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @access private
 		 */
-		private $plugin_build = 4080;
+		private $plugin_build = 4085;
 
 		/**
 		 * Used to distinguish between a user modifying settings and the API modifying settings (such as from Sync
@@ -88,7 +87,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 */
 		public function init( $plugin_file, $plugin_name ) {
-			global $itsec_globals, $itsec_logger, $itsec_lockout;
+			global $itsec_globals, $itsec_lockout;
 
 			$this->plugin_file = $plugin_file;
 			$this->plugin_dir = dirname( $plugin_file ) . '/';
@@ -106,13 +105,15 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			register_deactivation_hook( $this->plugin_file, array( 'ITSEC_Core', 'handle_deactivation' ) );
 			register_uninstall_hook( $this->plugin_file, array( 'ITSEC_Core', 'handle_uninstall' ) );
 
-
+			require( $this->plugin_dir . 'core/lib/settings.php' );
+			require( $this->plugin_dir . 'core/lib/storage.php' );
 			require( $this->plugin_dir . 'core/modules.php' );
+			require( $this->plugin_dir . 'core/lib.php' );
+			require( $this->plugin_dir . 'core/lib/log.php' );
+
 			add_action( 'itsec-register-modules', array( $this, 'register_modules' ) );
 			ITSEC_Modules::init_modules();
 
-			require( $this->plugin_dir . 'core/lib.php' );
-			require( $this->plugin_dir . 'core/logger.php' );
 			require( $this->plugin_dir . 'core/lockout.php' );
 			require( $this->plugin_dir . 'core/files.php' );
 			require( $this->plugin_dir . 'core/notify.php' );
@@ -123,19 +124,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			require( $this->plugin_dir . 'core/lib/class-itsec-scheduler.php' );
 			require( $this->plugin_dir . 'core/lib/class-itsec-job.php' );
 
-			$this->setup_scheduler();
-
 			$this->itsec_files = ITSEC_Files::get_instance();
 			$this->itsec_notify = new ITSEC_Notify();
-			$itsec_logger = new ITSEC_Logger();
 			$itsec_lockout = new ITSEC_Lockout();
 			$itsec_lockout->run();
 
 			// Handle upgrade if needed.
-			if ( ITSEC_Modules::get_setting( 'global', 'build' ) < $this->plugin_build ) {
-				add_action( 'plugins_loaded', array( $this, 'handle_upgrade' ), -100 );
-			}
-
+			add_action( 'plugins_loaded', array( $this, 'handle_upgrade' ), -100, 0 );
 
 			if ( is_admin() ) {
 				require( $this->plugin_dir . 'core/admin-pages/init.php' );
@@ -158,6 +153,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * Perform initialization that requires the plugins_loaded hook to be fired.
 		 */
 		public function continue_init() {
+			$this->setup_scheduler();
 			ITSEC_Modules::run_active_modules();
 
 			//Admin bar links
@@ -180,6 +176,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		private function setup_scheduler() {
+
+			if ( $this->scheduler ) {
+				return;
+			}
 
 			$choices = array(
 				'ITSEC_Scheduler_Cron'      => $this->plugin_dir . 'core/lib/class-itsec-scheduler-cron.php',
@@ -251,7 +251,14 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * @return ITSEC_Scheduler
 		 */
 		public static function get_scheduler() {
-			return self::get_instance()->scheduler;
+
+			$self = self::get_instance();
+
+			if ( ! $self->scheduler ) {
+				$self->setup_scheduler();
+			}
+
+			return $self->scheduler;
 		}
 
 		/**
@@ -439,6 +446,11 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * @param int|bool $build The version of the data storage format. Pass false to default to the current version.
 		 */
 		public function handle_upgrade( $build = false ) {
+
+			if ( func_num_args() === 0 && ITSEC_Modules::get_setting( 'global', 'build' ) >= $this->plugin_build ) {
+				return;
+			}
+
 			$this->doing_data_upgrade = true;
 
 			require_once( self::get_core_dir() . '/setup.php' );

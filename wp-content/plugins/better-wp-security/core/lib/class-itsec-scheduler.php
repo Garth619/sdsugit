@@ -14,6 +14,9 @@ abstract class ITSEC_Scheduler {
 	/** @var array */
 	protected $custom_schedules = array();
 
+	/** @var array */
+	protected $loops = array();
+
 	/**
 	 * Schedule a recurring event.
 	 *
@@ -45,6 +48,35 @@ abstract class ITSEC_Scheduler {
 	abstract public function schedule_once( $at, $id, $data = array() );
 
 	/**
+	 * Schedule a single event to run soon.
+	 *
+	 * @param string $id
+	 * @param array  $data
+	 *
+	 * @return bool
+	 */
+	public function schedule_soon( $id, $data = array() ) {
+		return $this->schedule_once( ITSEC_Core::get_current_time_gmt() + 60 * mt_rand( 1, 10 ), $id, $data );
+	}
+
+	/**
+	 * Schedule an event loop.
+	 *
+	 * @param string $id   The event ID.
+	 * @param array  $data Event data.
+	 * @param array  $opts
+	 *  - fire_at: Manually specify the first time the event should be fired.
+	 */
+	public function schedule_loop( $id, $data = array(), $opts = array() ) {
+		$start = isset( $opts['fire_at'] ) ? $opts['fire_at'] : ITSEC_Core::get_current_time_gmt() + 60 * mt_rand( 1, 30 );
+
+		$this->schedule_once( $start, $id, array_merge( $data, array(
+			'loop_start' => $start,
+			'loop_item'  => 1,
+		) ) );
+	}
+
+	/**
 	 * Is a recurring event scheduled.
 	 *
 	 * @param string $id
@@ -56,8 +88,9 @@ abstract class ITSEC_Scheduler {
 	/**
 	 * Is a single event scheduled with the given data.
 	 *
-	 * @param string $id
-	 * @param array  $data
+	 * @param string     $id   The event ID to check.
+	 * @param array|null $data The event data. Pass null to check if any event is scheduled with that ID,
+	 *                         regardless of the data.
 	 *
 	 * @return bool
 	 */
@@ -77,8 +110,8 @@ abstract class ITSEC_Scheduler {
 	 *
 	 * The data specified needs to be identical to the data the single event was scheduled with.
 	 *
-	 * @param string $id
-	 * @param array  $data
+	 * @param string     $id The event ID to unschedule.
+	 * @param array|null $data Unschedules the event with the given data. Pass null to delete any and all events matching the ID.
 	 *
 	 * @return bool
 	 */
@@ -160,10 +193,37 @@ abstract class ITSEC_Scheduler {
 	 * Register a custom schedule.
 	 *
 	 * @param string $slug
-	 * @param int $interval
+	 * @param int    $interval
 	 */
 	public function register_custom_schedule( $slug, $interval ) {
 		$this->custom_schedules[ $slug ] = $interval;
+	}
+
+	/**
+	 * Register an event loop.
+	 *
+	 * This allows for splitting up a long running process across multiple page loads.
+	 *
+	 * @param string $id       The event ID.
+	 * @param string $schedule The schedule between loop starts. This is the maximum amount of time to wait.
+	 * @param int    $wait     Time to wait in seconds between loop parts.
+	 */
+	public function register_loop( $id, $schedule, $wait ) {
+		$this->loops[ $id ] = array(
+			'schedule' => $schedule,
+			'wait'     => $wait,
+		);
+	}
+
+	/**
+	 * Get the loop configuration.
+	 *
+	 * @param string $id
+	 *
+	 * @return array
+	 */
+	public function get_loop( $id ) {
+		return isset( $this->loops[ $id ] ) ? $this->loops[ $id ] : array();
 	}
 
 	/**
@@ -227,7 +287,7 @@ abstract class ITSEC_Scheduler {
 	 *
 	 * @return int
 	 */
-	protected final function get_schedule_interval( $schedule ) {
+	final public function get_schedule_interval( $schedule ) {
 		switch ( $schedule ) {
 			case self::S_HOURLY:
 				return HOUR_IN_SECONDS;

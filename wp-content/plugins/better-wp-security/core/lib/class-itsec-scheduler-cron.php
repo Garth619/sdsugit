@@ -86,6 +86,23 @@ class ITSEC_Scheduler_Cron extends ITSEC_Scheduler {
 	}
 
 	public function is_single_scheduled( $id, $data = array() ) {
+
+		if ( null === $data ) {
+			$options = $this->get_options();
+
+			if ( ! isset( $options['single'][ $id ] ) ) {
+				return false;
+			}
+
+			foreach ( $options['single'][ $id ] as $hash => $event ) {
+				if ( wp_next_scheduled( self::HOOK, array( $id, $hash ) ) ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		return (bool) wp_next_scheduled( self::HOOK, array( $id, $this->hash_data( $data ) ) );
 	}
 
@@ -166,6 +183,25 @@ class ITSEC_Scheduler_Cron extends ITSEC_Scheduler {
 	}
 
 	public function unschedule_single( $id, $data = array() ) {
+
+		$options = $this->get_options();
+
+		if ( empty( $options['single'][ $id ] ) ) {
+			return false;
+		}
+
+		if ( null === $data ) {
+			$all_events = $options['single'][ $id ];
+
+			foreach ( $all_events as $data_hash => $event ) {
+				$cron_hash = md5( serialize( array( $id, $data_hash ) ) );
+				unset( $all_events[ $data_hash ] );
+				$this->unschedule_by_hash( $cron_hash );
+			}
+
+			return true;
+		}
+
 		$data_hash = $this->hash_data( $data );
 		$hash      = $this->make_cron_hash( $id, $data );
 

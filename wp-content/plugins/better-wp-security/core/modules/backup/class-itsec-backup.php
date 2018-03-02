@@ -35,7 +35,6 @@ class ITSEC_Backup {
 		$this->settings = ITSEC_Modules::get_settings( 'backup' );
 
 		add_action( 'itsec_execute_backup_cron', array( $this, 'do_backup' ) );
-		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
 
 		add_filter( 'itsec_notifications', array( $this, 'register_notification' ) );
 		add_filter( 'itsec_backup_notification_strings', array( $this, 'notification_strings' ) );
@@ -109,7 +108,7 @@ class ITSEC_Backup {
 	 * @return void
 	 */
 	private function execute_backup( $one_time = false ) {
-		global $wpdb, $itsec_logger;
+		global $wpdb;
 
 
 
@@ -205,6 +204,8 @@ class ITSEC_Backup {
 		@fwrite( $fh, PHP_EOL . PHP_EOL );
 		@fclose( $fh );
 
+		$backup_file = $file;
+
 		if ( $this->settings['zip'] ) {
 			if ( ! class_exists( 'PclZip' ) ) {
 				require( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -246,27 +247,27 @@ class ITSEC_Backup {
 		}
 
 
-		$status  = __( 'Success', 'better-wp-security' );
-		$details = __( 'saved locally', 'better-wp-security' );
+		$log_data = array(
+			'settings'     => $this->settings,
+			'mail_success' => $mail_success,
+			'file'         => $backup_file,
+		);
 
 		if ( 0 === $this->settings['method'] ) {
 			if ( false === $mail_success ) {
-				$status  = __( 'Error', 'better-wp-security' );
-				$details = __( 'saved locally but email to backup recipients could not be sent.', 'better-wp-security' );
+				ITSEC_Log::add_warning( 'backup', 'email-failed-file-stored', $log_data );
 			} else {
-				$details = __( 'emailed to backup recipients and saved locally', 'better-wp-security' );
+				ITSEC_Log::add_notice( 'backup', 'email-succeeded-file-stored', $log_data );
 			}
 		} else if ( 1 === $this->settings['method'] ) {
 			if ( false === $mail_success ) {
-				$status  = __( 'Error', 'better-wp-security' );
-				$details = __( 'email to backup recipients could not be sent.', 'better-wp-security' );
+				ITSEC_Log::add_error( 'backup', 'email-failed', $log_data );
 			} else {
-				$details = __( 'emailed to backup recipients', 'better-wp-security' );
+				ITSEC_Log::add_notice( 'backup', 'email-succeeded', $log_data );
 			}
+		} else {
+			ITSEC_Log::add_notice( 'backup', 'file-stored', $log_data );
 		}
-
-		$data = compact( 'status', 'details' );
-		$itsec_logger->log_event( 'backup', 3, array( $data ) );
 	}
 
 	private function send_mail( $file ) {
@@ -296,28 +297,6 @@ class ITSEC_Backup {
 		$mail->add_attachment( $file );
 
 		return $nc->send( 'backup', $mail );
-	}
-
-	/**
-	 * Register backups for logger.
-	 *
-	 * Adds the backup module to ITSEC_Logger.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param  array $logger_modules array of logger modules
-	 *
-	 * @return array                   array of logger modules
-	 */
-	public function register_logger( $logger_modules ) {
-
-		$logger_modules['backup'] = array(
-			'type'     => 'backup',
-			'function' => __( 'Database Backup Executed', 'better-wp-security' ),
-		);
-
-		return $logger_modules;
-
 	}
 
 	/**

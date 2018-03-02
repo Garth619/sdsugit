@@ -49,6 +49,45 @@ class ITSEC_Job {
 	}
 
 	/**
+	 * Schedule the next loop item.
+	 *
+	 * @param array $data Data to provide to the next event.
+	 */
+	public function schedule_next_in_loop( $data = array() ) {
+		if ( ! $config = $this->scheduler->get_loop( $this->get_id() ) ) {
+			return;
+		}
+
+		$data = array_merge( $this->get_data(), $data, array(
+			'loop_item' => $this->data['loop_item'] + 1,
+		) );
+
+		$this->scheduler->schedule_once( ITSEC_Core::get_current_time_gmt() + $config['wait'], $this->get_id(), $data );
+	}
+
+	/**
+	 * Schedule the loop to start over again.
+	 *
+	 * @param array $data
+	 */
+	public function schedule_new_loop( $data = array() ) {
+
+		if ( ! $config = $this->scheduler->get_loop( $this->get_id() ) ) {
+			return;
+		}
+
+		$start    = $this->data['loop_start'];
+		$interval = $this->scheduler->get_schedule_interval( $config['schedule'] );
+		$now      = ITSEC_Core::get_current_time_gmt();
+
+		$next = $start + $interval < $now ? $now + $config['wait'] : $start + $interval;
+
+		$this->scheduler->schedule_loop( $this->get_id(), $data, array(
+			'fire_at' => $next,
+		) );
+	}
+
+	/**
 	 * Get the retry count for this job.
 	 *
 	 * @return int|false

@@ -79,15 +79,18 @@ class ITSEC_Scheduler_Page_Load extends ITSEC_Scheduler {
 
 	public function is_single_scheduled( $id, $data = array() ) {
 
-		$hash    = $this->hash_data( $data );
 		$options = $this->get_options();
 
 		if ( empty( $options['single'][ $id ] ) ) {
 			return false;
 		}
 
-		if ( empty( $options['single'][ $id ][ $hash ] ) ) {
-			return false;
+		if ( null !== $data ) {
+			$hash = $this->hash_data( $data );
+
+			if ( empty( $options['single'][ $id ][ $hash ] ) ) {
+				return false;
+			}
 		}
 
 		return true;
@@ -109,15 +112,24 @@ class ITSEC_Scheduler_Page_Load extends ITSEC_Scheduler {
 	public function unschedule_single( $id, $data = array() ) {
 
 		$options = $this->operating_data ? $this->operating_data : $this->get_options();
-		$hash    = $this->hash_data( $data );
 
-		if ( isset( $options['single'][ $id ][ $hash ] ) ) {
-			unset( $options['single'][ $id ][ $hash ] );
-
-			return $this->set_options( $options );
+		if ( ! isset( $options['single'][ $id ] ) ) {
+			return false;
 		}
 
-		return false;
+		if ( null === $data ) {
+			unset( $options['single'][ $id ] );
+		} else {
+			$hash = $this->hash_data( $data );
+
+			if ( ! isset( $options['single'][ $id ][ $hash ] ) ) {
+				return false;
+			}
+
+			unset( $options['single'][ $id ][ $hash ] );
+		}
+
+		return $this->set_options( $options );
 	}
 
 	public function get_recurring_events() {
