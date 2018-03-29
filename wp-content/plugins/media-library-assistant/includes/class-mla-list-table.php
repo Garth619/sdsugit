@@ -215,7 +215,6 @@ class MLA_List_Table extends WP_List_Table {
 			$tax_object = get_taxonomy( $tax_filter );
 			$dropdown_options = array_merge( array(
 				'show_option_all' => __( 'All', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
-//				'show_option_none' => __( 'No', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
 				'show_option_none' => _x( 'No', 'show_option_none', 'media-library-assistant' ) . ' ' . $tax_object->labels->name,
 				'orderby' => 'name',
 				'order' => 'ASC',
@@ -416,6 +415,11 @@ class MLA_List_Table extends WP_List_Table {
 	 * @since 0.1
 	 */
 	public function __construct() {
+		global $wp_list_table;
+
+		// For Admin Columns Pro 4.2.3+ export compatibility, because views can alter the query
+		$wp_list_table = $this;
+
 		$this->detached = isset( $_REQUEST['detached'] ) && ( '1' == $_REQUEST['detached'] );
 		$this->attached = isset( $_REQUEST['detached'] ) && ( '0' == $_REQUEST['detached'] );
 		$this->is_trash = isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'trash';
@@ -724,7 +728,7 @@ class MLA_List_Table extends WP_List_Table {
 
 			if ( $this->is_trash ) {
 				if ( current_user_can( 'delete_post', $item->ID ) ) {
-						$actions['restore'] = '<a class="submitdelete" href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_RESTORE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Restore this item from the Trash', 'media-library-assistant' ) . '">' . __( 'Restore', 'media-library-assistant' ) . '</a>';
+						$actions['restore'] = '<a class="submitdelete" href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_RESTORE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Restore this item from the Trash', 'media-library-assistant' ) . '">' . __( 'Restore', 'media-library-assistant' ) . '</a>';
 					}
 			} else {
 				if ( current_user_can( 'edit_post', $item->ID ) ) {
@@ -744,12 +748,12 @@ class MLA_List_Table extends WP_List_Table {
 
 			if ( current_user_can( 'delete_post', $item->ID ) ) {
 				if ( !$this->is_trash && EMPTY_TRASH_DAYS && MEDIA_TRASH ) {
-					$actions['trash'] = '<a class="submitdelete" href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_TRASH, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Move this item to the Trash', 'media-library-assistant' ) . '">' . __( 'Move to Trash', 'media-library-assistant' ) . '</a>';
+					$actions['trash'] = '<a class="submitdelete" href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_TRASH, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Move this item to the Trash', 'media-library-assistant' ) . '">' . __( 'Move to Trash', 'media-library-assistant' ) . '</a>';
 				} else {
 					// If using trash for posts and pages but not for attachments, warn before permanently deleting 
 					$delete_ays = EMPTY_TRASH_DAYS && !MEDIA_TRASH ? ' onclick="return showNotice.warn();"' : '';
 
-					$actions['delete'] = '<a class="submitdelete"' . $delete_ays . ' href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
+					$actions['delete'] = '<a class="submitdelete"' . $delete_ays . ' href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
 				}
 			} // delete_post
 
@@ -757,7 +761,7 @@ class MLA_List_Table extends WP_List_Table {
 				$file = get_attached_file( $item->ID );
 				$download_args = array( 'page' => MLACore::ADMIN_PAGE_SLUG, 'mla_download_file' => urlencode( $file ), 'mla_download_type' => $item->post_mime_type );
 
-				$actions['download'] = '<a href="' . add_query_arg( $download_args, wp_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . $att_title . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
+				$actions['download'] = '<a href="' . add_query_arg( $download_args, MLACore::mla_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . $att_title . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
 
 				$actions['view']  = '<a href="' . site_url( ) . '?attachment_id=' . $item->ID . '" rel="permalink" title="' . __( 'View', 'media-library-assistant' ) . ' &#8220;' . $att_title . '&#8221;">' . __( 'View', 'media-library-assistant' ) . '</a>';
 			}
@@ -854,6 +858,14 @@ class MLA_List_Table extends WP_List_Table {
 
 			$inline_data .= "</div>\r\n";
 		}
+
+		$date = $item->post_date;
+		$inline_data .= '	<div class="jj">' . esc_attr( mysql2date( 'd', $date, false ) ) . "</div>\r\n";
+		$inline_data .= '	<div class="mm">' . esc_attr( mysql2date( 'm', $date, false ) ) . "</div>\r\n";
+		$inline_data .= '	<div class="aa">' . esc_attr( mysql2date( 'Y', $date, false ) ) . "</div>\r\n";
+		$inline_data .= '	<div class="hh">' . esc_attr( mysql2date( 'H', $date, false ) ) . "</div>\r\n";
+		$inline_data .= '	<div class="mn">' . esc_attr( mysql2date( 'i', $date, false ) ) . "</div>\r\n";
+		$inline_data .= '	<div class="ss">' . esc_attr( mysql2date( 's', $date, false ) ) . "</div>\r\n";
 
 		$inline_data .= '	<div class="post_parent">' . $item->post_parent . "</div>\r\n";
 
@@ -1002,7 +1014,6 @@ class MLA_List_Table extends WP_List_Table {
 			if ( 'checked' == MLACore::mla_get_option( MLACoreOptions::MLA_SHOW_FILE_NAME ) ) {
 				$final_content .= '<p style="clear: both" class="filename"> <span class="screen-reader-text">' . __( 'File name' ) . ': </span>' . $item->mla_wp_attached_filename . " </p>\n";
 			}
-			
 			return $final_content;
 		}
 

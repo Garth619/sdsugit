@@ -56,6 +56,9 @@
                 <input type="text" name="image_alt" value="" />
                 </span> </label>
               <div class="inline-edit-group">
+[+Uploaded on+]
+              </div>
+              <div class="inline-edit-group">
                 <label class="inline-edit-post-parent alignleft"> <span class="title">[+Parent ID+]</span> <span class="input-text-wrap">
                   <input type="text" name="post_parent" value="" />
                   </span> </label>
@@ -108,6 +111,9 @@
               <label class="inline-edit-image-alt"> <span class="title">[+ALT Text+]</span> <span class="input-text-wrap">
                 <input type="text" name="image_alt" value="" />
                 </span> </label>
+              <label class="inline-edit-post-date"><span class="title">[+Bulk Uploaded on+]</span><span class="input-text-wrap">
+                <input type="text" name="post_date" value="" />
+                </span></label>
               <div class="inline-edit-group">
                 <label class="inline-edit-post-parent alignleft"> <span class="title">[+Parent ID+]</span> <span class="input-text-wrap">
                   <input type="text" name="post_parent" value="" />
@@ -164,6 +170,9 @@
               <label class="inline-edit-image-alt"> <span class="title">[+ALT Text+]</span> <span class="input-text-wrap">
                 <input type="text" name="image_alt" value="" />
                 </span> </label>
+              <label class="inline-edit-post-date"><span class="title">[+Bulk Uploaded on+]</span><span class="input-text-wrap">
+                <input type="text" name="post_date" value="" />
+                </span></label>
               <div class="inline-edit-group">
                 <label class="inline-edit-post-parent alignleft"> <span class="title">[+Parent ID+]</span> <span class="input-text-wrap">
                   <input type="text" name="post_parent" value="" />

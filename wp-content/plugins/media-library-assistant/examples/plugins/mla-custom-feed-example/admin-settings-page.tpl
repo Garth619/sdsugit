@@ -25,7 +25,7 @@
 
 <!-- template="page-level-options" -->
 <tr valign="top"><td class="textright">
-<input name="mla_enable_custom_feeds" id="mla_enable_custom_feeds" type="checkbox" [+enable_custom_feeds_checked+] value="1">
+<input name="mla_enable_custom_feeds" id="mla_enable_custom_feeds" type="checkbox" [+enable_custom_feeds_checked+] value="1" />
 </td><td>
 &nbsp;<strong>Enable custom feed processing</strong>
 <div class="mla-settings-help">&nbsp;&nbsp;Check this option to add the (active) custom feeds to the WordPress feeds list.</div>
@@ -65,7 +65,7 @@
 				<td><input name="mla_edit_custom_feed[title]" id="mla-custom-feed-title" type="text" value="" /></td>
 			</tr>
 			<tr class="form-field custom-feed-link-wrap">
-				<th scope="row"> <label for="mla-custom-link-slug">Link</label>
+				<th scope="row"> <label for="mla-custom-feed-link">Link</label>
 				</th>
 				<td><input name="mla_edit_custom_feed[link]" id="mla-custom-feed-link" type="text" value="" /></td>
 			</tr>
@@ -144,7 +144,7 @@
 	<p class="submit mla-settings-submit">
 		<input name="mla-edit-custom-feed-cancel" class="button-secondary" id="mla-edit-custom-feed-cancel" type="submit" value="Cancel" />
 		&nbsp;
-		<input name="mla-edit-custom-feed-submit" class="button-primary" name="mla-edit-custom-feed-submit" type="submit" value="Update" />
+		<input name="mla-edit-custom-feed-submit" class="button-primary" id="mla-edit-custom-feed-submit" type="submit" value="Update" />
 		&nbsp; </p>
 </form>
 
@@ -196,13 +196,6 @@
 span.submit.mla-settings-submit,
 p.submit.mla-settings-submit {
 	padding-bottom: 0px
-}
-.
-mla-settings-enable-form {
-	margin-left: 0px;
-	margin-top: 10px;
-	padding-bottom: 10px;
-	border-bottom:thin solid #888888;
 }
 
 #mla-add-custom-feed-table {
@@ -267,7 +260,7 @@ mla-settings-enable-form {
 								<td><input name="mla_add_custom_feed[title]" id="mla-custom-feed-title" type="text" value="" /></td>
 							</tr>
 							<tr class="form-field custom-feed-link-wrap">
-								<th scope="row"> <label for="mla-custom-link-slug">Link</label>
+								<th scope="row"> <label for="mla-custom-feed-link">Link</label>
 								</th>
 								<td><input name="mla_add_custom_feed[link]" id="mla-custom-feed-link" type="text" value="" /></td>
 							</tr>
@@ -357,41 +350,7 @@ mla-settings-enable-form {
 </div>
 <!-- /col-container -->
 
-<!-- template="debug-tab" -->
-<h2>[+Debug Options+]</h2>
-<form action="[+form_url+]" method="post" class="mla-display-settings-page" id="mla-display-settings-debug-tab">
-&nbsp;<br />
-    <table class="optiontable">
-[+options_list+]
-	</table>
-<h3>[+Debug Settings+]</h3>
-    <table class="optiontable">
-[+settings_list+]
-	</table>
-<h3>[+Error Log+]</h3>
-[+Error Log Name+] ( [+Error Log Size+] )
-    <table>
-        <tr>
-            <td>
-                <textarea name="" id="mla-error-log-display" rows="24" cols="100" readonly="readonly">[+error_log_text+]</textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                [+download_link+]&nbsp;[+reset_link+]
-            </td>
-        </tr>
-	</table>
-    <p class="submit mla-settings-submit">
-        <input name="mla-debug-options-save" class="button-primary" id="mla-debug-options-save" type="submit" value="[+Save Changes+]" />
-    </p>
-	<div class="mla-settings-help">[+Click Save Changes+]</div>
-[+_wpnonce+]
-[+_wp_http_referer+]
-</form>
-
 <!-- template="documentation-tab" -->
-<h2>Plugin Documentation. In this tab, jump to:</h2>
 <style type='text/css'>
 .mla-doc-toc-list {
 	list-style-position:inside;
@@ -438,28 +397,29 @@ mla-settings-enable-form {
 	font-weight:bold
 }
 </style>
+<h2>Plugin Documentation. In this tab, jump to:</h2>
 <div class="mla-display-settings-page" id="mla-display-settings-documentation-tab" style="width:700px">
 <ul class="mla-doc-toc-list">
 <li><a href="#introduction"><strong>Introduction</strong></a></li>
 <li><a href="#defining"><strong>Defining Your Feeds</strong></a></li>
-<ul class="mla-doc-toc-list">
+<li style="list-style-type:none"><ul class="mla-doc-toc-list">
 <li><a href="#elements">Feed Elements</a></li>
 <li><a href="#taxonomies">Taxonomies</a></li>
 <li><a href="#parameters">Data Selection Parameters</a></li>
-</ul>
+</ul></li>
 <li><a href="#managing"><strong>Managing Your Feeds</strong></a></li>
 <li><a href="#feed-templates"><strong>Feed Templates</strong></a></li>
-<ul class="mla-doc-toc-list">
+<li style="list-style-type:none"><ul class="mla-doc-toc-list">
 <li><a href="#default-template">Default Template</a></li>
 <li><a href="#theme-template">Theme-based Templates</a></li>
-</ul>
+</ul></li>
 <li><a href="#accessing"><strong>Accessing Your Feeds</strong></a></li>
-<ul class="mla-doc-toc-list">
+<li style="list-style-type:none"><ul class="mla-doc-toc-list">
 <li><a href="#url-slug">URL-based slugs</a></li>
 <li><a href="#query-slug">HTML Query Parameter slugs</a></li>
 <li><a href="#tax-arguments">Taxonomy Arguments</a></li>
 <li><a href="#query-parms">Other HTML Query Arguments</a></li>
-</ul>
+</ul></li>
 </ul>
 <a name="introduction"></a>
 <p>
@@ -481,7 +441,7 @@ You can find more general information in the <a href="https://codex.wordpress.or
 </ul>
 <p>
 The basic idea is quite simple. You define a feed and give it a name, or "feed slug", such as "mlafeed". You specify MLA data selection parameters that define which Media Library items are part of the feed. When a feed reader accesses the feed, the data selection parameters are executed and the items are returned in a format that the feed reader can process.
-<a name="#defining"></a>
+<a name="defining"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -489,7 +449,7 @@ The basic idea is quite simple. You define a feed and give it a name, or "feed s
 <h3><strong>Defining Your Feeds</strong></h3>
 <p>
 You can define a new feed, also known as an RSS "channel" using the "Add New Feed" area at the left of the Settings/MLA Feed admin screen. Simply fill in the field values you want and click "Add Feed" at the bottom of the area. The new feed will be added to the submenu table in the right-hand side of the screen. If you set the "Active" status the feed will be added to the WordPress feed list.
-<a name="#elements"></a>
+<a name="elements"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -562,7 +522,7 @@ Each RSS feed, or channel, is defined by an XML-based document that contains a n
 </table>
 <p>
 &nbsp;
-<a name="#taxonomies"></a>
+<a name="taxonomies"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -570,7 +530,7 @@ Each RSS feed, or channel, is defined by an XML-based document that contains a n
 <h4>Taxonomies</h4>
 <p>
 Each item can be classified by one or more "Category" elements. You can name the taxonomies that these elements will be taken from, e.g., <code>attachment_category</code>. Multiple taxonomies can be named, separated by commas. When the item is added to a feed the plugin will retrieve all the terms assigned to the item, de-duplicate them and add them to the item in the feed.
-<a name="#parameters"></a>
+<a name="parameters"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -595,7 +555,7 @@ With the above template you can access the feed in different ways:
 Of course, you could also code the taxonomy and term values explicitly in the Data Selection parameters, e.g.,<br />&nbsp;<br /> 
 <code>attachment_category=abc posts_per_page=6</code><br  />&nbsp;<br />
 and then just use the feed name to access it.
-<a name="#managing"></a>
+<a name="managing"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -612,7 +572,9 @@ Managing your feeds is just like managing posts, pages and Media Library items:
 <li>You can delete several feeds at once by checking the box to the left of the slug, selecting the "Delete" Bulk Action and clicking "Apply"</li>
 <li>You can edit a feed or delete it by hovering over the feed Slug and clicking the rollover action that appears under the slug value</li>
 </ul>
-<a name="#feed-templates"></a>
+<p>
+<a name="feed-templates"></a>
+&nbsp;
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -620,7 +582,7 @@ Managing your feeds is just like managing posts, pages and Media Library items:
 <h3><strong>Feed Templates</strong></h3>
 <p>
 The example plugin uses a PHP feed template file to display its feeds, in much the same way as WordPress uses theme templates to display your content. The feed template is located in the plugin's root directory. It is possible to use custom feed templates to achieve a theme-based solution (see further information and links below) or change which template is used on a feed-by-feed basis. 
-<a name="#default-template"></a>
+<a name="default-template"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -632,7 +594,7 @@ The example plugin includes a default template file modeled on the WordPress <co
 The default file uses a number of fields defined in the Feed Elements section above. In the code you can see these as elements of the "active feed" array, such as <code>MLACustomFeedExample::$active_feed['title']</code>. The file also has a traditional WordPress "loop" to process the items selected by the data selection parameters:<br />&nbsp;<br /> 
 <code>while ( MLACustomFeedExample::$wp_query_object->have_posts() ) : MLACustomFeedExample::$wp_query_object->the_post();</code><br  />&nbsp;<br />
 You can use all of the WordPress template tags to access item values within the "loop".
-<a name="#theme-template"></a>
+<a name="theme-template"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -648,7 +610,7 @@ You can access the template by entering:<br />&nbsp;<br />
 Tpl. Slug: mlafeed<br  />
 Tpl. Name: authors<br  />&nbsp;<br />
 in the Add New Feed area.
-<a name="#accessing"></a>
+<a name="accessing"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -656,7 +618,7 @@ in the Add New Feed area.
 <h3><strong>Accessing Your Feeds</strong></h3>
 <p>
 Accessing your custom feeds follows several rules defined by WordPress. The "Slug" that you use to name your feed(s) is the most important element, but WordPress has some additional rules for formatting URLs that contain taxonomy arguments as well. 
-<a name="#url-slug"></a>
+<a name="url-slug"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -666,7 +628,7 @@ Accessing your custom feeds follows several rules defined by WordPress. The "Slu
 If your site uses Custom/Pretty Permalinks you can use the feed slug as part of the URL. For example, the "mlafeed" feed can be accessed as:<br />&nbsp;<br /> 
 <code>http://www.example.com/mlafeed/</code><br  />
 &nbsp;
-<a name="#query-slug"></a>
+<a name="query-slug"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -676,7 +638,7 @@ If your site uses Custom/Pretty Permalinks you can use the feed slug as part of 
 No matter what permalink structure you use you can always specify a feed using a query argument, e.g.,<br />&nbsp;<br /> 
 <code>http://www.example.com/?feed=mlafeed</code><br  />
 &nbsp;
-<a name="#tax-arguments"></a>
+<a name="tax-arguments"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -691,7 +653,7 @@ You can provide feeds for specific taxonomy terms as part of the URL or as an HT
 Passing the parameter values into your data selection parameters is different for each case. For the URL case WordPress parses the URL components into the database query parameters and you can access the value as <code>[+query:attachment_tag+]</code>. If you choose the HTML query argument format the value will be available in the "request:" area, i.e., <code>[+request:attachment_tag+]</code>. I regret the confusing prefix values but that's how it works.
 </p>
 <p>
-<a name="#query-parms"></a>
+<a name="query-parms"></a>
 </p>
 <p>
 <a href="#backtotop">Go to Top</a>
@@ -704,4 +666,5 @@ You can pass any other parameters you need as query arguments following the basi
 The above example would select all items "owned" by John Smith and assigned to the "abc" or "def" terms in the Att. Tags taxonomy. The corresponding data selection parameters in the "mlafeed" would be:<br />&nbsp;<br />
 <code>attachment_tag=[+query:attachment_tag+] author=[+request:author+]</code><br  />
 &nbsp;<br />
+</p>
 </div>

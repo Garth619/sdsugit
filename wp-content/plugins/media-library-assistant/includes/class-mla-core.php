@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.70';
+	const CURRENT_MLA_VERSION = '2.72';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -112,6 +112,15 @@ class MLACore {
 	 * @var	integer
 	 */
 	const MLA_DEBUG_CATEGORY_WHERE_USED = 0x00000040;
+
+	/**
+	 * Constant to log Uploads and Views MIME Type activity activity
+	 *
+	 * @since 2.71
+	 *
+	 * @var	integer
+	 */
+	const MLA_DEBUG_CATEGORY_MIME_TYPE = 0x00000080;
 
 	/**
 	 * Slug for adding plugin submenu
@@ -616,6 +625,28 @@ class MLACore {
 				}
 			} // not admin
 		} // MLA_DEBUG_LEVEL & 1
+	}
+
+	/**
+	 * Create a NONCE URL that works in WP 3.5.x and later
+	 *
+	 * @since 2.71
+	 *
+	 * @param string $actionurl URL to add nonce action.
+	 * @param string $action    Optional. Nonce action name. Default -1.
+	 * @param string $name      Optional. Nonce name. Default '_wpnonce'.
+	 *
+	 * @return string Escaped URL with nonce action added.
+	 */
+	public static function mla_nonce_url( $actionurl, $action = -1, $name = '_wpnonce' ) {
+		$actionurl = wp_nonce_url( $actionurl, $action, $name );
+
+		// WP 3.5.x wp_nonce_url() does not accept the third NONCE name argument
+		if ( '_wpnonce' !== $name ) {
+			$actionurl = str_replace( '_wpnonce', $name, $actionurl );
+		}
+		
+		return $actionurl;
 	}
 
 	/**
@@ -1635,6 +1666,7 @@ class MLACore {
 
 	/**
 	 * Define the Media/Assistant submenu screen to the (old) Admin Columns plugin
+	 * Supports Admin Columns before 3.0 and Admin Columns Pro before 4.0
 	 *
 	 * @since 2.22
 	 *
@@ -1674,31 +1706,30 @@ class MLACore {
 	}
 
 	/**
-	 * Set MLA-specific inline editing strategy
-	 *
-	 * @since 2.50
-	 *
-	 * @param ACP_Editing_Model $model
-	 */
-	public static function add_editing_strategy( $model ) {
-//error_log( __LINE__ . " MLACore::add_editing_strategy key = " . var_export( $model->get_column()->get_list_screen()->get_key(), true ), 0 );
-		if ( 'mla-media-assistant' === $model->get_column()->get_list_screen()->get_key() ) {
-			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support.php' );
-			$model->set_strategy( new ACP_Addon_MLA_Editing_Strategy( $model ) );
-		}
-
-		return $model;
-	}
-
-	/**
 	 * Create and register MLA-specific list screen handler for Admin Columns
+	 * Supports Admin Columns 3.0+ and Admin Columns Pro 4.0+
 	 *
 	 * @since 2.50
 	 */
 	public static function register_list_screen() {
-//error_log( __LINE__ . " MLACore::register_list_screen", 0 );
 		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-support.php' );
-		AC()->register_list_screen( new AC_Addon_MLA_ListScreen );
+
+		if ( function_exists( 'ACP' ) ) {
+			if ( version_compare( ACP()->get_version(), '4.2.3', '>=' ) ) {
+				// Load the latest version, with export support
+				require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-pro-support.php' );
+			} elseif ( version_compare( ACP()->get_version(), '4.2.0', '>=' ) ) {
+				// Load the interim version, with inline editing support
+				require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-pro-support-42.php' );
+			} else {
+				// Load the legacy version
+				require_once( MLA_PLUGIN_PATH . 'includes/class-mla-admin-columns-pro-support-40.php' );
+			}
+
+			AC()->register_list_screen( new ACP_Addon_MLA_ListScreen );
+		} else {
+			AC()->register_list_screen( new AC_Addon_MLA_ListScreen );
+		}
 	}
 } // Class MLACore
 
@@ -1786,7 +1817,5 @@ add_action( 'init', 'MLAMime::initialize', 0x7FFFFFFF );
  * Admin Columns plugin support
  */
 add_filter( 'cac/storage_models', 'MLACore::admin_columns_support_deprecated', 10, 2 );
-
-add_filter( 'acp/editing/model', 'MLACore::add_editing_strategy', 10, 1 );
 add_action( 'ac/list_screens', 'MLACore::register_list_screen', 10, 0 );
 ?>

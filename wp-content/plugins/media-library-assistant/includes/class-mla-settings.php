@@ -650,6 +650,8 @@ class MLASettings {
 	 */
 	public static function mla_add_plugin_settings_link_filter( $links, $file ) {
 		if ( $file == 'media-library-assistant/index.php' && current_user_can( 'manage_options' ) ) {
+			$settings_link = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-documentation&mla_tab=documentation' ), __( 'Guide', 'media-library-assistant' ) );
+			array_unshift( $links, $settings_link );
 			$settings_link = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-general' ), __( 'Settings', 'media-library-assistant' ) );
 			array_unshift( $links, $settings_link );
 		}
@@ -1385,10 +1387,9 @@ class MLASettings {
 			if ( $error_log_exists ) {
 				$args = array(
 					'page' => MLACore::ADMIN_PAGE_SLUG,
-					'mla_download_file' => urlencode( $error_log_name ),
-					'mla_download_type' => 'text/plain'
+					'mla_download_error_log' => 'true',
 				);
-				$download_link = '<a class="button-secondary" href="' . add_query_arg( $args, wp_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . __( 'Error Log', 'media-library-assistant' ) . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
+				$download_link = '<a class="button-secondary" href="' . add_query_arg( $args, MLACore::mla_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . __( 'Error Log', 'media-library-assistant' ) . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
 			} else {
 				$download_link = '';
 			}
@@ -1398,7 +1399,7 @@ class MLASettings {
 				'mla_tab' => 'debug',
 				'mla_reset_log' => 'true'
 			);
-			$reset_link = '<a class="button-secondary" href="' . add_query_arg( $args, wp_nonce_url( 'options-general.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Reset', 'media-library-assistant' ) . ' &#8220;' . __( 'Error Log', 'media-library-assistant' ) . '&#8221;">' . __( 'Reset', 'media-library-assistant' ) . '</a>';
+			$reset_link = '<a class="button-secondary" href="' . add_query_arg( $args, MLACore::mla_nonce_url( 'options-general.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Reset', 'media-library-assistant' ) . ' &#8220;' . __( 'Error Log', 'media-library-assistant' ) . '&#8221;">' . __( 'Reset', 'media-library-assistant' ) . '</a>';
 		}
 
 		$settings_list  = self::_compose_settings_row( 'Display Limit', $display_limit );

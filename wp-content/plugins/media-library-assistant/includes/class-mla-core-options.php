@@ -613,6 +613,19 @@ class MLACoreOptions {
 					'texts' => array( __( 'Ascending', 'media-library-assistant' ), __( 'Descending', 'media-library-assistant' ) ),
 					'help' => __( 'Choose the sort order.', 'media-library-assistant' )),
 
+			'entries_per_page' =>
+				array('tab' => 'general',
+					'name' => __( 'Entries per page', 'media-library-assistant' ),
+					'autoload' => true,
+					'std' => '10',
+					'size' => 2,
+					'help' => __( 'Enter the number of Media/Assistant submenu table items per page.', 'media-library-assistant' ),
+					'type' => 'custom',
+					'render' => 'mla_entries_per_page_handler',
+					'update' => 'mla_entries_per_page_handler',
+					'delete' => 'mla_entries_per_page_handler',
+					'reset' => 'mla_entries_per_page_handler'),
+
 			self::MLA_TABLE_VIEWS_WIDTH =>
 				array('tab' => 'general',
 					'name' => __( 'Views Width', 'media-library-assistant' ),
@@ -1201,6 +1214,13 @@ class MLACoreOptions {
 								'iptc_first' => true,
 								'keep_existing' => true
 							),
+							'post_date' => array (
+								'name' => __( 'Uploaded on', 'media-library-assistant' ),
+								'iptc_value' => 'none',
+								'exif_value' => '',
+								'iptc_first' => true,
+								'keep_existing' => false
+							),
 						),
 						'taxonomy' => array (
 						),
@@ -1350,7 +1370,7 @@ class MLACoreOptions {
 					'type' => 'text',
 					'std' => '',
 					'size' => 60,
-					'help' => __( 'Enter the name of an alternate, MLA-specific debug log file; leave blank to use the PHP error_log.', 'media-library-assistant' )),
+					'help' => __( 'Enter the name of an alternate, MLA-specific debug log file; leave blank to use the PHP error_log.<br>&nbsp;&nbsp;The WP_CONTENT_DIR value (below) will be prepended to the value here, e.g., enter something like "/uploads/mla.log".', 'media-library-assistant' )),
 
 			self::MLA_DEBUG_REPLACE_PHP_LOG =>
 				array('tab' => 'debug',

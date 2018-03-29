@@ -457,7 +457,7 @@ class MLASettings_Shortcodes {
 			'mla_tab' => 'shortcodes',
 			'mla_item_ID' => $item['post_ID']
 		);
-		$copy_href = add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_COPY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
+		$copy_href = add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_COPY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
 
 		$page_values = array(
 			'Edit Template' => $item['default'] ? __( 'View Template', 'media-library-assistant' ) : __( 'Edit Template', 'media-library-assistant' ),
@@ -1066,15 +1066,15 @@ class MLA_Template_List_Table extends WP_List_Table {
 		}
 
 		if ( $item->default ) {
-			$actions['view'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'View this item', 'media-library-assistant' ) . '">' . __( 'View', 'media-library-assistant' ) . '</a>';
+			$actions['view'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'View this item', 'media-library-assistant' ) . '">' . __( 'View', 'media-library-assistant' ) . '</a>';
 		} else {
-			$actions['edit'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
+			$actions['edit'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
 		}
 		
-		$actions['copy'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_COPY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Make a copy', 'media-library-assistant' ) . '">' . __( 'Copy', 'media-library-assistant' ) . '</a>';
+		$actions['copy'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_COPY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Make a copy', 'media-library-assistant' ) . '">' . __( 'Copy', 'media-library-assistant' ) . '</a>';
 
 		if ( ! $item->default ) {
-			$actions['delete'] = '<a class="delete-tag" href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
+			$actions['delete'] = '<a class="delete-tag" href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
 		}
 
 		return $actions;
@@ -1228,7 +1228,7 @@ class MLA_Template_List_Table extends WP_List_Table {
 			/*
 			 * Remember the view filters
 			 */
-			$base_url = wp_nonce_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-shortcodes&mla_tab=shortcodes', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
+			$base_url = MLACore::mla_nonce_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-shortcodes&mla_tab=shortcodes', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
 
 			if ( isset( $_REQUEST['s'] ) ) {
 				$base_url = add_query_arg( array( 's' => $_REQUEST['s'] ), $base_url );

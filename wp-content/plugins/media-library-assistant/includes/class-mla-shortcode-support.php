@@ -242,7 +242,7 @@ class MLAShortcode_Support {
 		 * Look for parameters in an enclosing shortcode
 		 */
 		if ( ! ( empty( $content ) || isset( $attr['mla_alt_shortcode'] ) ) ) {
-			$content = str_replace( array( '&#8216;', '&#8217;', '&#8221;', '&#8243;', '<br />', '<p>', '</p>', "\r", "\n" ), array( '\'', '\'', '"', '"', ' ', ' ', ' ', ' ', ' ' ), $content );
+			$content = str_replace( array( '&#038;', '&#8216;', '&#8217;', '&#8221;', '&#8243;', '<br />', '<p>', '</p>', "\r", "\n" ), array( '&', '\'', '\'', '"', '"', ' ', ' ', ' ', ' ', ' ' ), $content );
 			$new_attr = shortcode_parse_atts( $content );
 			if ( is_array( $new_attr ) ) {
 				$attr = array_merge( $attr, $new_attr );
@@ -1047,7 +1047,7 @@ class MLAShortcode_Support {
 			$item_values['path'] = '';
 			$item_values['file'] = '';
 			$item_values['description'] = wptexturize( $attachment->post_content );
-			$item_values['file_url'] = wp_get_attachment_url( $attachment->ID ); // $attachment->guid;
+			$item_values['file_url'] = wp_get_attachment_url( $attachment->ID );
 			$item_values['author_id'] = $attachment->post_author;
 			$item_values['author'] = '';
 			$item_values['caption'] = '';
@@ -1344,7 +1344,7 @@ class MLAShortcode_Support {
 				}
 
 				$item_values['downloadlink_url'] = add_query_arg( $args, MLA_PLUGIN_URL . 'includes/mla-file-downloader.php' );
-				$item_values['downloadlink'] = preg_replace( '#' . $matches[0][0] . '#', sprintf( 'href=\'%1$s\'', $item_values['downloadlink_url'] ), $item_values['filelink'] );
+				$item_values['downloadlink'] = preg_replace( '"' . $matches[0][0] . '"', sprintf( 'href=\'%1$s\'', $item_values['downloadlink_url'] ), $item_values['filelink'] );
 				
 				// AJAX-based Named Transfer link
 				$args = array(
@@ -1358,7 +1358,7 @@ class MLAShortcode_Support {
 				}
 
 				$item_values['transferlink_url'] = add_query_arg( $args, admin_url( 'admin-ajax.php' ) );
-				$item_values['transferlink'] = preg_replace( '#' . $matches[0][0] . '#', sprintf( 'href=\'%1$s\'', $item_values['transferlink_url'] ), $item_values['filelink'] );
+				$item_values['transferlink'] = preg_replace( '"' . $matches[0][0] . '"', sprintf( 'href=\'%1$s\'', $item_values['transferlink_url'] ), $item_values['filelink'] );
 			} else {
 				$item_values['downloadlink_url'] = $item_values['filelink_url'];
 				$item_values['downloadlink'] = $item_values['filelink'];
@@ -1571,7 +1571,7 @@ class MLAShortcode_Support {
 								/*
 								 * For efficiency, image streaming is done outside WordPress
 								 */
-								$icon_url = add_query_arg( $args, wp_nonce_url( MLA_PLUGIN_URL . 'includes/mla-stream-image.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
+								$icon_url = add_query_arg( $args, MLACore::mla_nonce_url( MLA_PLUGIN_URL . 'includes/mla-stream-image.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
 							}
 						}
 
@@ -4107,7 +4107,6 @@ class MLAShortcode_Support {
 		}
 
 		$markup_values['http_host'] = $_SERVER['HTTP_HOST'];
-
 		if ( 0 < $new_page ) {
 			$new_uri = remove_query_arg( $mla_page_parameter, $_SERVER['REQUEST_URI'] );
 			$markup_values['request_uri'] = add_query_arg( array(  $mla_page_parameter  => $new_page ), $new_uri );	

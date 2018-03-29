@@ -875,7 +875,7 @@ class SMC_Automatic_Support {
 				// Find old Post assignments
 				$old_assignments = implode( ',', $old_assignments );
 				$sql = "SELECT ID FROM {$wpdb->posts}
-				WHERE ID IN ( {$old_assignments} ) AND post_type = {$parent->post_type}";
+				WHERE ID IN ( {$old_assignments} ) AND post_type = '{$parent->post_type}'";
 				$old_ids = $wpdb->get_col( $sql );
 //error_log( __LINE__ . ' SMC_Automatic_Support::rule_remove_feature $old_ids = ' . var_export( $old_ids, true), 0 );
 			}

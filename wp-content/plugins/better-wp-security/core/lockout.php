@@ -836,6 +836,7 @@ final class ITSEC_Lockout {
 		if ( $whitelisted ) {
 			// No need to send an email notice when the host is whitelisted.
 			ITSEC_Lib::release_lock( $lock );
+			return;
 		}
 
 

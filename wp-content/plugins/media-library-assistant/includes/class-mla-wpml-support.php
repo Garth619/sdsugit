@@ -2081,10 +2081,47 @@ class MLA_WPML_Table {
 		if ( isset( $_REQUEST['lang'] ) ) {
 			$submenu_arguments['lang'] = $_REQUEST['lang'];
 		} else {		 
-			$submenu_arguments['lang'] = $sitepress->get_current_language();
+			$submenu_arguments['lang'] = self::mla_get_table_language();
 		}
 
 		return $submenu_arguments;
+	}
+
+	/**
+	 * Get the table-level language code
+	 *
+	 * This function is used for column-level operations, because
+	 * $sitepress->get_current_language() is item-specific.
+	 *
+	 * @since 2.71
+	 *
+	 * @return	string	table-level language code
+	 */
+	private static function mla_get_table_language() {
+		global $sitepress;
+ 
+		if ( !empty( $_REQUEST['lang'] ) ) {
+			$table_language = $_REQUEST['lang'];
+		} else {
+			if ( empty( $table_language ) && ( ! empty( $_SERVER[ 'HTTP_REFERER' ] ) ) ) {
+				$query_string = parse_url( $_SERVER[ 'HTTP_REFERER' ], PHP_URL_QUERY );
+				$query = array();
+				parse_str( strval( $query_string ), $query );
+				if ( !empty( $query['lang'] ) ) {
+					$table_language = $query['lang'];
+				}
+			}
+				
+			if ( empty( $table_language ) && method_exists( $sitepress, 'get_admin_language_cookie' ) ) {
+				$table_language = $sitepress->get_admin_language_cookie();
+			}
+
+			if ( empty( $table_language ) ) {
+				$table_language = $sitepress->get_default_language();
+			}
+		}
+		
+		return $table_language;
 	}
 
 	/**
@@ -2107,19 +2144,7 @@ class MLA_WPML_Table {
 		if ( is_null( self::$language_columns ) && $sitepress->is_translated_post_type( 'attachment' ) ) {
 			// Build language management columns
 			$show_language = 'checked' == MLACore::mla_get_option( 'language_column', false, false, MLA_WPML::$mla_language_option_definitions );
-
-			// $current_language is item-specific, $table_laguage is for the entire table
-			$current_language = $sitepress->get_current_language();
-			$table_language = $current_language;
-			if ( ! empty( $_SERVER[ 'HTTP_REFERER' ] ) ) {
-				$query_string = parse_url( $_SERVER[ 'HTTP_REFERER' ], PHP_URL_QUERY );
-				$query = array();
-				parse_str( strval( $query_string ), $query );
-				if ( !empty( $query['lang'] ) ) {
-					$table_language = $query['lang'];
-				}
-			}
-			
+			$table_language = self::mla_get_table_language();
 			$languages = $sitepress->get_active_languages();
 			$view_status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
 			if ( 1 < count( $languages ) && $view_status != 'trash' ) {
@@ -2189,7 +2214,7 @@ class MLA_WPML_Table {
 	public static function mla_list_table_add_icl_styles() {
 		global $sitepress;
 
-		$current_language = $sitepress->get_current_language();
+		$current_language = self::mla_get_table_language();
 		$languages = count( $sitepress->get_active_languages() );
 		$view_status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
 
@@ -2226,19 +2251,11 @@ class MLA_WPML_Table {
 			$content = $sitepress->get_display_language_name( $item_language, $display_language );
 		} elseif ('icl_translations' == $column_name ) {
 			if ( is_null( $languages ) ) {
+				$languages = $sitepress->get_active_languages();
 				$default_language  = $sitepress->get_default_language();
 				$current_language = $sitepress->get_current_language();
-				$languages = $sitepress->get_active_languages();
-				// $current_language is item-specific, $table_laguage is for the entire table
-				$table_language = $current_language;
-				if ( ! empty( $_SERVER[ 'HTTP_REFERER' ] ) ) {
-					$query_string = parse_url( $_SERVER[ 'HTTP_REFERER' ], PHP_URL_QUERY );
-					$query = array();
-					parse_str( strval( $query_string ), $query );
-					if ( !empty( $query['lang'] ) ) {
-						$table_language = $query['lang'];
-					}
-				}
+				// $current_language is item-specific, $table_language is for the entire table
+				$table_language = self::mla_get_table_language();
 			}
 
 			$trid = $sitepress->get_element_trid( $item->ID, 'post_attachment' );
@@ -2278,7 +2295,7 @@ class MLA_WPML_Table {
 					}
 
 					$args = array ( 'page' => MLACore::ADMIN_PAGE_SLUG, 'mla_admin_action' => 'wpml_create_translation', 'mla_item_ID' => $item->ID, 'mla_parent_ID' => $item->post_parent, 'lang' => $language['code'] );
-					$link = add_query_arg( $args, wp_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
+					$link = add_query_arg( $args, MLACore::mla_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) );
 				}
 
 				$link = apply_filters( 'wpml_link_to_translation', $link, false, $language['code'], $trid );

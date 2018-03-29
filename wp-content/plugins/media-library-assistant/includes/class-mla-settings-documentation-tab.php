@@ -174,7 +174,7 @@ class MLASettings_Documentation {
 
 		$page_content['body'] = MLAData::mla_parse_template( $page_template_array['before-example-table'], $page_values );
 
-		//	 Now we can render the completed list table
+		// Now we can render the completed list table
 		ob_start();
 		$MLAListExampleTable->display();
 		$page_content['body'] .= ob_get_contents();
@@ -194,9 +194,7 @@ class MLASettings_Documentation {
 	 * @return	array	'message' => status/error messages, 'body' => tab content
 	 */
 	public static function mla_compose_documentation_tab( ) {
-		/*
-		 * Display or Cancel the Example Plugins submenu, if requested
-		 */
+		// Display or Cancel the Example Plugins submenu, if requested
 		if ( !empty( $_REQUEST['mla-example-search'] ) ) {
 			check_admin_referer( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
 			$page_content = self::_compose_example_tab();
@@ -217,9 +215,7 @@ class MLASettings_Documentation {
 			);
 		}
 
-		/*
-		 * Process bulk actions that affect an array of items
-		 */
+		// Process bulk actions that affect an array of items
 		$bulk_action = MLASettings::mla_current_bulk_action();
 		if ( $bulk_action && ( $bulk_action != 'none' ) ) {
 			$bulk_message = '';
@@ -251,9 +247,7 @@ class MLASettings_Documentation {
 			$page_content['message'] = $bulk_message;
 		} // $bulk_action
 
-		/*
-		 * Process row-level actions that affect a single item
-		 */
+		// Process row-level actions that affect a single item
 		if ( !empty( $_REQUEST['mla_admin_action'] ) ) {
 			check_admin_referer( MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
 			$action_content = array( 'message' => '' );
@@ -298,13 +292,10 @@ class MLASettings_Documentation {
 			return '';
 		}
 
-		/*
-		 * Display the Documentation tab
-		 */
+		// Display the Documentation tab
 		$page_values = array(
-			'example_url' => wp_nonce_url( '?page=mla-settings-menu-documentation&mla_tab=documentation&mla-example-search=Search', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ),
+			'example_url' => MLACore::mla_nonce_url( '?page=mla-settings-menu-documentation&mla_tab=documentation&mla-example-search=Search', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ),
 			'translate_url' => MLA_PLUGIN_URL . 'languages/MLA Internationalization Guide.pdf',
-//			'phpDocs_url' => MLA_PLUGIN_URL . 'phpDocs/index.html',
 			'phpDocs_url' => 'http://fairtradejudaica.org/wp-content/uploads/' . 'phpDocs/index.html',
 		);
 
@@ -637,11 +628,11 @@ class MLA_Example_List_Table extends WP_List_Table {
 
 		if ( empty( $item->installed_version ) ) {
 			if ( current_user_can( 'install_plugins' ) ) {
-				$actions['install'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_INSTALL, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Install this plugin', 'media-library-assistant' ) . '">' . __( 'Install', 'media-library-assistant' ) . '</a>';
+				$actions['install'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_INSTALL, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Install this plugin', 'media-library-assistant' ) . '">' . __( 'Install', 'media-library-assistant' ) . '</a>';
 			}
 		} else {
 			if ( current_user_can( 'update_plugins' ) ) {
-				$actions['update'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_UPDATE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Update this plugin', 'media-library-assistant' ) . '">' . __( 'Update', 'media-library-assistant' ) . '</a>';
+				$actions['update'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_UPDATE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Update this plugin', 'media-library-assistant' ) . '">' . __( 'Update', 'media-library-assistant' ) . '</a>';
 			}
 		}
 
@@ -651,10 +642,10 @@ class MLA_Example_List_Table extends WP_List_Table {
 				'mla_download_file' => urlencode( MLA_PLUGIN_PATH . 'examples/plugins/' . $item->file ),
 				'mla_download_type' => 'text/plain'
 			);
-			$actions['download'] = '<a href="' . add_query_arg( $args, wp_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . esc_attr( $item->file ) . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
+			$actions['download'] = '<a href="' . add_query_arg( $args, MLACore::mla_nonce_url( 'upload.php', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Download', 'media-library-assistant' ) . ' &#8220;' . esc_attr( $item->file ) . '&#8221;">' . __( 'Download', 'media-library-assistant' ) . '</a>';
 		}
 
-		$actions['view'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'View this item', 'media-library-assistant' ) . '">' . __( 'View', 'media-library-assistant' ) . '</a>';
+		$actions['view'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'View this item', 'media-library-assistant' ) . '">' . __( 'View', 'media-library-assistant' ) . '</a>';
 
 		return $actions;
 	}
@@ -798,7 +789,7 @@ class MLA_Example_List_Table extends WP_List_Table {
 			/*
 			 * Remember the view filters
 			 */
-			$base_url = wp_nonce_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-documentation&mla_tab=documentation&mla-example-search=Search', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
+			$base_url = MLACore::mla_nonce_url( 'options-general.php?page=' . MLACoreOptions::MLA_SETTINGS_SLUG . '-documentation&mla_tab=documentation&mla-example-search=Search', MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME );
 
 			if ( isset( $_REQUEST['s'] ) ) {
 				$base_url = add_query_arg( array( 's' => $_REQUEST['s'] ), $base_url );

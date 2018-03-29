@@ -34,7 +34,7 @@ class MLAObjects {
 	public static function mla_build_taxonomies( ) {
 		if ( MLACore::mla_taxonomy_support('attachment_category') ) {
 			$object_type = apply_filters( 'mla_attachment_category_types', array(
-				'attachment'
+				'attachment',
 			) );
 
 			$labels = apply_filters( 'mla_attachment_category_labels', array(
@@ -112,8 +112,8 @@ class MLAObjects {
 		foreach ( $taxonomies as $tax_name ) {
 			if ( MLACore::mla_taxonomy_support( $tax_name ) ) {
 				register_taxonomy_for_object_type( $tax_name, 'attachment');
-				add_filter( "manage_edit-{$tax_name}_columns", 'MLAObjects::mla_taxonomy_get_columns_filter', 0x7FFFFFFF, 1 ); // $columns
-				add_filter( "manage_{$tax_name}_custom_column", 'MLAObjects::mla_taxonomy_column_filter', 0x7FFFFFFF, 3 ); // $place_holder, $column_name, $tag->term_id
+				add_filter( "manage_edit-{$tax_name}_columns", 'MLAObjects::mla_taxonomy_get_columns_filter', 0x7FFFFFFF, 1 );
+				add_filter( "manage_{$tax_name}_custom_column", 'MLAObjects::mla_taxonomy_column_filter', 0x7FFFFFFF, 3 );
 			} // taxonomy support
 		} // foreach
 	} // _add_taxonomy_support
@@ -129,9 +129,7 @@ class MLAObjects {
 	 * @return	array	updated column definitions for the edit taxonomy list table
 	 */
 	public static function mla_taxonomy_get_columns_filter( $columns ) {
-		/*
-		 * Adding or inline-editing a tag is done with AJAX, and there's no current screen object
-		 */
+		// Adding or inline-editing a tag is done with AJAX, and there's no current screen object
 		if ( isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'add-tag', 'inline-save-tax' ) ) ) {
 			$post_type = !empty($_POST['post_type']) ? $_POST['post_type'] : 'post';
 			$taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : 'post_tag';
@@ -176,13 +174,9 @@ class MLAObjects {
 	public static function mla_taxonomy_column_filter( $current_value, $column_name, $term_id ) {
 		static $taxonomy = NULL, $tax_object = NULL, $count_terms = false, $terms = array();
 
-		/*
-		 * Do setup tasks once per page load
-		 */
+		// Do setup tasks once per page load
 		if ( NULL == $taxonomy ) {
-			/*
-			 * Adding or inline-editing a tag is done with AJAX, and there's no current screen object
-			 */
+			// Adding or inline-editing a tag is done with AJAX, and there's no current screen object
 			if ( defined('DOING_AJAX') && DOING_AJAX ) {
 				$taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : 'post_tag';
 			} else {
@@ -200,13 +194,9 @@ class MLAObjects {
 			return $current_value;
 		}
 
-		/*
-		 * Do setup tasks once per page load
-		 */
+		// Do setup tasks once per page load
 		if ( NULL == $tax_object ) {
-			/*
-			 * Adding or inline-editing a tag is done with AJAX, and there's no current screen object
-			 */
+			// Adding or inline-editing a tag is done with AJAX, and there's no current screen object
 			if ( defined('DOING_AJAX') && DOING_AJAX ) {
 				$taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : 'post_tag';
 			} else {

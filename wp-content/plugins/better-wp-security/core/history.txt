@@ -645,6 +645,10 @@
 	Bug Fix: Cannot use object of type WP_Error as array in Malware Scanner.
 	Bug Fix: Reordered loading of logging class to allow for logging earlier.
 4.1.4 - 2018-03-01 - Chris Jean & Timothy Jacobs
-	Security Fix: Fixed display of unescaped data on logs page.
+	Security Fix: Fixed display of unescaped data on logs page. Thanks to Paweł Kuryłowicz from SecuRing for finding and reporting this issue.
 	Enhancement: The logging system now differentiates between WP-CLI commands, WP-Cron scheduled events, and normal page requests.
 	Bug Fix: Fixed the File Change scanner in that it previously could fail to exclude selected directories on some systems.
+4.1.5 - 2018-03-06 - Chris Jean & Timothy Jacobs
+	Bug Fix: Fixed situation that could cause lockout notifications being sent for whitelisted IPs.
+	Bug Fix: Fixed issue where saving Global Settings would be blocked by an unwritable "Path to Log Files" path when the "Log Type" is set to "Database Only".
+	Bug Fix: Fixed issue that prevented log database entries from purging and log file entries from rotating on a schedule.

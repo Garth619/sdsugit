@@ -143,7 +143,7 @@ final class ITSEC_Setup {
 			ITSEC_Lib::schedule_cron_test();
 		}
 
-		if ( $build < 4081 ) {
+		if ( $build < 4087 ) {
 			ITSEC_Core::get_scheduler()->register_events();
 		}
 

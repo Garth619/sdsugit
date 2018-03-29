@@ -32,6 +32,8 @@ class MLA_Ajax {
 	 * @return	void
 	 */
 	public static function initialize() {
+		$ajax_only = var_export( self::$ajax_only, true );
+		MLACore::mla_debug_add( __LINE__ . " MLA_Ajax::initialize( {$ajax_only} ) \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 		add_action( 'admin_init', 'MLA_Ajax::mla_admin_init_action' );
 
 		// Defined here because the "admin_init" action is not called for item transfers

@@ -58,7 +58,7 @@ There is no "trash" area or "undo" feature, so use the "Purge Values" and "Delet
 <!-- template="mla-add-new" -->
 <!-- title="Add New Rule" order="60" -->
 <p>The left-hand side of the screen contains all the fields you need to define a new custom field rule. Name is required, and must not have a rule already defined for it; the other fields are not or have default values. There is more information about each field in the text under the value area.</p>
-<p>You can pick from a list of the custom fields already associated with one or more items. If you want to define a new custom field, click "Enter new field" and type the new field's name in the text box.</p>
+<p>You can pick from a list of the custom fields already associated with one or more items. If you want to define a new custom field, click "Enter new field" and type the new field's name in the text box. If you want to display or update an "attachment metadata" field, click "Enter new field" and prefix the metadata element name with "meta:"</p>
 <p><strong>NOTE:</strong> To save your work and add the rule, you must scroll down to the bottom of the form and click "Add Rule".</p>
 <p>You can find complete information on each of the custom field mapping rule fields in the "The custom field rule elements" portion of the "Documentation on Custom Field Mapping Rules" section of the Documentation tab (see the "For more information" link in the sidebar at the right).</p>
 <!-- template="mla-read-only" -->
@@ -68,5 +68,5 @@ There is no "trash" area or "undo" feature, so use the "Purge Values" and "Delet
 <!-- template="sidebar" -->
 <p><strong>For more information:</strong></p>
 <p><a href="[+settingsURL+]?page=mla-settings-menu-documentation&mla_tab=documentation#mla_custom_field_mapping" target="_blank">Documentation on Custom Field Mapping Rules</a></p>
-<p><a href="[+settingsURL+]?page=mla-settings-menu-documentation&mla_tab=documentation#attachment_metadata_mapping" target="_blank">Documentation on updating WordPress "attachment metadata"</a></p>
+<p><a href="[+settingsURL+]?page=mla-settings-menu-documentation&mla_tab=documentation#attachment_metadata_mapping" target="_blank">Documentation on displaying and/or updating WordPress "attachment metadata"</a></p>
 <p><a href="http://wordpress.org/support/plugin/media-library-assistant" target="_blank">MLA Support Forum</a></p>

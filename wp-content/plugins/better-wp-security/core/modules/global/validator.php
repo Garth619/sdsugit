@@ -36,18 +36,19 @@ class ITSEC_Global_Validator extends ITSEC_Validator {
 		$this->sanitize_setting( 'string', 'user_lockout_message', __( 'User Lockout Message', 'better-wp-security' ) );
 		$this->sanitize_setting( 'string', 'community_lockout_message', __( 'Community Lockout Message', 'better-wp-security' ) );
 
-		$this->sanitize_setting( 'writable-directory', 'log_location', __( 'Path to Log Files', 'better-wp-security' ) );
-
 		$this->sanitize_setting( 'positive-int', 'blacklist_count', __( 'Blacklist Threshold', 'better-wp-security' ) );
 		$this->sanitize_setting( 'positive-int', 'blacklist_period', __( 'Blacklist Lockout Period', 'better-wp-security' ) );
 		$this->sanitize_setting( 'positive-int', 'lockout_period', __( 'Lockout Period', 'better-wp-security' ) );
 		$this->sanitize_setting( 'positive-int', 'log_rotation', __( 'Days to Keep Database Logs', 'better-wp-security' ) );
 
+		$this->sanitize_setting( 'newline-separated-ips', 'lockout_white_list', __( 'Lockout White List', 'better-wp-security' ) );
+
 		$log_types = array_keys( $this->get_valid_log_types() );
 		$this->sanitize_setting( $log_types, 'log_type', __( 'Log Type', 'better-wp-security' ) );
 
-		$this->sanitize_setting( 'newline-separated-ips', 'lockout_white_list', __( 'Lockout White List', 'better-wp-security' ) );
-
+		if ( 'database' !== $this->settings['log_type'] ) {
+			$this->sanitize_setting( 'writable-directory', 'log_location', __( 'Path to Log Files', 'better-wp-security' ) );
+		}
 
 		$allowed_tags = $this->get_allowed_tags();
 

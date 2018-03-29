@@ -145,7 +145,7 @@ class MLAItemTransferPrettyLinks {
 	}
 
 	/**
-	 * Add the "Tools" link to the Plugins section entry
+	 * Add the "Settings" link to the Plugins section entry
 	 *
 	 * @since 1.00
 	 *
@@ -207,7 +207,7 @@ class MLAItemTransferPrettyLinks {
 	}
 
 	/**
-	 * Render (echo) the "MLA jhdean" submenu in the Settings section
+	 * Render (echo) the "MLA pretty links" submenu in the Settings section
 	 *
 	 * @since 1.00
 	 *
@@ -217,7 +217,7 @@ class MLAItemTransferPrettyLinks {
 		MLACore::mla_debug_add( __LINE__ . " MLAItemTransferPrettyLinks:add_submenu_page() \$_REQUEST = " . var_export( $_REQUEST, true ), MLACore::MLA_DEBUG_CATEGORY_ANY );
 
 		if ( !current_user_can( 'manage_options' ) ) {
-			echo "MLA Item Transfer Pretty Links - Error</h2>\n";
+			echo "<h2>MLA Item Transfer Pretty Links - Error</h2>\n";
 			wp_die( 'You do not have permission to manage plugin settings.' );
 		}
 		

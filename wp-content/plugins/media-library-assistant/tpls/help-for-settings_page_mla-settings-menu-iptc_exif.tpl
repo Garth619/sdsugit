@@ -69,4 +69,5 @@ There is no "trash" area or "undo" feature, so use the "Purge Values" and "Delet
 <!-- template="sidebar" -->
 <p><strong>For more information:</strong></p>
 <p><a href="[+settingsURL+]?page=mla-settings-menu-documentation&mla_tab=documentation#mla_iptc_exif_mapping" target="_blank">Documentation on IPTC/EXIF Mapping Rules</a></p>
+<p><a href="[+settingsURL+]?page=mla-settings-menu-documentation&mla_tab=documentation#date_iptc_exif_mapping" target="_blank">IPTC/EXIF Mapping and Bulk Editing for the "Uploaded on" Standard Field</a></p>
 <p><a href="http://wordpress.org/support/plugin/media-library-assistant" target="_blank">MLA Support Forum</a></p>

@@ -94,9 +94,9 @@ if ( ! empty( $mla_plugin_loader_error_messages ) ) {
 	}
 
 	if( defined('DOING_AJAX') && DOING_AJAX ) {
-		/*
-		 * Ajax handlers
-		 */
+		//error_log( __LINE__ . " mla-plugin-loader.php DOING_AJAX \$_REQUEST = " . var_export( $_REQUEST, true ), 0 );
+
+		// Ajax handlers
 		require_once( MLA_PLUGIN_PATH . 'includes/class-mla-ajax.php' );
 		add_action( 'init', 'MLA_Ajax::initialize', 0x7FFFFFFF );
 

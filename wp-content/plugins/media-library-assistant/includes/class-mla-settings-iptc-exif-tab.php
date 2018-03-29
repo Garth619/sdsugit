@@ -230,7 +230,7 @@ class MLASettings_IPTCEXIF {
 	 * @return string Message(s) reflecting the results of the operation
 	 */
 	private static function _add_iptc_exif_rule() {
-		$mla_iptc_exif_rule = isset( $_REQUEST['mla_iptc_exif_rule'] ) ? $_REQUEST['mla_iptc_exif_rule'] : array();
+		$mla_iptc_exif_rule = isset( $_REQUEST['mla_iptc_exif_rule'] ) ? stripslashes_deep( $_REQUEST['mla_iptc_exif_rule'] ) : array();
 
 		// Validate new rule name
 		if ( !empty( $mla_iptc_exif_rule['new_field'] ) ) {
@@ -334,12 +334,11 @@ class MLASettings_IPTCEXIF {
 			'option' => $mla_iptc_exif_rule['option'],
 			'no_null' => $mla_iptc_exif_rule['no_null'],
 			'delimiters' => $mla_iptc_exif_rule['delimiters'],
-			'parent' => !empty( $mla_iptc_exif_rule['parent'] ) && ( '-1' !== $mla_iptc_exif_rule['parent'] )  ? absint( $mla_iptc_exif_rule['parent'] ) : 0,
+			'parent' => !empty( $mla_iptc_exif_rule['parent'] ) && ( '0' !== $mla_iptc_exif_rule['parent'] ) ? absint( $mla_iptc_exif_rule['parent'] ) : 0,
 			'active' => $mla_iptc_exif_rule['active'],
 			'read_only' => false,
 			'changed' => true,
 			'deleted' => false,
-
 		);
 
 		if ( empty( $error_message ) ) {
@@ -466,7 +465,7 @@ class MLASettings_IPTCEXIF {
 			'EXIF/Template Value' => __( 'EXIF/Template Value', 'media-library-assistant' ),
 			'exif_size' => MLACoreOptions::MLA_EXIF_SIZE,
 			'exif_text' => esc_attr( $item['exif_value'] ),
-			'Enter EXIF/Template' => __( 'EXIF element name or Content Template', 'media-library-assistant' ),
+			'Enter EXIF/Template' => __( 'EXIF element name or Content Template', 'media-library-assistant' ) . __( ' (starting with "template:")', 'media-library-assistant' ),
 			'Priority' => __( 'Priority', 'media-library-assistant' ),
 			'iptc_selected' => '', // Set below
 			'IPTC' => __( 'IPTC', 'media-library-assistant' ),
@@ -1420,7 +1419,7 @@ class MLA_IPTC_EXIF_List_Table extends WP_List_Table {
 			$view_args['orderby'] = $_REQUEST['orderby'];
 		}
 
-			$actions['edit'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
+			$actions['edit'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
 
 		if ( !$item->read_only ) {
 			$actions['inline hide-if-no-js'] = '<a class="editinline" href="#" title="' . __( 'Edit this item inline', 'media-library-assistant' ) . '">' . __( 'Quick Edit', 'media-library-assistant' ) . '</a>';
@@ -1429,11 +1428,11 @@ class MLA_IPTC_EXIF_List_Table extends WP_List_Table {
 		MLACore::MLA_ADMIN_SINGLE_MAP . '[' . $item->post_ID . ']" href="#" title="' . __( 'Map All Attachments', 'media-library-assistant' ) . '">' . __( 'Execute', 'media-library-assistant' ) . '</a>';
 
 			if ( 'custom' === $item->type ) {
-				$actions['purge'] = '<a class="purge"' . ' href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_PURGE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Purge IPTC EXIF values', 'media-library-assistant' ) . '">' . __( 'Purge Values', 'media-library-assistant' ) . '</a>';
+				$actions['purge'] = '<a class="purge"' . ' href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_PURGE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Purge IPTC EXIF values', 'media-library-assistant' ) . '">' . __( 'Purge Values', 'media-library-assistant' ) . '</a>';
 			}
 		}
 
-		$actions['delete'] = '<a class="delete-tag"' . ' href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
+		$actions['delete'] = '<a class="delete-tag"' . ' href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
 
 		return $actions;
 	}
@@ -2097,7 +2096,7 @@ class MLA_IPTC_EXIF_Query {
 					'keep_existing' => true,
 					'delimiters' => '',
 					'parent' => 0,
-					'active' => true,
+					'active' => false,
 				) );
 			}
 

@@ -502,6 +502,62 @@ class MLAOptions {
 				return '<br>' . sprintf( __( '%1$s: Custom %2$s unknown action "%3$s"', 'media-library-assistant' ), __( 'ERROR', 'media-library-assistant' ), $key, $action ) . "\r\n";
 		}
 	} // mla_search_option_handler
+
+	/**
+	 * Render and manage Entries per page screen option for Media/Assistant admin submenu table
+ 	 *
+	 * @since 2.71
+	 *
+	 * @param	string 	'render', 'update', 'delete', or 'reset'
+	 * @param	string 	option name; 'mla_entries_per_page'
+	 * @param	array 	option parameters
+	 * @param	array 	Optional. null (default) for 'render' else option data, e.g., $_REQUEST
+	 *
+	 * @return	string	HTML table row markup for 'render' else message(s) reflecting the results of the operation.
+	 */
+	public static function mla_entries_per_page_handler( $action, $key, $value, $args = NULL ) {
+		MLAOptions::_load_option_templates();
+
+		$key = MLA_OPTION_PREFIX . $key;
+
+		switch ( $action ) {
+			case 'render':
+				$current_value = get_user_option( $key );
+
+				if ( false === $current_value ) {
+					$current_value = get_option( 'posts_per_page', $value['std'] );
+				}
+				
+				$option_values = array(
+					'key' => $key,
+					'value' => $value['name'],
+					'help' => $value['help'],
+					'size' => $value['size'],
+					'text' => $current_value,
+				);
+
+				return MLAData::mla_parse_template( MLAOptions::$mla_option_templates['text'], $option_values );
+			case 'update':
+				$user_id = get_current_user_id();
+				$new_value = isset( $args[ $key ] ) ? $args[ $key ] : get_option( 'posts_per_page', $value['std'] );
+
+				$result = update_user_option( $user_id, $key, $new_value, true );
+				
+				/* translators: 1: option name, e.g., taxonomy_support */
+				return '<br>' . sprintf( __( 'Update custom %1$s', 'media-library-assistant' ), $key ) . "\r\n";
+			case 'delete':
+			case 'reset':
+				$user_id = get_current_user_id();
+				delete_user_option( $user_id, $key, true );
+				
+				/* translators: 1: option name, e.g., taxonomy_support */
+				return '<br>' . sprintf( __( 'Reset custom %1$s', 'media-library-assistant' ), $key ) . "\r\n";
+			default:
+				/* translators: 1: ERROR tag 2: option name 3: action, e.g., update, delete, reset */
+				return '<br>' . sprintf( __( '%1$s: Custom %2$s unknown action "%3$s"', 'media-library-assistant' ), __( 'ERROR', 'media-library-assistant' ), $key, $action ) . "\r\n";
+		}
+	} // mla_entries_per_page_handler
+
 	/**
 	 * Examine or alter the filename before the file is made permanent
  	 *
@@ -787,6 +843,7 @@ class MLAOptions {
 			 */
 			$setting_value['no_null'] = isset( $setting_value['no_null'] ) && ( false !== $setting_value['no_null'] );
 
+			$setting_value['key'] = $setting_key;
 			$setting_value = apply_filters( 'mla_mapping_rule', $setting_value, $post_id, $category, $attachment_metadata );
 			if ( NULL === $setting_value ) {
 				continue;
@@ -1208,6 +1265,26 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 	} // mla_custom_field_option_handler
 
 	/**
+	 * Term ID cache for (hierarchical) taxonomy mapping rules
+	 *
+	 * Locates term name within the hierarchy.
+	 *
+	 * @since 2.71
+	 *
+	 * @access public
+	 * @var	array $mla_term_cache {
+	 *     @type array $$taxonomy {
+	 *         @type array $$term_parent {
+	 *             @type array $$term_name {
+	 *                 @type integer $term_id Term ID within the specific taxonomy and parent term.
+	 *             }
+	 *         }
+	 *     }
+	 * }
+	 */
+	public static $mla_term_cache = array(); // [ $taxonomy ][ $term_parent ][ $term_name ] => $term_id
+
+	/**
 	 * Build and search a cache of taxonomy and term name to term ID mappings
  	 *
 	 * @since 2.01
@@ -1220,21 +1297,19 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 	 * @return	integer	term_id for the term name
 	 */
 	private static function _get_term_id( $term_name, $term_parent, $taxonomy, &$post_terms ) {
-		static $term_cache = array(); // [ $taxonomy ][ $term_parent ][ $term_name ]
-
 		// WordPress encodes special characters, e.g., "&" as HTML entities in term names
 		$term_name = _wp_specialchars( $term_name );
 
-		// Is this term alerady in the cache?
-		if ( isset( $term_cache[ $taxonomy ] ) && isset( $term_cache[ $taxonomy ][ $term_parent ] ) && isset( $term_cache[ $taxonomy ][ $term_parent ][ $term_name ] ) ) {
-			return $term_cache[ $taxonomy ][ $term_parent ][ $term_name ];
+		// Is this term already in the cache?
+		if ( isset( MLAOptions::$mla_term_cache[ $taxonomy ] ) && isset( MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ] ) && isset( MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ][ $term_name ] ) ) {
+			return MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ][ $term_name ];
 		}
 
 		// Is this term already assigned to the item?
 		if ( is_array( $post_terms ) ) {
 			$term_id = 0;
 			foreach( $post_terms as $post_term ) {
-				$term_cache[ $taxonomy ][ $post_term->parent ][ $post_term->name ] = $post_term->term_id;
+				MLAOptions::$mla_term_cache[ $taxonomy ][ $post_term->parent ][ $post_term->name ] = $post_term->term_id;
 				if ( $term_name == $post_term->name && $term_parent == $post_term->parent ) {
 					$term_id = $post_term->term_id;
 				}
@@ -1249,20 +1324,20 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 		if ( 0 === $term_parent ) {
 			$post_term = get_term_by( 'name', $term_name, $taxonomy ); // Consider get_terms() for identical names
 			if ( false !== $post_term ) {
-				$term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = $post_term->term_id;
+				MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = $post_term->term_id;
 				return $post_term->term_id;
 			}
 		} else {
 			$post_term = term_exists( $term_name, $taxonomy, $term_parent );
 			if ( $post_term !== 0 && $post_term !== NULL ) {
-				$term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = absint( $post_term['term_id'] );
+				MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = absint( $post_term['term_id'] );
 				return absint( $post_term['term_id'] );
 			}
 		}
 
 		$post_term = wp_insert_term( $term_name, $taxonomy, array( 'parent' => $term_parent ) );
 		if ( ( ! is_wp_error( $post_term ) ) && isset( $post_term['term_id'] ) ) {
-			$term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = $post_term['term_id'];
+			MLAOptions::$mla_term_cache[ $taxonomy ][ $term_parent ][ $term_name ] = $post_term['term_id'];
 			return $post_term['term_id'];
 		}
 
@@ -1289,9 +1364,7 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 
 		$image_metadata = MLAData::mla_fetch_attachment_image_metadata( $post->ID );
 
-		/*
-		 * Make the PDF/XMP metadata available as EXIF values so simple rules like "EXIF:Keywords" will work
-		 */
+		// Make the PDF/XMP metadata available as EXIF values so simple rules like "EXIF:Keywords" will work
 		if ( empty( $image_metadata['mla_exif_metadata'] ) ) {
 			if ( ! empty( $image_metadata['mla_xmp_metadata'] ) ) {
 				$image_metadata['mla_exif_metadata'] = $image_metadata['mla_xmp_metadata'];
@@ -1314,6 +1387,7 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 
 		if ( $update_all || ( 'iptc_exif_standard_mapping' == $category ) ) {
 			foreach ( $settings['standard'] as $setting_key => $setting_value ) {
+				$setting_value['key'] = $setting_key;
 				$setting_value = apply_filters( 'mla_mapping_rule', $setting_value, $post->ID, 'iptc_exif_standard_mapping', $attachment_metadata );
 				if ( NULL === $setting_value ) {
 					continue;
@@ -1413,6 +1487,18 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 								$updates[ $setting_key ] = $new_text;
 							}
 							break;
+						case 'post_date':
+							if ( empty( $post->post_date ) || !$keep_existing ) {
+								// strtotime() will "Parse about any English textual datetime description into a Unix timestamp"
+								$timestamp = strtotime( $new_text );
+								if( false !== $timestamp ) {
+									// date() "Returns a string formatted according to the format string using the integer timestamp"
+									$new_text = date( 'Y-m-d H:i:s', $timestamp );
+									$updates[ $setting_key ] = $new_text;
+									$updates['post_date_gmt'] = get_gmt_from_date( $new_text );
+								}
+							}
+							break;
 						default:
 							// ignore anything else
 					} // $setting_key
@@ -1429,11 +1515,10 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 					continue;
 				}
 
-				/*
-				 * Convert checkbox value(s)
-				 */
+				// Convert checkbox value(s)
 				$hierarchical = $setting_value['hierarchical'] = (boolean) $setting_value['hierarchical'];
 
+				$setting_value['key'] = $setting_key;
 				$setting_value = apply_filters( 'mla_mapping_rule', $setting_value, $post->ID, 'iptc_exif_taxonomy_mapping', $attachment_metadata );
 				if ( NULL === $setting_value ) {
 					continue;
@@ -1611,6 +1696,7 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 				$setting_value['no_null'] = isset( $setting_value['no_null'] );
 
 				$setting_name = $setting_value['name'];
+				$setting_value['key'] = $setting_key;
 				$setting_value = apply_filters( 'mla_mapping_rule', $setting_value, $post->ID, 'iptc_exif_custom_mapping', $attachment_metadata );
 				if ( NULL === $setting_value ) {
 					continue;
@@ -1782,7 +1868,7 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 			'name' => 'mla_filter_term',
 			'id' => 'name',
 			'class' => 'postform',
-			'selected' => ( 0 == $selection) ? -1 : $selection,
+			'selected' => ( 0 == $selection ) ? -1 : $selection,
 			'hierarchical' => true,
 			'pad_counts' => false,
 			'taxonomy' => $taxonomy,
@@ -1796,7 +1882,8 @@ return "MLAOptions::mla_custom_field_option_handler( $action, $key ) deprecated.
 
 		$dropdown_options = substr( $dropdown, strpos( $dropdown, ' >' ) + 2 );
 		$dropdown_options = substr( $dropdown_options, 0, strpos( $dropdown_options, '</select>' ) );
-		$dropdown_options = str_replace( "value='-1' ", 'value="0"', $dropdown_options );
+		$dropdown_options = str_replace( "value='-1'", 'value="0"', $dropdown_options );
+		$dropdown_options = str_replace( 'value="-1"', 'value="0"', $dropdown_options );
 
 		return $dropdown_options;
 	} // mla_compose_parent_option_list

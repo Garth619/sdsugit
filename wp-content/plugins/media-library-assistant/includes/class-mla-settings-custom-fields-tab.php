@@ -227,7 +227,7 @@ class MLASettings_CustomFields {
 	 * @return string Message(s) reflecting the results of the operation
 	 */
 	private static function _add_custom_field_rule() {
-		$mla_custom_field = isset( $_REQUEST['mla_custom_field'] ) ? $_REQUEST['mla_custom_field'] : array();
+		$mla_custom_field = isset( $_REQUEST['mla_custom_field'] ) ? stripslashes_deep( $_REQUEST['mla_custom_field'] ) : array();
 
 		// Validate new rule name
 		if ( !empty( $mla_custom_field['new_field'] ) ) {
@@ -1341,7 +1341,7 @@ class MLA_Custom_Fields_List_Table extends WP_List_Table {
 			$view_args['orderby'] = $_REQUEST['orderby'];
 		}
 
-			$actions['edit'] = '<a href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
+			$actions['edit'] = '<a href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_EDIT_DISPLAY, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Edit this item', 'media-library-assistant' ) . '">' . __( 'Edit', 'media-library-assistant' ) . '</a>';
 
 		if ( !$item->read_only ) {
 			$actions['inline hide-if-no-js'] = '<a class="editinline" href="#" title="' . __( 'Edit this item inline', 'media-library-assistant' ) . '">' . __( 'Quick Edit', 'media-library-assistant' ) . '</a>';
@@ -1349,10 +1349,10 @@ class MLA_Custom_Fields_List_Table extends WP_List_Table {
 			$actions['execute hide-if-no-js'] = '<a class="execute" id="' . 
 		MLACore::MLA_ADMIN_SINGLE_CUSTOM_FIELD_MAP . '[' . $item->post_ID . ']" href="#" title="' . __( 'Map All Attachments', 'media-library-assistant' ) . '">' . __( 'Execute', 'media-library-assistant' ) . '</a>';
 
-			$actions['purge'] = '<a class="purge"' . ' href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_CUSTOM_FIELD_PURGE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Purge custom field values', 'media-library-assistant' ) . '">' . __( 'Purge Values', 'media-library-assistant' ) . '</a>';
+			$actions['purge'] = '<a class="purge"' . ' href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_CUSTOM_FIELD_PURGE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Purge custom field values', 'media-library-assistant' ) . '">' . __( 'Purge Values', 'media-library-assistant' ) . '</a>';
 		}
 
-		$actions['delete'] = '<a class="delete-tag"' . ' href="' . add_query_arg( $view_args, wp_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
+		$actions['delete'] = '<a class="delete-tag"' . ' href="' . add_query_arg( $view_args, MLACore::mla_nonce_url( '?mla_admin_action=' . MLACore::MLA_ADMIN_SINGLE_DELETE, MLACore::MLA_ADMIN_NONCE_ACTION, MLACore::MLA_ADMIN_NONCE_NAME ) ) . '" title="' . __( 'Delete this item Permanently', 'media-library-assistant' ) . '">' . __( 'Delete Permanently', 'media-library-assistant' ) . '</a>';
 
 		return $actions;
 	}
