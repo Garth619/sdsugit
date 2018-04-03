@@ -23,6 +23,13 @@
 		"oAP": "\/.htaccess",
 		"oF": 0
 		},
+	"\/.maintenance": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.maintenance",
+		"oF": 0
+		},
 	"\/bbpress\/bbpress.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -45999,6 +46006,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/themes\/sdsu\/page-supervisorcore.php",
+		"oF": 0
+		},
+	"\/wp-content\/themes\/sdsu\/page-test.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/themes\/sdsu\/page-test.php",
 		"oF": 0
 		},
 	"\/wp-content\/themes\/sdsu\/page-tribalstarevents.php": {
@@ -99526,6 +99540,13 @@
 		"oAP": "\/wp-content\/uploads\/2018\/03\/ccr-2018-so-co-presentation.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2018\/03\/confidentiality-flyer-2018-06-01.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/03\/confidentiality-flyer-2018-06-01.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/03\/confidentiality-outline-2018-06-01.pdf": {
 		"cB": 0,
 		"ft": 8192,
@@ -99756,6 +99777,20 @@
 		"oAP": "\/wp-content\/uploads\/2018\/03\/sud-mat-integration-2018-05-10.pdf",
 		"oF": 0
 		},
+	"\/wp-content\/uploads\/2018\/03\/sud-mat-integration-flyer-2018-05-10.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/03\/sud-mat-integration-flyer-2018-05-10.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/03\/term-training-outline-2018-05-11.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/03\/term-training-outline-2018-05-11.pdf",
+		"oF": 0
+		},
 	"\/wp-content\/uploads\/2018\/03\/tribal-star-MARCH-newsletter.pdf.pdf": {
 		"cB": 0,
 		"ft": 8192,
@@ -99768,6 +99803,20 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/uploads\/2018\/03\/virtual-reality-research.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/04\/intro-geriatric-mental-health-day2-materials-2018.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/04\/intro-geriatric-mental-health-day2-materials-2018.pdf",
+		"oF": 0
+		},
+	"\/wp-content\/uploads\/2018\/04\/term-training-outline-2018-05-11-rev.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/uploads\/2018\/04\/term-training-outline-2018-05-11-rev.pdf",
 		"oF": 0
 		},
 	"\/wp-content\/uploads\/ithemes-security\/.htaccess": {
