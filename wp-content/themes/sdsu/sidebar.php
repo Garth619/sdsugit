@@ -36,7 +36,7 @@
 						$sidebartwo = wp_get_attachment_image_src(get_field('lms_sidebar_image','option'),'full');
 						$sidebarimage = get_bloginfo('template_directory');
 						
-						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="https://academy.sumtotal.host/broker/Account/Login.aspx?wtrealm=https%3A%2F%2FACADEMY.sumtotal.host%2Fcore%2F&init=true&domainid=6414A1F8CEA393B7A1E609CAA96B0702"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/newsignin.png"/></a><a class="request_account" href="https://sdsumbrs.az1.qualtrics.com/jfe/form/SV_0c75lYpeur5l9rv" target="_blank">Request an Account</a>';
+						echo '<span class="browse lms_title">LMS Login</span><a class="lms_img" title="LMS Login" target="_blank" href="https://academy.sumtotal.host/"><img class="sidebar_program_banner" alt="LMS Login" src="' . $sidebarimage . '/images/newsignin.png"/></a><a class="request_account" href="https://sdsumbrs.az1.qualtrics.com/jfe/form/SV_0c75lYpeur5l9rv" target="_blank">Request an Account</a>';
 												
 												
 					} ?>
