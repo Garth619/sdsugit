@@ -2698,18 +2698,6 @@ img {
     margin: 10px 10px 0 0;
     border-bottom: 1px solid #ccc; } }
 
-.options-media-php br {
-  display: none; }
-
-@media screen and (max-width: 375px) {
-  .options-media-php input[type=number][name*="_size_"] {
-    margin: 5px 0; }
-  .options-media-php label[for*="_size_h"]:before {
-    content: '';
-    display: block; }
-  .options-media-php br {
-    display: block; } }
-
 @media screen and (max-width: 320px) {
   #network_dashboard_right_now .subsubsub {
     font-size: 14px;
