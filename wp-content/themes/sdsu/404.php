@@ -11,7 +11,7 @@ get_header(); ?>
 
 
 
-	<div id="container" style="height:350px;">
+	<div id="container-custom" style="height:350px;">
 		<div id="content" role="main">
 			<div id="post-0" class="post error404 not-found">
 				<?php $host = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];

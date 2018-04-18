@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-		<div id="container">
+		<div id="container-custom">
 			<span class="breadcrumbs"><a href="<?php bloginfo('url');?>/academy-photo-wall">Back to the Photo Wall</a></span>			
 			<div class="content_wrapper" style="width:100%;">
 				<div id="content">

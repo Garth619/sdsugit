@@ -7,7 +7,7 @@
 
 get_header(); ?>
 		
-		<div id="container">
+		<div id="container-custom">
 
 <span style="border-bottom: 1px solid #ccc;display: block;font-size: 13px;font-weight: 400;margin: 20px 0 23px;padding: 0 0 0.3em;width: 100%;"></span>
 

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div id="container">
+<div id="container-custom">
 			<?php if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<span class="breadcrumbs">','</span>');
 } ?>

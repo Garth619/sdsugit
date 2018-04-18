@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-		<div id="container" style="max-width:1105px;margin:35px auto;">
+		<div id="container-custom" style="max-width:1105px;margin:35px auto;">
 			<div id="content" role="main">
 				
 

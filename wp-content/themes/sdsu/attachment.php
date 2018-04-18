@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-		<div id="container" class="single-attachment">
+		<div id="container-custom" class="single-attachment">
 			<div id="content" role="main">
 
 			<?php

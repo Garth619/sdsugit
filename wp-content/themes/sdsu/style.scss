@@ -87,7 +87,7 @@ $gold:#d2c183;
 -------------------------------------------------------------- */
 
 
-#container {
+#container-custom {
 	padding: 0 0 1.8em;
 	width: 100%;
 }
@@ -1276,7 +1276,7 @@ header {
 	height:37px; /* might need to change to auto */
 }
 
-.header_wrap, .footer_wrap, #container, .main_inner {
+.header_wrap, .footer_wrap, #container-custom, .main_inner {
 	width:93%;
 	margin:0 auto;
 	max-width:1105px;
@@ -2526,7 +2526,7 @@ footer {
 	.widget-area {
 		display: none !important;
 	}
-	#container,
+	#container-custom,
 	#header,
 	#footer {
 		margin: 0;
@@ -4617,7 +4617,7 @@ div.sibebar_two ul#menu-menu-2.menu li ul li:not(:nth-of-type(3)) {
 	display:none;
 }
 
-html body.page.page-id-997.page-child.parent-pageid-949.page-template.page-template-page-inner.page-template-page-inner-php.logged-in.admin-bar.customize-support.fadein div.mm-page.mm-slideout div#wrapper.hfeed main div#container div.sidebar_wrapper div.sidebar_two div.menu-menu-1-container ul#menu-menu-4.menu li.menu-item.menu-item-type-post_type.menu-item-object-page.current-page-ancestor.current-menu-ancestor.current-menu-parent.current-page-parent.current_page_parent.current_page_ancestor.menu-item-has-children.menu-item-956 ul.sub-menu
+
 
 
 /* ENd of BHETA CCA Pathways R2R */

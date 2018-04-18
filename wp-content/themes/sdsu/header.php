@@ -37,7 +37,7 @@
 	?></title>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'> 
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>?v=45" />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>?v=50" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <link href="<?php bloginfo( 'template_directory' ); ?>/jQuery.mmenu-master/src/css/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
 
