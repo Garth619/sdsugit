@@ -34,7 +34,8 @@
 								<div class="block_c_col first">
 									<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 									<p><span itemprop="streetAddress"><?php the_field('street_address','option'); ?></span><br/><span itemprop="addressLocality"><?php the_field('city','option'); ?>, <?php the_field('state','option'); ?></span> <span itemprop="postalCode"><?php the_field('zip_code','option'); ?></span></p>
-									<p><span class="gold">Tel:</span> <a title="6195943536" href="tel:<?php the_field('phone','option'); ?>"><span itemprop="telephone"><?php the_field('phone','option'); ?></span></a><br/><span class="gold">Fax:</span> <a><span itemprop="faxNumber"><?php the_field('fax','option'); ?></span></a></p>
+									
+									
 									</div><!-- schema -->
 <!-- 									<p><a href="mailto:academy@mail.sdsu.edu" title="academy@mail.sdsu.edu" class="footer_mail">academy@mail.sdsu.edu</a></p> -->
 									<!-- <p>Social Links??</p> -->
