@@ -4318,7 +4318,7 @@ class MLAData {
 		}
 
 		$terms_after = array();
-		if ( $hierarchical ) {
+		if ( $hierarchical  || MLACore::mla_taxonomy_support( $taxonomy, 'flat-checklist' )) {
 			$terms = array_map( 'intval', $terms );
 			$terms = array_unique( $terms );
 

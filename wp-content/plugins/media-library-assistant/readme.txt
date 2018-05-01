@@ -1,11 +1,11 @@
 === Media Library Assistant ===
 Contributors: dglingren
 Donate link: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
-Tags: attachments, gallery, images, media, media library, tag cloud, media-tags, media tags, tags, media categories, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photoblog, photo albums, lightroom, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
+Tags: attachments, gallery, images, media, media library, tags, categories, IPTC, EXIF, XMP, GPS, PDF, metadata, photos, photographs, photo albums, MIME, mime-type, icon, upload, file extensions, WPML, Polylang
 Requires at least: 3.5.0
-Tested up to: 4.9.1
+Tested up to: 4.9.5
 Requires PHP: 5.3
-Stable tag: 2.72
+Stable tag: 2.73
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,11 +155,11 @@ Some of the MLA features such as where-used reporting and ALT Text sorting/searc
 
 Rest assured, custom templates and all of your option settings persist unchanged whenever you update to a new MLA version.
 
-You can also back a backup of your templates and settings from the Settings/Media Library Assistant General tab. Scroll to the bottom of the page and click “Export ALL Settings” to create a backup file. You can create as many files as you like; they are date and time stamped so you can restore the one you want later.
+You can also back a backup of your templates and settings from the Settings/Media Library Assistant General tab. Scroll to the bottom of the page and click "Export ALL Settings" to create a backup file. You can create as many files as you like; they are date and time stamped so you can restore the one you want later.
 
 In addition, you can deactivate and even delete the plugin without losing the settings. They will be there when you reinstall and activate in the future.
 
-You can permanently delete the settings and (optionally) the backup files if you are removing MLA for good. The “Uninstall (Delete)” Plugin Settings section of the General tab enables these options.
+You can permanently delete the settings and (optionally) the backup files if you are removing MLA for good. The "Uninstall (Delete)" Plugin Settings section of the General tab enables these options.
 
 = Are other language versions available? =
 
@@ -182,6 +182,17 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 9. The Media Manager popup modal window showing additional filters for date and taxonomy terms. Also shows the enhanced Search Media box and the full-function taxonomy support in the ATTACHMENT DETAILS area.
 
 == Changelog ==
+
+= 2.73 =
+* New: The (optional) "checklist-style" formatting of flat taxonomies has been extended to the Media/Assistant Quick Edit and Bulk Edit areas.
+* New: The (optional) "checked-on-top" formatting of checklist taxonomies has been extended to the Media/Assistant Quick Edit and Bulk Edit areas.
+* New: A new "MLA Parent Search Example" plugin has been added. It adds a `parent:` prefix to the Media/Assistant Search Media text box that allows searches for items whose parent post/page matches the specified values.
+* New: A new "MLA JavaScript Example" plugin has been added. It shows a simple method of adding and localizing scripts, using the WP Featherlight lightbox plugin as a sample application.
+* New: For the `[mla_gallery]` shortcode, the `post_type` and `post_status` parameters now accept multiple values.
+* Fix: For the Media/Assistant admin submenu, the correct SERVER_URI value is now generated for multisite and "subdirectory" WordPress installs.
+* Fix: For "checklist style" flat taxonomy metaboxes, terms with quote marks in the name are now handled properly.
+* Fix: For the `[mla_tag_cloud]` shortcode, the "Tag Cloud Pagination Parameters" have been restored.
+* Fix: Restore Admin Columns Pro "default column" support for columns such as EXIF values.
 
 = 2.72 =
 * Fix: Remove "Circular Reference" PHP Warnings in class-mla-mime-types.php.
@@ -310,8 +321,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 2.72 =
-Remove "Circular Reference" PHP Warnings in class-mla-mime-types.php.
+= 2.73 =
+Checklist-style flat taxonomy improvements, Admin Columns Pro fix, new and improved example plugins, e.g., "parent search". Five enhancements, four fixes.
 
 == Other Notes ==
 

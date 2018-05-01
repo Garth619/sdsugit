@@ -925,13 +925,13 @@ class MLA_List_Table extends WP_List_Table {
 				}
 
 				$ids = array();
-
-				if ( $tax_object->hierarchical ) {
+				if ( $tax_object->hierarchical || MLACore::mla_taxonomy_support( $tax_name, 'flat-checklist' ) ) {
 					foreach( $terms as $term ) {
 						$ids[] = $term->term_id;
 					}
 
-					$inline_data .= '	<div class="mla_category" id="' . $tax_name . '_' . $item->ID . '">'
+					$inline_class = MLACore::mla_taxonomy_support( $tax_name, 'checked-on-top' ) ? 'mla_category checked_on_top' : 'mla_category';
+					$inline_data .= '	<div class="' . $inline_class . '" id="' . $tax_name . '_' . $item->ID . '">'
 						. implode( ',', $ids ) . "</div>\r\n";
 				} else {
 					foreach( $terms as $term ) {

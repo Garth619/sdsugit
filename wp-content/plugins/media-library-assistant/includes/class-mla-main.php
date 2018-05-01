@@ -1011,6 +1011,8 @@ class MLA {
 
 				// Ignore empty updates
 				if ( $hierarchical = is_array( $terms ) ) {
+					// Make sure term_id values are integers, not strings, for flat-checklist
+					$terms = array_map( 'absint', $terms );
 					if ( false !== ( $index = array_search( 0, $terms ) ) ) {
 						unset( $terms[ $index ] );
 					}
@@ -1039,6 +1041,7 @@ class MLA {
 					$terms = array_unique( $terms );
 				}
 
+				MLACore::mla_debug_add( __LINE__ . " MLA::mla_prepare_bulk_edits( {$post_id}, {$taxonomy}, {$tax_action} ) terms = " . var_export( $terms, true ), MLACore::MLA_DEBUG_CATEGORY_AJAX );
 				if ( empty( $terms ) && 'replace' != $tax_action ) {
 					continue;
 				}
@@ -1359,8 +1362,14 @@ class MLA {
 	 * @return	void
 	 */
 	public static function mla_render_admin_page( ) {
-		// Prevent _wp_http_referer recursion with method="get"
-		$_SERVER['REQUEST_URI'] = '/wp-admin/upload.php?page=mla-menu';
+		// Prevent _wp_http_referer recursion with method="get", preserve WPML/Polylang language selection
+		$_SERVER['REQUEST_URI'] = parse_url( admin_url( 'upload.php' ), PHP_URL_PATH ) . '?page=mla-menu';
+
+		$query = array();
+		parse_str( strval( $_SERVER[ 'QUERY_STRING' ] ), $query );
+		if ( !empty( $query['lang'] ) ) {
+			$_SERVER['REQUEST_URI'] .= '&lang=' . $query['lang'];
+		}
 
 		/*
 		 * WordPress class-wp-list-table.php doesn't look in hidden fields to set
@@ -1762,7 +1771,10 @@ class MLA {
 			// Flat taxonomy strings must be cleaned up and duplicates removed
 			$tax_output = array();
 			foreach ( $_REQUEST['tax_input'] as $tax_name => $tax_value ) {
-				if ( ! is_array( $tax_value ) ) {
+				if ( is_array( $tax_value ) ) {
+					// Make sure term_id values are integers, not strings, for flat-checklist
+					$tax_value = array_map( 'absint', $tax_value );
+				} else {
 					$comma = _x( ',', 'tag_delimiter', 'media-library-assistant' );
 					if ( ',' != $comma ) {
 						$tax_value = str_replace( $comma, ',', $tax_value );
@@ -1993,10 +2005,12 @@ class MLA {
 		$hierarchical_taxonomies = array();
 		$flat_taxonomies = array();
 		foreach ( $taxonomies as $tax_name => $tax_object ) {
-			if ( $tax_object->hierarchical && $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
-				$hierarchical_taxonomies[$tax_name] = $tax_object;
-			} elseif ( $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
-				$flat_taxonomies[$tax_name] = $tax_object;
+			if ( $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
+				if ( $tax_object->hierarchical ) {
+					$hierarchical_taxonomies[$tax_name] = $tax_object;
+				} else {
+					$flat_taxonomies[$tax_name] = $tax_object;
+				}
 			}
 		}
 
@@ -2025,9 +2039,7 @@ class MLA {
 			  $custom_fields .= MLAData::mla_parse_template( $page_template_array['custom_field'], $page_values );
 		}
 
-		/*
-		 * The middle column contains the hierarchical taxonomies, e.g., Attachment Category
-		 */
+		// The middle column contains the hierarchical taxonomies, e.g., Att. Category
 		$quick_middle_column = '';
 		$bulk_middle_column = '';
 
@@ -2044,8 +2056,6 @@ class MLA {
   
 				  $page_values = array(
 					  'tax_html' => esc_html( $tax_object->labels->name ),
-					  'more' => __( 'more', 'media-library-assistant' ),
-					  'less' => __( 'less', 'media-library-assistant' ),
 					  'tax_attr' => esc_attr( $tax_name ),
 					  'tax_checklist' => $tax_checklist,
 					  'Add' => __( 'Add', 'media-library-assistant' ),
@@ -2071,9 +2081,7 @@ class MLA {
 			$bulk_middle_column = MLAData::mla_parse_template( $page_template_array['category_fieldset'], $page_values );
 		} // count( $hierarchical_taxonomies )
 
-		/*
-		 * The right-hand column contains the flat taxonomies, e.g., Attachment Tag
-		 */
+		// The right-hand column contains the flat taxonomies, e.g., Att. Tag
 		$quick_right_column = '';
 		$bulk_right_column = '';
 
@@ -2083,14 +2091,32 @@ class MLA {
 
 			foreach ( $flat_taxonomies as $tax_name => $tax_object ) {
 				if ( current_user_can( $tax_object->cap->assign_terms ) ) {
-					$page_values = array(
-						'tax_html' => esc_html( $tax_object->labels->name ),
-						'tax_attr' => esc_attr( $tax_name ),
-						'Add' => __( 'Add', 'media-library-assistant' ),
-						'Remove' => __( 'Remove', 'media-library-assistant' ),
-						'Replace' => __( 'Replace', 'media-library-assistant' ),
-					);
-					$tag_block = MLAData::mla_parse_template( $page_template_array['tag_block'], $page_values );
+					if ( MLACore::mla_taxonomy_support( $tax_name, 'flat-checklist' ) ) {
+						ob_start();
+						wp_terms_checklist( NULL, array( 'taxonomy' => $tax_name, 'popular_cats' => array(), ) );
+						$tax_checklist = ob_get_contents();
+						ob_end_clean();
+						
+						$page_values = array(
+							'tax_html' => esc_html( $tax_object->labels->name ),
+							'tax_attr' => esc_attr( $tax_name ),
+							'tax_checklist' => $tax_checklist,
+							'Add' => __( 'Add', 'media-library-assistant' ),
+							'Remove' => __( 'Remove', 'media-library-assistant' ),
+							'Replace' => __( 'Replace', 'media-library-assistant' ),
+						);
+						$tag_block = MLAData::mla_parse_template( $page_template_array['category_block'], $page_values );
+					} else {
+						$page_values = array(
+							'tax_html' => esc_html( $tax_object->labels->name ),
+							'tax_attr' => esc_attr( $tax_name ),
+							'Add' => __( 'Add', 'media-library-assistant' ),
+							'Remove' => __( 'Remove', 'media-library-assistant' ),
+							'Replace' => __( 'Replace', 'media-library-assistant' ),
+						);
+						$tag_block = MLAData::mla_parse_template( $page_template_array['tag_block'], $page_values );
+					}
+
 					$taxonomy_options = MLAData::mla_parse_template( $page_template_array['taxonomy_options'], $page_values );
 
 				$quick_tag_blocks .= $tag_block;

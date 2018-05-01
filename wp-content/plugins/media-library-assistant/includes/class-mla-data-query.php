@@ -119,10 +119,10 @@ class MLAQuery {
 			if ( -1 === $ID ) {
 				return NULL;
 			}
-			
+
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-references.php' );
 		}
-		
+
 		return MLAReferences::mla_fetch_attachment_references_handler( $ID, $parent, $add_references );
 	}
 
@@ -145,10 +145,10 @@ class MLAQuery {
 		if ( !class_exists( 'MLAReferences' ) ) {
 			require_once( MLA_PLUGIN_PATH . 'includes/class-mla-data-references.php' );
 		}
-		
+
 		return MLAReferences::mla_attachment_array_fetch_references_handler( $attachments );
 	}
-	
+
 	/**
 	 * Invalidates the $mla_galleries or $galleries array and cached values
 	 *
@@ -361,7 +361,7 @@ class MLAQuery {
 
 		return $terms;		
 	}
-	
+
 	/**
 	 * Get the total number of attachment posts
 	 *
@@ -781,9 +781,7 @@ class MLAQuery {
 					}
 
 					break;
-				/*
-				 * ids allows hooks to supply a persistent list of items
-				 */
+				// ids allows hooks to supply a persistent list of items
 				case 'ids':
 					if ( is_array( $value ) ) {
 						$clean_request[ 'post__in' ] = $value;
@@ -791,38 +789,35 @@ class MLAQuery {
 						$clean_request[ 'post__in' ] = array_map( 'absint', explode( ',', $value ) );
 					}
 					break;
-				/*
-				 * post__in and post__not_in are used in the Media Modal Ajax queries
-				 */
+				// post__in and post__not_in are used in the Media Modal Ajax queries
 				case 'post__in':
 				case 'post__not_in':
 				case 'post_mime_type':
+				// post_parent__in and post_parent__not_in are used in example plugins
+				case 'post_parent__in':
+				case 'post_parent__not_in':
 					$clean_request[ $key ] = $value;
 					break;
 				case 'parent':
 				case 'post_parent':
 					$clean_request[ 'post_parent' ] = absint( $value );
 					break;
-				/*
-				 * ['m'] - filter by year and month of post, e.g., 201204
-				 */
+				// ['m'] - filter by year and month of post, e.g., 201204
 				case 'author':
 				case 'm':
 					$clean_request[ $key ] = absint( $value );
 					break;
-				/*
-				 * ['mla_filter_term'] - filter by taxonomy term ID (-1 allowed), or by custom field
-				 */
+				// ['mla_filter_term'] - filter by taxonomy term ID (-1 allowed), or by custom field
 				case 'mla_filter_term':
 					if ( MLACoreOptions::MLA_FILTER_METAKEY == MLACore::mla_taxonomy_support('', 'filter') ) {
 						if ( MLACoreOptions::ALL_MLA_FILTER_METAKEY != $value ) {
 							$clean_request['mla-metakey'] = MLACore::mla_taxonomy_support('', 'metakey');
 							$clean_request['mla-metavalue'] = stripslashes( $value );
 						}
-						
+
 						break;
 					}
-					
+
 					$clean_request[ $key ] = intval( $value );
 					break;
 				case 'order':
@@ -913,9 +908,7 @@ class MLAQuery {
 			} // switch $key
 		} // foreach $raw_request
 
-		/*
-		 * Pass query and search parameters to the filters for _execute_list_table_query
-		 */
+		// Pass query and search parameters to the filters for _execute_list_table_query
 		self::$query_parameters = array( self::MLA_ALT_TEXT_SUBQUERY => false, self::MLA_FILE_SUBQUERY => false, self::MLA_TABLE_VIEW_SUBQUERY => false, self::MLA_ORDERBY_SUBQUERY => false, 'orderby' => $clean_request['orderby'], 'order' => $clean_request['order'] );
 		self::$query_parameters['detached'] = isset( $clean_request['detached'] ) ? $clean_request['detached'] : NULL;
 		self::$search_parameters = array( 'debug' => 'none' );
@@ -1153,11 +1146,11 @@ class MLAQuery {
 		if ( false !== $wpmf_pre_get_posts_priority ) {
 			remove_action( 'pre_get_posts', array( $GLOBALS['wp_media_folder'], 'wpmf_pre_get_posts' ), $wpmf_pre_get_posts_priority );
 		}
-		
+
 		if ( false !== $wpmf_pre_get_posts1_priority ) {
 			remove_action( 'pre_get_posts', array( $GLOBALS['wp_media_folder'], 'wpmf_pre_get_posts1' ), $wpmf_pre_get_posts1_priority );
 		}
-		
+
 		if ( isset( self::$query_parameters['debug'] ) ) {
 			global $wp_filter;
 			$debug_array = array( 'posts_search' => $wp_filter['posts_search'], 'posts_join' => $wp_filter['posts_join'], 'posts_where' => $wp_filter['posts_where'], 'posts_orderby' => $wp_filter['posts_orderby'] );
@@ -1187,11 +1180,11 @@ class MLAQuery {
 		if ( false !== $wpmf_pre_get_posts1_priority ) {
 			add_action( 'pre_get_posts', array( $GLOBALS['wp_media_folder'], 'wpmf_pre_get_posts1' ), $wpmf_pre_get_posts1_priority );
 		}
-		
+
 		if ( false !== $wpmf_pre_get_posts_priority ) {
 			add_action( 'pre_get_posts', array( $GLOBALS['wp_media_folder'], 'wpmf_pre_get_posts' ), $wpmf_pre_get_posts_priority );
 		}
-		
+
 		if ( function_exists( 'relevanssi_prevent_default_request' ) ) {
 			remove_filter( 'relevanssi_admin_search_ok', 'MLAQuery::mla_query_relevanssi_admin_search_ok_filter' );
 		}
@@ -1296,7 +1289,7 @@ class MLAQuery {
 		if ( false === strpos( $trim_list, $delimiter ) ) {
 			$trim_list .= $delimiter;
 		}
-		
+
 		$whole_string = trim( $whole_string, $trim_list );
 		$phrases = array();
 
@@ -1350,7 +1343,7 @@ class MLAQuery {
 				// Restore quotes for word-boundary check
 				$phrases[] = $current_delimiter . $argument . $current_delimiter;
 			}
-			
+
 			$whole_string = trim( substr( $whole_string, $index ), $trim_list );
 		} // strlen( $whole_string )
 
@@ -1374,7 +1367,7 @@ class MLAQuery {
 		$phrase_delimiter = isset( $terms_search_parameters['phrase_delimiter'] ) ? $terms_search_parameters['phrase_delimiter'] : ' ';
 		$tax_clause = '';
 		$tax_index = 0;
-		
+
 		$terms = self::_parse_terms_search( $terms_search_parameters['phrases'], $term_delimiter );
 		if ( 1 < count( $terms ) ) {
 			$terms_connector = '(';			

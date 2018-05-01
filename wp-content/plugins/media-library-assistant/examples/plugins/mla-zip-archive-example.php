@@ -1,6 +1,6 @@
 <?php
 /**
- * Creates a Bulk Action that downloads one or more Media Library files as a ZIP archive.
+ * Creates a "Download" Bulk Action that downloads one or more Media Library files as a ZIP archive.
  *
  * Created for support topic "Att Categories menu returns 404 error"
  * opened on 11/17/2014 by "activecontent".
@@ -13,7 +13,7 @@
 /*
 Plugin Name: MLA Download ZIP Example
 Plugin URI: http://fairtradejudaica.org/media-library-assistant-a-wordpress-plugin/
-Description: Creates a Bulk Action that downloads one or more Media Library files as a ZIP archive
+Description: Creates a "Download" Bulk Action that downloads one or more Media Library files as a ZIP archive
 Author: David Lingren
 Version: 1.01
 Author URI: http://fairtradejudaica.org/our-story/staff/

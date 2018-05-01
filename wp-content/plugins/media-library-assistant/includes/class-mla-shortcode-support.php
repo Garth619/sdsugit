@@ -1854,7 +1854,7 @@ class MLAShortcode_Support {
 		if ( empty( $template ) ) {
 			$output_parameters = array_map( 'strtolower', array_map( 'trim', explode( ',', $arguments['mla_output'] ) ) );
 
-			if ( !in_array( $output_parameters[0], array( 'flat', 'list', 'ulist', 'olist', 'dlist', 'grid', 'array' ) ) ) {
+			if ( !in_array( $output_parameters[0], array( 'flat', 'list', 'ulist', 'olist', 'dlist', 'grid', 'array', 'next_link', 'current_link', 'previous_link', 'next_page', 'previous_page', 'paginate_links' ) ) ) {
 				$output_parameters[0] = 'flat';
 			}
 
@@ -1965,7 +1965,7 @@ class MLAShortcode_Support {
 
 		$output_parameters = array_map( 'strtolower', array_map( 'trim', explode( ',', $arguments['mla_output'] ) ) );
 
-		if ( !in_array( $output_parameters[0], array( 'flat', 'list', 'ulist', 'olist', 'dlist', 'grid', 'array' ) ) ) {
+		if ( !in_array( $output_parameters[0], array( 'flat', 'list', 'ulist', 'olist', 'dlist', 'grid', 'array', 'next_link', 'current_link', 'previous_link', 'next_page', 'previous_page', 'paginate_links' ) ) ) {
 			$output_parameters[0] = 'flat';
 		}
 
@@ -4459,19 +4459,13 @@ class MLAShortcode_Support {
 	public static function mla_get_shortcode_attachments( $post_parent, $attr, $return_found_rows = NULL ) {
 		global $wp_query;
 
-		/*
-		 * Parameters passed to the where and orderby filter functions
-		 */
+		// Parameters passed to the where and orderby filter functions
 		self::$query_parameters = array();
 
-		/*
-		 * Parameters passed to the posts_search filter function in MLAData
-		 */
+		// Parameters passed to the posts_search filter function in MLAData
 		MLAQuery::$search_parameters = array( 'debug' => 'none' );
 
-		/*
-		 * Make sure $attr is an array, even if it's empty
-		 */
+		// Make sure $attr is an array, even if it's empty
 		if ( empty( $attr ) ) {
 			$attr = array();
 		} elseif ( is_string( $attr ) ) {
@@ -4724,9 +4718,16 @@ class MLAShortcode_Support {
 			self::$mla_get_shortcode_dynamic_attachments_parameters['tax_include_children'] = $attr['tax_include_children'];
 		}
 
-		/*
-		 * $query_arguments has been initialized in the taxonomy code above.
-		 */
+		// Convert lists to arrays
+		if ( is_string( $arguments['post_type'] ) ) {
+			$arguments['post_type'] = explode( ',', $arguments['post_type'] );
+		}
+
+		if ( is_string( $arguments['post_status'] ) ) {
+			$arguments['post_status'] = explode( ',', $arguments['post_status'] );
+		}
+
+		// $query_arguments has been initialized in the taxonomy code above.
 		$is_tax_query = ! ($use_children = empty( $query_arguments ));
 		foreach ($arguments as $key => $value ) {
 			/*
@@ -5341,6 +5342,7 @@ class MLAShortcode_Support {
 			MLACore::mla_debug_add( '<strong>' . __( 'mla_debug post_count', 'media-library-assistant' ) . '</strong> = ' . var_export( MLAShortcodes::$mla_gallery_wp_query_object->post_count, true ) );
 		}
 
+		MLAQuery::$search_parameters = array( 'debug' => 'none' );
 		MLAShortcodes::$mla_gallery_wp_query_object = NULL;
 		return $attachments;
 	}

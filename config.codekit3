@@ -30506,6 +30506,53 @@
 		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-item-transfer-pretty-links.php",
 		"oF": 0
 		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-example.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-example.php",
+		"oF": 0
+		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-rtl.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-rtl-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript.min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-javascript-example\/mla-javascript.min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-jhdean-mapping-hooks-example.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -30609,6 +30656,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-parent-category-mapping-example.php",
+		"oF": 0
+		},
+	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-parent-search-example.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-parent-search-example.php",
 		"oF": 0
 		},
 	"\/wp-content\/plugins\/media-library-assistant\/examples\/plugins\/mla-parent-wp-query-example.php": {

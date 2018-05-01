@@ -722,7 +722,7 @@ You can add <code>post_parent=all</code> to include or exclude attachments regar
 The "id" parameter lets you specify a post ID for your query. The gallery will display images which are attached to that post. If the "id" parameter is not specified, the <code>[mla_gallery]</code> behavior differs from the <code>[gallery]</code> behavior. If your query uses taxonomy or custom field parameters, "author", "author_name" or "s" (search term), then the query will NOT be restricted to items attached to the current post. This lets you build a gallery with any combination of Media Library items that match the parameters.
 </p>
 <p>
-The "ids" parameter lets you specify a list of Post IDs. The attachment(s) matching the "ids" values will be displayed in the order specified by the list.
+The "ids" parameter lets you specify a list of item/attachment IDs. The attachment(s) matching the "ids" values will be displayed in the order specified by the list.
 </p>
 <p>
 You can use the "post_parent" to override the default behavior. If you set "post_parent" to a specific post ID, only the items attached to that post are displayed. You can also specify multiple values separated by commas, e.g., <code>post_parent=1,2,3</code>. There are four additional values available:
@@ -969,7 +969,7 @@ For compatibility with the WordPress <code>[gallery]</code> shortcode, this para
 </p>
 <h4>Post Type, Post Status</h4>
 <p>
-For compatibility with the WordPress <code>[gallery]</code> shortcode, these parameters default to <code>post_type=attachment</code>, <code>post_status=inherit</code>. You can override the defaults to, for example, display items in the trash (<code>post_status=trash</code>).
+For compatibility with the WordPress <code>[gallery]</code> shortcode, these parameters default to <code>post_type=attachment</code>, <code>post_status=inherit</code>. You can override the defaults to, for example, display items in the trash (<code>post_status=trash</code>). You can specify more than one value in a comma-separated list, e.g., <code>post_type="post,page"</code>.
 </p>
 <p>
 You can change the <code>post_type</code> parameter to compose a "gallery" of WordPress objects such as posts, pages and custom post types. For example, to display a gallery of the published posts in a particular category you can code something like:

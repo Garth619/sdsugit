@@ -305,10 +305,12 @@ class MLAEdit {
 		$hierarchical_taxonomies = array();
 		$flat_taxonomies = array();
 		foreach ( $taxonomies as $tax_name => $tax_object ) {
-			if ( $tax_object->hierarchical && $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
-				$hierarchical_taxonomies[$tax_name] = $tax_object;
-			} elseif ( $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
-				$flat_taxonomies[$tax_name] = $tax_object;
+			if ( $tax_object->show_ui && MLACore::mla_taxonomy_support($tax_name, 'quick-edit') ) {
+				if ( $tax_object->hierarchical ) {
+					$hierarchical_taxonomies[$tax_name] = $tax_object;
+				} else {
+					$flat_taxonomies[$tax_name] = $tax_object;
+				}
 			}
 		}
 
@@ -319,10 +321,7 @@ class MLAEdit {
 			return;
 		}
 
-		/*
-		 * The left-hand column contains the hierarchical taxonomies,
-		 * e.g., Attachment Category
-		 */
+		// The left-hand column contains the hierarchical taxonomies,e.g., Att. Category
 		$category_fieldset = '';
 
 		if ( count( $hierarchical_taxonomies ) ) {
@@ -330,25 +329,23 @@ class MLAEdit {
 
 			foreach ( $hierarchical_taxonomies as $tax_name => $tax_object ) {
 				if ( current_user_can( $tax_object->cap->assign_terms ) ) {
-				  ob_start();
-				  wp_terms_checklist( NULL, array( 'taxonomy' => $tax_name, 'popular_cats' => array(), ) );
-				  $tax_checklist = ob_get_contents();
-				  ob_end_clean();
-  
-				  $page_values = array(
+					ob_start();
+					wp_terms_checklist( NULL, array( 'taxonomy' => $tax_name, 'popular_cats' => array(), ) );
+					$tax_checklist = ob_get_contents();
+					ob_end_clean();
+					
+					$page_values = array(
 					  'tax_html' => esc_html( $tax_object->labels->name ),
-					  'more' => __( 'more', 'media-library-assistant' ),
-					  'less' => __( 'less', 'media-library-assistant' ),
 					  'tax_attr' => esc_attr( $tax_name ),
 					  'tax_checklist' => $tax_checklist,
 					  'Add' => __( 'Add', 'media-library-assistant' ),
 					  'Remove' => __( 'Remove', 'media-library-assistant' ),
 					  'Replace' => __( 'Replace', 'media-library-assistant' ),
-				  );
-				  $category_block = MLAData::mla_parse_template( $page_template_array['category_block'], $page_values );
-				  $taxonomy_options = MLAData::mla_parse_template( $page_template_array['taxonomy_options'], $page_values );
-  
-				  $bulk_category_blocks .= $category_block . $taxonomy_options;
+					);
+					$category_block = MLAData::mla_parse_template( $page_template_array['category_block'], $page_values );
+					$taxonomy_options = MLAData::mla_parse_template( $page_template_array['taxonomy_options'], $page_values );
+					
+					$bulk_category_blocks .= $category_block . $taxonomy_options;
 				} // current_user_can
 			} // foreach $hierarchical_taxonomies
 
@@ -358,10 +355,7 @@ class MLAEdit {
 			$category_fieldset = MLAData::mla_parse_template( $page_template_array['category_fieldset'], $page_values );
 		} // count( $hierarchical_taxonomies )
 
-		/*
-		 * The middle column contains the flat taxonomies,
-		 * e.g., Attachment Tag
-		 */
+		// The middle column contains the flat taxonomies, e.g., Att. Tag
 		$tag_fieldset = '';
 
 		if ( count( $flat_taxonomies ) ) {
@@ -369,17 +363,34 @@ class MLAEdit {
 
 			foreach ( $flat_taxonomies as $tax_name => $tax_object ) {
 				if ( current_user_can( $tax_object->cap->assign_terms ) ) {
-					$page_values = array(
-						'tax_html' => esc_html( $tax_object->labels->name ),
-						'tax_attr' => esc_attr( $tax_name ),
-						'Add' => __( 'Add', 'media-library-assistant' ),
-						'Remove' => __( 'Remove', 'media-library-assistant' ),
-						'Replace' => __( 'Replace', 'media-library-assistant' ),
-					);
-					$tag_block = MLAData::mla_parse_template( $page_template_array['tag_block'], $page_values );
-					$taxonomy_options = MLAData::mla_parse_template( $page_template_array['taxonomy_options'], $page_values );
+					if ( MLACore::mla_taxonomy_support( $tax_name, 'flat-checklist' ) ) {
+						ob_start();
+						wp_terms_checklist( NULL, array( 'taxonomy' => $tax_name, 'popular_cats' => array(), ) );
+						$tax_checklist = ob_get_contents();
+						ob_end_clean();
+						
+						$page_values = array(
+							'tax_html' => esc_html( $tax_object->labels->name ),
+							'tax_attr' => esc_attr( $tax_name ),
+							'tax_checklist' => $tax_checklist,
+							'Add' => __( 'Add', 'media-library-assistant' ),
+							'Remove' => __( 'Remove', 'media-library-assistant' ),
+							'Replace' => __( 'Replace', 'media-library-assistant' ),
+						);
+						$tag_block = MLAData::mla_parse_template( $page_template_array['category_block'], $page_values );
+					} else {
+						$page_values = array(
+							'tax_html' => esc_html( $tax_object->labels->name ),
+							'tax_attr' => esc_attr( $tax_name ),
+							'Add' => __( 'Add', 'media-library-assistant' ),
+							'Remove' => __( 'Remove', 'media-library-assistant' ),
+							'Replace' => __( 'Replace', 'media-library-assistant' ),
+						);
+						$tag_block = MLAData::mla_parse_template( $page_template_array['tag_block'], $page_values );
+					}
 
-				$bulk_tag_blocks .= $tag_block . $taxonomy_options;
+					$taxonomy_options = MLAData::mla_parse_template( $page_template_array['taxonomy_options'], $page_values );
+					$bulk_tag_blocks .= $tag_block . $taxonomy_options;
 				} // current_user_can
 			} // foreach $flat_taxonomies
 
@@ -389,9 +400,7 @@ class MLAEdit {
 			$tag_fieldset = MLAData::mla_parse_template( $page_template_array['tag_fieldset'], $page_values );
 		} // count( $flat_taxonomies )
 
-		/*
-		 * The right-hand column contains the standard and custom fields
-		 */
+		// The right-hand column contains the standard and custom fields
 		if ( $authors = MLA::mla_authors_dropdown( -1 ) ) {
 			$authors_dropdown  = '              <label class="inline-edit-author alignright">' . "\n";
 			$authors_dropdown .= '                <span class="title">' . __( 'Author', 'media-library-assistant' ) . '</span>' . "\n";

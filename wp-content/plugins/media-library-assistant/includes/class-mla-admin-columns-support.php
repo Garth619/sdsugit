@@ -174,6 +174,23 @@ class AC_Addon_MLA_ListScreen extends AC_ListScreen_Media {
 	}
 
 	/**
+	 * Return the column value for AC/ACP custom columns, e.g., EXIF values
+	 *
+	 * @param string|null $content
+	 * @param WP_Post $post
+	 * @param string $column_name
+	 *
+	 * @return string|false
+	 */
+	public function column_default_value( $content, $post, $column_name ) {
+		if ( is_null( $content ) ) {
+			$content = $this->get_display_value_by_column_name( $column_name, $post->ID );
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Return an MLA version of a Media Library item
 	 *
 	 * @since 2.71

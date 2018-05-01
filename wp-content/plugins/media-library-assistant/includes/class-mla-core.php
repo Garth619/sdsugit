@@ -21,7 +21,7 @@ class MLACore {
 	 *
 	 * @var	string
 	 */
-	const CURRENT_MLA_VERSION = '2.72';
+	const CURRENT_MLA_VERSION = '2.73';
 
 	/**
 	 * Slug for registering and enqueueing plugin style sheets (moved from class-mla-main.php)
@@ -1777,10 +1777,8 @@ class MLA_Checklist_Walker extends Walker_Category {
 
 		$class = in_array( $taxonomy_object->term_id, $popular_cats ) ? ' class="popular-category"' : '';
         
-		/*
-		 * For flat taxonomies, <input> value is $taxonomy_object->name instead of $taxonomy_object->term_id
-		 */
-		$output .= "\n<li id='{$taxonomy}-{$taxonomy_object->term_id}'$class>" . '<label class="selectit MLA"><input value="' . $taxonomy_object->name . '" type="checkbox" name="'.$name.'[]" id="in-'.$taxonomy.'-' . $taxonomy_object->term_id . '"' . checked( in_array( $taxonomy_object->term_id, $selected_cats ), true, false ) . disabled( empty( $args['disabled'] ), false, false ) . ' /> ' . esc_html( apply_filters('the_category', $taxonomy_object->name )) . '</label>';
+		// For flat taxonomies, <input> value is $taxonomy_object->name instead of $taxonomy_object->term_id
+		$output .= "\n<li id='{$taxonomy}-{$taxonomy_object->term_id}'$class>" . '<label class="selectit MLA"><input value="' . esc_attr( $taxonomy_object->name ) . '" type="checkbox" name="'.$name.'[]" id="in-'.$taxonomy.'-' . $taxonomy_object->term_id . '"' . checked( in_array( $taxonomy_object->term_id, $selected_cats ), true, false ) . disabled( empty( $args['disabled'] ), false, false ) . ' /> ' . esc_html( apply_filters('the_category', $taxonomy_object->name )) . '</label>';
 	}
 
 	/**

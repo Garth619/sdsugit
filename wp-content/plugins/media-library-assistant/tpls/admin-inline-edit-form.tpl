@@ -2,10 +2,7 @@
           <fieldset class="inline-edit-col-center inline-edit-categories"><div class="inline-edit-col">
 [+category_blocks+]          </div></fieldset>
 <!-- template="category_block" -->
-            <span class="title inline-edit-categories-label">[+tax_html+]
-              <span class="catshow">[[+more+]]</span>
-              <span class="cathide" style="display:none;">[[+less+]]</span>
-            </span>
+            <span class="title inline-edit-categories-label">[+tax_html+]</span>
             <input type="hidden" name="tax_input[[+tax_attr+]][]" value="0" />
             <ul class="cat-checklist [+tax_attr+]-checklist">
 [+tax_checklist+]

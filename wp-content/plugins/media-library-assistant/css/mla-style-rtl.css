@@ -95,11 +95,6 @@ div.mla_errors {
 	line-height: 1.2
 }
 
-.quick-edit-row-attachment fieldset.inline-edit-col-center span.catshow,
-.bulk-edit-row-attachment fieldset.inline-edit-col-center span.catshow {
-	display: none
-}
-
 .quick-edit-row-attachment fieldset.inline-edit-col-left label span.input-text-wrap,
 .quick-edit-row-attachment fieldset.inline-edit-col-right label span.input-text-wrap,
 .bulk-edit-row-attachment fieldset.inline-edit-col-right label span.input-text-wrap {
