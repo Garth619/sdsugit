@@ -25,7 +25,7 @@ function main_func() {
   $visitor_email = $_POST['email'];
   $agency = $_POST['agency'];
   $program = $_POST['program'];
-  $admin= 'pd121193@gmail.com';
+  $admin= 'apexwebsupport@sdsu.edu';
   $email_subject = "CYF Outcomes";
   $db = get_conn();
   $todays_date =date("Y-m-d");
