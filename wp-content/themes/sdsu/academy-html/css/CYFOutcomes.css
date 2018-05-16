@@ -1,0 +1,51 @@
+
+.ageLimit,.invalidDob,.invalidPhone,.genderNotSel,.validZip,.invalidEmail,.invalidFile,.noUpload,.size,.dubPhone,.dubEmail,#errorImport{
+  display: none;
+}
+.required+span,.requiredDropDown+span{
+  display: none;
+}
+.required+span,.requiredDropDown+span{
+  color: red;
+}
+
+
+#myModal{
+	z-index:1000000;
+}
+
+#couponTableUsed,#couponTableUnused,#to,#from,#UsedOrNotUsedCouponForm{
+	display:none;
+}
+#containerForCYFAdmin button{
+	background-color:#9b494d;
+	color:#FFFFFF
+}
+.minusAccordion{
+	display:none
+}
+#couponTableWithData thead ,#couponTableUnused thead,.datepicker thead  {
+  background: white;
+  color:grey;
+}
+#couponTableWithData td ,#couponTableUnused td{
+  color: grey !important;
+}
+#couponTableWithData th ,#couponTableUnused th{
+  color: grey !important;
+  padding: 8px !important;
+  line-height: 22px !important;
+}
+#dateError{
+  display: none;
+  color: red
+}
+table{
+      border-bottom: 1px solid #c7c7c7;
+}
+#exportCouponData{
+  margin-bottom: 10px;
+}
+#cyfreg span{
+  color: red;
+}

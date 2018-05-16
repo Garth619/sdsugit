@@ -83,9 +83,9 @@ function twentyten_setup() {
 
 	// Add default posts and comments RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
-	
-	
-	
+
+
+
 
 add_filter('ure_restrict_edit_post_type', 'exclude_posts_from_edit_restrictions');
 
@@ -97,7 +97,7 @@ function exclude_posts_from_edit_restrictions($post_type) {
 	        $restrict_it = false;
       }
   }
-  
+
   if (current_user_can('bhetapages')) {
       if ($post_type=='bhetaevents') {
 	        $restrict_it = false;
@@ -106,18 +106,18 @@ function exclude_posts_from_edit_restrictions($post_type) {
 
   return $restrict_it;
 }
-	
-	
-	
-	
+
+
+
+
 	// remove "Private: " from titles
 function remove_private_prefix($title) {
 	$title = str_replace('Private: ', '', $title);
 	return $title;
 }
 add_filter('the_title', 'remove_private_prefix');
-	
-	
+
+
 
 
 
@@ -150,7 +150,7 @@ function my_jquery_enqueue() {
 }
 
 
-if(function_exists('acf_add_options_page')) { 
+if(function_exists('acf_add_options_page')) {
 
 	acf_add_options_page('');
 	acf_add_options_sub_page('Header');
@@ -232,45 +232,45 @@ require_once('wp-advanced-search/wpas.php');
 
 // remove menu items for Intranet users not sure if this will break anything or not, remove if there are problems //
 
-//***** I stopped using this because I founf a setting on user role editor that does the same effect ***** 
+//***** I stopped using this because I founf a setting on user role editor that does the same effect *****
 
 
 /*
 $user = wp_get_current_user();
-$allowed_roles = array('staffintranet','staffintranetnoemail'); 
-if( array_intersect($allowed_roles, $user->roles ) ) { 
+$allowed_roles = array('staffintranet','staffintranetnoemail');
+if( array_intersect($allowed_roles, $user->roles ) ) {
 
 
 
 
 function remove_menus(){
-  
- 
+
+
   remove_menu_page( 'edit.php' );                   //Posts
   remove_menu_page( 'edit-comments.php' );          //Comments
   remove_menu_page( 'tools.php' );                  //Tools
-  
+
   remove_menu_page( 'options-general.php' );        //Settings
-  
-    
+
+
 }
 add_action( 'admin_menu', 'remove_menus' );
 
 
  }
 */
- 
+
  // End of Intranet Usrers
- 
- 
- // Switch Order of Forum Posts 
+
+
+ // Switch Order of Forum Posts
 /*
 function custom_bbp_has_replies() {
   $args['order'] = 'DESC'; // 'ASC' (Ascending, Default), 'DESC' (Descending)
-  
+
   return $args;
 }
- 
+
 add_filter('bbp_before_has_replies_parse_args', 'custom_bbp_has_replies' );
 */
 
@@ -283,7 +283,7 @@ function custom_bbp_show_lead_topic( $show_lead ) {
   $show_lead[] = 'true';
   return $show_lead;
 }
- 
+
 add_filter('bbp_show_lead_topic', 'custom_bbp_show_lead_topic' );
 */
 
@@ -292,23 +292,23 @@ add_filter('bbp_show_lead_topic', 'custom_bbp_show_lead_topic' );
 // Custom Post Types
 
 
-add_action('init', 'sdigec_recipients');    
-        
-    function sdigec_recipients() {    
-        $args = array(    
-            'label' => __('SDIGEC Recipients'),    
-            'singular_label' => __('SDIGEC Recipient'),    
-            'public' => true,    
+add_action('init', 'sdigec_recipients');
+
+    function sdigec_recipients() {
+        $args = array(
+            'label' => __('SDIGEC Recipients'),
+            'singular_label' => __('SDIGEC Recipient'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'sdigec_recipients',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'sdigec_recipients' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'sdigec_recipients' , $args );
     }
 
 
@@ -319,29 +319,29 @@ add_action('init', 'sdigec_recipients');
 
 
 /*
-	add_action('init', 'photo_wall');    
-   	 
-	function photo_wall() {    
-    	$args = array(    
-        	'label' => __('Photo Wall'),    
-        	'singular_label' => __('Photo Wall Bio'),    
-        	'public' => true,    
+	add_action('init', 'photo_wall');
+
+	function photo_wall() {
+    	$args = array(
+        	'label' => __('Photo Wall'),
+        	'singular_label' => __('Photo Wall Bio'),
+        	'public' => true,
         	'show_ui' => true,
-        	'has_archive' => true,	 
-        	'capability_type' => 'post',    
-        	'hierarchical' => false,    
-        	'rewrite' => true,    
-        	'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )    
-       	);    
-   	 
-    	register_post_type( 'photo_wall' , $args );    
-	} 
+        	'has_archive' => true,
+        	'capability_type' => 'post',
+        	'hierarchical' => false,
+        	'rewrite' => true,
+        	'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+       	);
+
+    	register_post_type( 'photo_wall' , $args );
+	}
 */
 
-	
-	
+
+
 	// This forces Photo Wall Posts to be priavte but it doesnt allow you to trash the posts
-	
+
 /*
 	function force_type_private($post)
 {
@@ -349,60 +349,79 @@ add_action('init', 'sdigec_recipients');
     $post['post_status'] = 'private';
     return $post;
 }
-add_filter('wp_insert_post_data', 'force_type_private');  
-*/ 
- 
+add_filter('wp_insert_post_data', 'force_type_private');
+*/
+
 
 
 
 // Academy Resources and Tools
 
 
-add_action('init', 'academyresources');    
-        
-    function academyresources() {    
-        $args = array(    
-            'label' => __('Academy Resources'),    
-            'singular_label' => __('Academy Resources'),    
-            'public' => true,    
+add_action('init', 'academyresources');
+
+    function academyresources() {
+        $args = array(
+            'label' => __('Academy Resources'),
+            'singular_label' => __('Academy Resources'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'academyresources',
-            'map_meta_cap' => true, 
-            'hierarchical' => false,   
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')   
-           );    
-        
-        register_post_type( 'academyresources' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'academyresources' , $args );
     }
-    
+
      register_taxonomy("academy-resources-categories", array("academyresources"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-     
-     
-     
+
+		 add_action( 'wp_enqueue_scripts', 'cyf_outcomes_coupons',12);
+     function cyf_outcomes_coupons(){
+       if(is_page('CYF Outcomes  Copy')||is_page('CYF_admin')||is_page('CYF Outcomes')){
+         wp_enqueue_style( 'bootstrap_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
+         wp_enqueue_style( 'bootstrap_datepicker', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css' );
+				 	wp_enqueue_style( 'CYFOutcomes', 'https://theacademy.sdsu.edu/wp-content/themes/sdsu/academy-html/css/CYFOutcomes.css' );
+					 	wp_enqueue_style( 'font-awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
+         wp_enqueue_script( 'jquery_js', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+         wp_enqueue_script( 'bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
+				  wp_enqueue_script( 'bootstrap_datepicker_js', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js');
+         wp_enqueue_script( 'validation-for-CYF-outcomes', 'https://theacademy.sdsu.edu/wp-content/themes/sdsu/academy-html/js/validations-CYF-Outcomes-Registration.js');
+
+
+       }
+			 if(is_page('CYF_admin')){
+				 wp_enqueue_script( 'validation-CYF-admin', 'https://theacademy.sdsu.edu/wp-content/themes/sdsu/academy-html/js/validation-admin-CYF-Outcomes.js');
+
+			 }
+     }
+
+
  // Academy Staff Directory
 
 
-add_action('init', 'staffdirectory');    
-        
-    function staffdirectory() {    
-        $args = array(    
-            'label' => __('Staff Directory'),    
-            'singular_label' => __('Staff'),    
-            'public' => true,    
+add_action('init', 'staffdirectory');
+
+    function staffdirectory() {
+        $args = array(
+            'label' => __('Staff Directory'),
+            'singular_label' => __('Staff'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'staffdirectory',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')   
-           );    
-        
-        register_post_type( 'staffdirectory' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'staffdirectory' , $args );
     }
-    
+
 
 
 
@@ -410,503 +429,503 @@ add_action('init', 'staffdirectory');
 //BHETA
 
 
-    add_action('init', 'bhetaevents');    
-        
-    function bhetaevents() {    
-        $args = array(    
-            'label' => __('BHETA Calendar'),    
-            'singular_label' => __('BHETA Event'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'bhetaevents',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')   
-           );    
-        
-        register_post_type( 'bhetaevents' , $args );    
-    }
-    
-    
-    register_taxonomy("bheta-events", array("bhetaevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-    
-     
-     
-     
+    add_action('init', 'bhetaevents');
 
-    add_action('init', 'bhetaresources');    
-        
-    function bhetaresources() {    
-        $args = array(    
-            'label' => __('BHETA Resources'),    
-            'singular_label' => __('BHETA Resource'),    
-            'public' => true,    
+    function bhetaevents() {
+        $args = array(
+            'label' => __('BHETA Calendar'),
+            'singular_label' => __('BHETA Event'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'bhetaresources',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'bhetaresources' , $args );    
+            'has_archive' => true,
+            'capability_type' => 'bhetaevents',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'bhetaevents' , $args );
     }
-    
+
+
+    register_taxonomy("bheta-events", array("bhetaevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
+
+
+
+
+
+    add_action('init', 'bhetaresources');
+
+    function bhetaresources() {
+        $args = array(
+            'label' => __('BHETA Resources'),
+            'singular_label' => __('BHETA Resource'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'bhetaresources',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'bhetaresources' , $args );
+    }
+
      register_taxonomy("bheta-resources-categories", array("bhetaresources"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
 
-     
- 
- 
- 
-    add_action('init', 'bhetabios');    
-        
-    function bhetabios() {    
-        $args = array(    
-            'label' => __('BHETA Bios'),    
-            'singular_label' => __('BHETA Bio'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'bhetabios',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'bhetabios' , $args );    
-    }
-    
-    
-    
-    
-    
 
- 
- 
- 
- 
- 
- 
-  // LIA 
-        
-   add_action('init', 'liaalumni');    
-        
-    function liaalumni() {    
-        $args = array(    
-            'label' => __('LIA Alumni'),    
-            'singular_label' => __('LIA Alumni'),    
-            'public' => true,    
+
+
+
+    add_action('init', 'bhetabios');
+
+    function bhetabios() {
+        $args = array(
+            'label' => __('BHETA Bios'),
+            'singular_label' => __('BHETA Bio'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
+            'capability_type' => 'bhetabios',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'bhetabios' , $args );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+  // LIA
+
+   add_action('init', 'liaalumni');
+
+    function liaalumni() {
+        $args = array(
+            'label' => __('LIA Alumni'),
+            'singular_label' => __('LIA Alumni'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
             'capability_type' => 'liaalumni',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'liaalumni' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'liaalumni' , $args );
     }
-    
-             
+
+
    // MASTER
-   
-   add_action('init', 'mastercurriculum');    
-        
-    function mastercurriculum() {    
-        $args = array(    
-            'label' => __('Master Curriculum'),    
-            'singular_label' => __('Master Curriculum'),    
-            'public' => true,    
+
+   add_action('init', 'mastercurriculum');
+
+    function mastercurriculum() {
+        $args = array(
+            'label' => __('Master Curriculum'),
+            'singular_label' => __('Master Curriculum'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'mastercurriculum',
-            'map_meta_cap' => true,  
-            'hierarchical' => false,  
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'mastercurriculum' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'mastercurriculum' , $args );
     }
-    
+
      register_taxonomy("master-curriculum-categories", array("mastercurriculum"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-     
-     
-   // Master Advanced Training  
-     
-     add_action('init', 'mastertraining');    
-        
-    function mastertraining() {    
-        $args = array(    
-            'label' => __('Master Advanced Training'),    
-            'singular_label' => __('Master Advanced Training'),    
-            'public' => true,    
+
+
+   // Master Advanced Training
+
+     add_action('init', 'mastertraining');
+
+    function mastertraining() {
+        $args = array(
+            'label' => __('Master Advanced Training'),
+            'singular_label' => __('Master Advanced Training'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'mastertraining',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'mastertraining' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'mastertraining' , $args );
     }
-    
+
      register_taxonomy("master-training-categories", array("mastertraining"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-     
-     
-     
-     
+
+
+
+
    //PCWTA Curriculum E-Learning Classes
-   
-  add_action('init', 'pcwtacurriculum');    
-        
-    function pcwtacurriculum() {    
-        $args = array(    
-            'label' => __('PCWTA Curriculum'),    
-            'singular_label' => __('PCWTA Curriculum'),    
-            'public' => true,    
+
+  add_action('init', 'pcwtacurriculum');
+
+    function pcwtacurriculum() {
+        $args = array(
+            'label' => __('PCWTA Curriculum'),
+            'singular_label' => __('PCWTA Curriculum'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'pcwtacurriculum',
             'map_meta_cap' => true,
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'pcwtacurriculum' , $args );    
-    }
-    
-     register_taxonomy("pcwta-curriculum-categories", array("pcwtacurriculum"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-     
-     
-  add_action('init', 'pcwtaevents');    
-        
-    function pcwtaevents() {    
-        $args = array(    
-            'label' => __('PCWTA Events'),    
-            'singular_label' => __('PCWTA Event'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'pcwtaevents',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'pcwtaevents' , $args );    
-    }
-    
-     register_taxonomy("pcwta-events", array("pcwtaevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true)); 
-     
-     
-    
-         
-     
-     
-    add_action('init', 'pcwtabios');    
-        
-    function pcwtabios() {    
-        $args = array(    
-            'label' => __('PCWTA Bios'),    
-            'singular_label' => __('PCWTA Bio'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'pcwtabios',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'pcwtabios' , $args );    
-    }
-    
-     register_taxonomy("pcwta-bios", array("pcwtabios"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-     
-     
-     
-     
-     
-     add_action('init', 'lineworkercore');    
-        
-    function lineworkercore() {    
-        $args = array(    
-            'label' => __('Lineworker Core'),    
-            'singular_label' => __('Lineworker Core'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'lineworkercore',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'lineworkercore' , $args );    
-    }
-    
-    
-    
-    add_action('init', 'supervisorcore');    
-        
-    function supervisorcore() {    
-        $args = array(    
-            'label' => __('Supervisor Core'),    
-            'singular_label' => __('Supervisor Core'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'supervisorcore',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'supervisorcore' , $args );    
-    }
-    
-    
-    
-    add_action('init', 'managercore');    
-        
-    function managercore() {    
-        $args = array(    
-            'label' => __('Manager Core'),    
-            'singular_label' => __('Manager Core'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'managercore',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'managercore' , $args );    
-    }
-    
-    
-    
-    
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     add_action('init', 'pcwtanewsletters');    
-        
-    function pcwtanewsletters() {    
-        $args = array(    
-            'label' => __('PCWTA Training Newsletters'),    
-            'singular_label' => __('PCWTA Training Newsletter'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'pcwtanewsletters',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'pcwtanewsletters' , $args );    
-    }
-    
-     
-   
-       
-        
-   
-   // SACHS
-   
-   
-   add_action('init', 'sachsevents');    
-        
-    function sachsevents() {    
-        $args = array(    
-            'label' => __('SACHS Events'),    
-            'singular_label' => __('SACHS Events'),    
-            'public' => true,    
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'sachsevents',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'sachsevents' , $args );    
-    }
-    
-     register_taxonomy("sachs-events", array("sachsevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-   
-   
-  add_action('init', 'sachsresearch');    
-        
-    function sachsresearch() {    
-        $args = array(    
-            'label' => __('SACHS Research'),    
-            'singular_label' => __('SACHS Research Item'),    
-            'public' => true,
-            'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'sachsresearch',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'sachsresearch' , $args );    
-    }
-    
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
 
-    
-    
-   add_action('init', 'sachslitreview');    
-        
-    function sachslitreview() {    
-        $args = array(    
-            'label' => __('SACHS Lit Review'),    
-            'singular_label' => __('SACHS Lit Review Item'),    
+        register_post_type( 'pcwtacurriculum' , $args );
+    }
+
+     register_taxonomy("pcwta-curriculum-categories", array("pcwtacurriculum"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
+
+
+  add_action('init', 'pcwtaevents');
+
+    function pcwtaevents() {
+        $args = array(
+            'label' => __('PCWTA Events'),
+            'singular_label' => __('PCWTA Event'),
             'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
-            'capability_type' => 'sachslitreview',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail') 
-           );    
-        
-        register_post_type( 'sachslitreview' , $args );    
+            'has_archive' => true,
+            'capability_type' => 'pcwtaevents',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'pcwtaevents' , $args );
     }
-    
-        
-    
-    // Tribal Star
-    
-   add_action('init', 'tribalstarresources');    
-        
-    function tribalstarresources() {    
-        $args = array(    
-            'label' => __('Tribal Star Resources'),    
-            'singular_label' => __('Tribal Star Resource'),    
-            'public' => true,    
+
+     register_taxonomy("pcwta-events", array("pcwtaevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
+
+
+
+
+
+
+    add_action('init', 'pcwtabios');
+
+    function pcwtabios() {
+        $args = array(
+            'label' => __('PCWTA Bios'),
+            'singular_label' => __('PCWTA Bio'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
+            'capability_type' => 'pcwtabios',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'pcwtabios' , $args );
+    }
+
+     register_taxonomy("pcwta-bios", array("pcwtabios"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
+
+
+
+
+
+     add_action('init', 'lineworkercore');
+
+    function lineworkercore() {
+        $args = array(
+            'label' => __('Lineworker Core'),
+            'singular_label' => __('Lineworker Core'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'lineworkercore',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'lineworkercore' , $args );
+    }
+
+
+
+    add_action('init', 'supervisorcore');
+
+    function supervisorcore() {
+        $args = array(
+            'label' => __('Supervisor Core'),
+            'singular_label' => __('Supervisor Core'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'supervisorcore',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'supervisorcore' , $args );
+    }
+
+
+
+    add_action('init', 'managercore');
+
+    function managercore() {
+        $args = array(
+            'label' => __('Manager Core'),
+            'singular_label' => __('Manager Core'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'managercore',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'managercore' , $args );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     add_action('init', 'pcwtanewsletters');
+
+    function pcwtanewsletters() {
+        $args = array(
+            'label' => __('PCWTA Training Newsletters'),
+            'singular_label' => __('PCWTA Training Newsletter'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'pcwtanewsletters',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'pcwtanewsletters' , $args );
+    }
+
+
+
+
+
+
+   // SACHS
+
+
+   add_action('init', 'sachsevents');
+
+    function sachsevents() {
+        $args = array(
+            'label' => __('SACHS Events'),
+            'singular_label' => __('SACHS Events'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'sachsevents',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'sachsevents' , $args );
+    }
+
+     register_taxonomy("sachs-events", array("sachsevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
+
+
+  add_action('init', 'sachsresearch');
+
+    function sachsresearch() {
+        $args = array(
+            'label' => __('SACHS Research'),
+            'singular_label' => __('SACHS Research Item'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'sachsresearch',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'sachsresearch' , $args );
+    }
+
+
+
+
+   add_action('init', 'sachslitreview');
+
+    function sachslitreview() {
+        $args = array(
+            'label' => __('SACHS Lit Review'),
+            'singular_label' => __('SACHS Lit Review Item'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
+            'capability_type' => 'sachslitreview',
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'sachslitreview' , $args );
+    }
+
+
+
+    // Tribal Star
+
+   add_action('init', 'tribalstarresources');
+
+    function tribalstarresources() {
+        $args = array(
+            'label' => __('Tribal Star Resources'),
+            'singular_label' => __('Tribal Star Resource'),
+            'public' => true,
+            'show_ui' => true,
+            'has_archive' => true,
             'capability_type' => 'tribalstarresources',
             'map_meta_cap' => true,
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'tribalstarresources' , $args );    
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'tribalstarresources' , $args );
     }
-    
+
     register_taxonomy("tribal-star-resources-categories", array("tribalstarresources"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-    
+
     // Training Dates even though its called events
-    
-    add_action('init', 'tribalstarevents');    
-        
-    function tribalstarevents() {    
-        $args = array(    
-            'label' => __('Tribal Star Training Dates'),    
-            'singular_label' => __('Tribal Star Training Date'),    
-            'public' => true,    
+
+    add_action('init', 'tribalstarevents');
+
+    function tribalstarevents() {
+        $args = array(
+            'label' => __('Tribal Star Training Dates'),
+            'singular_label' => __('Tribal Star Training Date'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'tribalstarevents',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'tribalstarevents' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'tribalstarevents' , $args );
     }
-    
+
     register_taxonomy("tribal-star-training-dates", array("tribalstarevents"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-    
-    
-    
+
+
+
     // Tribal Star Events
-    
-    add_action('init', 'tribalstarconf');    
-        
-    function tribalstarconf() {    
-        $args = array(    
-            'label' => __('Tribal Star Events'),    
-            'singular_label' => __('Tribal Star Events'),    
-            'public' => true,    
+
+    add_action('init', 'tribalstarconf');
+
+    function tribalstarconf() {
+        $args = array(
+            'label' => __('Tribal Star Events'),
+            'singular_label' => __('Tribal Star Events'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'tribalstarconf',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'tribalstarconf' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'tribalstarconf' , $args );
     }
-    
+
     register_taxonomy("tribal-star-event", array("tribalstarconf"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-    
-    
-    
-    
 
 
-    
-    
-    
-    
-    add_action('init', 'tribalstarnewsletter');    
-        
-    function tribalstarnewsletter() {    
-        $args = array(    
-            'label' => __('Tribal Star Newsletter'),    
-            'singular_label' => __('Tribal Star Newsletter'),    
-            'public' => true,    
+
+
+
+
+
+
+
+
+    add_action('init', 'tribalstarnewsletter');
+
+    function tribalstarnewsletter() {
+        $args = array(
+            'label' => __('Tribal Star Newsletter'),
+            'singular_label' => __('Tribal Star Newsletter'),
+            'public' => true,
             'show_ui' => true,
-            'has_archive' => true,     
+            'has_archive' => true,
             'capability_type' => 'tribalstarnewsletter',
-            'map_meta_cap' => true,    
-            'hierarchical' => false,    
-            'rewrite' => true,    
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail')    
-           );    
-        
-        register_post_type( 'tribalstarnewsletter' , $args );    
+            'map_meta_cap' => true,
+            'hierarchical' => false,
+            'rewrite' => true,
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail')
+           );
+
+        register_post_type( 'tribalstarnewsletter' , $args );
     }
-    
+
     register_taxonomy("tribalstarnewsletter-type", array("tribalstarnewsletter"), array("hierarchical" => true, "label" => "Add a Category", "singular_label" => "Category", "rewrite" => true));
-    
-    
-    
+
+
+
 
 
 
@@ -923,7 +942,7 @@ add_action('init', 'staffdirectory');
 		'footer_menu1' => __( 'Footer Menu 1 Navigation', 'twentyten' ),
 		'footer_menu2' => __( 'Footer Menu 2 Navigation', 'twentyten' ),
 		'footer_menu2b' => __( 'Footer Menu 2B Navigation', 'twentyten' ),
-		
+
 	) );
 
 	// This theme allows users to set a custom background.
@@ -1440,5 +1459,3 @@ function add_slug_body_class($classes)
 }
 
 add_filter('body_class', 'add_slug_body_class');
-
-
