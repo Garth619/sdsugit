@@ -1237,13 +1237,16 @@ class WPSEO_Frontend {
 		}
 		elseif ( $this->frontend_page_type->is_simple_page() ) {
 			$post      = get_post( $this->frontend_page_type->get_simple_page_id() );
-			$post_type = $post->post_type;
+			$post_type = isset( $post->post_type ) ? $post->post_type : '';
 
 			if ( ( $metadesc === '' && $post_type !== '' ) && WPSEO_Options::get( 'metadesc-' . $post_type, '' ) !== '' ) {
 				$template = WPSEO_Options::get( 'metadesc-' . $post_type );
 				$term     = $post;
 			}
-			$metadesc_override = $this->get_seo_meta_value( 'metadesc', $post->ID );
+
+			if ( is_object( $post ) ) {
+				$metadesc_override = $this->get_seo_meta_value( 'metadesc', $post->ID );
+			}
 		}
 		else {
 			if ( is_search() ) {
@@ -1415,7 +1418,16 @@ class WPSEO_Frontend {
 			return false;
 		}
 
-		$url = wp_get_attachment_url( get_queried_object_id() );
+		/**
+		 * Allow the developer to change the target redirection URL for attachments.
+		 *
+		 * @api   string $attachment_url The attachment URL for the queried object.
+		 * @api   object $queried_object The queried object.
+		 *
+		 * @since 7.5.3
+		 */
+		$url = apply_filters( 'wpseo_attachment_redirect_url', wp_get_attachment_url( get_queried_object_id() ), get_queried_object() );
+
 
 		if ( ! empty( $url ) ) {
 			$this->redirect( $url, 301 );

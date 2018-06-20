@@ -2093,7 +2093,7 @@ div.action-links {
 img {
   border: none; }
 
-.bulk-action-notice .toggle-indicator:before, .js .meta-box-sortables .postbox .toggle-indicator:before, .sidebar-name .toggle-indicator:before {
+.bulk-action-notice .toggle-indicator:before, .js .meta-box-sortables .postbox .toggle-indicator:before, .privacy-text-box .toggle-indicator:before, .sidebar-name .toggle-indicator:before {
   content: "\f142";
   display: inline-block;
   font: 400 20px/1 dashicons;
@@ -2102,7 +2102,7 @@ img {
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none !important; }
 
-.bulk-action-notice .bulk-action-errors-collapsed .toggle-indicator:before, .js .meta-box-sortables .postbox.closed .handlediv .toggle-indicator:before, .js .widgets-holder-wrap.closed .toggle-indicator:before {
+.bulk-action-notice .bulk-action-errors-collapsed .toggle-indicator:before, .js .meta-box-sortables .postbox.closed .handlediv .toggle-indicator:before, .js .widgets-holder-wrap.closed .toggle-indicator:before, .privacy-text-box.closed .toggle-indicator:before {
   content: "\f140"; }
 
 .js .postbox .handlediv .toggle-indicator:before {

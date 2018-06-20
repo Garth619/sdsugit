@@ -563,6 +563,9 @@ table.form-table td .updated p {
   font-size: 14px;
   text-decoration: none; }
 
+.privacy_requests tbody th, .privacy_requests tfoot td:first-child, .privacy_requests thead td:first-child {
+  border-left: 4px solid #fff; }
+
 .pressthis-bookmarklet:active {
   outline: 0; }
 
@@ -732,6 +735,110 @@ table.form-table td .updated p {
   margin: 0 0 20px;
   clear: both; }
 
+.tools-privacy-policy-page form {
+  margin-bottom: 1.3em; }
+
+.tools-privacy-policy-page input.button, .tools-privacy-policy-page select {
+  margin-left: 6px; }
+
+.tools-privacy-edit {
+  margin: 1.5em 0; }
+
+.tools-privacy-policy-page span {
+  line-height: 2em; }
+
+.privacy_requests .column-email {
+  width: 40%; }
+
+.privacy_requests .column-type {
+  text-align: center; }
+
+.privacy_requests tbody th {
+  background: #fff;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
+
+.privacy_requests tbody .has-request-results th {
+  -webkit-box-shadow: none;
+          box-shadow: none; }
+
+.privacy_requests tbody .request-results th .notice {
+  margin: 0 0 5px; }
+
+.privacy_requests tbody td {
+  background: #fff;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
+
+.privacy_requests tbody .has-request-results td {
+  -webkit-box-shadow: none;
+          box-shadow: none; }
+
+.privacy_requests .next_steps .button {
+  height: auto;
+  line-height: 1.5;
+  padding: 4px 10px;
+  word-break: break-all;
+  white-space: unset; }
+
+.privacy_requests .status-request-confirmed td, .privacy_requests .status-request-confirmed th {
+  background-color: #f7fcfe;
+  border-left-color: #00a0d2; }
+
+.privacy_requests .status-request-failed td, .privacy_requests .status-request-failed th {
+  background-color: #fef7f1;
+  border-left-color: #d64d21; }
+
+.privacy_requests .export_personal_data_failed a {
+  vertical-align: baseline; }
+
+.status-label {
+  font-weight: 700; }
+
+.status-label.status-request-pending {
+  font-weight: 400;
+  font-style: italic;
+  color: #6c7781; }
+
+.status-label.status-request-failed {
+  color: #a00;
+  font-weight: 700; }
+
+.wp-privacy-request-form {
+  clear: both; }
+
+.wp-privacy-request-form-field {
+  margin: 1.5em 0; }
+
+.wp-privacy-request-form label {
+  font-weight: 700;
+  line-height: 1.5;
+  padding-bottom: .5em;
+  display: block; }
+
+.wp-privacy-request-form input {
+  line-height: 1.5;
+  margin: 0; }
+
+.email-personal-data::before {
+  display: inline-block;
+  font: 400 20px/1 dashicons;
+  margin: 3px 5px 0 -2px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: top; }
+
+.email-personal-data--sending::before {
+  color: #f56e28;
+  content: "\f463";
+  -webkit-animation: rotation 2s infinite linear;
+  animation: rotation 2s infinite linear; }
+
+.email-personal-data--sent::before {
+  color: #79ba49;
+  content: "\f147"; }
+
 @media screen and (max-width: 782px) {
   #pass-strength-result, .form-table {
     -webkit-box-sizing: border-box;
@@ -882,7 +989,20 @@ table.form-table td .updated p {
     display: none; }
   .options-general-php input[type=text].small-text {
     max-width: 6.25em;
-    margin: 0; } }
+    margin: 0; }
+  .tools-privacy-policy-page form.wp-create-privacy-page {
+    margin-bottom: 1em; }
+  .tools-privacy-policy-page input#set-page, .tools-privacy-policy-page select {
+    margin: 10px 0 0; }
+  .tools-privacy-policy-page .wp-create-privacy-page span {
+    display: block;
+    margin-bottom: 1em; }
+  .tools-privacy-policy-page .wp-create-privacy-page .button {
+    margin-left: 0; }
+  .wp-list-table.privacy_requests tr:not(.inline-edit-row):not(.no-items) td.column-primary:not(.check-column) {
+    display: table-cell; }
+  .wp-list-table.privacy_requests.widefat th input, .wp-list-table.privacy_requests.widefat thead td input {
+    margin-left: 5px; } }
 
 @media only screen and (max-width: 768px) {
   .form-field input[type=text], .form-field input[type=password], .form-field input[type=email], .form-field select, .form-field textarea {
@@ -911,3 +1031,19 @@ table.form-table td .updated p {
   .options-general-php .date-time-text.date-time-custom-text {
     min-width: 0;
     margin-right: .5em; } }
+
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg); } }
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg); } }

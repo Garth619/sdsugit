@@ -65,9 +65,11 @@ get_header(); ?>
 			
 		</div><!-- testimonial -->
 		
+<!--
 		<a href="https://goo.gl/wxmnBt" target="_blank"><img class="conf_gif" src="<?php bloginfo('template_directory');?>/images/nswm-2018-conference-002.gif"/></a>
 		
 		<a class="conf_gif" href="https://goo.gl/wxmnBt" target="_blank">NSWM’s 29th Annual Management Conference</a>
+-->
 		
 	</div><!-- main col -->
 	<div class="main_col main_col_2">
